@@ -1,3 +1,21 @@
+2002-01-07  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-sbcl.el (sbcl-check-prompt): sbcl-check-prompt has become
+	a dummy function. The function is set later, to take care of
+	different prompts in different sbcl versions.
+	(sbcl-check-prompt-sbcl<07): check-prompt version for SBCL
+	version, where version < 0.7.x.
+	(match-and-extract): new function.
+	(sbcl-check-prompt-sbcl>=07): check-prompt for SBCL version >= 0.7.x.
+	(ilisp-*sbcl<07-version*): marker-variable.
+	(set-determined-sbcl-version): new function.
+	(sbcl-ilisp-customize): new function for all sorts of
+	customizations, after the lisp has started up.
+	(sbcl-version-hook-fun): customizing hook function.
+	(sbcl): the new hook-fun is added to the ilisp-init-hook-local
+	hook.
+	(All this will hopefully work in all Emacs versions ...)
+
 2002-01-04  Martin Atzmueller  <martin@atzmueller.net>
 
 	* cl-ilisp.lisp: ditto. (some #+ecl tweaks ...)
