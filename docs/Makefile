@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.6 2002/05/28 18:52:29 anisotropy9 Exp $
+# $Id: Makefile,v 1.7 2002/08/17 16:20:15 kevinrosenberg Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -40,6 +40,9 @@ HTML_Targets = ilisp.ps ilisp.pdf ilisp_toc.html ilisp.html
 
 #==============================================================================
 # Rules
+
+# KMR: Add .PHONY so that make system will build html rule rather that look at html directory
+.PHONY: html
 
 docs: ps pdf info html
 
