@@ -1,5 +1,11 @@
 2000-06-30  Paolo Amoroso  <amoroso@mclink.it>
 
+	* ilisp-sch.el (guile): fixed malformed
+	  `ilisp-package-separator-regexp' assignment (Paolo: pay more
+	  attention when committing a change).
+
+2000-06-30  Paolo Amoroso  <amoroso@mclink.it>
+
 	* INSTALLATION (LispWorks): added info on saving an image without
 	  the GUI and making the system work with ILISP under Windows and
 	  Linux (contributed by Martin Simmons <martin@harlequin.co.uk>).
