@@ -130,8 +130,9 @@
   (setq ilisp-program "snow -interactive") ;assume scheme is in path.
   )
 
-;;; guile - this needs a lot more work
+;;; Guile
 ;;; with hacks from Istvan Marko <imarko@pacificnet.net>
+;;; and Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de>
 
 (defvar ilisp-guile-init-file "guile-ilisp.scm")
 
@@ -141,10 +142,10 @@
     (setq comint-prompt-regexp "^guile[^>]*> ")
     (setq ilisp-load-or-send-command
           "(begin \"%s\" (load \"%s\"))")
-    (ilisp-load-init 'gywguile ilisp-guile-init-file)
+    (ilisp-load-init 'guile ilisp-guile-init-file)
     (setq ilisp-symbol-delimiters "^ \t\n\('\"#\)"
           ilisp-package-regexp "^[ \t]*\\s(define-module \\((.*)\\))"
-          ilisp-package-separator-regexp "$^" ;; never matches
+          ilisp-error-regexp "\\(ERROR\\|ABORT\\): "
           ilisp-package-command 
           ;; This will only get us the last component of the module name
           ;"(save-module-excursion (lambda () %s (module-name (current-module))))"
