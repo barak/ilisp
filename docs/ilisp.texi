@@ -374,6 +374,7 @@ Richard Stallman,
 Larry Stead,
 Jason Trenouth,
 Christof Ullwer,
+Reini Urban,
 Bjorn Victor,
 Edmund Weitz,
 Fred White,
@@ -798,6 +799,10 @@ ILISP batch code module.
 ILISP bug submittal code.
 @cindex @file{ilisp-bug.el}
 
+@item ilisp-ccl.el
+Corman Common Lisp dialect definition.
+@cindex @file{ilisp-ccl.el}
+
 @item ilisp-chs.el
 Haible and Stoll's CLISP Common Lisp dialect definition.
 @cindex @file{ilisp-chs.el}
@@ -1054,6 +1059,8 @@ Support code for Scheme.  Each dialect will have one of these files.
 @cindex XLisp-Stat
 @pindex openmcl
 @cindex OpenMCL
+@pindex cormanlisp
+@cindex Corman Lisp
 
 To start a Lisp use @kbd{M-x run-ilisp}, or a specific dialect like
 @kbd{M-x allegro}.  If called with a prefix you will be prompted for a
@@ -1086,6 +1093,9 @@ CLISP by Haible and Stoll.
 
 @item @code{cmucl}
 CMU Common Lisp, the major development platform for ILISP so far.
+
+@item @code{cormanlisp}
+Corman Common Lisp by Roger Corman.
 
 @item @code{drscheme-jr}
 DrScheme-jr by Rice University's PLT.
@@ -1171,6 +1181,7 @@ dialects:
    allegro
    clisp-hs
    cmulisp
+   cormanlisp
    kcl
      akcl
        gcl
@@ -2151,11 +2162,12 @@ preserve the break loop.  If called with a negative prefix, the sense of
 @cindex ILD
 
 ILD is an interface to Lisp debuggers, currently the ones of the AKCL,
-Allegro, CLISP, CMU CL and Lucid Common Lisp dialects. It uses a
-standard set of single-keystroke commands to interface to a variety of
-different debuggers and is vaguely modelled after the Symbolics
-debugger. It provides two key advantages: single keystrokes for moving
-up and down the stack, and a uniform interface to different debuggers.
+Allegro, CLISP, CMU CL, Corman Lisp and Lucid Common Lisp dialects. It
+uses a standard set of single-keystroke commands to interface to a
+variety of different debuggers and is vaguely modelled after the
+Symbolics debugger. It provides two key advantages: single keystrokes
+for moving up and down the stack, and a uniform interface to different
+debuggers.
 
 Not all debugger commands are available in all implementations. Some
 are, but further work is needed. These are noted in the code (see the
@@ -2449,6 +2461,7 @@ to dialects in the nesting order below.
    allegro
    clisp-hs
    cmulisp
+   cormanlisp
    kcl
      akcl
        gcl
