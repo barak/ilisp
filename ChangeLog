@@ -1,3 +1,10 @@
+2002-08-20  Will Deakin <anisotropy9@hotmail.com>
+
+	* cl-ilisp.lisp, HISTORY and docs/ilisp-refcard.tex: Picky change
+	  to capitalisation on XEmacs;
+	
+	* ilisp-chs.el: Clean up to comment above -ansi;
+
 2002-07-01  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space): Don't try to get
