@@ -100,8 +100,7 @@ variable `common-lisp-hyperspec-root' to point to that location."
 ;;; 19990820 Marco Antoniotti
 
 (eval-when (load eval)
-  (setf (symbol-function 'hyperspec-lookup)
-        (symbol-function 'common-lisp-hyperspec)))
+  (defalias 'hyperspec-lookup 'common-lisp-hyperspec))
 
 
 ;;; Added dynamic lookup of symbol in CLHS symbol table
