@@ -1,3 +1,7 @@
+2000-07-27  Paolo Amoroso  <amoroso@mclink.it>
+
+	* Welcome: updated list of maintainers.
+
 2000-07-24  Paolo Amoroso  <amoroso@mclink.it>
 
 	* Makefile (DocFiles): added `docs/ilisp-refcard.tex'.
