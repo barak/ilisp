@@ -1,0 +1,25 @@
+ilisp (5.10.1-1) unstable; urgency=low
+
+  * New upstream version
+  * Added a system defaults  file in /etc/ilisp/ilisp.el which is loaded
+    by the emacsen-startup code for ilisp only if ~/.ilisp is not
+    readable.  This is to allow users to customize ilisp fully, while
+    allowing administrators to provide useful defaults
+
+ -- Craig Brozefsky <craig@red-bean.com>  Wed, 27 Dec 2000 03:26:21 -0500
+
+ilisp (5.9.4-2) unstable; urgency=low
+
+  * Add Karl Fogel's FSF keybindings, make them the default.
+
+ -- Jesse L. Bouwman <jesse@onshore.com>  Fri,  4 Feb 2000 23:26:44 -0600
+
+ilisp (5.9.4-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jesse L. Bouwman <jesse@onshore.com>  Wed,  2 Feb 2000 23:26:44 -0600
+
+Local variables:
+mode: debian-changelog
+End:

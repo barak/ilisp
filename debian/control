@@ -1,0 +1,14 @@
+Source: ilisp
+Section: development
+Priority: optional
+Maintainer: Jesse L. Bouwman <jesse@onshore.com>
+Standards-Version: 3.0.1
+
+Package: ilisp
+Architecture: all
+Depends: emacsen
+Description: Package for interacting with LISPs using EMACSes
+ ILISP is a powerful GNU Emacs interface to many dialects of Lisp,
+ including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL,
+ IBCL, and CMUCL.  Also some Scheme implementations are supported as
+ well as a preliminary version of Xlisp/XlispStat.
