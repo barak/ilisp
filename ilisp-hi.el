@@ -697,11 +697,12 @@ symbol after the symbol has been typed in followed by #\\Space."
 
       ;; ILISP must be 'ready' for this task, or in the debugger 'error'!
 
-      (unless (or (and last-char (equal last-char " ")) ; do something
-							; only if
-							; directly
-							; after a
-							; sexp.
+      (unless (or (and last-char 
+		       (or (equal last-char ";") ; don't do silly things 
+					; after comment character 
+			   (equal last-char " "))) ; do something
+					; only if directly after a
+					; sexp.
 		  double-quote-pos	; there is no output  for
 					; strings only.
 		  (not (and symbol (stringp symbol) (> (length symbol) 0)))
