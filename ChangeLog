@@ -1,3 +1,75 @@
+2002-06-02  Marco Antoniotti  <marcoxa@cs.nyu.edu>
+
+	* ilisp-out.el: Added Reini Urban's fix for XEmacs.
+
+	* ilisp.emacs: Changed the 'setq *-hook' to more proper 'add-hook.
+
+	* docs/ilisp.texi:
+	Changed date to 'June 2002' and fixed the paragraph about the
+	`hyperspec.el' file.
+
+2002-05-31  anisotropy9  <anisotropy9@tapulon>
+
+	* debian/emacsen-install, extra/README:
+	Updated references elsewhere in line with the removal of the
+	hyperspec-*.el files.
+
+2002-05-31  amoroso  <amoroso@tapulon>
+
+	* ChangeLog: *** empty log message ***
+
+	* docs/ilisp.texi (Acknowledgments): added Reini Urban.
+	(Files of ILISP): added `ilisp-ccl.el'.
+	(How to run a Lisp process using ILISP): added Corman Lisp info.
+	(Interface to Lisp Debuggers): mentioned Corman Lisp.
+	(ILISP Customization): added `cormanlisp'.
+	Patches contributed by Reini Urban <rurban@x-ray.at>.
+
+	* ilisp.emacs:
+	added Corman Lisp examples (patch contributed by Reini Urban
+	<rurban@x-ray.at>).
+
+	* ilisp.el:
+	Added `(load "ilisp-ccl")' (patch contributed by Reini Urban
+	<rurban@x-ray.at>).
+
+	* ilisp-snd.el (comint-send-code-init-function):
+	added call to `file-name-hack'
+	(patch contributed by Reini Urban <rurban@x-ray.at>).
+
+	* ilisp-mak.el (;; Dialects):
+	added `ilisp-ccl' (patch contributed by Reini Urban
+	<rurban@x-ray.at>).
+
+	* ilisp-hi.el (file-name-hack):
+	new function. Combined Ivan's ange-ftp hack and the
+	cygwin => w32 path conversion (patch contributed by Reini Urban
+	<rurban@x-ray.at>).
+
+	* ilisp-cl-easy-menu.el (ilisp-ild-easy-menu): added.
+	Insert "Debug" menu if `ilisp-*enable-ild-support-p*'. Enable the
+	commands only if inside the debugging loop.
+	(ilisp-ild-p): added.
+	(ilisp-insert-menu): added.
+	(ilisp-redefine-menu): added.
+	(ilisp-cl-easy-menu): changed to `defvar'.
+	Patches contributed by Reini Urban <rurban@x-ray.at>.
+
+	* Makefile (LoadFiles):
+	added ilisp-ccl.elc (patch contributed by Reini Urban
+	<rurban@x-ray.at>).
+
+	* ilisp-ccl.el, cormanlisp.lisp:
+	Initial revision (file contributed by Reini Urban <rurban@x-ray.at>).
+
+	* cl-ilisp.lisp (ilisp-w32-fix-filenames):
+	new function. Similar to `file-name-hack'
+	on the Lisp side. Converts backslashes to forward slashes also. Some
+	minor Corman fixes (patch contributed by Reini Urban
+	<rurban@x-ray.at>).
+
+	* ACKNOWLEDGMENTS: Added Reini Urban.
+
 2002-05-31  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (Acknowledgments): added Reini Urban.
