@@ -1,3 +1,9 @@
+2003-09-14  Kevin Rosenberg  <kevin@rosenberg.net>
+	
+	* completer.el: Require ilcompat. Necessary when
+	loading completer.el, but have not yet loaded
+	ilisp. Suggested by Aaron Ucko.
+	
 2003-09-03  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp-key.el, extra/hyperspec.el: Added hyperspec lookup

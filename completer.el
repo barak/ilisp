@@ -81,6 +81,10 @@
 
 (require 'cl)
 
+;; Necessary when loading completer.el, but have not yet loaded ilisp
+(require 'ilcompat) 
+
+
 ;;;%Globals
 ;;;%%Switches
 (defvar completer-load-hook nil
