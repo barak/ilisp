@@ -1,7 +1,7 @@
 Source: ilisp
-Section: development
+Section: non-free/development
 Priority: optional
-Maintainer: Jesse L. Bouwman <jesse@onshore.com>
+Maintainer: Craig Brozefsky <craig@debian.org>
 Standards-Version: 3.0.1
 
 Package: ilisp

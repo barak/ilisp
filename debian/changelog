@@ -5,6 +5,8 @@ ilisp (5.10.1-1) unstable; urgency=low
     by the emacsen-startup code for ilisp only if ~/.ilisp is not
     readable.  This is to allow users to customize ilisp fully, while
     allowing administrators to provide useful defaults
+  * Craig Brozefsky takes over as maintainer from the original
+    packager, Jesse Bouwman <jesse@onshore.com>
 
  -- Craig Brozefsky <craig@red-bean.com>  Wed, 27 Dec 2000 03:26:21 -0500
 

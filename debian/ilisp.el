@@ -30,12 +30,14 @@
 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
 
 (setq common-lisp-hyperspec-root
-      "http://localhost/HyperSpec/")
+      "http://localhost/doc/hyperspec/")
 
 ;;; This makes reading a lisp file load in ilisp.
 
 (set-default 'auto-mode-alist
-	     (append '(("\\.lisp$" . lisp-mode)) auto-mode-alist))
+	     (append '(("\\.lisp$" . lisp-mode)
+		       ("\\.lsp$" . lisp-mode)
+		       ("\\.cl$" . lisp-mode)) auto-mode-alist))
 
 (add-hook
  'scheme-mode-hook (function 
@@ -50,3 +52,5 @@
 	     (setq ilisp-binary-extension "x86f")
 	     (setq ilisp-binary-command "\"x86f\"")
 	     )))
+
+
