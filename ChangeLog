@@ -1,3 +1,11 @@
+2003-02-15  Bob Rogers  <rogers@rgrjr.dyndns.org>
+
+	* ilisp-prc.el (select-ilisp): Make the select-ilisp default
+	behave more like C-x b, show current dialect in prompt.
+
+	* ilisp-out.el (ilisp-bury-output-internal): Don't let
+	ilisp-bury-output-internal die if ilisp-delete-window fails.
+
 2003-01-10  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (ilisp-print-info-message): Do nothing if SYM is
