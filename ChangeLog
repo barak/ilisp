@@ -1,3 +1,9 @@
+2003-03-23  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-sbcl.el: make debugger exit command `:r toplevel'
+	unambiguous. SBCL 0.7.13 and later introduce the `return' command
+	(patch contributed by Daniel Barlow <dan@telent.net>).
+
 2003-03-03  Kevin Rosenberg <kevin@rosenberg.net>
 
 	* ilisp-sbcl.el: Add support for aclrepl prompt
