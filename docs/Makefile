@@ -28,7 +28,7 @@ RM = /bin/rm -f
 
 DVIPS = dvips
 
-DocFiles = ilisp.texi
+DocFiles = ilisp.texi ilisp-refcard.tex
 
 # Debris (also known as temporary files) produced by texi2dvi
 
@@ -40,12 +40,15 @@ DVIDebris = *.aux *.cp *.cps *.fn *.fns *.ky *.kys *.log *.pg *.pgs \
 
 docs: ps pdf info html
 
-ps: ilisp.ps
+ps: ilisp.ps ilisp-refcard.ps
 
 ilisp.ps: ilisp.dvi
 	$(DVIPS) -o $@ $<
 
-dvi: ilisp.dvi
+ilisp-refcard.ps: ilisp-refcard.dvi
+	$(DVIPS) -o $@ $<
+
+dvi: ilisp.dvi ilisp-refcard.dvi
 
 info: ilisp.info
 
@@ -59,6 +62,9 @@ ilisp.pdf: ilisp.ps
 
 ilisp.dvi: ilisp.texi
 
+ilisp-refcard.dvi: ilisp-refcard.tex
+	tex $<
+
 clean: 
 	-$(RM) $(DVIDebris) \
                ilisp.dvi \
@@ -66,6 +72,8 @@ clean:
                ilisp*.html \
                ilisp.info* \
                ilisp.pdf \
+	       ilisp-refcard.dvi \
+	       ilisp-refcard.ps \
                *~
 
 tmpclean:
