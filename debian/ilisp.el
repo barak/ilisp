@@ -54,6 +54,12 @@
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-safe.core")
   (cmulisp))
 
+(defun sbcl-mt ()
+ "SBCL multithreading."
+  (interactive)
+  (setq sbcl-program "/usr/bin/sbcl-mt")
+  (sbcl))
+
 (autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
 
