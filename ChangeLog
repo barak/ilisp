@@ -1,3 +1,9 @@
+2002-12-12  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (info-message): Give informational messages for
+	variables bound to non-procedural values.  Show the procedure name
+	before its arglist.
+
 2002-12-06  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (How to get the latest ILISP distribution):
