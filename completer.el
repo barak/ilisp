@@ -1,25 +1,33 @@
-;;; -*-Emacs-Lisp-*-
+;;; -*- Mode: Emacs-Lisp -*-
 ;;;%Header
 ;;;
 ;;; Rcs_Info: completer.el,v 3.23 1993/09/03 02:05:07 ivan Rel $
 ;;;
-;;; Partial completion mechanism for GNU Emacs.  Version 3.03
+;;; Partial completion mechanism for GNU Emacs and XEmacs.  Version 3.05
 ;;; Copyright (C) 1990, 1991, 1992 Chris McConnell, ccm@cs.cmu.edu.
+;;; Copyright (C) 2000 Ben Wing.
+;;; Copyright (C) 2002 Marco Antoniotti and the ILISP Maintainers
+;;;
+;;; Author: Chris Mcconnell <chrimc@microsoft.com>
+;;; Latest XEmacs Author: Ben Wing
+;;; Maintainer: The ILISP Maintainers
+;;; Keywords: minibuffer, completion
+
 ;;; Thanks to Bjorn Victor for suggestions, testing, and patches for
 ;;; file completion. 
 
-;;; This file is part of GNU Emacs.
+;;; This file should be part of GNU Emacs and XEmacs.
 
-;;; GNU Emacs is distributed in the hope that it will be useful,
+;;; GNU Emacs and XEmacs are distributed in the hope that they will be useful,
 ;;; but WITHOUT ANY WARRANTY.  No author or distributor
 ;;; accepts responsibility to anyone for the consequences of using it
 ;;; or for whether it serves any particular purpose or works at all,
 ;;; unless he says so in writing.  Refer to the GNU Emacs General Public
 ;;; License for full details.
 ;;; Everyone is granted permission to copy, modify and redistribute
-;;; GNU Emacs, but only under the conditions described in the
-;;; GNU Emacs General Public License.   A copy of this license is
-;;; supposed to have been given to you along with GNU Emacs so you
+;;; GNU Emacs and XEmacs, but only under the conditions described in the
+;;; GNU Emacs and XEmacs General Public License.   A copy of this license is
+;;; supposed to have been given to you along with GNU Emacs or XEmacs so you
 ;;; can know your rights and responsibilities.  It should be in a
 ;;; file named COPYING.  Among other things, the copyright notice
 ;;; and this notice must be preserved on all copies.
@@ -121,6 +129,21 @@ string that matches the pattern will be used.")
 (defvar completer-path-cache nil
   "Cache of (path . choices) for completer.")
 
+(defvar completer-path-separator-string
+  (if (eq system-type 'windows-nt) "\\" "/"))
+
+(defvar completer-path-separator-regexp
+  (if (eq system-type 'windows-nt) "[/\\]" "/"))
+
+(defvar completer-path-delimiter-list
+  (if (eq system-type 'windows-nt) '(?\\ ?/) '(?/)))
+
+(defvar completer-path-separator-regexp-inside-brackets
+  (if (eq system-type 'windows-nt) "/\\" "/"))
+
+(defvar completer-dot-dot-list
+  (if (eq system-type 'windows-nt) '("../" "..\\") '("../")))
+
 (defvar completer-string nil "Last completer string.")
 (defvar completer-table nil "Last completer table.")
 (defvar completer-pred nil "Last completer pred.")
@@ -153,8 +176,10 @@ Return (point-min) if current buffer is not a mini-buffer."
     (sit-for 2)
     (delete-region point end)
     (if (and quit-flag 
-	     ;;(not (eq 'lucid-19 ilisp-emacs-version-id))
-	     (not (string-match "Lucid" emacs-version))
+	     ;; (not (eq 'lucid-19 ilisp-emacs-version-id))
+	     ;; (not (string-match "Lucid" emacs-version))
+	     (not (memq +ilisp-emacs-version-id+
+			'(xemacs lucid-19 lucid-19-new)))
 	     )
 	(setq quit-flag nil
 	      unread-command-char 7))))
@@ -318,10 +343,11 @@ The search is for the current buffer assuming that point is in it."
 ;;;
 (defun completer-last-component (string)
   "Return the start of the last filename component in STRING."
-  (let ((last (1- (length string)) )
+  (let ((last (1- (length string)))
 	(match 0)
 	(end 0))
-    (while (and (setq match (string-match "/" string end)) (< match last))
+    (while (and (setq match (string-match completer-path-separator-regexp string end))
+		(< match last))
       (setq end (1+ match)))
     end))
 
@@ -392,39 +418,73 @@ DELIMITERS or ANY wildcards and DIR if a filename when in MODE."
 			   mode t)))
 	  (if (and (or (car (cdr (cdr (cdr choices))))
 		       (string= path (car choices)))
-		   (eq (elt (car choices) (1- (length (car choices)))) ?/))
+		   (memq (elt (car choices) (1- (length (car choices))))
+			 completer-path-delimiter-list))
 	      (progn 
 		(if (>= size completer-cache-size) (rplacd last nil))
 		(setq completer-path-cache 
 		      (cons (cons path choices) completer-path-cache))))
 	  choices))))
 
-;;;
+
 (defun completer-file (string pred words any mode)
   "Return (match common-substring matches unique-p) for STRING.
 It uses 'READ-FILE-NAME-INTERNAL' for choices that pass PRED using WORDS to
 delimit words.  Optional ANY is a delimiter that matches any of the
 delimiters in WORD.  If optional MODE is nil or 'help then possible
 matches will always be returned."
+  ;; Canonicalize slashes under windows-nt for proper completion
+  (when (eq system-type 'windows-nt)
+    (setq string (replace-in-string string "/" "\\\\")))
   (let* ((case-fold-search completion-ignore-case)
 	 (last (and (eq mode 'exit-ok) (completer-last-component string)))
 	 (position
+
+	  ;; Original
 	  ;; Special hack for CMU RFS filenames
-	  (if (string-match "^/\\.\\./[^/]*/" string)
-	      (match-end 0)
-	      (string-match "[^~/]" string)))
+	  ;; (if (string-match "^/\\.\\./[^/]*/" string)
+	  ;;    (match-end 0)
+	  ;;  (string-match "[^~/]" string))
+
+	  ;; 2002-05-23
+	  ;; New by Ben Wing
+	  ;; Find beginning of first directory component.
+	  (cond ((string-match "^/\\.\\./[^/]*/" string)
+		 ;; CMU RFS filenames like /../computername/foo/bar.c
+		 (match-end 0))
+
+		((and (memq system-type '(windows-nt cygwin32))
+		      (string-match "[/\\][/\\][^/\\]*[/\\]" string))
+		 ;; windows-nt filenames like \\computername\foo\bar.c, or
+		 ;; cygwin filenames like //d/foo/bar.c
+		 (match-end 0))
+
+		((and (eq system-type 'windows-nt)
+		      (string-match "[A-Za-z]:[/\\]?" string))
+		 ;; windows-nt filenames like c:\foo\bar.c or c:bar.c
+		 (match-end 0))
+
+		(t
+		 ;; normal absolute or relative names, or names beginning
+		 ;; with ~/
+		 (string-match
+		  (concat "[^~" completer-path-separator-regexp-inside-brackets
+			  "]") string)))
+	 )
 	 (new (substring string 0 position))
 	 (user (if (string= new "~")
 		   (setq new (file-name-directory (expand-file-name new)))))
-	 (words (concat words "/"))
+	 (words (concat words completer-path-separator-regexp-inside-brackets))
 	 (len (length string))
 	 (choices nil)
-	 end
+	 (end nil)
 	 (old-choices (list nil nil nil nil)))
     (while position
-      (let* ((begin (string-match "/" string position))
+      (let* ((begin (string-match completer-path-separator-regexp
+				  string
+				  position))
 	     (exact-p nil))
-	(setq end (if begin (match-end 0))
+	(setq end (when begin (match-end 0))
 	      choices
 	      ;; Ends with a /, so check files in directory
 	      (if (and (memq mode '(nil help)) (= position len))
@@ -434,27 +494,29 @@ matches will always be returned."
 		   (let* ((choices
 			   (all-completions new 'read-file-name-internal))
 			  (choicep choices))
-		     (if (string= (car choicep) "../")
+		     (if (member* (first choicep) completer-dot-dot-list
+				  :test #'string=)
 			 (cdr (cdr choicep))
-			 (while (cdr choicep)
-			   (if (string= (car (cdr choicep)) "../")
-			       (rplacd choicep nil))
-			   (setq choicep (cdr choicep)))
-			 choices))
+		       (while (cdr choicep)
+			 (if (member* (second choicep) completer-dot-dot-list
+				      :test #'string=)
+			     (rplacd choicep nil))
+			 (setq choicep (cdr choicep)))
+		       choices))
 		   words any new mode)
-		  (if (eq position last)
-		      (let ((new (concat new (substring string position))))
-			(list new new nil t))
-		      (let ((component (substring string position end)))
-			(if (and end
-				 (string-match completer-file-skip component))
-			    ;; Assume component is complete
-			    (list (concat new component) 
-				  (concat new component)
-				  nil t)
-			    (completer-cache
-			     (concat new component)
-			     pred words any mode))))))
+		(if (eq position last)
+		    (let ((new (concat new (substring string position))))
+		      (list new new nil t))
+		  (let ((component (substring string position end)))
+		    (if (and end
+			     (string-match completer-file-skip component))
+			;; Assume component is complete
+			(list (concat new component) 
+			      (concat new component)
+			      nil t)
+		      (completer-cache
+		       (concat new component)
+		       pred words any mode))))))
 	;; Keep going if unique or we match exactly
 	(if (or (car (cdr (cdr (cdr choices))))
 		(setq exact-p
@@ -463,7 +525,13 @@ matches will always be returned."
 	    (setq old-choices
 		  (let* ((lcs (car (cdr choices)))
 			 (matches (car (cdr (cdr choices))))
-			 (slash (and lcs (string-match "/$" lcs))))
+			 ;; (slash (and lcs (string-match "/$" lcs))))
+			 (slash
+			  (and lcs
+			       (string-match
+				(concat completer-path-separator-regexp "$")
+				lcs))))
+ 
 		    (list nil
 			  (if slash (substring lcs 0 slash) lcs)
 			  (if (and (cdr matches) 
@@ -472,14 +540,14 @@ matches will always be returned."
 			  nil))
 		  new (car choices)
 		  position end)
-	    ;; Its ok to not match user names because they may be in
-	    ;; different root directories
-	    (if (and (= position 1) (= (elt string 0) ?~))
-		(setq new (substring string 0 end)
-		      choices (list new new (list new) t)
-		      user nil
-		      position end)
-		(setq position nil)))))
+	  ;; Its ok to not match user names because they may be in
+	  ;; different root directories
+	  (if (and (= position 1) (= (elt string 0) ?~))
+	      (setq new (substring string 0 end)
+		    choices (list new new (list new) t)
+		    user nil
+		    position end)
+	    (setq position nil)))))
     (if (not (car choices))
 	(setq choices old-choices))
     (if (and (car choices)
@@ -495,12 +563,12 @@ matches will always be returned."
 	  (while choicep
 	    (if (string-match extensions (car choicep))
 		(setq isext t)
-		(setq noext t))
+	      (setq noext t))
 	    (if (and isext noext)
 		;; There are matches besides extensions
 		(setq choiceb (completer-deleter extensions choiceb)
 		      choicep nil)
-		(setq choicep (cdr choicep))))
+	      (setq choicep (cdr choicep))))
 	  (if (and isext noext)
 	      (setq choices
 		    (completer-match-record 
@@ -545,9 +613,14 @@ for exit."
        completer-mode mode
        completer-result
        (if (and completer-complete-filenames
-		(not file-p) (eq table 'read-file-name-internal))
+		(not file-p)
+		(memq table '(read-file-name-internal
+			      read-directory-name-internal)))
 	   (completer-file string pred words any mode)
-	   (let* ((file-p (or file-p (eq table 'read-file-name-internal)))
+	   (let* ((file-p (or file-p
+			      (memq table
+				    '(read-file-name-internal
+				      read-directory-name-internal))))
 		  (case-fold-search completion-ignore-case)
 		  (pattern (concat "[" words "]"))
 		  (component (if file-p (completer-last-component string)))
@@ -559,8 +632,17 @@ for exit."
 		 ;; Handle environment variables
 		 (let ((match
 			(getenv (substring string 1 
-					   (string-match "/" string)))))
-		   (if match (setq match (concat match "/")))
+					   ;; (string-match "/" string)))) ; old
+					   (string-match
+					    completer-path-separator-regexp
+					    string))))
+		       )
+		   ;; (if match (setq match (concat match "/"))) ; old
+		   (when match
+		     (setq match
+			   (concat match
+				   completer-path-separator-string)))
+ 
 		   (list match match (list match) match))
 		 (let* ((choices
 			 (all-completions 
@@ -631,7 +713,11 @@ return a string."
 	 (start (car region))
 	 (end (cdr region))
 	 (string (buffer-substring start end))
-	 (file-p (string-match "[^ ]*\\(~\\|/\\|$\\)" string))
+	 ;; (file-p (string-match "[^ ]*\\(~\\|/\\|$\\)" string))
+	 (file-p (string-match (if (eq system-type 'windows-nt)
+				   "[^ ]*\\(~\\|/\\|\\\\\\|\\|$\\)"
+				 "[^ ]*\\(~\\|/\\|$\\)")
+			       string))
 	 (no-insert (eq mode 'help))
 	 (message t)
 	 (new (not (string= (buffer-substring start (point)) lcs))))
@@ -648,18 +734,22 @@ return a string."
 	;;Not unique
 	(if lcs
 	    (let* ((regexp 
-		    (concat "[" words (if file-p "/") "]"))
+		    ;; (concat "[" words (if file-p "/") "]")
+		    (concat "["
+			    words
+			    (and file-p completer-path-separator-regexp-inside-brackets)
+			    "]")
+		    )
 		   (words (completer-words regexp lcs))
-		   point)
+		   (point nil))
 	      ;; Go to where its ambiguous
 	      (goto-char start)
-	      (if (not no-insert)
-		  (progn 
-		    (insert lcs)
-		    (setq completer-last-pattern 
-			  (list string delimiters (current-buffer) start)
-			  start (point)
-			  end (+ end (length lcs)))))
+	      (unless no-insert
+		(insert lcs)
+		(setq completer-last-pattern 
+		      (list string delimiters (current-buffer) start)
+		      start (point)
+		      end (+ end (length lcs))))
 	      ;; Skip to the first delimiter in the original string
 	      ;; beyond the ambiguous point and keep from there on
 	      (if (re-search-forward regexp end 'move words)
@@ -673,25 +763,22 @@ return a string."
 			  (if (string-match regexp delimiter)
 			      (insert delimiter))))
 		    (forward-char -1)))
-	      (if (not no-insert) 
-		  (progn
-		    (setq end (- end (- (point) start)))
-		    (delete-region start (point))))))
+	      (unless no-insert
+		(setq end (- end (- (point) start)))
+		(delete-region start (point)))))
 	(if choices
-	    (if (or no-insert (not new))
-		(completer-display-choices choices match nil end display))
-	    (if file-p 
-		(progn 
-		  (if (not (= (point) end)) (forward-char 1))
-		  (if (not (save-excursion (re-search-forward "/" end t)))
-		      (goto-char end))))
-	    (if message
-		(progn
-		  (beep)
-		  (completer-message (if no-insert 
-					 " (No completions)"
-					 " (No match)")
-				     end)))))))	    
+	    (when (or no-insert (not new))
+	      (completer-display-choices choices match nil end display))
+	    (when file-p
+	      (when (not (= (point) end)) (forward-char 1))
+	      (unless (save-excursion (re-search-forward completer-path-separator-regexp end t))
+		(goto-char end)))
+	    (when message
+	      (beep)
+	      (completer-message (if no-insert 
+				     " (No completions)"
+				   " (No match)")
+				 end))))))
 
 ;;;%Exported buffer interface
 ;;;%%Complete and go
@@ -743,8 +830,16 @@ Dead filename should be delimited by // or ~ or $ and return the
 resulting string."
   (save-excursion
     (goto-char (point-max))
-    (if (and (eq minibuffer-completion-table 'read-file-name-internal)
-	     (re-search-backward "//\\|/~\\|.\\$" (minibuffer-prompt-end) t))
+    (if (and (memq minibuffer-completion-table
+		   '(read-file-name-internal read-directory-name-internal))
+	     (re-search-backward
+	      ;; "//\\|/~\\|.\\$"
+	      (if (memq system-type '(windows-nt cygwin32))
+		  ;; // is meaningful
+		  "/~\\|.\\$"
+		"//\\|/~\\|.\\$")
+	      (minibuffer-prompt-end)
+	      t))
 	(delete-region (minibuffer-prompt-end) (1+ (point))))
     (buffer-substring (minibuffer-prompt-end) (point-max))))
 
@@ -762,15 +857,19 @@ resulting string."
 	  (let ((string (completer-minibuf-string)))
 	    (or
 	     (not (string-match
-		   (concat "[" completer-words "/~]")
+		   (concat "["
+			   completer-words
+			   completer-path-separator-regexp-inside-brackets
+			   "~]")
 		   string))
 	      (condition-case ()
 		  (let ((completion
 			 (try-completion string
 					 minibuffer-completion-table
 					 minibuffer-completion-predicate)))
-		    (if (eq minibuffer-completion-table
-			    'read-file-name-internal)
+		    (if (memq minibuffer-completion-table
+			      '(read-file-name-internal
+				read-directory-name-internal))
 			;; Directories complete as themselves
 			(and completion
 			     (or (not (string= string completion))
@@ -798,7 +897,7 @@ with a prefix, caching will be temporarily disabled.
 Examples:
 a-f     auto-fill-mode
 r-e     rmail-expunge
-b--d    *begining-of-defun or byte-recompile-directory
+b--d    *beginning-of-defun or byte-recompile-directory
 by  d   *byte-recompile-directory if completer-any-delimiter is \" \"
 ~/i.e   *~/ilisp.el or ~/il-el.el or ~/ilisp.elc
 /u/mi/  /usr/misc/"
@@ -941,36 +1040,36 @@ twice in a row.  If called with a prefix, undo the last completion."
     ;; added by jwz: don't cache completions in shell buffer!
     (setq completer-string nil)
     (let ((conf (current-window-configuration)));; lemacs change
-      (completer-complete-goto 
-       "^ \t\n\""
-       completer-words
-       'read-file-name-internal
-       default-directory
-       mode)
+      (completer-complete-goto "^ \t\n\""
+			       completer-words
+			       'read-file-name-internal
+			       default-directory
+			       mode)
       ;; lemacs change
-      (if (eq mode 'help) (comint-restore-window-config conf))
+      (when (eq mode 'help) (comint-restore-window-config conf))
       )))
+
 ;(fset 'comint-dynamic-complete 'completer-comint-dynamic-complete)
 (fset 'comint-dynamic-complete-filename
       'completer-comint-dynamic-complete-filename)
 (fset 'comint-dynamic-list-completions 
       'completer-comint-dynamic-list-completions)
 
-;;; Set the functions again if comint is loaded
+;;; Set the functions again if comint is loaded.
 (setq comint-load-hook 
       (cons (function (lambda ()
-;;	      (fset 'comint-dynamic-complete 
-;;		    'completer-comint-dynamic-complete)
+			;; (fset 'comint-dynamic-complete 
+			;;       'completer-comint-dynamic-complete)
 			(fset 'comint-dynamic-complete-filename
 			      'completer-comint-dynamic-complete-filename)
-	      (fset 'comint-dynamic-list-completions 
-		    'completer-comint-dynamic-list-completions)))
-	    (if (and (boundp 'comint-load-hook) comint-load-hook)
-		(if (consp comint-load-hook) 
-		    (if (eq (car comint-load-hook) 'lambda)
-			(list comint-load-hook)
-			comint-load-hook)
-		    (list comint-load-hook)))))
+			(fset 'comint-dynamic-list-completions 
+			      'completer-comint-dynamic-list-completions)))
+	    (when (and (boundp 'comint-load-hook) comint-load-hook)
+	      (if (consp comint-load-hook)
+		  (if (eq (car comint-load-hook) 'lambda)
+		      (list comint-load-hook)
+		    comint-load-hook)
+		(list comint-load-hook)))))
 
 ;;;%lisp-complete-symbol
 (defun lisp-complete-symbol (&optional mode)
