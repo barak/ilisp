@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.12 2003/12/20 15:32:20 rgrjr Exp $
+;;; $Id: ilisp-src.el,v 1.13 2003/12/21 03:16:39 rgrjr Exp $
 
 (require 'cl)
 
@@ -701,15 +701,9 @@ back-p is non-nil."
 		 (forward-line -1))
 	     (cond ((looking-at "\n"))
 		   ((looking-at "^;+ *\\(.*\\)")
-		     (if lisp-find-definition-verbose-p
-			 (message "  [p4: msg, point is now %s in %s]"
-				  (point) (buffer-name)))
 		     (cond ((not back-p)
 			     (message "%s" (match-string 1))
-			     (sit-for 1)))
-		     (if lisp-find-definition-verbose-p
-			 (message "  [p4b: msg, point is now %s in %s]"
-				  (point) (buffer-name))))
+			     (sit-for 1))))
 		   ((looking-at "^!+ *\\(.*\\)")
 		     (cond (back-p
 			     ;; [***bug***: we don't find these right when

@@ -1,3 +1,10 @@
+2003-12-20  Bob Rogers  <rogers@rgrjr.dyndns.org>
+
+	* comint-ipc.el (comint-process-filter): add unwind-protect,
+	remove broken conditional guarding the restoring set-buffer call.
+	This fixes a M-. bug reported by 2003-12-18 by Lynn Quam (and
+	probably other bugs as well).
+
 2003-12-13  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
 
 	* Makefile:  Flush "loadfile" target, which created ilisp-all.elc

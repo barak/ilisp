@@ -397,129 +397,134 @@ Output to the process should only be done through the functions
 comint-send or comint-default-send, or results will be mixed up."
   (let* ((inhibit-quit t)
 	 (window (selected-window))
-	 (comint-original-buffer (prog1 (current-buffer)
-				   (set-buffer (process-buffer process))))
-	 (match-data (match-data))
-	 (send (car comint-send-queue))
-	 (no-insert (cdr send))
-	 (wait-p (cdr no-insert))
-	 (messagep (cdr (cdr wait-p)))
-	 (handler (cdr messagep))
-	 (running (cdr handler))
-	 (old-prompt (cdr running))
-	 (line (cdr old-prompt))
-	 (result (car (cdr line)))
-	 (old-result (car result))
-	 (no-insert (car no-insert))
-	 (message (car messagep))
-	 (wait-p (car wait-p))
-	 (sync (stringp wait-p)))
-    (comint-log process output t)
-    ;; Remove leading whitespace
-    (if (and (null old-result)
-	     (save-excursion (goto-char (process-mark process)) (bolp))
-	     (eq (string-match "[ \t]*\n" output) 0))
-	(setq output (substring output (match-end 0))))
-    (rplaca result (concat old-result output))
-    (while (string-match "\n" (car result) (car line))
-      (rplaca line (match-end 0)))
-    (if (not (or sync no-insert))
-	(progn
-	  (comint-insert output)
-	  ;; Throw away output if storing in buffer
-	  (rplaca result (substring (car result) (car line)))
-	  (rplaca line 0)))
-    (if (consp (car running))		;Waiting for interrupt
-	(let ((split (funcall comint-interrupt-start (car result))))
-	  (if split
-	      (let ((interrupted (car running)))
-		;; Store output to previous send
-		(rplaca (comint-send-variables interrupted) 
-			(substring (car result) 0 split))
-		(rplaca result (substring (car result) (car line)))
-		(rplaca line 0)
-		(rplaca running t)))))
-    (if (not (consp (car running)))	;Look for prompt
-	(let* ((last (substring (car result) (car line)))
-	       (is-prompt
-		(funcall comint-prompt-status (car old-prompt) last)))
-	  (if is-prompt
-	      (let* ((output
-		      (if (or no-insert sync)
-			  (funcall comint-output-filter 
-				   (substring (car result) 0 (car line)))))
-		     (handler (car handler))
-		     (error (eq is-prompt 'error)))
-		(setq old-result (car result))
-		(rplaca result output)
-		(rplacd result (if error (list last) last))
-		(setq comint-output (car result)
-		      comint-errorp 
-		      (or error
-			  (and comint-error-regexp
-			       comint-output
-			       (string-match comint-error-regexp
-					     comint-output))))
-		(unwind-protect
-		    ;; (if handler
-		    ;;	    (setq handler
-		    ;;		 (funcall handler comint-errorp wait-p
-		    ;;		          message output last)))
+	 (comint-original-buffer (current-buffer))
+	 (match-data (match-data)))
+    (unwind-protect
+	 (progn
+	   (set-buffer (process-buffer process))
+	   (let* ((send (car comint-send-queue))
+		  (no-insert (cdr send))
+		  (wait-p (cdr no-insert))
+		  (messagep (cdr (cdr wait-p)))
+		  (handler (cdr messagep))
+		  (running (cdr handler))
+		  (old-prompt (cdr running))
+		  (line (cdr old-prompt))
+		  (result (car (cdr line)))
+		  (old-result (car result))
+		  (no-insert (car no-insert))
+		  (message (car messagep))
+		  (wait-p (car wait-p))
+		  (sync (stringp wait-p)))
+	     (comint-log process output t)
+	     ;; Remove leading whitespace
+	     (if (and (null old-result)
+		      (save-excursion
+			(goto-char (process-mark process))
+			(bolp))
+		      (eq (string-match "[ \t]*\n" output) 0))
+		 (setq output (substring output (match-end 0))))
+	     (rplaca result (concat old-result output))
+	     (while (string-match "\n" (car result) (car line))
+	       (rplaca line (match-end 0)))
+	     (if (not (or sync no-insert))
+		 (progn
+		   (comint-insert output)
+		   ;; Throw away output if storing in buffer
+		   (rplaca result (substring (car result) (car line)))
+		   (rplaca line 0)))
+	     (if (consp (car running))		;Waiting for interrupt
+		 (let ((split (funcall comint-interrupt-start (car result))))
+		   (if split
+		       (let ((interrupted (car running)))
+			 ;; Store output to previous send
+			 (rplaca (comint-send-variables interrupted) 
+				 (substring (car result) 0 split))
+			 (rplaca result (substring (car result) (car line)))
+			 (rplaca line 0)
+			 (rplaca running t)))))
+	     (if (not (consp (car running)))	;Look for prompt
+		 (let* ((last (substring (car result) (car line)))
+			(is-prompt
+			 (funcall comint-prompt-status (car old-prompt) last)))
+		   (if is-prompt
+		       (let* ((output
+			       (if (or no-insert sync)
+				   (funcall comint-output-filter 
+					    (substring (car result)
+						       0 (car line)))))
+			      (handler (car handler))
+			      (error (eq is-prompt 'error)))
+			 (setq old-result (car result))
+			 (rplaca result output)
+			 (rplacd result (if error (list last) last))
+			 (setq comint-output (car result)
+			       comint-errorp 
+			       (or error
+				   (and comint-error-regexp
+					comint-output
+					(string-match comint-error-regexp
+						      comint-output))))
+			 (unwind-protect
+			     ;; (if handler
+			     ;;	    (setq handler
+			     ;;		 (funcall handler comint-errorp wait-p
+			     ;;		          message output last)))
 
-		    ;; v5.7b Patch suggested by fujieda@jaist.ac.jp
-		    ;; (Kazuhiro Fujieda). Here is his comment.
+			     ;; v5.7b Patch suggested by fujieda@jaist.ac.jp
+			     ;; (Kazuhiro Fujieda). Here is his comment.
 
-		    ;; "When the 'handler' is called, the current
-		    ;; buffer may be changed. 'comint-process-filter'
-		    ;; accesses some buffer-local variables, for
-		    ;; example 'comint-send-queue' and
-		    ;; 'comint-end-queue'.  If the current buffer is
-		    ;; changed in the 'handler', the entities of
-		    ;; these buffer-local variables is replaced, and
-		    ;; corrupt successive behaviors."
+			     ;; "When the 'handler' is called, the current
+			     ;; buffer may be changed. 'comint-process-filter'
+			     ;; accesses some buffer-local variables, for
+			     ;; example 'comint-send-queue' and
+			     ;; 'comint-end-queue'.  If the current buffer is
+			     ;; changed in the 'handler', the entities of
+			     ;; these buffer-local variables is replaced, and
+			     ;; corrupt successive behaviors."
 
-		    ;; The code hereafter fixes the problem.
-		    
-		    (if handler
-			(save-current-buffer
-			  (setq handler
-				(funcall handler comint-errorp wait-p
-					 message output last))))
+			     ;; The code hereafter fixes the problem.
 
-		  (if (and error handler no-insert comint-fix-error)
-		      (setq comint-send-queue 
-			    (cons (list comint-fix-error t nil 'fix
-					"Fixing error" nil
-					nil nil 0 (cons nil nil))
-				  ;; We may have aborted
-				  (or (cdr comint-send-queue)
-				      comint-send-queue))))
-		  (if sync
-		      (let ((match (string-match wait-p old-result)))
-			(if match
-			    (progn
-			      (rplaca
-			       (cdr (cdr (cdr (cdr (car comint-end-queue)))))
-			       "Done")
-			      (if (not no-insert)
-				  (comint-insert 
-				   (concat 
-				    (substring old-result 0 match)
-				    (substring old-result (match-end 0)))))
-			      (rplaca result (substring old-result
-							match (car line)))
-			      (rplaca messagep "Done")
-			      (rplaca running nil)
-			      (comint-dispatch-send process))))
-		    ;; Not waiting
-		    (rplaca messagep "Done")
-		    (rplaca running nil)
-		    (comint-dispatch-send process))))
-	    (rplacd result nil))))
-    (store-match-data match-data)
-    (if (or (get-buffer-window comint-original-buffer)
-	    (eq (window-buffer (minibuffer-window)) comint-original-buffer))
-	(set-buffer comint-original-buffer))))
+			     (if handler
+				 (save-current-buffer
+				   (setq handler
+					 (funcall handler comint-errorp wait-p
+						  message output last))))
+
+			   (if (and error handler no-insert comint-fix-error)
+			       (setq comint-send-queue 
+				     (cons (list comint-fix-error t nil 'fix
+						 "Fixing error" nil
+						 nil nil 0 (cons nil nil))
+					   ;; We may have aborted
+					   (or (cdr comint-send-queue)
+					       comint-send-queue))))
+			   (if sync
+			       (let ((match (string-match wait-p old-result)))
+				 (if match
+				     (progn
+				       (rplaca
+					 (cdr (cdr (cdr (cdr (car comint-end-queue)))))
+					 "Done")
+				       (if (not no-insert)
+					   (comint-insert 
+					    (concat 
+					     (substring old-result 0 match)
+					     (substring old-result
+							(match-end 0)))))
+				       (rplaca result
+					       (substring old-result
+							  match (car line)))
+				       (rplaca messagep "Done")
+				       (rplaca running nil)
+				       (comint-dispatch-send process))))
+			     ;; Not waiting
+			     (rplaca messagep "Done")
+			     (rplaca running nil)
+			     (comint-dispatch-send process))))
+		     (rplacd result nil))))))
+      (store-match-data match-data)
+      (set-buffer comint-original-buffer))))
 
 ;;;
 (defun comint-dispatch-send (process)
