@@ -16,7 +16,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: lispworks.lisp,v 1.5 2001/10/25 19:09:13 amoroso Exp $
+;;; $Id: lispworks.lisp,v 1.6 2002/01/24 19:54:14 anisotropy9 Exp $
 
 (in-package "ILISP")
 
@@ -70,8 +70,8 @@ Returns T if successful."
 	    )
 	(when (and function-name (fboundp function-name))
 	  (setf callers (munge-who-calls
-			 #+:lispworks3 (hcl:who-calls function-name)
-			 #-:lispworks3 (lw:who-calls function-name)
+			 #+(or :lispworks3 :lispworks4) (hcl:who-calls function-name)
+			 #-(or :lispworks3 :lispworks4) (lw:who-calls function-name)
 			 ))
 	  (dolist (caller callers)
 	    (print caller))
