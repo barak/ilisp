@@ -1,7 +1,7 @@
 ;;; -*- Mode: Emacs-Lisp -*-
 
 ;;; ilisp-sbcl.el --
-;;; ILISP SB Common Lisp dialect definition
+;;; ILISP Steel Bank Common Lisp dialect definition
 ;;;
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.19 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: ilisp-sbcl.el,v 1.20 2003/10/04 21:10:30 kevinrosenberg Exp $
 
 ;;;%%%Steel Bank Common Lisp
     
@@ -27,9 +27,7 @@
   nil)
 
 ;;; sbcl-check-prompt function for SBCL-0.6.x or earlier.
-;;;
-;;; WHN threatens to change the format of the break prompt one day soon, 
-;;; but as of 0.6.12.21 this hasn't happened yet
+
 (defun sbcl-check-prompt-sbcl<07 (old new)
   "Compare the break level printed at the beginning of the prompt."
   (let* ((was-in-break (and old (string-match "]+" old)))
@@ -182,8 +180,8 @@
 	ild-bottom-string ":top"
 	ild-backtrace-string ":backtrace"
 	ild-locals-string ":l"
-	ild-local-string-arg "(debug:arg %s)"
-	ild-return-string nil		; needs work (debug:debug-return x)
+	ild-local-string-arg "(sb-debug:arg %s)"
+	ild-return-string ":return %s"
 	ild-retry-string nil		; needs work
 	ild-trap-on-exit-string nil	; needs work
 	)
