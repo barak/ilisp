@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.6 2002/03/27 20:48:11 anisotropy9 Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.7 2002/08/15 13:34:42 kevinrosenberg Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Prologue
@@ -50,7 +50,8 @@
 ;;; 27 March 2002 Will Deakin
 
 #-(and nil gcl)
-(defpackage :ilisp (:use :common-lisp #+:CMU :conditions)
+(defpackage "ILISP" (:use :common-lisp #+:CMU :conditions)
+  (:nicknames "ilisp")
   ;; The following symbols should properly 'shadow' the inherited
   ;; ones.
   (:export #:ilisp-errors
