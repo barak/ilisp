@@ -40,6 +40,9 @@ set_keybindings()
     fi
 }
 
+# Needed to work around version 5.12.0+cvs.2003.05.21 which
+# erroreously deleted symlinks in postrm. Thus, upgrades would not 
+# work from that version without this work-around
 ensure_symlinks()
 {
     source=/usr/share/common-lisp/source/ilisp
