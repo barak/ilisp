@@ -1,3 +1,11 @@
+2002-01-16  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-sch.el (scheme): Fix ilisp-block-command, so that blocks
+	ending with a comment but no newline are handled properly.
+
+	* guile-ilisp.scm (info-message): Use the 'arglist procedure
+	property when available (Guile 1.5.4 and later). 
+
 2002-01-07  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-sbcl.el (sbcl-check-prompt): sbcl-check-prompt has become
