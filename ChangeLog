@@ -1,3 +1,10 @@
+2001-02-14  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-cmu.el (ilisp-directory-command,
+	ilisp-set-directory-command): added to fix the broken behavior of
+	`default-directory-lisp' with CMUCL (fix contributed by Tijs van
+	Bakel <smoke@wanadoo.nl>).
+
 2001-02-12  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space): don't try to
