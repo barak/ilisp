@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.12 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-def.el,v 1.13 2001/06/06 12:09:23 amoroso Exp $
 
 ;;;%Variables
 ;;;%%Deflocal
@@ -334,7 +334,7 @@ compile-file-lisp. Used by these commands to determine defaults.")
   "Non-nil if epoch is running.")
 
 (defvar ilisp-*version*
-  "5.11" ;; ILISP-VERSION marker
+  "5.11.1" ;; ILISP-VERSION marker
   "ILISP version.")
 
 (defvar ilisp-*directory* nil "The directory that ilisp is found in.")
