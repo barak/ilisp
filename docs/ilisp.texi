@@ -1347,12 +1347,29 @@ Send the defun to Lisp.
 @kindex @key{C-z} C-n
 @pindex eval-next-sexp-and-go-lisp
 
-@item @key{C-z} j   (eval-last-sexp-lisp)
-@itemx @key{C-z} C-j   (eval-last-sexp-and-go-lisp)
-@kindex @key{C-z} j
+@item @key{C-z} o   (eval-last-sexp-lisp)
+@itemx @key{C-z} C-o   (eval-last-sexp-and-go-lisp)
+@kindex @key{C-z} o
 @pindex eval-last-sexp-lisp
-@kindex @key{C-z} C-j
+@kindex @key{C-z} C-o
 @pindex eval-last-sexp-and-go-lisp
+
+@item @key{C-z} j   (eval-dwim-lisp)
+@itemx @key{C-z} C-j   (eval-dwim-and-go-lisp)
+@kindex @key{C-z} j
+@pindex eval-dwim-lisp
+@kindex @key{C-z} C-j
+Evaluate DWIM (Do What I Mean).
+If a region is selected, evaluate the region.  If the cursor is on or
+immediately after a ')', evaluate the last sexp.  If the cursor is on
+or immediately before a '(', evaluate the next sexp. If the cursor is
+inside a defun, evaluate the defun. If the cursor is inside a
+top-level sexp, evaluate the top-level sexp. Tests are done in the
+order specified in these comments, so if there is any ambiguity, make
+certain that the cursor is either on a parenthesis (for the eval
+last/next commands or not directly before/after/on a parenthesis for
+the eval defun/top-level commands.
+@pindex eval-dwim-and-go-lisp
 
 @item @key{C-z} c   (compile-defun-lisp)
 @kindex @key{C-z} c

@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl-easy-menu.el,v 1.5 2003/05/09 14:43:12 bill_clementson Exp $
+;;; $Id: ilisp-cl-easy-menu.el,v 1.6 2003/05/27 23:51:01 bill_clementson Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de
@@ -84,6 +84,7 @@
     [ "Run Ilisp" run-ilisp t ]
     "--"
     ("Evaluate"
+     [ "Eval DWIM" eval-dwim-lisp t ]
      [ "Eval region" eval-region-lisp t ]
      [ "Eval defun" eval-defun-lisp t ]
      [ "Eval next sexp" eval-next-sexp-lisp t ]
@@ -91,6 +92,7 @@
      [ "Eval changes" eval-changes-lisp t ]
      )
     ("Evaluate and Go"
+     [ "Eval DWIM" eval-dwim-and-go-lisp t ]
      [ "Eval region" eval-region-and-go-lisp t ]
      [ "Eval defun" eval-defun-and-go-lisp t ]
      [ "Eval next sexp" eval-next-sexp-and-go-lisp t ]

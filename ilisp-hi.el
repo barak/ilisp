@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.19 2003/05/09 14:44:02 bill_clementson Exp $
+;;; $Id: ilisp-hi.el,v 1.20 2003/05/27 23:51:10 bill_clementson Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -124,6 +124,36 @@ a message to let the user know what is going on."
     ;; Display the returned value. -fmw
     (lisp-display-output result)))
 
+(defun eval-dwim-lisp (&optional switch)
+  "Evaluate DWIM (Do What I Mean).
+If a region is selected, evaluate the region.  If the cursor is on or
+immediately after a ')', evaluate the last sexp.  If the cursor is on
+or immediately before a '(', evaluate the next sexp. If the cursor is
+inside a defun, evaluate the defun. If the cursor is inside a
+top-level sexp, evaluate the top-level sexp. Tests are done in the
+order specified in these comments, so if there is any ambiguity, make
+certain that the cursor is either on a parenthesis (for the eval
+last/next commands or not directly before/after/on a parenthesis for
+the eval defun/top-level commands."
+  (interactive)
+  (save-excursion
+    (cond
+     ((not (equal mark-active nil)) (eval-region-lisp (mark) (point) switch))
+     ((or (looking-at "\\s\)")
+	  (save-excursion
+	    (backward-char 1)
+	    (looking-at "\\s\)")))
+      (if (looking-at "\\s\)")
+	  (forward-char 1)) 
+      (eval-last-sexp-lisp switch))
+     ((or (looking-at "\\s\(")
+	  (save-excursion
+	    (forward-char 1)
+	    (looking-at "\\s\(")))
+      (if (looking-at "\\s\(")
+	  (backward-char 1)) 
+      (eval-next-sexp-lisp switch))
+     (t (eval-defun-lisp switch)))))
 
 ;;;%%%And go
 (defun eval-region-and-go-lisp (start end)
@@ -150,6 +180,11 @@ With prefix, insert a call as well."
 			 (setq current-prefix-arg nil)
 			 'call)
 		       t)))
+
+(defun eval-dwim-and-go-lisp (&optional switch)
+  "Evaluate DWIM and switch to the current ILISP buffer."
+  (interactive)
+  (eval-dwim-lisp t))
 
 ;;;%%Compile
 (defun compile-region-lisp (start end &optional switch message status handler)

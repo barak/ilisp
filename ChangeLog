@@ -4,6 +4,9 @@
 	Koivisto. (completer-file) Replace slash with blackslashes in
 	STRING only in XEmacs running on Windows.
 
+	* ilisp-cl-easy-menu.el, ilisp-key.el, ilisp.texi, ilisp-hi.el:
+	Added functions eval-dwim-lisp and eval-dwim-and-go-lisp.
+
 2003-05-21  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp-key.el: Minor mods to FSF key bindings.
