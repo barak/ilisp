@@ -1,3 +1,12 @@
+2000-07-12  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-cmp.el (complete-lisp): fixed bug with both XEmacs and GNU
+	  Emacs, i.e. doing completion with M-TAB on an empty command line
+	  produced the error "Wrong type argument:
+	  number-char-or-marker-p,nil" (XEmacs), or "Wrong type argument:
+	  number-or-marker-p, nil" with GNU Emacs (patch contributed by
+	  William Deakin <w.deakin@pindar.com>).
+
 2000-07-06  Paolo Amoroso  <amoroso@mclink.it>
 
 	* .ilisp: removed obsolete version of ilisp.emacs.
