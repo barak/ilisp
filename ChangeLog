@@ -1,3 +1,9 @@
+2001-11-02  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-chs.el (clisp-hs-program): added back ANSI mode flag
+	`-ansi'. Omitting it may break the Common Lisp support code, now
+	or in the future.
+
 2001-10-28  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-chs.el (clisp-hs-program): removed `-a' (deprecated, and
