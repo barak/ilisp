@@ -27,7 +27,8 @@
 ;;;
 ;;; Make CMU CL run better within GNU inferior-lisp (by ccm).
 ;;;
-;;; This init file is compatible with version of SBCL (version >= 0.6.2!)
+;;; This init file is compatible with a version of SBCL,
+;;; where version >= 0.6.10!
 
 
 (in-package "ILISP")
@@ -66,21 +67,29 @@
 (setq sb-debug:*flush-debug-errors* nil)  ; allow multiple error levels.
 
 ;;; This implementation of "POP" simply looks for the first restart that says
-;;; "Return to debug level n" or "Return to top level." and executes it.
+;;; "Reduce debugger level ..." and executes it.
 ;;;
-(sb-debug::def-debug-command "POP"  ()
-  ;; find the first "Return to ..." restart
+(sb-debug::def-debug-command "POP" ()
+  ;; find the first "Reduce debugger level ..." restart
   (if (not (boundp 'sb-debug::*debug-restarts*))
       (error "You're not in the debugger; how can you call this!?")
       (labels ((find-return-to (restart-list num)
 		 (let ((first
 			(member-if
 			 #'(lambda (restart)
-			     (string= (funcall
-				       (sb-conditions::restart-report-function 
-					restart)
-				       nil)
-				      "Return to " :end1 10))
+			     (search
+                              "Reduce debugger level"
+                              (funcall
+                               ;; this is a temporary portability hack for
+                               ;; versions < 0.6.9, that will go away,
+                               ;; eventually.
+                               (#.(if (find-package :sb-conditions)
+                                    (intern "RESTART-REPORT-FUNCTION"
+                                            (find-package :sb-conditions))
+                                    (intern "RESTART-REPORT-FUNCTION"
+                                            (find-package :sb-kernel)))
+                                  restart)
+                               nil)))
 			 restart-list)))
 		   (cond ((zerop num) (car first))
 			 ((cdr first) (find-return-to (cdr first)
@@ -90,8 +99,7 @@
 				 sb-debug::*debug-restarts* (1- level))))
 	  (if (null first-return-to)
 	      (format *debug-io* "pop: ~d is too far" level)
-	      (sb-debug::invoke-restart-interactively first-return-to)
-	      )))))
+	      (sb-debug::invoke-restart-interactively first-return-to))))))
 
 
 ;;;%% arglist/source-file utils.
@@ -242,11 +250,6 @@
 ;;; FUN-DEFINED-FROM-PATHNAME takes a symbol or function object.  It
 ;;; returns a pathname for the file the function was defined in.  If it was
 ;;; not defined in some file, then nil is returned.
-;;;
-;;; FUN-DEFINED-FROM-PATHNAME is from hemlock/rompsite.lisp (cmucl17f), 
-;;; with added read-time conditionalization to work in older versions
-;;; of cmucl.  It may need a little bit more conditionalization for
-;;; some older versions of cmucl.
 
 (defun fun-defined-from-pathname (function)
   "Returns the file where FUNCTION is defined in (if the file can be found).
