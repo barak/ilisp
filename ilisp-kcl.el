@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-kcl.el,v 1.4 2002/02/14 15:47:15 amoroso Exp $
+;;; $Id: ilisp-kcl.el,v 1.5 2002/02/24 16:02:23 amoroso Exp $
 
 ;;;%%%KCL--these dialects by Tom Emerson
 ;;; kcl-check-prompt doesn't after the first break because the
@@ -119,7 +119,7 @@
 ;;;        Currently maintained by Juan Jose Garcia-Ripoll
 
 (defdialect ecl "EcoLisp Common LISP" akcl
-  (setq comint-prompt-regexp "^>+ "
+  (setq comint-prompt-regexp "^\\([A-Z].*\\)?>+ "
         ilisp-error-regexp "Broken at [^\n]*"
         comint-fix-error ":pop\n(progn (terpri) (values))") ; kludge
 
