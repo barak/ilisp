@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.7 2002/01/25 11:48:33 mkoeppe Exp $
+;;; $Id: ilisp-mak.el,v 1.8 2002/05/23 20:40:41 marcoxa Exp $
 
 (require 'cl)
 
@@ -24,22 +24,21 @@
 					; constant.
     (message ";;; Emacs Version %s" +ilisp-emacs-version-id+)
 
-    (if (eq +ilisp-emacs-version-id+ 'xemacs)
-	(setq load-path (cons "../xemacs-base" load-path)))
+    (when (eq +ilisp-emacs-version-id+ 'xemacs)
+      (setq load-path (cons "../xemacs-base" load-path)))
 
     (if (eq +ilisp-emacs-version-id+ 'fsf-18)
         (load "comint-v18")
-      (load "comint"))
+      ;; (load "comint")
+      (require 'comint))
 
     ;; Try to generate bytecodes for emacs 19.
     ;; I am no expert on the Byte Compiler.  Anyone who is please send
     ;; me mail.
     ;; Marco Antoniotti <marcoxa@icsi.berkeley.edu>
 
-    ;(if (eq +ilisp-emacs-version-id+ 'fsf-18)
-;	(setq byte-compile-emacs18-compatibility t))
-
-
+    ;; (if (eq +ilisp-emacs-version-id+ 'fsf-18)
+    ;;	(setq byte-compile-emacs18-compatibility t))
 
 
     ;; Compile compatibility files
@@ -49,6 +48,8 @@
            (byte-compile-file "illuc19.el"))
           ((eq +ilisp-emacs-version-id+ 'xemacs)
            (byte-compile-file "ilxemacs.el"))
+          ((eq +ilisp-emacs-version-id+ 'fsf-21)
+           (byte-compile-file "ilfsf21.el"))
           ((eq +ilisp-emacs-version-id+ 'fsf-20)
            (byte-compile-file "ilfsf20.el"))
           ((eq +ilisp-emacs-version-id+ 'fsf-19)
