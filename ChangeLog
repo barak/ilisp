@@ -1,3 +1,10 @@
+2002-01-04  Martin Atzmueller  <martin@atzmueller.net>
+
+	* cl-ilisp.lisp: ditto. (some #+ecl tweaks ...)
+
+	* ilisp-kcl.el (ecl): ecl tweaks; after manual compilation of the
+	ILISP *.lisp files, ecl(s)-0.5 works better.
+
 2001-12-28  Craig Brozefsky <craig@red-bean.com>
 
 	* ilisp-mak.el: install files which were previously commented out

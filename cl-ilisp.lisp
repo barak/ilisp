@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.8 2001/10/19 19:00:43 mna Exp $
+;;; $Id: cl-ilisp.lisp,v 1.9 2002/01/04 19:31:19 mna Exp $
 
 
 ;;; Old history log.
@@ -57,10 +57,9 @@
 ;;; not so yet.
 
 ;;; 19960715 Marco Antoniotti
-;;; 20000404 Martin Atzmueller: same for ecl/ecls
 ;;; 20010831 Marco Antoniotti
 
-#+(or (and nil gcl) (and nil ecl))
+#+(or (and nil gcl))
 (export '(ilisp-errors
 	  ilisp-save
 	  ilisp-restore
@@ -146,7 +145,9 @@
             (concatenate 'string "~&" concat-string *ilisp-message-addon-string* format-string concat-string))))
 
 
-#+:ANSI-CL
+;; MNA: ecl (ecls-0.5) still had special-form-p in COMMON-LISP,
+;; which produced an error, when redefined.
+#+(and :ANSI-CL (not :ecl))
 (defun special-form-p (symbol)
   "Backward compatibility for non ANSI CL's."
   (special-operator-p symbol))
@@ -190,12 +191,10 @@
 	 #+cmu
 	 (ext:*gc-verbose* nil) ; cmulisp outputs "[GC ...]" which
 				; doesn't read well...
-	 #+ecl
-	 (sys:*gc-verbose* nil) ; ecolisp also outputs "[GC ...]"
 	 )
      (princ " ")			; Make sure we have output
 
-     ;; 19990912 Martin Atzmuller
+     ;; 19990912 Martin Atzmueller
      ;; Gross CLisp HS hack so that the command-index stays the same
      ;; after an ILISP-command that has to use the inferior lisp
      ;;
@@ -452,9 +451,12 @@ The trick is to try to handle print case issues intelligently."
 	   #+allegro
 	   (excl::arglist symbol)
 
-	   #+(or ibcl kcl ecl gcl)
+	   #+(or ibcl kcl gcl)
 	   (help symbol)
 
+           #+:ecl
+            (si::help symbol)
+            
 	   #+lucid
 	   (lucid::arglist symbol)
 	   
