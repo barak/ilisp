@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2004.10.29) unstable; urgency=low
+
+  * Add Czech translation (closes:278785)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Fri, 29 Oct 2004 11:24:09 -0600
+
 ilisp (5.12.0+cvs.2004.08.24) unstable; urgency=low
 
   * Delete bogus symlink
@@ -35,6 +41,7 @@ ilisp (5.12.0+cvs.2004.08.02) unstable; urgency=low
 
  -- Kevin M. Rosenberg <kmr@debian.org>  Mon,  2 Aug 2004 04:13:51 -0600
 
+>>>>>>> 1.84
 ilisp (5.12.0+cvs.2004.03.19) unstable; urgency=low
 
   * Update french translation (closes:238933)
