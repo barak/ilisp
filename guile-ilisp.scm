@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.18 2002/05/24 16:39:51 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.19 2002/06/28 13:02:45 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -410,3 +410,11 @@ or while f returns #f. If returning early, return the return value of f."
      (macroexpand (read-from-string expression)))))
   (newline))
 
+(define-public (ilisp-describe symbol package)
+  "Evaluate SYMBOL in PACKAGE and describe its value."
+  (let* ((module (resolve-module '(oop goops describe)))
+	 (describe (false-if-exception
+		    (module-ref module 'describe))))
+    (if describe
+	(describe (eval-in-package symbol (string->module package)))
+	"Need GOOPS for describe.")))
