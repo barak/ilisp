@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmp.el,v 1.5 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-cmp.el,v 1.6 2002/01/18 13:31:16 mkoeppe Exp $
 
 (defun ilisp-display-choices (symbol choices)
   "Display the possible choices for SYMBOL in alist CHOICES."
@@ -81,13 +81,19 @@ If FUNCTION-P is T, only symbols with function cells will be returned."
 	(insert ilisp-mini-prefix)
 	(setq ilisp-mini-prefix nil))))
 
+;;; Support for Emacs 21 minibuffer prompt
+(defun ilisp-minibuffer-prompt-end ()
+  (if (fboundp 'minibuffer-prompt-end)
+      (minibuffer-prompt-end)
+    (point-min)))	       
+
 ;;;
 (defun ilisp-current-choice ()
   "Set up the minibuffer completion table for the current symbol.
 If there is a paren at the start of the minibuffer, or there is not an
 ilisp-table, this will be from the inferior LISP.  Otherwise, it will
 be the ilisp-table."
-  (if (or (null ilisp-table) (eq (char-after 1) ?\())
+  (if (or (null ilisp-table) (eq (char-after (ilisp-minibuffer-prompt-end)) ?\())
       (progn
 	(let* ((symbol-info (lisp-previous-symbol))
 	       (symbol (car symbol-info)))
@@ -129,7 +135,7 @@ be the ilisp-table."
 (defun ilisp-completion-word ()
   "Inferior LISP minibuffer complete word."
   (interactive)
-  (if (eq (char-after 1) ?\()
+  (if (eq (char-after (ilisp-minibuffer-prompt-end)) ?\()
       (insert " ")
       (ilisp-current-choice)
       (funcall ilisp-completion-word)
@@ -140,7 +146,7 @@ be the ilisp-table."
   "Only allow a paren if ilisp-paren is T."
   (interactive)
   (if ilisp-paren 
-      (if (or (eq last-input-char ?\() (eq (char-after 1) ?\())
+      (if (or (eq last-input-char ?\() (eq (char-after (ilisp-minibuffer-prompt-end)) ?\())
 	  (insert last-input-char)
 	  (beep))
       (beep)))
@@ -151,12 +157,12 @@ be the ilisp-table."
 (defun ilisp-completion-exit ()
   "Inferior LISP completion complete and exit."
   (interactive)
-  (if (eq (char-after 1) ?\()
+  (if (eq (char-after (ilisp-minibuffer-prompt-end)) ?\()
       (progn (find-unbalanced-lisp nil)
 	     (exit-minibuffer))
       (if ilisp-no-complete
 	  (exit-minibuffer)
-	  (if (= (point-min) (point-max))
+	  (if (= (ilisp-minibuffer-prompt-end) (point-max))
 	      (exit-minibuffer)
 	      (ilisp-current-choice)
 	      (unwind-protect (funcall ilisp-completion-exit)
