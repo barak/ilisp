@@ -102,7 +102,7 @@ This is needed for 'ilisp-scroll-output', and 'ilisp-bury-output'")
        :buffer          " *Output*"
        :major-mode-def      'lisp-mode  ; The major mode for the
 					; typeout window.
-       :frame (ilisp-make-output-frame "ILISP Output")
+       :frame nil
        ;; Cached frame for ILISP output. If no window system is
        ;; 'running' then the value of this is nil.
        :frame-name "ILISP Output"
@@ -134,7 +134,7 @@ This is needed for 'ilisp-scroll-output', and 'ilisp-bury-output'")
              :buffer " *Arglist-Output*"
              :major-mode-def 'lisp-mode ; The major mode for the
 					; typeout window.
-             :frame (ilisp-make-output-frame "ILISP Arglist Output")
+             :frame nil
              ;; Cached frame for ILISP output. If no window system is
 	     ;; 'running' then the value of this is nil.
              :frame-name "ILISP Arglist Output"
