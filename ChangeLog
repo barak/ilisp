@@ -1,3 +1,7 @@
+2000-07-06  Paolo Amoroso  <amoroso@mclink.it>
+
+	* .ilisp: removed obsolete version of ilisp.emacs.
+
 2000-07-03  Paolo Amoroso  <amoroso@mclink.it>
 
 	* .ILISP.prcs-aux, ILISP.prj: removed PRCS auxiliary files no
