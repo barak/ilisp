@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl-easy-menu.el,v 1.3 2002/01/31 14:56:45 mna Exp $
+;;; $Id: ilisp-cl-easy-menu.el,v 1.4 2002/05/31 11:46:49 amoroso Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de
@@ -78,7 +78,7 @@
 	     (not (featurep 'hyperspec)))
     (load-library "extra/hyperspec")))
 
-(defconst ilisp-cl-easy-menu
+(defvar ilisp-cl-easy-menu
   `("Ilisp"
     [ "Load File" load-file-lisp t ]
     [ "Run Ilisp" run-ilisp t ]
@@ -172,6 +172,47 @@
     )
   )
 
+;;; insert "Debug" Menu if ilisp-*enable-ild-support-p*
+;;; enable the commands only if inside the debugging loop
+;;;
+;;; 2000-10-10 17:34:05 rurban
+(defconst ilisp-ild-easy-menu
+    `("Debug"
+     [ "Abort" 	  ild-abort 	(ilisp-ild-p) ]
+     [ "Continue" ild-continue 	(ilisp-ild-p) ]
+     [ "Next" 	  ild-next 	(ilisp-ild-p) ]
+     [ "Previous" ild-previous 	(ilisp-ild-p) ]
+     [ "Top" 	  ild-top 	(ilisp-ild-p) ]
+     [ "Bottom"   ild-bottom 	(ilisp-ild-p) ]
+     [ "Backtrace" ild-backtrace (ilisp-ild-p) ]
+     [ "Locals"   ild-locals 	(ilisp-ild-p) ]
+     [ "Local"    ild-local 	(ilisp-ild-p) ]
+     [ "Return"   ild-return 	(ilisp-ild-p) ]
+     [ "Retry"    ild-retry 	(ilisp-ild-p) ]
+     [ "Trap on exit" ild-trap-on-exit (ilisp-ild-p) ]
+     "--"
+     [ "Fast lisp" fast-lisp t ]
+     [ "Slow lisp" slow-lisp t ]
+     )
+    )
+
+(defun ilisp-ild-p ()
+  t)
+
+(defun ilisp-insert-menu (menu where what)
+  "Insert WHAT into MENU after WHERE"
+  (if (position what menu)
+      menu
+    (let ((i (position (assoc where menu) menu)))
+      (setq i    (1+ i)
+	    menu (append (butlast menu (- (length menu) i))
+			 (list what)
+			 (nthcdr i menu))))))
+  
+(if ilisp-*enable-ild-support-p*
+  (setq ilisp-cl-easy-menu 
+	(ilisp-insert-menu ilisp-cl-easy-menu "Misc" ilisp-ild-easy-menu)))
+
 ;;; ilisp-update-menu
 ;;;
 ;;; 19990818 Marco Antoniotti
@@ -179,6 +220,14 @@
 (defun ilisp-update-menu (status)
   ;; Backward compatibility with old keymap based menus.
   ;; A no-op for the time being.
+  )
+
+(defun ilisp-redefine-menu ()
+  (easy-menu-remove ilisp-cl-easy-menu)
+  (easy-menu-define menubar-ilisp ilisp-mode-map 
+		    "Ilisp commands"
+		    ilisp-cl-easy-menu)
+  (easy-menu-add ilisp-cl-easy-menu 'ilisp-mode-map)
   )
 
 (provide 'ilisp-cl-easy-menu)
