@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 21, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: April 25, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -632,9 +632,13 @@ Extensions for sending commands and getting results.
 The basic comint abstraction.  You only need this if running Emacs-18.
 @cindex @file{comint.el}
 
-@c @item completer.el
-@c Partial completion code.
-@c @cindex @file{completer.el}
+@item completer.el
+Partial completion code.
+@cindex @file{completer.el}
+
+@item custom-ilisp.el
+ILISP customization.
+@cindex @file{custom-ilisp.el}
 
 @item docs/
 Directory containing the documentation.
@@ -689,7 +693,7 @@ ILISP menu definition (Common Lisp dialects) for the Easymenu package.
 @cindex @file{ilisp-cl-easy-menu.el}
 
 @item ilisp-cl.el
-Common-Lisp dialect definition.
+Common Lisp dialect definition.
 @cindex @file{ilisp-cl.el}
 
 @c @item ilisp-cmp.el
@@ -863,10 +867,6 @@ Support for Lucid Emacs v19.
 @item ilxemacs.el
 Support for XEmacs.
 @cindex @file{ilxemacs.el}
-
-@item imenu.el
-Generic imenu-interface.
-@cindex @file{imenu.el}
 
 @item *.lisp
 ILISP support code.  Each dialect will have one of these files.
