@@ -31,9 +31,12 @@ if test -x /usr/sbin/install-info-altdir; then
 fi
 
 install -m 755 -d ${ELCDIR}
+install -m 755 -d ${ELCDIR}/extra
 cd ${ELDIR}
 cp `echo *.el` ${ELCDIR}
 cp `echo *.lisp` ${ELCDIR}
+cd ${ELDIR}/extra
+cp hyperspec-naggum.el ${ELCDIR}/extra/hyperspec.el
 cd ${ELCDIR}
 
 cat << EOF > path.el
