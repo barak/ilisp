@@ -23,7 +23,8 @@ maintainers).
 
 First, set the EMACS variable to be the pathname of the Emacs you will be
 using ILISP with.  This is the Emacs that will be used to compile ILISP
-with.
+with.  Be sure to check that LN and HyperSpec have appropriate values for
+your system, ESPECIALLY IF YOU ARE A WINDOWS USER.
 
 If your Emacs supports the `easymenu' package, it is possible to make ILISP
 add to Lisp mode buffers and buffers with inferior Lisp processes, or to
@@ -110,21 +111,23 @@ access to the Franz documentation no longer necessary. So by default ILISP
 does not load the `fi:clman' module, but if you still want to use its
 commands set the ILISP-*USE-FI-CLMAN-INTERFACE-P* to T in `ilisp-def.el'.
 
-The ILISP documentation consists of a user manual and a reference card.
-Both of them are in the `docs' directory of the distribution tree.
+The ILISP documentation consists of a user manual and a reference card (the
+latter may not be up to date).  Both of them are in the `docs' directory of
+the distribution tree.
 
-The generation of GNU Info, DVI, PostScript and HTML versions of the manual
-from the Texinfo source is controlled by the `Makefile' in the `docs'
-directory.  Run `make docs' or just `make' to generate all of the formats.
-If you are interested in only some of them then issue the appropriate
-command: `make info' for GNU Info, `make dvi' for DVI, `make ps' for
-PostScript and `make html' for HTML.  To remove the intermediate files
-produced during the generation of DVI output you can run `make tmpclean'.
+The generation of GNU Info, DVI, PostScript and HTML versions of the
+documentation from the Texinfo and TeX source is controlled by the
+`Makefile' in the `docs' directory.  Run `make docs' or `make' to generate
+all of the formats.  If you are interested in only some of them then issue
+the appropriate command: `make info' for GNU Info, `make dvi' for DVI,
+`make ps' for PostScript and `make html' for HTML.  To remove the
+intermediate files produced during the generation of DVI output you can run
+`make tmpclean'.  Note that some of the output formats may not be supported
+for certain documents.
 
-The ILISP reference card is available in DVI and PostScript formats
-together with the TeX source.  Check the comments at the beginning of the
-TeX source if you need to generate a version with a different number of
-columns.
+The ILISP reference card is available as a TeX source file.  Check the
+comments at the beginning of the file if you need to generate a version
+with a different number of columns (the default is 3).
 
 
 SECOND INSTALLATION STEP: DIALECT REQUIREMENTS.
