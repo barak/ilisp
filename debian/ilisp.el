@@ -54,18 +54,18 @@
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-safe.core")
   (cmulisp))
 
+(autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
+(autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
+
 (setq ilisp-site-hook
       '(lambda ()
 	 (setq clisp-hs-progam "clisp -a -I")
 	 (setq allegro-program "/usr/bin/acl")
 	 (setq lispworks-program "/usr/bin/lw-console -multiprocessing")
 	 (setq openmcl-program "/usr/bin/openmcl")
-	 (autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
-	 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
 	 (setq cmulisp-program "/usr/bin/lisp")
 	 (setq sbcl-program "/usr/bin/sbcl")
 	 (setq guile-program "/usr/bin/guile1.4")
-
 	 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
 	 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
 	 (setq cltl2-root-url "file:///usr/share/doc/cltl/")
