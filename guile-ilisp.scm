@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.24 2004/04/06 09:38:12 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.25 2004/08/02 10:14:54 kevinrosenberg Exp $
 
 
 (define-module (guile-ilisp)
@@ -42,11 +42,6 @@
 	(is-a? object <generic>))
       (lambda (object)
 	#f)))
-
-(define-module (guile-user)
-  :use-module (guile-ilisp))
-
-(define-module (guile-ilisp))
 
 (define (read-from-string str)
   (call-with-input-string str read))
@@ -539,3 +534,25 @@ or while f returns #f. If returning early, return the return value of f."
     (if describe
 	(describe (eval-in-package symbol (string->module package)))
 	"Need GOOPS for describe.")))
+
+;  Init
+; ======
+;
+; We would like to use ilisp-* functions from all modules. Since functions
+; are defined withing (guile-ilisp) module, we have to:
+;
+;  1) explicitly :use-module (guile-ilisp) in each module in which we
+;     want to use ilisp
+;
+;  2) cheat and put all public symbols to interface of (guile) module.
+;     This makes ilisp-* function accessible to all modules without any
+;     further effort.
+;
+; Because I am lazy programmer, I chose 2) - writing (use-modules (...))
+; every time I work on some module is very boring and all public functions
+; have ilisp-* prefix so name clash is very unlikely.
+
+(module-for-each (lambda (name var)
+		   (module-add! the-scm-module name var))
+		 (module-public-interface (current-module)))
+
