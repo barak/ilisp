@@ -148,7 +148,7 @@ arglist only.  If EXPENSIVE?, take some more effort."
       ;; Return a message about the arity of the procedure.
       (with-output-to-string
 	(lambda () (arity obj))))
-     (else #f))))
+     (else #f)))
 
 (define-public (ilisp-print-info-message sym package)
   "Evaluate SYM in PACKAGE and print an informational message about
