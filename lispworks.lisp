@@ -16,7 +16,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: lispworks.lisp,v 1.6 2002/01/24 19:54:14 anisotropy9 Exp $
+;;; $Id: lispworks.lisp,v 1.7 2002/06/17 15:24:17 amoroso Exp $
 
 (in-package "ILISP")
 
@@ -76,13 +76,19 @@ Returns T if successful."
 	  (dolist (caller callers)
 	    (print caller))
 	  t))))
-	  
+
+
+
+;; LispWorks returns, at least, 3 different forms from hcl:who-calls
+
 ;; gross hack to munge who-calls output for ILISP
 (defun munge-who-calls (who-calls)
   (labels ((top-level-caller (form)
-	     (if (atom form)
-		 form
-		 (top-level-caller (second form)))))
+	     (cond ((atom form) form)
+		   ;; For method form
+		   ((eq (first form) 'method) (second form))
+		   ;; For subfunction form
+		   (t (top-level-caller (third form))))))
     (delete-if-not 'symbolp
 		   (delete-duplicates (mapcar #'top-level-caller who-calls)))))
 
@@ -94,57 +100,45 @@ Returns T if successful."
 ;;   - surely you really want just three source types:
 ;;     function, type, and variable
 ;;
-(defconstant *source-type-translations*
-  '(
-    ("class"     defclass)
-    ("function"  )
-    ("macro"     )
-    ("structure" defstruct)
-    ("setf"      defsetf)
-    ("type"      deftype)
-    ("variable"  defvar defparameter defconstant)
-    ))
 
+;; Use dspec:*dspec-classes*
+;; LispWorks4.2
+(defconstant *ilisp->lispworks-type-mappings*
+  '(("class" SQL:DEF-VIEW-CLASS CL:DEFCLASS)
+    ("macro" CL:DEFMACRO)
+    ("setf"  CL:FUNCTION)))
 
-(defun translate-source-type-to-dspec (symbol type)
-  (let ((entry (find type *source-type-translations*
-		     :key 'first :test 'equal)))
-    (if entry
-	(let ((wrappers (rest entry)))
-	  (if wrappers
-	      (loop for wrap in wrappers collecting `(,wrap ,symbol))
-	      `(,symbol)))
-	(error "unknown source type for ~S requested from ILISP: ~S"
-	       symbol type))))
+(defun ilisp->lispworks-types (type)
+  (if (string-equal type "any")
+      dspec:*dspec-classes*
+      (let ((mapping (assoc type *ilisp->lispworks-type-mappings* :test 'string-equal)))
+	(if mapping
+	    (cdr mapping)
+	    (list (ilisp-find-symbol type "CL"))))))
 
-
+;; Use dspec:find-name-locations and system:underlying-setf-name
 (defun ilisp-source-files (symbol package type)
   "Print each file for PACKAGE:SYMBOL's TYPE definition on a line.
 Returns T if successful."
   ;; A function to limit the search with type?
   (ilisp-errors
-   (let* ((symbol (ilisp-find-symbol symbol package))
-	  (all (equal type "any"))
-	  ;; Note:
-	  ;; 19990806 Marco Antoniotti
-	  ;;
-	  ;; (paths (when symbol (compiler::find-source-file symbol)))
-	  (paths (when symbol (dspec:find-dspec-locations symbol)))
-	  (dspecs (or all (translate-source-type-to-dspec symbol type)))
-	  (cands ())
-	  )
-     (if (and paths (not all))
-	 (setq cands
-	       (loop for path in paths
-		     when (find (car path) dspecs :test 'equal)
-		     collect path))
-       (setq cands paths))
-     (if cands
-	 (progn
-	   (dolist (file (remove-duplicates paths
-					    :key #'cdr :test #'equal))
-	     (print (truename (cadr file))))
-	   t)
+   (let ((symbol (ilisp-find-symbol symbol package))
+	 (processed-pathnames ())
+	 (types (ilisp->lispworks-types type)))
+     (flet ((process-symbol (symbol)
+	      (loop for (ignore pathname) in (dspec:find-name-locations types symbol)
+		    when (and (pathnamep pathname)
+			      (not (member pathname processed-pathnames :test #'equal)))
+		    do (print (truename pathname))
+		    (push pathname processed-pathnames))))
+       (process-symbol symbol)
+
+       ;; Process setf
+       (when (or (string-equal type "any")
+		 (string-equal type "setf"))
+	 (process-symbol (system:underlying-setf-name (list 'setf symbol)))))
+     (if processed-pathnames
+	 t
 	 nil))))
 
 ;;; sys::get-top-loop-handler, sys::define-top-loop-handler --
