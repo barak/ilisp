@@ -1,3 +1,16 @@
+2003-04-11  Bob Rogers  <rogers@rgrjr.dyndns.org>
+
+	* cmulisp.lisp (ilisp-callers): Interface to new CMUCL 18e
+	xref:who-calls feature.  (The emacs end still needs work.)
+
+2003-04-10  Bob Rogers  <rogers@rgrjr.dyndns.org>
+
+	* ilisp-mouse.el: New feature, mouse interface to M-. that can
+	invoke find-file, dired, ange-ftp, find-tag, your favorite WWW
+	browser (via the browse-url package), and (of course) the ilisp
+	and eli M-. Lisp definition finders.  No binding yet; see the
+	source.
+
 2003-04-01  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
 
 	* ilisp-src.el, find-src.lisp, others: Improved M-. functionality
