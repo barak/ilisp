@@ -8,12 +8,12 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.el,v 1.6 2002/02/01 21:48:52 anisotropy9 Exp $     
+;;; $Id: ilisp.el,v 1.7 2002/05/23 20:38:06 marcoxa Exp $     
 
 ;;; Author: Chris McConnell <ccm@cs.cmu.edu>
 ;;; Maintainer: The Net <ilisp@cons.org>
 ;;; Created: 14 Jun 1994
-;;; Version: 5.10.1
+
 ;;; Keywords: lisp common-lisp scheme comint
 
 ;;; This file may become part of GNU Emacs in the near future.
@@ -105,7 +105,8 @@
 (load "comint-ipc")
 
 ;; This is optional -- used only by io-bridge-ilisp
-(unless (or (eq +ilisp-emacs-version-id+ 'fsf-20)
+(unless (or (eq +ilisp-emacs-version-id+ 'fsf-21)
+	    (eq +ilisp-emacs-version-id+ 'fsf-20)
 	    (and (eq +ilisp-emacs-version-id+ 'fsf-19)
 		 (>= +ilisp-emacs-minor-version-number+ 29)))
   (load "bridge"))
@@ -207,18 +208,18 @@
 	 ilisp-*enable-cl-easy-menu-p*)
 
 (unless (and (member +ilisp-emacs-version-id+
-		     '(xemacs lucid-19 lucid-19-new fsf-20))
+		     '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21))
 	     (or ilisp-*enable-cl-easy-menu-p*
 		 ilisp-*enable-scheme-easy-menu-p*))
   (load "ilisp-mnb"))
 
 (when (and (member +ilisp-emacs-version-id+
-		   '(xemacs lucid-19 lucid-19-new fsf-20))
+		   '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21))
 	   ilisp-*enable-cl-easy-menu-p*)
   (load "ilisp-cl-easy-menu"))
 
 (when (and (member +ilisp-emacs-version-id+
-		   '(xemacs lucid-19 lucid-19-new fsf-20))
+		   '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21))
 	   ilisp-*enable-scheme-easy-menu-p*)
   (load "ilisp-scheme-easy-menu"))
 
