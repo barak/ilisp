@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.17 2003/02/17 02:18:19 rgrjr Exp $
+;;; $Id: cl-ilisp.lisp,v 1.18 2003/02/24 02:25:50 rgrjr Exp $
 
 
 ;;; Old history log.
@@ -239,12 +239,11 @@ messages, i.e. \"ILISP: ... \" in an uniform way."
 ;;; ':capitalize' case added under suggestion by Rich Mallory.
 (defun ilisp-symbol-name (symbol-name)
   "Return SYMBOL-NAME with the appropriate case as a symbol."
-  (case (ilisp-readtable-case *readtable*)
+  (ecase (ilisp-readtable-case *readtable*)
     (:upcase (string-upcase symbol-name))
     (:downcase (string-downcase symbol-name))
     (:capitalize (string-capitalize symbol-name))
-    (:preserve symbol-name)))
-
+    ((:preserve :invert) symbol-name)))
 
 ;;; ilisp-find-package --
 ;;;
@@ -367,7 +366,11 @@ This will only work on Microsoft NT, not on a Win95 based OS."
   #+cmu
   (let ((*package* (ilisp-find-package package))
  	(source-info
-	  (c::make-file-source-info (c::verify-source-files filename))))
+	  (handler-case
+	      (c::make-file-source-info (c::verify-source-files filename))
+	    ;; [this is a kludge to get around the fact that the file may not
+	    ;; yet exist.  -- rgr, 23-Feb-03.]
+	    (file-error nil))))
     (with-input-from-string (s form)
       (c::compile-from-stream s :source-info source-info
 			      ;; this shuts of the "Converted foo/Compiling foo"
