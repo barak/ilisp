@@ -181,9 +181,15 @@ o CMUCL
 	of this setting.
 
 
-o Harlequin
+o Harlequin/Xanalys
 
-	No known extra installation glitches
+        On Windows and Linux you need to resave LispWorks as a console
+        application to make it work with ILISP.
+
+        On Windows with later versions of Emacs 20 (20.4 or higher?), you
+	need the patch 'emacs20-terminal-io' available from
+	<lisp-support@xanalys.com> because Emacs has changed the
+	coding-system used for comint buffers.
 
 
 o Lucid
