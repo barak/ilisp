@@ -1,3 +1,9 @@
+2002-06-28  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (ilisp-describe): New.
+
+	* ilisp-sch.el (guile): Set ilisp-describe-command.
+
 2002-06-17  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (ACKNOWLEDGMENTS): added Alain Picard.
