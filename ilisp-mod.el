@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mod.el,v 1.6 2002/09/03 16:29:31 mkoeppe Exp $
+;;; $Id: ilisp-mod.el,v 1.7 2002/09/23 02:35:11 rgrjr Exp $
 
 ;;;%ilisp-mode
 
@@ -110,7 +110,7 @@ Takes the program name from the variable ilisp-program.
 			    (run-hooks 'ilisp-init-hook-local))))
 	(setq ilisp-initialized (delete* ilisp-buffer ilisp-initialized
 					 :test #'equal))
-	(unless (member* names ilisp-buffers :key #'car)
+	(unless (member* names ilisp-buffers :key #'car :test #'equal)
 	  (setq ilisp-buffers (cons (list names) ilisp-buffers)))
 	(lisp-pop-to-buffer ilisp-buffer)
 	(setq start (window-start (selected-window))
