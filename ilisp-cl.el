@@ -62,6 +62,9 @@
   (setq ilisp-package-regexp
 	"^[ \t]*(in-package[ \t\n]*"
 
+	ilisp-package-separator-regexp
+	":+"
+
 	ilisp-package-command
 	"(let ((*package* *package*)) %s (package-name *package*))"
 
