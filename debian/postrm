@@ -13,12 +13,15 @@
 # for details, see /usr/doc/packaging-manual/
 
 case "$1" in
-       remove|purge|abort-install|failed-upgrade|abort-install|abort-upgrade|disappear|upgrade)
+    remove|upgrade|abort-install|failed-upgrade|abort-install|abort-upgrade)
         ;;
+    purge|disappear)
+	rm -rf /usr/lib/ilisp/
+	;;
     *)
         echo "postrm called with unknown argument \`$1'" >&2
         exit 0
-
+	;;
 esac
 
 #DEBHELPER#
