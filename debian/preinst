@@ -8,6 +8,7 @@
 
 case "$1" in
     install|upgrade)
+	rm -rf /usr/lib/ilisp
 	mkdir -p /usr/lib/ilisp
 	chown -R cl-builder.cl-builder /usr/lib/ilisp
 	;;
