@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.17 2002/10/25 12:13:49 kevinrosenberg Exp $
+;;; $Id: ilisp-hi.el,v 1.18 2003/01/02 08:39:18 amoroso Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -697,7 +697,7 @@ symbol after the symbol has been typed in followed by #\\Space."
           (when (or (equal prefix-char "(")
                     (eql ilisp-*arglist-message-lisp-space-p* 'all))
             (ilisp-arglist-message-lisp ilisp-symbol-avec-package))))))
-  (self-insert-command 1))
+  (self-insert-command (prefix-numeric-value current-prefix-arg)))
     
 
 ;;; ilisp-arglist-message-lisp --
