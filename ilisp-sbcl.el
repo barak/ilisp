@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.17 2003/03/04 03:05:51 kevinrosenberg Exp $
+;;; $Id: ilisp-sbcl.el,v 1.18 2003/03/23 14:26:30 amoroso Exp $
 
 ;;;%%%Steel Bank Common Lisp
     
@@ -152,9 +152,9 @@
 	ilisp-arglist-command "(ilisp:ilisp-arglist \"%s\" \"%s\")"
 	ilisp-find-source-command "(ilisp:source-file \"%s\" \"%s\" \"%s\")"
 
-        comint-fix-error ":r abort"
+        comint-fix-error ":restart abort"
 	comint-continue ":go"
-	ilisp-reset ":r toplevel"
+	ilisp-reset ":restart toplevel"
 	comint-interrupt-regexp "interrupted at"
 
         ;; Hardcoded binary extensions are undesirable.
