@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.14 2001/05/22 21:40:54 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.15 2001/07/16 13:24:59 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -66,9 +66,14 @@ WITH-PROCEDURE?, include the procedure symbol."
       (let ((start-index
 	     (if with-procedure?
 		 (string-length pattern)
-		 (1+ (string-index doc #\space
-				   (string-length pattern))))))
-	(let ((eol-index (string-index doc #\newline start-index)))
+		 (min (1+ (or (string-index doc #\space
+					    (string-length pattern))
+			      (string-length pattern)))
+		      (or (string-index doc #\newline
+					(string-length pattern))
+			  (string-length pattern))))))
+	(let ((eol-index (or (string-index doc #\newline start-index)
+			     (string-length doc))))
 	  (string-append 
 	   "("
 	   (let loop ((bol-index (+ 1 eol-index))
