@@ -1,3 +1,58 @@
+2000-10-01  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-cl.el:
+          o (common-lisp):
+            o ilisp-package-command now ignores errors.
+            o Default value for new ilisp-no-package-in-core-regexp
+	      variable.
+            o Ditto for ilisp-fallback-package.
+	  (patches contributed by Hannu Koivisto <azure@iki.fi>)
+
+	* ilisp-def.el:
+          o (ilisp-no-package-in-core-regexp): New local variable.
+          o (ilisp-fallback-package): Ditto.
+	  (patches contributed by Hannu Koivisto <azure@iki.fi>)
+
+	* ilisp-snd.el:
+          o (ilisp-check-package-advanced): If specified for the current
+            dialect, ilisp-no-package-in-core-regexp is used to check if
+            ilisp-package-command perhaps failed in a way which indicates
+            that the package is not in core.  If this is the case,
+	    fallback package is returned alongside a new second return
+	    value that indicates if the package was not found in core.
+          o (lisp-buffer-package-internal): The new second return value of
+            ilisp-check-package-advanced is now considered and it's
+            possibly propagated to the should-not-cache-p second return
+            value of this function.
+          o (ilisp-buffer-package-internal):
+            o Dummy argument removed.
+            o Now returns both a package and a flag suggesting whether
+              it's ok to cache the package or not.
+            o Doesn't break with unfinished (in-package <nothing-here>)
+              forms; in such a case the second return value indicates
+              that the returned package should not be cached.
+            o Cosmetic if -> when fix.
+          o (lisp-buffer-package):
+            o Removed (message "") with no known useful purpose.
+            o Merged the cond clause of lisp-dont-cache-package being true
+              and the default clause.
+            o Now considers the flag returned by
+	      lisp-buffer-package-internal as its second value.
+	  (patches contributed by Hannu Koivisto <azure@iki.fi>)
+
+	* ilisp-hi.el:
+          o (ilisp-arglist-message-lisp-space): Now proceeds even if the
+	    initial lisp-buffer-packge call doesn't cache the buffer
+	    package to buffer-package.
+          o (default-directory-lisp): default-direcotory ->
+	    default-directory
+          o (load-file-lisp):
+            o if -> when and if+not -> unless cosmetic fixes.
+            o For <whatever>.system files, no compilation or loading of
+              possibly existing <whatever>.<binary extension> is
+	      attempted.
+	  (patches contributed by Hannu Koivisto <azure@iki.fi>)
+
 2000-09-13  Atzmueller  <martin@atzmueller.net>
 
 	* sblisp.lisp (ilisp-compile): special case is not necessary
