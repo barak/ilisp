@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl-easy-menu.el,v 1.4 2002/05/31 11:46:49 amoroso Exp $
+;;; $Id: ilisp-cl-easy-menu.el,v 1.5 2003/05/09 14:43:12 bill_clementson Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de
@@ -87,14 +87,14 @@
      [ "Eval region" eval-region-lisp t ]
      [ "Eval defun" eval-defun-lisp t ]
      [ "Eval next sexp" eval-next-sexp-lisp t ]
-     ;; [ "Eval last sexp" eval-last-sexp-lisp t ]
+     [ "Eval last sexp" eval-last-sexp-lisp t ]
      [ "Eval changes" eval-changes-lisp t ]
      )
     ("Evaluate and Go"
      [ "Eval region" eval-region-and-go-lisp t ]
      [ "Eval defun" eval-defun-and-go-lisp t ]
      [ "Eval next sexp" eval-next-sexp-and-go-lisp t ]
-     ;; [ "Eval last sexp" eval-last-sexp-and-go-lisp t ]
+     [ "Eval last sexp" eval-last-sexp-and-go-lisp t ]
      )
     ("Compile"
      [ "File" compile-file-lisp t ]
@@ -118,7 +118,7 @@
      "--"
      [ "Reindent" reindent-lisp t ]
      [ "Indent sexp" indent-sexp-ilisp t ]
-     [ "Indent for comment" lisp-indent-for-comment t ]
+     ;; [ "Indent for comment" lisp-indent-for-comment t ]
      [ "Comment region" comment-region-lisp t ]
      "--"
      [ "Search in Files" search-lisp t ] 
