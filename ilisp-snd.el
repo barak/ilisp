@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.17 2002/11/12 01:46:05 mna Exp $
+;;; $Id: ilisp-snd.el,v 1.18 2002/12/03 20:51:13 kevinrosenberg Exp $
 
 
 ;;;%% Package / Symbol support
@@ -594,7 +594,9 @@ it will be handled by HANDLER."
 		t (unless dispatch 'wait) 'restore "Restore" t t))	     
 	     (unless dispatch
 	       (while (not (cdr result))
-		 (sit-for 0 1 t)
+		 (if (eq +ilisp-emacs-version-id+ 'xemacs)
+		     (sit-for 0.001 t)
+		   (sit-for 0 1 t))
 		 (accept-process-output))
 	       (comint-remove-whitespace (car result))))))))
 

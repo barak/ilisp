@@ -334,7 +334,10 @@ returned."
     (beep t)
     (comint-display-error output)
     (set-buffer comint-original-buffer)
-    (while (not (sit-for delay nil))
+    (while (not
+	    (if (eq +ilisp-emacs-version-id+ 'xemacs)
+		(sit-for delay nil)
+	      (sit-for delay 0 nil)))
       (execute-kbd-macro (read-key-sequence nil)))
     (if (not (get-buffer-window (get-buffer comint-error-buffer)))
 	(comint-display-error output))

@@ -1,3 +1,9 @@
+2002-12-03  Kevin Rosenberg <kevin@rosenberg.net>
+
+	* ilisp-snd.el, comint-ipc.el: conditionalize
+	sit-for when called with 2 or 3 parameters to be
+	compatible with xemacs and fsf emacs.
+	
 2002-11-11  Martin Atzmueller  <martin@atzmueller.net>
 
 	* cl-ilisp.lisp: apply patch by Bob Rogers, i.e. on	
