@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.19 2002/09/05 21:00:43 rgrjr Exp $
+;;; $Id: ilisp-def.el,v 1.20 2002/09/21 03:00:07 rgrjr Exp $
 
 ;;;%Variables
 ;;;%%Deflocal
@@ -435,12 +435,6 @@ By default the file will be loaded from the ilisp-directory.")
 (defvar left-delimiter "\(" "*Left delimiter for find-unbalanced.")
 
 (defvar right-delimiter "\)" "*Right delimiter for find-unbalanced.")
-
-;;; Copies of ilisp var definitions
-
-(defvar ilisp-complete nil "T when ilisp is in completion mode.")
-
-(defvar ilisp-modes '(ilisp-mode) "List of all inferior ilisp modes.")
 
 (defvar lisp-fill-marker (make-marker)
   "Keeps track of point so that it does not move during a reindent-lisp.")
