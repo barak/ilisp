@@ -17,7 +17,7 @@
 #==============================================================================
 # Various Variables
 
-Version = 5.10.x
+Version = 5.10.1
 
 # Use whichever you like most
 #EMACS = xemacs
@@ -45,7 +45,8 @@ OtherFiles = README         \
              GETTING-ILISP  \
              Welcome
 
-LoadFiles = custom-ilisp.elc ilisp-def.elc ilisp-sym.elc \
+# maybe add custom-ilisp.elc to LoadFiles later.
+LoadFiles = ilisp-def.elc ilisp-sym.elc \
  ilisp-inp.elc ilisp-ind.elc ilisp-prc.elc ilisp-val.elc ilisp-out.elc \
  ilisp-mov.elc ilisp-key.elc ilisp-prn.elc ilisp-low.elc ilisp-doc.elc \
  ilisp-ext.elc ilisp-mod.elc ilisp-dia.elc ilisp-cmt.elc ilisp-rng.elc \
