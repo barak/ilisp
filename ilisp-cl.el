@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl.el,v 1.8 2002/01/31 14:56:45 mna Exp $
+;;; $Id: ilisp-cl.el,v 1.9 2002/08/23 21:40:09 anisotropy9 Exp $
 
 (defvar ilisp-cl-ilisp-package-file "ilisp-pkg.lisp")
 
@@ -53,7 +53,7 @@
         "^nil"
 
         ilisp-fallback-package
-        "\"COMMON-LISP-USER\""
+        ":common-lisp-user"
 
 	ilisp-in-package-command-string
 	"in-package"
@@ -74,34 +74,34 @@
 	"*"
 
 	ilisp-save-command
-	"(progn (ILISP:ilisp-save) %s\n)"
+	"(progn (ilisp:ilisp-save) %s\n)"
 
 	ilisp-restore-command
-	"(ILISP:ilisp-restore)"
+	"(ilisp:ilisp-restore)"
 
 	ilisp-block-command
 	"(progn %s\n)"
 
 	ilisp-eval-command
-	"(ILISP:ilisp-eval \"%s\" \"%s\" \"%s\")"
+	"(ilisp:ilisp-eval \"%s\" \"%s\" \"%s\")"
 
 	ilisp-defvar-regexp
 	"(defvar[ \t\n]")
 
   (setq ilisp-defvar-command 
-	"(ILISP:ilisp-eval \"(let ((form '%s)) (progn (makunbound (second form)) (eval form)))\" \"%s\" \"%s\")")
+	"(ilisp:ilisp-eval \"(let ((form '%s)) (progn (makunbound (second form)) (eval form)))\" \"%s\" \"%s\")")
 
   (setq ilisp-compile-command
-	"(ILISP:ilisp-compile \"%s\" \"%s\" \"%s\")"
+	"(ilisp:ilisp-compile \"%s\" \"%s\" \"%s\")"
 
 	ilisp-describe-command
-	"(ILISP:ilisp-describe \"%s\" \"%s\")"
+	"(ilisp:ilisp-describe \"%s\" \"%s\")"
 
 	ilisp-inspect-command
-	"(ILISP:ilisp-inspect \"%s\" \"%s\")"
+	"(ilisp:ilisp-inspect \"%s\" \"%s\")"
 
 	ilisp-arglist-command
-	"(ILISP:ilisp-arglist \"%s\" \"%s\")")
+	"(ilisp:ilisp-arglist \"%s\" \"%s\")")
 
   (setq ilisp-documentation-types
 	'(("function") ("variable")
@@ -110,16 +110,16 @@
 	  ("(qualifiers* (class ...))")))
 
   (setq ilisp-documentation-command
-	"(ILISP:ilisp-documentation \"%s\" \"%s\" \"%s\")")
+	"(ilisp:ilisp-documentation \"%s\" \"%s\" \"%s\")")
 
   (setq ilisp-macroexpand-1-command 
-	"(ILISP:ilisp-macroexpand-1 \"%s\" \"%s\")")
+	"(ilisp:ilisp-macroexpand-1 \"%s\" \"%s\")")
 
   (setq ilisp-macroexpand-command
-	"(ILISP:ilisp-macroexpand \"%s\" \"%s\")")
+	"(ilisp:ilisp-macroexpand \"%s\" \"%s\")")
 
   (setq ilisp-complete-command 
-	"(ILISP:ilisp-matching-symbols \"%s\" \"%s\" %s %s %s)")
+	"(ilisp:ilisp-matching-symbols \"%s\" \"%s\" %s %s %s)")
 
   (setq ilisp-locator 'lisp-locate-clisp)
 
@@ -130,13 +130,13 @@
 	  ("(qualifiers* (class ...))")))
 
   (setq ilisp-callers-command
-	"(ILISP:ilisp-callers \"%s\" \"%s\")"
+	"(ilisp:ilisp-callers \"%s\" \"%s\")"
 
 	ilisp-trace-command
-	"(ILISP:ilisp-trace \"%s\" \"%s\" \"%s\")"
+	"(ilisp:ilisp-trace \"%s\" \"%s\" \"%s\")"
 
 	ilisp-untrace-command
-	"(ILISP:ilisp-untrace \"%s\" \"%s\")")
+	"(ilisp:ilisp-untrace \"%s\" \"%s\")")
 
   (setq ilisp-directory-command
 	"(namestring *default-pathname-defaults*)"
@@ -158,9 +158,9 @@
 	"(load \"%s\")")
 
   (setq ilisp-compile-file-command 
-	"(ILISP:ilisp-compile-file \"%s\" \"%s\")")
+	"(ilisp:ilisp-compile-file \"%s\" \"%s\")")
 
   (setq ilisp-print-info-message-command
-	"(ILISP:ilisp-print-info-message \"%s\" \"%s\")" ))
+	"(ilisp:ilisp-print-info-message \"%s\" \"%s\")" ))
 
 ;;; end of file -- ilisp-cl.el --

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.12 2002/05/31 11:48:21 amoroso Exp $
+;;; $Id: ilisp-snd.el,v 1.13 2002/08/23 21:40:09 anisotropy9 Exp $
 
 
 ;;;%% Package / Symbol support
@@ -19,7 +19,7 @@
 ;;;
 ;;; 19990824 Marco Antoniotti
 
-(defvar *ILISP-default-package* "COMMON-LISP-USER")
+(defvar *ILISP-default-package* :common-lisp-user)
 
 (defun ilisp-add-set-package-hook ()	; Was: add-set-package-hook
   (interactive)

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.13 2002/01/07 16:59:08 mna Exp $
+;;; $Id: ilisp-sbcl.el,v 1.14 2002/08/23 21:40:09 anisotropy9 Exp $
 
 ;;;%%%Steel Bank Common Lisp
     
@@ -135,7 +135,7 @@
         ;; we have to set comint-prompt-regexp to something sensible here, before
         ;; we can set it finally to its right value in our ILISP-INIT-HOOK-LOCAL
         ;; hook (above).
-        ilisp-trace-command "(ILISP:sbcl-trace \"%s\" \"%s\" \"%s\")"
+        ilisp-trace-command "(ilisp:sbcl-trace \"%s\" \"%s\" \"%s\")"
 	comint-prompt-status 
 	(function (lambda (old line)
 		    (comint-prompt-status old line 'sbcl-check-prompt)))
@@ -146,8 +146,8 @@
 	;; probably wrong for SBCL, but I'd have to know what it was
 	;; for before commenting.
         
-	ilisp-arglist-command "(ILISP:ilisp-arglist \"%s\" \"%s\")"
-	ilisp-find-source-command "(ILISP:source-file \"%s\" \"%s\" \"%s\")"
+	ilisp-arglist-command "(ilisp:ilisp-arglist \"%s\" \"%s\")"
+	ilisp-find-source-command "(ilisp:source-file \"%s\" \"%s\" \"%s\")"
 
         comint-fix-error ":r abort"
 	comint-continue ":go"

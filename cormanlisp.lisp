@@ -20,7 +20,7 @@
 ;;; Cormanlisp initializations
 ;;; Author: Reini Urban <rurban@x-ray.at>
 ;;;
-(in-package "ILISP")
+(in-package :ilisp)
 
 (defun ilisp-source-files (symbol package type)
   "Print each file for PACKAGE:SYMBOL's TYPE definition on a line and

@@ -33,7 +33,7 @@
   (ilisp-load-init 'openmcl ilisp-openmcl-init-file)
 
   (setq comint-prompt-regexp "^\\([0-9]+ >\\|\\?\\|Step>\\|Inspect.*>\\) "
-	ilisp-trace-command "(ILISP::openmcl-trace \"%s\" \"%s\" \"%s\")"
+	ilisp-trace-command "(ilisp::openmcl-trace \"%s\" \"%s\" \"%s\")"
 	comint-prompt-status 
 	(function (lambda (old line)
 	  (comint-prompt-status old line 'openmcl-check-prompt)))
@@ -41,9 +41,9 @@
 	ilisp-error-regexp "ILISP:[^\"]*\\|Error [^\n]*\n\n"
 
 
-	ilisp-arglist-command "(ILISP::arglist \"%s\" \"%s\")"
+	ilisp-arglist-command "(ilisp::arglist \"%s\" \"%s\")"
 
-	ilisp-find-source-command "(ILISP::source-file \"%s\" \"%s\" \"%s\")"
+	ilisp-find-source-command "(ilisp::source-file \"%s\" \"%s\" \"%s\")"
 
 	comint-fix-error ":pop"
 

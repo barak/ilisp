@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmu.el,v 1.4 2001/12/07 16:13:47 amoroso Exp $
+;;; $Id: ilisp-cmu.el,v 1.5 2002/08/23 21:40:09 anisotropy9 Exp $
 
 (defvar cmulisp-source-directory-regexp 
   "\\/afs\\/cs\\.cmu\\.edu\\/project\\/clisp\\/src\\/[0-9]*\\/"
@@ -49,7 +49,7 @@
 		   cmulisp-local-source-directory)))
     (message "cmulisp-local-source-directory not set."))
   (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) "
-	ilisp-trace-command "(ILISP:cmulisp-trace \"%s\" \"%s\" \"%s\")"
+	ilisp-trace-command "(ilisp:cmulisp-trace \"%s\" \"%s\" \"%s\")"
 	comint-prompt-status 
 	(function (lambda (old line)
 		    (comint-prompt-status old line 'cmulisp-check-prompt)))
@@ -63,13 +63,13 @@
 	;; Changed the very low level call to ARGLIST to the more
 	;; sophisticated ILISP-ARGLIST.
 
-	;; ilisp-arglist-command "(ILISP:arglist \"%s\" \"%s\")"
-	ilisp-arglist-command "(ILISP:ilisp-arglist \"%s\" \"%s\")"
+	;; ilisp-arglist-command "(ilisp:arglist \"%s\" \"%s\")"
+	ilisp-arglist-command "(ilisp:ilisp-arglist \"%s\" \"%s\")"
 
         ilisp-directory-command "(namestring (ext:default-directory))"
         ilisp-set-directory-command "(setf (ext:default-directory) \"%s\")"
 
-	ilisp-find-source-command "(ILISP:source-file \"%s\" \"%s\" \"%s\")"
+	ilisp-find-source-command "(ilisp:source-file \"%s\" \"%s\" \"%s\")"
 
 	comint-fix-error ":pop"
 

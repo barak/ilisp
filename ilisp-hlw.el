@@ -17,7 +17,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hlw.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-hlw.el,v 1.3 2002/08/23 21:40:09 anisotropy9 Exp $
 
 
 (defvar ilisp-lispworks-init-file "lispworks.lisp")
@@ -70,7 +70,7 @@
   (setq ilisp-directory-command "(lw:current-pathname)")
   (setq ilisp-set-directory-command "(hcl:change-directory \"%s\")")
   (setq ilisp-find-source-command 
-	"(ILISP:ilisp-source-files \"%s\" \"%s\" \"%s\")")
+	"(ilisp:ilisp-source-files \"%s\" \"%s\" \"%s\")")
 
   ;;; 19990806 Unknown Author (blame Marco Antoniotti for this)
   (setq ilisp-package-command

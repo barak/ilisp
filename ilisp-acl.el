@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-acl.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-acl.el,v 1.3 2002/08/23 21:40:09 anisotropy9 Exp $
 
 
 ;;;%%%Allegro
@@ -55,7 +55,7 @@
   (setq ilisp-source-types (append ilisp-source-types '(("any"))))
 
   (setq ilisp-find-source-command 
-	"(ILISP:ilisp-source-files \"%s\" \"%s\" \"%s\")")
+	"(ilisp:ilisp-source-files \"%s\" \"%s\" \"%s\")")
 
   ;; Note:
   ;; 19990920

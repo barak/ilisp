@@ -9,7 +9,7 @@
 ;;; of present and past contributors.
 
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 
 ;;;%% arglist/source-file utils.

@@ -79,7 +79,7 @@
   (ilisp-load-init 'cormanlisp ilisp-cormanlisp-init-file)
   (setq
      ilisp-error-regexp  "\\(ILISP:[^\n]*\\)\\|\\(^;;; An error occurred\\)"
-     ilisp-find-source-command  "(ILISP:ilisp-source-files \"%s\" \"%s\" \"%s\")"
+     ilisp-find-source-command  "(ilisp:ilisp-source-files \"%s\" \"%s\" \"%s\")"
      ilisp-reset "(debug::debugger-continue)"
      ilisp-block-command "(progn %s)"
      ;; cl overrides

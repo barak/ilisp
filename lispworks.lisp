@@ -16,9 +16,9 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: lispworks.lisp,v 1.7 2002/06/17 15:24:17 amoroso Exp $
+;;; $Id: lispworks.lisp,v 1.8 2002/08/23 21:40:09 anisotropy9 Exp $
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;; Make LispWorks interactive
 #+Unix
