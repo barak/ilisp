@@ -1,7 +1,6 @@
 This version of ILISP has been modified from the original upstream
-code.  Per ILISP's licensing, all derivatives of ILISP must be
+code.  Per ILISP's licensing, all changes to ILISP source files must be
 documented.
-
 
 Programmer: Kevin M. Rosenberg <kmr@debian.org>
 Date of Modifications: August 10, 2002
@@ -13,7 +12,6 @@ that use the same file type for compiled files. Also, it allows
 separate directories for source code in /usr/share and compiled code
 in /usr/lib.
 
-Modified ilisp-pkg.lisp to handle AllegroCL's case-sensitive modes.
 
 
 
