@@ -57,8 +57,8 @@
 (defun sbcl-mt ()
  "SBCL multithreading."
   (interactive)
-  (setq sbcl-program "/usr/bin/sbcl-mt")
-  (sbcl))
+  (setq cmulisp-program "/usr/bin/sbcl-mt")
+  (cmulisp))
 
 (autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
