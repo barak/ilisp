@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.16 2002/01/16 18:07:06 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.17 2002/01/18 13:27:57 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -392,8 +392,9 @@ or while f returns #f. If returning early, return the return value of f."
 	     (write 'nil)))
 	 (lambda (key . args)
 	   (if (eq? key 'result)
-	       (begin (write (car args)) (newline) (write #t) (newline))
-	       (write 'nil)))))
+	       (begin (write (car args)) (newline) (write #t))
+	       (begin (write 'nil)))))
+  (newline))
 
 (define-public (ilisp-macroexpand-1 expression package)
   (write (save-module-excursion
