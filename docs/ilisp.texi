@@ -486,7 +486,7 @@ sections carefully before getting started with ILISP.
 
 Copy the ILISP distribution archive, e.g. @code{ilisp-x.y.z.tar.gz}, to
 the location where you would like to install it. Next extract the
-archive (@xref{FTP and Web directions}). You may need root privileges to
+archive, see @xref{FTP and Web directions}. You may need root privileges to
 perform these operations.
 
 
@@ -656,7 +656,7 @@ ILISP's CLtL2 support access a local copy of the book.  What has been
 said above about @code{browse-url} configuration also applies to CLtL2
 lookup.
 @cindex @file{ilisp.emacs}
-@cindex{browse-url}
+@cindex @code{browse-url}
 
 Note that, althouth Steele's book is a well written and useful resource,
 it covers the Common Lisp language in the state it was a few years
@@ -1133,7 +1133,7 @@ by ILISP.
 @cindex Scheme->C
 @cindex @file{ilisp-s2c.el}
 
-To define a new dialect, @xref{Defining new dialects} and
+To define a new dialect, @xref{Defining new dialects}, and
 @xref{Customization}. If anyone figures out support for other dialects,
 I would be happy to include it in future releases.  @xref{Dialects}.
 

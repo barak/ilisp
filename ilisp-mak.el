@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.5 2001/07/18 08:35:20 anisotropy9 Exp $
+;;; $Id: ilisp-mak.el,v 1.6 2001/12/28 18:31:49 craigly Exp $
 
 (require 'cl)
 
@@ -36,10 +36,11 @@
     ;; me mail.
     ;; Marco Antoniotti <marcoxa@icsi.berkeley.edu>
 
-    (if (eq +ilisp-emacs-version-id+ 'fsf-18)
-	(setq byte-compile-emacs18-compatibility t)
-      (setq byte-compile-generate-emacs19-bytecodes t
-	    byte-compile-warnings '(redefine callargs unresolved)))
+    ;(if (eq +ilisp-emacs-version-id+ 'fsf-18)
+;	(setq byte-compile-emacs18-compatibility t))
+
+
+
 
     ;; Compile compatibility files
     
@@ -94,7 +95,7 @@
 		   "ilisp-mnb"
 
 		   ;; ILD Support.
-		   ;; "ild"
+		   "ild"
 
 		   ;; Dialects.
 		   "ilisp-cl"
@@ -107,14 +108,17 @@
 		   "ilisp-luc"
 		   "ilisp-xls"
 		   "ilisp-sch"
+		   "ilisp-cl-easy-menu"
+		   "ilisp-scheme-easy-menu"
+		   "ilisp-imenu"
+		   "extra/hyperspec"
+		   "extra/cltl2"
 
 		   )))
       (dolist (f files)
-	(byte-compile-file (format "%s.el" f) 0)
-	(load f))
-      ;; Main mode file
-      (byte-compile-file "ilisp.el"))
-
-    (message "Done compiling and loading ILISP.")))
+        (byte-compile-file (format "%s.el" f) 0))
+      ;;Main mode file
+      (byte-compile-file "ilisp.el")
+      (message "Done compiling and loading ILISP."))))
 
 ;;; end of file -- ilisp-mak.el --
