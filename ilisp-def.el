@@ -203,13 +203,13 @@ case when the package was not found in core.  Remember to set
 from the core.")
 
 (deflocal ilisp-eval-command nil
-  "Format string for evaluating FORM in PACKAGE from FILE.")
+  "Format string for evaluating FORM in PACKAGE from FILE at LINE.")
 
 (deflocal ilisp-defvar-regexp nil
   "Regular expression for identifying a defvar form.")
 
 (deflocal ilisp-defvar-command nil
-  "Format string for re-evaluating DEFVAR in PACKAGE from FILE.")
+  "Format string for re-evaluating DEFVAR in PACKAGE from FILE at LINE.")
 
 (deflocal ilisp-describe-command nil
   "Format string for describing FORM in PACKAGE.")
