@@ -1111,7 +1111,7 @@ dialects:
    sblisp
  scheme
    chez
-   guile (yep! Here it comes. Still incomplete though)
+   guile
    oaklisp
    Scheme->C (still "in fieri")
    scm
@@ -2372,7 +2372,7 @@ to dialects in the nesting order below.
    sblisp
  scheme
    chez
-   guile (yep! Here it comes. Still incomplete though)
+   guile
    oaklisp
    Scheme->C (still "in fieri")
    scm
