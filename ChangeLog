@@ -1,5 +1,10 @@
 2003-11-24  Bill Clementson  <bill_clementson@yahoo.com>
 
+	* ilisp-mov.el: ILISP was getting confused by quote character in
+	lisp code. Fix submitted by Edi Weitz.
+
+2003-11-24  Bill Clementson  <bill_clementson@yahoo.com>
+
 	* ilisp.emacs: Changed ilisp.emacs so that the referenced file is
 	Map_Sym.txt, rather than Map_Sym.Txt.
 
