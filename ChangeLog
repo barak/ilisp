@@ -3,6 +3,11 @@
 	* INSTALLATION (CLISP): removed discussion of
 	`system::*source-file-types*'.
 
+2002-03-01  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ACKNOWLEDGMENTS: Thank Hannu Koivisto.
+	Move Craig Brozefsky into alphabetical order.
+
 2002-02-24  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-kcl.el (ecl): comint-prompt-regexp tuned slightly (patch
