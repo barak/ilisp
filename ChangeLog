@@ -1,3 +1,14 @@
+2000-12-07  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-src.el (edit-definitions-lisp): When using tags, use a
+	tags loop with the locator instead of find-tag if SEARCH is
+	true. (There are no tags for function calls, only for definitions,
+	so search all tagged files for calls.)
+
+	* ilisp-src.el (ilisp-locate-scheme-calls): Don't expect package
+	prefixes when locating calls; Scheme does not have package
+	prefixes.
+
 2000-12-04  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-sch.el (scheme), ilisp-src.el
