@@ -1,3 +1,9 @@
+2002-07-01  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space): Don't try to get
+	  the arglist if point is directly behind a semicolon.  (This
+	  check was introduced on 2000/12/06 and broken later.)
+
 2002-06-28  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (ilisp-describe): New.
