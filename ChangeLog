@@ -1,3 +1,19 @@
+2002-04-11  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space): Commit another
+	long standing fix for a problem reported by Stephen Wilson on
+	ilisp-help (around beginning of march):
+	after pressing "left parenthesis, backslash, space", ILISP does
+	not lock up, now.
+
+	* ilisp-snd.el (lisp-buffer-package-internal): Commit my
+	long-standing fix for a problem reported on ilisp-help
+	by Edmund Weitz (01 Feb 2002 13:13:43):
+	prevent ILISP from shortcutting the package-exploration
+	process, i.e. if there is a DEFPACKAGE after the first
+	IN-PACKAGE, this still can yield a later IN-PACKAGE,
+	so don't just return the first IN-PACKAGE.
+
 2002-03-03  Paolo Amoroso  <amoroso@mclink.it>
 
 	* INSTALLATION (CLISP): removed discussion of

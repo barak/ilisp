@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.11 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-hi.el,v 1.12 2002/04/11 07:49:36 mna Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -697,7 +697,8 @@ symbol after the symbol has been typed in followed by #\\Space."
                    (string-equal package "#+") (string-equal package "#-")
                    double-quote-pos;; there is no output  for strings only.
                    (not (and symbol (stringp symbol) (> (length symbol) 0)))
-                   (string-match "^\. " symbol))))
+                   (string-match "^\. " symbol)
+                   (string-match "^\\\\" symbol))))
 
         (goto-char old-point)
         (unless (no-arglist-output-p)

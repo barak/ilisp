@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.10 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-snd.el,v 1.11 2002/04/11 07:49:36 mna Exp $
 
 
 ;;;%% Package / Symbol support
@@ -159,12 +159,7 @@ Common Lisp."
                          (push hash-expr hash-in-package-forms-list))
                        (when (and sub-expr (string-match defpackage-regexp sub-expr))
                          (push hash-expr hash-defpackage-forms-list))
-                       (if (and in-package-found-p
-                                (null hash-defpackage-forms-list))
-                           ;; if we found one in-package before all defpackage's then we
-                           ;; are done this takes care of some bug cases.
-                           nil
-                         t))))))
+                        t)))))
 
         (multiple-value-bind (package package-not-in-core-p)
             (ilisp-check-package-advanced
