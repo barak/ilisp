@@ -2,12 +2,12 @@ Source: ilisp
 Section: devel
 Priority: optional
 Maintainer: Kevin M. Rosenberg <kmr@debian.org>
-Build-Depends-Indep: debhelper (>= 4.0.0), texinfo, tetex-bin, gs-common, texi2html
+Build-Depends-Indep: debhelper (>= 4.1.16), texinfo, tetex-bin, gs-common, texi2html
 Standards-Version: 3.6.1.0
 
 Package: ilisp
 Architecture: all
-Depends: emacsen-common, debconf (>= 1.0)
+Depends: emacsen-common, debconf (>= 1.2.0)
 Pre-Depends: common-lisp-controller (>= 3.42)
 Recommends: ilisp-doc
 Suggests: hyperspec, cltl

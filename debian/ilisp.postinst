@@ -33,7 +33,7 @@ fi
 set_keybindings()
 {
     db_get $pkg/fsf-compliant
-    if [ "$RET" = "Yes" ]; then
+    if [ "$RET" = "true" ]; then
 	echo "(setq ilisp-*use-fsf-compliant-keybindings* t)" > $conf_file
     else
 	echo "(setq ilisp-*use-fsf-compliant-keybindings* nil)" > $conf_file

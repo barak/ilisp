@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2004.03.11) unstable; urgency=low
+
+  * Apply patch for gettext (closes:237461)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Thu, 11 Mar 2004 11:50:06 -0700
+
 ilisp (5.12.0+cvs.2003.12.04) unstable; urgency=low
 
   * New upstream
