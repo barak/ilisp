@@ -4,6 +4,12 @@
 
 (defvar ilisp-*directory* "/usr/lib/ilisp/")
 
+;; Set default
+(setq ilisp-*use-fsf-compliant-keybindings* t)
+
+(when (file-exists-p "/etc/ilisp/ilisp-keybindings.el")
+  (load "/etc/ilisp/ilisp-keybindings.el"))
+
 (autoload 'run-ilisp "ilisp" "Select a new inferior LISP." t)
 
 ;; CLisp
@@ -57,6 +63,7 @@
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-safe.core")
   (cmulisp))
 
+
 ;; SBCL
 (autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
 (setq sbcl-program "/usr/bin/sbcl")
@@ -67,44 +74,54 @@
 (setq scheme-program "/usr/bin/guile")
 
 
+(add-hook 'ilisp-mode-hook
+	  '(lambda ()))
+
 ;;; Default paths
+
+(require 'completer)
+
 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
 (setq cltl2-root-url "file:///usr/share/doc/cltl/")
 
 (setq ilisp-*use-frame-for-output* nil)
-(setq ilisp-*use-fsf-compliant-keybindings* t)
-
+(setq ilisp-*use-frame-for-arglist-output-p* nil)
+(setq ilisp-motd nil)
 
 ;;; Loading lisp files starts ilisp
-(set-default 'auto-mode-alist
-	     (append '(("\\.lisp$" . lisp-mode)
-		       ("\\.lsp$" . lisp-mode)
-		       ("\\.cl$" . lisp-mode)) auto-mode-alist))
+;;(set-default 'auto-mode-alist
+;;	     (append '(("\\.lisp$" . lisp-mode)
+;;		       ("\\.lsp$" . lisp-mode)
+;;		       ("\\.cl$" . lisp-mode))
+;;		     auto-mode-alist))
 
-(add-hook 'lisp-mode-hook '(lambda () (require 'ilisp)))
+;;(add-hook 'lisp-mode-hook
+;;	  (function (lambda () (require 'ilisp))))
 
 ;;; Load hooks
-(add-hook
- 'scheme-mode-hook (function 
-		    (lambda ()
-		      (require 'ilisp))))
+(add-hook  'scheme-mode-hook
+	   (function (lambda () (require 'ilisp))))
 
 (add-hook 'ilisp-load-hook
 	  '(lambda ()
              ;; Set a keybinding for the COMMON-LISP-HYPERSPEC command
              ;; (defkey-ilisp "" 'common-lisp-hyperspec)
 
-	     (setq ilisp-*use-frame-for-output* nil)
-	     (setq ilisp-*use-fsf-compliant-keybindings* t)
-
+	     ;;(setq ilisp-*use-frame-for-output* nil)
+	     ;;(setq ilisp-*use-fsf-compliant-keybindings* t)
+	     (when ilisp-*use-fsf-compliant-keybindings*
+	       (setq ilisp-*prefix* "\C-c"))
+	     ;;(setq ilisp-*arglist-message-lisp-space-p* nil)
+	     (setq lisp-no-popper t)
+	     
 	     ;; Make sure that you don't keep popping up the 'inferior
              ;; Lisp' buffer window when this is already visible in
              ;; another frame. Actually this variable has more impact
              ;; than that. Watch out.
              ; (setq pop-up-frames t)
 
-             (message "Running ilisp-load-hook")
+             ;;(message "Running ilisp-load-hook")
              ;; Define LispMachine-like key bindings, too.
              ; (ilisp-lispm-bindings) Sample initialization hook.
 
@@ -115,4 +132,5 @@
                           (default-directory-lisp ilisp-last-buffer)))
 
              ))
+
 

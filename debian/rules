@@ -32,6 +32,7 @@ install: build
 	dh_install -p $(pkg) $(wildcard *.lisp) $(ilisp_share)
 	dh_install -p $(pkg) $(wildcard *.scm) $(ilisp_share)
 	dh_install -p $(pkg) debian/ilisp.el $(ilisp_etc_dir)
+	dh_install -p $(pkg) debian/ilisp-keybindings.el $(ilisp_etc_dir)
 	dh_installinfo -p $(pkg) docs/ilisp.info docs/ilisp.info-1 docs/ilisp.info-2
 
 clean:
@@ -52,6 +53,7 @@ binary-arch: build install
 	dh_installdocs
 	dh_installemacsen
 	dh_installchangelogs	
+	dh_installdebconf
 	dh_strip
 	dh_compress
 	dh_install -p $(pkg-doc) docs/ilisp.pdf docs/ilisp.html $(doc_dir)

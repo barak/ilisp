@@ -7,7 +7,7 @@ Standards-Version: 3.5.7.0
 
 Package: ilisp
 Architecture: all
-Depends: emacsen-common
+Depends: emacsen-common, debconf (>= 1.0) 
 Recommends: ilisp-doc, hyperspec, cltl
 Description: Package for interacting with LISPs using EMACSes
  ILISP is a powerful GNU Emacs interface to many dialects of Lisp,

@@ -1,3 +1,11 @@
+ilisp (5.12.0+cvs.2002.10.24) unstable; urgency=low
+
+  * change buffer-substring to buffer-substring-no-properties
+  (closes: 166232)
+  * Make FSF keybindings be user selectable
+  
+ -- Kevin M. Rosenberg <kmr@debian.org>  Thu, 24 Oct 2002 20:51:16 -0600
+
 ilisp (5.12.0+cvs.2002.09.27) unstable; urgency=low
 
   * Add support for openmcl to ilisp.el

@@ -18,8 +18,31 @@
 #     installation fails and the `postinst' is called with `abort-upgrade',
 #     `abort-remove' or `abort-deconfigure'.
 
+
+pkg=ilisp
+conf_file=/etc/ilisp/ilisp-keybindings.el
+
+if [ -e /usr/share/debconf/confmodule ]; then
+    . /usr/share/debconf/confmodule
+else
+    exit 1
+fi
+
+
+set_keybindings()
+{
+    db_get $pkg/fsf-compliant
+    if [ "$RET" = "Yes" ]; then
+	echo "(setq ilisp-*use-fsf-compliant-keybindings* t)" > $conf_file
+    else
+	echo "(setq ilisp-*use-fsf-compliant-keybindings* nil)" > $conf_file
+    fi
+}
+
+
 case "$1" in
     configure)
+	set_keybindings
 	;;
     abort-upgrade|abort-remove|abort-deconfigure)
 	;;
