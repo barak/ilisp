@@ -133,22 +133,41 @@
 ;;; guile - this needs a lot more work
 ;;; with hacks from Istvan Marko <imarko@pacificnet.net>
 
-(defdialect guile "Guile - the GNU extension language (experimental)"
-  scheme
-  ;; (setq ilisp-program "guile") ;assume scheme is in path.
-  ;; (setq comint-prompt-regexp "^guile> ")
-  (setq ilisp-package-regexp "^[ \t]*\\s(define-module \\((.*)\\))"
-	ilisp-package-command "(module-name %s)"
-	ilisp-in-package-command "(set-current-module %s)"
-	ilisp-package-name-command "(module-name (current-module))"
-	;; just using %s does not seem to work: eval'ing exps hangs
-	ilisp-eval-command "(eval-string \"%s\")"
-	ilisp-directory-command "(getcwd)"
-	ilisp-set-directory-command "(chdir \"%s\")"
-	ilisp-complete-command
-	"(map (lambda (sym) (list (symbol->string sym)))
-              (apropos-internal \"^%s\"))"
-	))
+(defvar ilisp-guile-init-file "guile-ilisp.scm")
+
+(defdialect guile "Guile - the GNU extension language"
+    scheme
+    (setq ilisp-program "guile")
+    (setq comint-prompt-regexp "^guile[^>]*> ")
+    (setq ilisp-load-or-send-command
+          "(begin \"%s\" (load \"%s\"))")
+    (ilisp-load-init 'gywguile ilisp-guile-init-file)
+    (setq ilisp-symbol-delimiters "^ \t\n\('\"#\)"
+          ilisp-package-regexp "^[ \t]*\\s(define-module \\((.*)\\))"
+          ilisp-package-command 
+          ;; This will only get us the last component of the module name
+          ;"(save-module-excursion (lambda () %s (module-name (current-module))))"
+          "(ilisp-get-package '%s)"
+
+          ilisp-hash-form-regexp
+          "^[ \t]*(define-module[ \t\n]"
+
+          ilisp-block-command "(begin #f %s)" ;; Guile doesn't grok empty blocks
+          ilisp-in-package-command "(ilisp-in-package \"%s\")"
+          ilisp-in-package-command-string "in-package" ;;; FIXME
+          ilisp-defpackage-command-string "define-module"
+          ilisp-package-name-command "(module-name (current-module))"
+          ilisp-eval-command "(ilisp-eval \"%s\" \"%s\" \"%s\")"
+          ilisp-directory-command "(getcwd)"
+          ilisp-set-directory-command "(chdir \"%s\")"
+          ilisp-complete-command "(ilisp-matching-symbols \"%s\" \"%s\" '%s '%s '%s)"
+          ilisp-documentation-command "(help %s)"
+          ilisp-print-info-message-command "(ilisp-print-info-message '%s \"%s\")"
+          ilisp-arglist-command "(ilisp-arglist '%s \"%s\")"
+          ilisp-macroexpand-command "(ilisp-macroexpand \"%s\" \"%s\")"
+          ilisp-macroexpand-1-command "(ilisp-macroexpand-1 \"%s\" \"%s\")"
+          ilisp-trace-command "(ilisp-trace '%s \"%s\" 'nil)"
+          ilisp-untrace-command "(ilisp-untrace '%s \"%s\")"))
 
 (unless guile-program (setq guile-program "guile"))
 
