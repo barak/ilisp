@@ -680,4 +680,40 @@ file.  BACK is T to go backwards."
      ;; Give up!
      )))
 
+;;;%% Locators for Scheme
+
+;;; Matthias Koeppe <mail.math.uni-magdeburg.de>
+;;;
+;;; The standard locators would fail on "(define (thunk) ....)"  and
+;;; report "(define (procedure ...) ....)" as a call to procedure.
+
+(defun ilisp-locate-scheme-definition (symbol type first back)
+  "Find SYMBOL's TYPE definition in the current file. Return T if successful.
+This is the Scheme counterpart of `lisp-locate-ilisp'."
+  (lisp-re back
+	   "[ \t\n]*(def[^ \t\n]*[ \t\n]+(*%s\[ \t\n()]" 
+	   (regexp-quote (lisp-symbol-name symbol))))
+
+(defun ilisp-locate-scheme-calls (symbol type first back)
+  "Locate calls to SYMBOL.
+This is the Scheme counterpart of `lisp-locate-calls'."
+  (let ((call-regexp 
+	 (format "[( \t\n]+%s[ \t\n()]+"
+		 (regexp-quote (lisp-buffer-symbol symbol))))
+	(def-regexp "[ \t\n]*(def[^ \t\n]*[ \t\n]+(*")
+	(result 'unknown))
+    (while (eq result 'unknown)
+      (cond 
+       ((if back
+	    (re-search-backward call-regexp nil t)
+	  (re-search-forward call-regexp nil t))
+	(if (not (save-excursion	; check whether definition
+		   (goto-char (match-beginning 0))
+		   (backward-sexp) (backward-char)
+		   (looking-at def-regexp)))
+	    (setq result t)))
+       (t (setq result nil))))
+    result))	    
+
+
 ;;; end of file -- ilisp-src.el --
