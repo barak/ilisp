@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.4 2002/03/26 09:41:04 anisotropy9 Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.5 2002/03/26 09:54:27 anisotropy9 Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Prologue
@@ -45,7 +45,7 @@
 ;;; definition is a result of internecine wars during the ANSI
 ;;; definition process. The solution to make CL case insensitive and
 ;;; have the reader use uppercase appears, with the power of
-;;; hindsight, shot-sighted. However, the backwardly incompatible
+;;; hindsight, short-sighted. However, the backwardly incompatible
 ;;; solution provided by Franz Inc seems a poor fix."
 ;;; 26 March 2002 Will Deakin
 
