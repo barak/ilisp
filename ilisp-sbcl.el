@@ -9,27 +9,21 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.9 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-sbcl.el,v 1.10 2001/06/05 15:58:08 amoroso Exp $
 
-;;;%%%SB Common Lisp
+;;;%%%Steel Bank Common Lisp
 
-(defvar sblisp-source-directory-regexp 
-  "\\/afs\\/cs\\.cmu\\.edu\\/usr\\/stuff\\/sbcl\\/src\\/[0-9]*\\/"
-  "*Regexp to match sblisp source code directory.")
-
-(defvar sblisp-local-source-directory
-  nil
-  "*Where the sblisp sources really are.")
-
-(defvar ilisp-sblisp-init-file
+(defvar ilisp-sbcl-init-file
   ;; Note: The init file source extension (".lisp") needs to be
   ;; present in the filename, otherwise ILISP-LOAD-OR-SEND gets
   ;; confused trying to add compiled-file extensions (e.g. ".x86f"),
   ;; because it's hard-wired to look for a period (".") in order to
   ;; decide where to append the compiled-file extension.
-  "sblisp")
+  "sbcl")
 
-(defun sblisp-check-prompt (old new)
+;;; WHN threatens to change the format of the break prompt one day soon, 
+;;; but as of 0.6.12.21 this hasn't happened yet
+(defun sbcl-check-prompt (old new)
   "Compare the break level printed at the beginning of the prompt."
   (let* ((was-in-break (and old (string-match "]+" old)))
  	 (old-level (if was-in-break
@@ -42,48 +36,43 @@
     (<= new-level old-level)))
 
 ;;;
-(defdialect sblisp "SB Common LISP"
+(defdialect sbcl "Steel Bank Common LISP"
   common-lisp
-  (ilisp-load-init 'sb ilisp-sblisp-init-file)
+  (ilisp-load-init 'sb ilisp-sbcl-init-file)
 
   (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\) "
-	ilisp-trace-command "(ILISP:sblisp-trace \"%s\" \"%s\" \"%s\")"
+	ilisp-trace-command "(ILISP:sbcl-trace \"%s\" \"%s\" \"%s\")"
 	comint-prompt-status 
 	(function (lambda (old line)
-		    (comint-prompt-status old line 'sblisp-check-prompt)))
+		    (comint-prompt-status old line 'sbcl-check-prompt)))
 
 	ilisp-error-regexp "\\(ILISP:[^\"]*\\)\\|\\(error [^\n]*\n\n\\)\\|\\(debugger invoked on [^:]*:\\)"
 	;; The above regexp has been suggested by
-	;; hunter@work.nlm.nih.gov (Larry Hunter)
+	;; hunter@work.nlm.nih.gov (Larry Hunter), for CMUCL.  It's
+	;; probably wrong for SBCL, but I'd have to know what it was
+	;; for before commenting.
         
 	ilisp-arglist-command "(ILISP:ilisp-arglist \"%s\" \"%s\")"
-
-        ilisp-directory-command "(sb-unix:unix-current-directory)"
-        ilisp-set-directory-command "(sb-unix:unix-chdir \"%s\")"
-
 	ilisp-find-source-command "(ILISP:source-file \"%s\" \"%s\" \"%s\")"
 
-        comint-fix-error ":abort"
-
+        comint-fix-error ":r abort"
 	comint-continue ":go"
+	ilisp-reset ":r toplevel"
+	comint-interrupt-regexp "interrupted at"
 
-	ilisp-reset ":q"
+        ;; hardcoded binary extensions are undesirable, but note that
+        ;; in SBCL 0.7 these will go to "fasl", so there seems little
+        ;; point in getting ilisp{-init-,-}binary-command to work
+        ;; properly if that arrives soon
 
-	comint-interrupt-regexp "Interrupted at"
-
-	;; Note:
-	;; 19990806 Marco Antoniotti
-	;; As Martin Atzmueller has pointed out, these hardcoded
-	;; constraints are very nasty.
-	;; However, before hacking the code right here, I'd like to
-	;; see an all-out solution to the binary file extension problem.
-
+        ilisp-binary-command nil
+        ilisp-init-binary-command nil
 	ilisp-binary-extension "x86f"
 	ilisp-init-binary-extension "x86f"
 	ilisp-binary-command "\"x86f\""
 	)
 
-  ;; ILD Support
+  ;; ILD Support, largely untested
 
   (setq ild-abort-string ":abort"
 	ild-continue-string ":go"
@@ -102,7 +91,7 @@
 	)
   )
 
-(unless sblisp-program (setq sblisp-program "sbcl --noinform"))
+(unless sbcl-program (setq sbcl-program "sbcl --noinform"))
 
 ;;; end of file -- ilisp-sbcl.el --
 
