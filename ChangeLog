@@ -1,3 +1,69 @@
+2001-01-18  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-out.el (ilisp-display-buffer-in-typeout-frame): if there
+	exists a cached frame, just raise it.
+
+	* ilisp-out.el (ilisp-bury-output): erase the buffer used. If
+	'this-command is arglist-message-lisp-space, don't delete the
+	sinks frame, to cache it. (this helps when using some
+	window-managers like KDE in focus-management).
+
+	* ilisp-sch.el:
+	  - (scheme) ilisp-block-command modified to ensure ILISP never
+	  passes empty blocks to Scheme as they are not allowed by R5RS.
+	  - (guile) Guile-specific empty-block -prevention removed.
+	  - (mzscheme) New dialect definition.
+	  - (drscheme-jr) Ditto.
+	  (patches contributed by Hannu Koivisto  <azure@iki.fi>).
+
+	* ilisp-mod.el (lisp-command-args) Reimplemented (badly, but better than
+	  nothing) to support quoted program name and arguments with
+	  spaces in them.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>).
+
+	* ilisp-mak.el:
+	  - Cosmetic changes: useless comments removed, some fixed a bit,
+	    useless progn removed, (setq x (cons .. x)) -> (push .. x), excess
+	    newlines removed, etc.
+	  - Compatibility files are now actually compiled: byte-compile changed
+	    to byte-compile-file for them.
+	  - If XEmacs, ilxemacs is compiled instead of illuc19.	 Incorrect
+	    comment related to this removed; illuc19 and ilxemacs are not linked
+	    in the current version of ILISP.
+	  - Error message typo fix.
+	  (patches contributed by Hannu Koivisto  <azure@iki.fi>).
+
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space)
+	    ilisp-print-info-message-command needs to be something useful
+	    for arglist message to be printed.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>).
+
+	* ilisp-def.el (ilisp-print-info-message-command) New definition
+	    for an ilisp-local variable that was in use already.
+	    (patches contributed by Hannu Koivisto  <azure@iki.fi>).
+	
+	* ilcompat.el:
+	  - Now requires cl.
+	  - Now provides ilcompat instead of compat.
+	  - Cosmetic fixes: commenting more consistent with other files.
+	  - Work-around for last bug in Emacs 19.34 < x < ?  Nothing in ILISP
+	    as of this writing faces this, I think, but it's easy to bump into
+	    with, for example, destructuring-bind, so better be safe than
+	    sorry.
+	    (patches contributed by Hannu Koivisto  <azure@iki.fi>).
+
+	* ilisp-hi.el (ilisp-compile-buffer): display the result of
+	compiling a buffer.
+
+	* sblisp.lisp (arglist): reworked my previous patch on that.
+
+	* comint-ipc.el (comint-sender): sends are logged now (patch
+	contributed by John M. Adams).
+
+	* ilisp-hi.el (ilisp-compile-buffer): compile-buffer did not work
+	because deactivate-mark has no function definition in XEmacs
+	(patch contributed by John M. Adams).
+
 2001-01-16  Martin Atzmueller  <martin@atzmueller.net>
 
         * ilisp-out.el: ILISP Output and ILISP Arglist Output frames are
