@@ -1,3 +1,8 @@
+2001-08-27  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-def.el (ilisp-binary-extension,
+	ilisp-init-binary-extension): fixed docstring typos.
+
 2001-07-27  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* extra/cltl2.el: New file, contributed by Utz-Uwe Haus
