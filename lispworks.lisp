@@ -173,11 +173,11 @@ Returns T if successful."
     `(get ,command-name 'sys::top-loop-handler))
 
   (defmacro sys::define-top-loop-handler (name &body body)
-    (with-unique-names (top-loop-handler)
+    (lw:with-unique-names (top-loop-handler)
       `(let ((,top-loop-handler #'(lambda (sys::line) ,@body)))
-	 (mapc #'(lambda (name)
-		   (setf (sys::get-top-loop-handler name) ,top-loop-handler))
-	       (if (consp ',name) ',name  '(,name))))))
+        (mapc #'(lambda (name)
+                  (setf (sys::get-top-loop-handler name) ,top-loop-handler))
+         (if (consp ',name) ',name  '(,name))))))
 
   )
 
