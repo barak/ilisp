@@ -1,3 +1,36 @@
+2001-10-25  Paolo Amoroso  <amoroso@mclink.it>
+
+        * completer.el:
+        (minibuffer-prompt-end): New function for compatibility, defined
+        only if not defined already.
+        (completer-region): Backward movement is now limited by the end
+        of the minibuffer prompt.
+        (completer-match-exit): Ditto.
+        (completer-minibuffer-string): Now excludes minibuffer prompt using
+        minibuffer-prompt-end.
+	Patch for making ILISP work with GNU Emacs 21 contributed by Hannu
+	Koivisto <azure@iki.fi>.
+
+	* docs/ilisp.texi (Configuration and compilation): The Harlequin
+	Group Ltd -> Xanalys Inc.
+	Updated date info.
+
+	* INSTALLATION:
+	(FIRST INSTALLATION STEP: UNPACKING AND COMPILING): The Harlequin
+	Group Ltd -> Xanalys Inc.
+	(LispWorks): updated and shortened.
+	Patch contributed by Dave Fox <davef@xanalys.com>.
+
+	* lispworks.lisp:
+	(ilisp-callers): extended conditionalization to include LW 4.2 as
+	well as 4.1, and made it more future-proof.
+	(sys::define-top-loop-handler): made the definition of
+	`sys::define-top-loop-handler' avaliable at macro-expansion time,
+	when it is needed during compilation of this file.
+	(system::*force-top-level*): added for getting an interactive
+	session with ILISP under Unix.
+	Patch contributed by Dave Fox <davef@xanalys.com>.
+
 2001-10-20  Martin Atzmueller  <martin@atzmueller.net>
 
 	* sbcl.lisp: add some more comments.
