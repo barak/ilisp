@@ -1,3 +1,13 @@
+2002-02-18  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (Configuration and compilation): added CLHS URL
+	and downloading information.
+	Updated version info.
+
+	* extra/hyperspec-naggum.el: The Harlequin Group Ltd -> Xanalys
+	Inc.
+	Updated CLHS URL.
+
 2002-02-14  Paolo Amoroso  <amoroso@mclink.it>
 
 	* extra/hyperspec-naggum.el: replaced symbol table for CLHS v 4.0
