@@ -1,7 +1,7 @@
 ;;;; guile-ilisp.scm --- ILISP support functions for GUILE
 ;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de> 
 ;;;
-;;; Copyright (C) 2000 Matthias Koeppe
+;;; Copyright (C) 2000, 2001, 2002 Matthias Koeppe
 ;;;
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.20 2002/10/29 15:57:55 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.21 2002/12/12 15:14:10 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -111,6 +111,33 @@ WITH-PROCEDURE?, include the procedure symbol."
      (else (string-append "CAN'T PARSE THIS DOCUMENTATION:\n"
 			  doc)))))
 
+(define (write-truncated obj port max-length)
+  "Write OBJ on PORT, truncated to MAX-LENGTH characters.  Indicate
+truncation by an ellipsis."
+  (call-with-current-continuation
+   (lambda (return)
+     (let ((trunc-port
+	    (make-soft-port
+	     (vector (lambda (c)
+		       (display c port)
+		       (set! max-length (- max-length 1))
+		       (if (not (positive? max-length))
+			   (begin
+			     (display "..." port)
+			     (return #t))))
+		     (lambda (s)
+		       (cond
+			((<= (string-length s) max-length)
+			 (display s port)
+			 (set! max-length (- max-length (string-length s))))
+			(else
+			 (display (substring s max-length))
+			 (display "...")
+			 (return #t))))
+		     #f #f #f)
+	     "w")))
+       (write obj trunc-port)))))
+
 (define (info-message sym obj expensive? arglist-only?)
   "Return an informational message about OBJ, which is the value of SYM.
 For procedures, return procedure symbol and arglist, or
@@ -119,70 +146,86 @@ arglist only.  If EXPENSIVE?, take some more effort."
   ;; The code here is so lengthy because we want to return a
   ;; meaningful result even if we aren't allowed to read the
   ;; documentation files (EXPENSIVE? = #f).
-    (cond
-     ((and (procedure? obj)
-	   (procedure-property obj 'arglist))
-      => (lambda (arglist)
-	   (let ((required-args (car arglist))
-		 (optional-args (cadr arglist))
-		 (keyword-args (caddr arglist))
-		 (allow-other-keys? (cadddr arglist))
-		 (rest-arg (car (cddddr arglist))))
-	     (with-output-to-string
-	       (lambda ()
-		 (define (arg-only arg/default)
-		   (if (pair? arg/default) (car arg/default) arg/default))
-		 (write
-		  (append
-		   (if arglist-only?
-		       '()
-		       (list sym))
-		   required-args
-		   (if (not (null? optional-args))
-		       (cons #:optional (map arg-only optional-args))
-		       '())
-		   (if (not (null? keyword-args))
-		       (cons #:key (map arg-only keyword-args))
-		       '())
-		   (if allow-other-keys?
-		       (list #:allow-other-keys)
-		       '())
-		   (if rest-arg rest-arg '()))))))))
-     ((and (procedure-with-setter? obj)
-	   (closure? (procedure obj)))
-      (let ((formals (cadr (procedure-source (procedure obj)))))
-	(if arglist-only? formals (cons sym formals))))
-     ((closure? obj)
-      (let ((formals (cadr (procedure-source obj))))
-	(if arglist-only? formals (cons sym formals))))
-     ((or
-       (and expensive?
-	    (false-if-exception
-	     ;; object-documentation was introduced in Guile 1.4,
-	     ;; There is no documentation for primitives in earlier
-	     ;; versions.
-	     (object-documentation obj)))
-       (and (procedure? obj)
-	    (procedure-property obj 'documentation)
-	    ;; The documentation property is attached to a primitive
-	    ;; procedure when it was read from the documentation file
-	    ;; before.
-	    ))
-      => (lambda (doc)
-	   (doc->arglist doc (not arglist-only?))))
-     ((and (macro? obj)
-	   (macro-transformer obj)
-	   (closure? (macro-transformer obj))
-	   (procedure-documentation (macro-transformer obj)))
-      ;; Documentation may be in the doc string of the transformer, as
-      ;; is in session.scm (help).
-      => (lambda (doc)
-	   (doc->arglist doc (not arglist-only?))))
-     ((procedure? obj)
-      ;; Return a message about the arity of the procedure.
-      (with-output-to-string
-	(lambda () (arity obj))))
-     (else #f)))
+  (cond
+   ((and (procedure? obj)
+	 (procedure-property obj 'arglist))
+    => (lambda (arglist)
+	 (let ((required-args (car arglist))
+	       (optional-args (cadr arglist))
+	       (keyword-args (caddr arglist))
+	       (allow-other-keys? (cadddr arglist))
+	       (rest-arg (car (cddddr arglist))))
+	   (with-output-to-string
+	     (lambda ()
+	       (define (arg-only arg/default)
+		 (if (pair? arg/default) (car arg/default) arg/default))
+	       (if arglist-only?
+		   (begin (write sym)
+			  (display ": ")))
+	       (write
+		(append
+		 (if arglist-only?
+		     '()
+		     (list sym))
+		 required-args
+		 (if (not (null? optional-args))
+		     (cons #:optional (map arg-only optional-args))
+		     '())
+		 (if (not (null? keyword-args))
+		     (cons #:key (map arg-only keyword-args))
+		     '())
+		 (if allow-other-keys?
+		     (list #:allow-other-keys)
+		     '())
+		 (if rest-arg rest-arg '()))))))))
+   ((and (procedure-with-setter? obj)
+	 (closure? (procedure obj)))
+    (let ((formals (cadr (procedure-source (procedure obj)))))
+      (if arglist-only? formals (cons sym formals))))
+   ((closure? obj)
+    (let ((formals (cadr (procedure-source obj))))
+      (if arglist-only?
+	  (begin (write sym)
+		 (display ": ")))
+      (if arglist-only? formals (cons sym formals))))
+   ((or
+     (and expensive?
+	  (false-if-exception
+	   ;; object-documentation was introduced in Guile 1.4,
+	   ;; There is no documentation for primitives in earlier
+	   ;; versions.
+	   (object-documentation obj)))
+     (and (procedure? obj)
+	  (procedure-property obj 'documentation)
+	  ;; The documentation property is attached to a primitive
+	  ;; procedure when it was read from the documentation file
+	  ;; before.
+	  ))
+    => (lambda (doc)
+	 (if arglist-only?
+	     (begin (write sym)
+		    (display ": ")))
+	 (doc->arglist doc (not arglist-only?))))
+   ((and (macro? obj)
+	 (macro-transformer obj)
+	 (closure? (macro-transformer obj))
+	 (procedure-documentation (macro-transformer obj)))
+    ;; Documentation may be in the doc string of the transformer, as
+    ;; is in session.scm (help).
+    => (lambda (doc)
+	 (doc->arglist doc (not arglist-only?))))
+   ((procedure? obj)
+    ;; Return a message about the arity of the procedure.
+    (with-output-to-string
+      (lambda () (display sym) (display ": ") (arity obj))))
+   (else
+    (string-append "`" (symbol->string sym) "'"
+		   " is bound to "
+		   (with-output-to-string
+		     (lambda ()
+		       (write-truncated obj (current-output-port) 800)))
+		   "."))))
+  
 
 (define-public (ilisp-print-info-message sym package)
   "Evaluate SYM in PACKAGE and print an informational message about
