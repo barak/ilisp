@@ -80,6 +80,7 @@
 		       ("\\.lsp$" . lisp-mode)
 		       ("\\.cl$" . lisp-mode)) auto-mode-alist))
 
+(setq ilisp-*use-fsf-compliant-keybindings* t)
 ;;; Load hooks
 (add-hook
  'scheme-mode-hook (function 
@@ -88,8 +89,6 @@
 
 (add-hook 'ilisp-load-hook
 	  '(lambda ()
-	     (setq ilisp-*use-fsf-compliant-keybindings* t)
-
              ;; Set a keybinding for the COMMON-LISP-HYPERSPEC command
              ;; (defkey-ilisp "" 'common-lisp-hyperspec)
 

@@ -19,7 +19,7 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 	# Add here commands to compile the package.
-	(cd docs; make info pdf html; cd ..)
+	(cd docs; make info pdf ilisp.html; cd ..)
 	touch build-stamp
 
 install: build
