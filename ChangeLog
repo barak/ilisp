@@ -1,3 +1,13 @@
+2002-06-07  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ACKNOWLEDGMENTS: added Bill Clementson and Dave Fox.
+
+	* docs/ilisp.texi (Acknowledgments): added Bill Clementson, Dave
+	Fox and Hannu Koivisto.
+	Updated modification date.
+
+	* INSTALLATION (TIPS): added Windows entry.
+
 2002-06-03  Paolo Amoroso  <amoroso@mclink.it>
 
 	Version 5.12.0 released (tagging and releasing done by Marco
