@@ -1,5 +1,9 @@
 2000-11-30  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
+	* ilisp-ext.el: Don't clobber C-M-l and C-M-r keybindings in FSF
+	compliant mode. Those are bound to `reposition-window' and
+	`isearch-backward-regexp', respectively, at least in GNU Emacs 20.
+
 	* ilisp-def.el (ilisp-eval-command, ilisp-defvar-command): 
 	Format strings now take an extra parameter, source LINE. 
 	* ilisp-hi.el (lisp-send-region): Send source line to inferior
