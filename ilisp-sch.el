@@ -189,7 +189,7 @@
           ilisp-directory-command "(getcwd)"
           ilisp-set-directory-command "(chdir \"%s\")"
           ilisp-complete-command "(ilisp-matching-symbols \"%s\" \"%s\" '%s '%s '%s)"
-          ilisp-documentation-command "(help %s)"
+          ilisp-documentation-command "(ilisp-help '%s \"%s\")"
           ilisp-print-info-message-command "(ilisp-print-info-message '%s \"%s\")"
           ilisp-arglist-command "(ilisp-arglist '%s \"%s\")"
 	  ilisp-find-source-command "(ilisp-source-file \"%s\" \"%s\")"

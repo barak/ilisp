@@ -161,6 +161,20 @@ procedure. This procedure is invoked by `arglist-lisp'."
     (display "Can't get arglist.")
     (newline))))
 
+(define-public (ilisp-help symbol package)
+  "Evaluate SYMBOL in PACKAGE and print help for it."
+  (let* ((obj (catch #t
+		    (lambda ()
+		      (eval-in-package symbol
+				       (string->module package)))
+		    (lambda args
+		      #f)))
+	 (doc (and obj (object-documentation obj))))
+    (if doc
+	(display doc)
+	(display "No documentation."))
+    (newline)))
+
 (define (word-separator? ch)
   (or (char=? ch #\-)
       (char=? ch #\:)
