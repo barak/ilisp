@@ -1,7 +1,14 @@
+2001-03-27  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (ilisp-arglist, ilisp-help): Be more verbose
+	when the symbol is undefined.
+	(ilisp-in-package): Use the (guile-ilisp) module in every module
+	switched to. This enables the ILISP commands there.
+
 2001-03-21  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (doc->arglist): Parse multi-line arglists in
-	procedure documentaion that has been passed through TeXinfo (Guile
+	procedure documentation that has been passed through TeXinfo (Guile
 	1.4.1).
 
 2001-03-13  Martin Atzmueller  <martin@atzmueller.net>
