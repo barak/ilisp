@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 3, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: April 4, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -989,6 +989,10 @@ Support code for Scheme.  Each dialect will have one of these files.
 @pindex snow
 @cindex GUILE
 @pindex guile
+@cindex MzScheme
+@pindex mzscheme
+@cindex DrScheme-jr
+@pindex drscheme-jr
 @pindex xlisp
 @cindex XLisp
 @pindex xlispstat
@@ -1026,6 +1030,9 @@ CLISP by Haible and Stoll.
 @item @code{cmucl}
 CMU Common Lisp, the major development platform for ILISP so far.
 
+@item @code{drscheme-jr}
+DrScheme-jr by Rice University's PLT.
+
 @item @code{common-lisp}
 Generic Common Lisp.
 
@@ -1054,6 +1061,9 @@ LispWorks Common Lisp from Xanalys/Harlequin Ltd.
 
 @item @code{lucid}
 Lucid Common Lisp, currently supported by Xanalys/Harlequin Ltd.
+
+@item @code{mzscheme}
+MzScheme by Rice University's PLT.
 
 @item @code{oaklisp}
 Oaklisp scheme.
@@ -1113,6 +1123,8 @@ dialects:
  scheme
    chez
    guile
+   mzscheme
+     drscheme-jr
    oaklisp
    Scheme->C (still "in fieri")
    scm
@@ -2375,6 +2387,8 @@ to dialects in the nesting order below.
  scheme
    chez
    guile
+   mzscheme
+     drscheme-jr
    oaklisp
    Scheme->C (still "in fieri")
    scm
