@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.14 2002/09/24 21:39:52 anisotropy9 Exp $
+;;; $Id: ilisp-snd.el,v 1.15 2002/09/25 22:08:42 anisotropy9 Exp $
 
 
 ;;;%% Package / Symbol support
@@ -73,8 +73,8 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 		       (format (ilisp-value 'ilisp-package-command)
 			       (format (ilisp-value 'ilisp-in-package-command)
 				       (ilisp-value 'ilisp-fallback-package))))))
-	(message 
-	 (format "Buffer package not found. Using fallback-package"))
+	(message "Buffer package not found. Using fallback-package: %s"
+		 package)
 	(values package t))
       (progn
         (message "Buffer package: %s" package)
