@@ -1,3 +1,22 @@
+2000-08-02  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ACKNOWLEDGMENTS: updated and sorted alphabetically the list of
+	  names.
+
+	* docs/ilisp.texi (Acknowledgements): added William Deakin and
+	  Matthias Koeppe.
+
+	* README: added version number and reference to a group of
+	  maintainers.
+
+	* GETTING-ILISP: replaced unnecessary reference to explicit
+	  version numbers in file names--e.g. 5.9--with generic
+	  ones--i.e. x.y.z.
+
+	* extra/README: removed references to version number and date;
+	  added hint to check INSTALLATION; fixed capitalization of
+	  HyperSpec and added reference to Xanalys.
+
 2000-07-31  Paolo Amoroso  <amoroso@mclink.it>
 
 	* INSTALLATION: added information on the reference card and
