@@ -990,38 +990,38 @@ key binding that is easy to reach.
 
 @item
 All of the <query> related functions are set up on on @kbd{@key{C-c
-C-q} <letter>} key bindings. Rationale: The "q" binding is a mnemonic
-binding.
+C-q} C-<letter>} key bindings. Rationale: The "q" binding is a
+mnemonic binding.
 
 @item
 All of the <eval> related functions are set up on on @kbd{@key{C-c
-C-j} <letter>} key bindings. Rationale: @kbd{C-c C-j} is an easy
+C-j} C-<letter>} key bindings. Rationale: @kbd{C-c C-j} is an easy
 control key sequence to hit and the "eval" functions are used quite a
 lot.
 
 @item
 All of the <compile> related functions are set up on on @kbd{@key{C-c
-C-k} <letter>} key bindings. Rationale: @kbd{C-k} is mnemonic for
+C-k} C-<letter>} key bindings. Rationale: @kbd{C-k} is mnemonic for
 "kompile".
 
 @item
 All of the <action>-and-go-lisp functions are of the form
-@kbd{@key{C-c C-<character>} C-<letter>}. The corresponding <action>
-functions are set up on the @kbd{@key{C-c C-<character>} <letter>}
+@kbd{@key{C-c C-<character>} M-<letter>}. The corresponding <action>
+functions are set up on the @kbd{@key{C-c C-<character>} C-<letter>}
 binding. Rationale: This is an easy sequence to remember - the
 "and-go-lisp" function is just the exact same sequence as the ordinary
-function but with the last character a control character rather than a
-regular character.
+function but with the last character modified with Meta rather than
+control.
 
 @item
 All of the <buffer/edit> related functions are set up on on
-@kbd{@key{C-c C-g} <letter>} key bindings. Rationale: @kbd{C-c C-g} is
-an easy control key sequence to hit and the "buffer/edit" functions
+@kbd{@key{C-c C-f} C-<letter>} key bindings. Rationale: @kbd{C-c C-f}
+is an easy control key sequence to hit and the "buffer/edit" functions
 are used quite a lot.
 
 @item
 All of the <debug> related functions are set up on on @kbd{@key{C-c
-C-b} <letter>} key bindings. Rationale: These are de"b"ugging
+C-b} C-<letter>} key bindings. Rationale: These are de"b"ugging
 commands.
 
 @end itemize

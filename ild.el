@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ild.el,v 1.5 2003/05/09 14:41:34 bill_clementson Exp $
+;;; $Id: ild.el,v 1.6 2003/05/20 15:51:14 bill_clementson Exp $
 
 ;;; Keystroke c-u? What it does
 ;;; ---------------------------------------------------------
@@ -206,24 +206,23 @@
  (interactive)
  (compile-region-and-go-lisp (point-min) (point-max)))
 
-(defkey-ilisp "\M-a"    'ild-abort         t  "\C-c\C-ba")
-(defkey-ilisp "\M-c"    'ild-continue      t  "\C-c\C-bc")
-(defkey-ilisp "\C-\M-s" 'ild-step          t  "\C-c\C-bs")
-(defkey-ilisp "\C-\M-n" 'ild-next          t  "\C-c\C-bn")
-(defkey-ilisp "\C-\M-p" 'ild-previous      t  "\C-c\C-bp")
-(defkey-ilisp "\C-c<"   'ild-top           t  "\C-c\C-bv")
-(defkey-ilisp "\C-c>"   'ild-bottom        t  "\C-c\C-bw")
-(defkey-ilisp "\M-b"    'ild-backtrace     t  "\C-c\C-bb")
-(defkey-ilisp "\C-\M-d" 'ild-locals        t  "\C-c\C-bd")
-(defkey-ilisp "\C-\M-l" 'ild-local         t  "\C-c\C-bl")
+(defkey-ilisp "\M-a"    'ild-abort         t  "\C-c\C-b\C-a")
+(defkey-ilisp "\M-c"    'ild-continue      t  "\C-c\C-b\C-c")
+(defkey-ilisp "\C-\M-s" 'ild-step          t  "\C-c\C-b\C-s")
+(defkey-ilisp "\C-\M-n" 'ild-next          t  "\C-c\C-b\C-n")
+(defkey-ilisp "\C-\M-p" 'ild-previous      t  "\C-c\C-b\C-p")
+(defkey-ilisp "\C-c<"   'ild-top           t  "\C-c\C-b\C-v")
+(defkey-ilisp "\C-c>"   'ild-bottom        t  "\C-c\C-b\C-w")
+(defkey-ilisp "\M-b"    'ild-backtrace     t  "\C-c\C-b\C-b")
+(defkey-ilisp "\C-\M-d" 'ild-locals        t  "\C-c\C-b\C-d")
+(defkey-ilisp "\C-\M-l" 'ild-local         t  "\C-c\C-b\C-l")
 (defkey-ilisp "\C-cr"   'ild-return        t  "\C-c\C-b\C-m")
-(defkey-ilisp "\C-\M-r" 'ild-retry         t  "\C-c\C-br")
-(defkey-ilisp "\C-xt"   'ild-trap-on-exit  t  "\C-c\C-bx")
-
-(ilisp-safe-define-key global-map "\C-cL" 'select-lisp "\C-c\C-g\C-a")
-(ilisp-bind-ilisp-key-for-map lisp-mode-map  "\C-f" 'fast-lisp "\C-bf")
-(ilisp-bind-ilisp-key-for-map ilisp-mode-map "\C-f" 'fast-lisp "\C-bf")
-(ilisp-bind-ilisp-key-for-map lisp-mode-map  "\C-s" 'slow-lisp "\C-bg")
-(ilisp-bind-ilisp-key-for-map ilisp-mode-map "\C-s" 'slow-lisp "\C-bg")
+(defkey-ilisp "\C-\M-r" 'ild-retry         t  "\C-c\C-b\C-r")
+(defkey-ilisp "\C-xt"   'ild-trap-on-exit  t  "\C-c\C-b\C-x")
+(ilisp-safe-define-key global-map "\C-cL" 'select-lisp "\C-c\C-fa")
+(ilisp-bind-ilisp-key-for-map lisp-mode-map  "\C-f" 'fast-lisp "\C-b\C-f")
+(ilisp-bind-ilisp-key-for-map ilisp-mode-map "\C-f" 'fast-lisp "\C-b\C-f")
+(ilisp-bind-ilisp-key-for-map lisp-mode-map  "\C-s" 'slow-lisp "\C-b\C-g")
+(ilisp-bind-ilisp-key-for-map ilisp-mode-map "\C-s" 'slow-lisp "\C-b\C-g")
 
 ;;; end of file -- ild.el --
