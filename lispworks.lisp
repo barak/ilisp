@@ -152,7 +152,7 @@ Returns T if successful."
 	 (progn
 	   (dolist (file (remove-duplicates paths
 					    :key #'cdr :test #'equal))
-	     (print (namestring (cadr file))))
+	     (print (truename (cadr file))))
 	   t)
 	 nil))))
 
