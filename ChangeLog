@@ -1,3 +1,20 @@
+2000-07-24  Paolo Amoroso  <amoroso@mclink.it>
+
+	* Makefile (DocFiles): added `docs/ilisp-refcard.tex'.
+	
+	* docs/ilisp.texi (Configuration and compilation): updated for the
+	  reference card.
+
+	* docs/README: updated for ilisp-refcard.tex and fixed a couple of
+	  typos.
+
+	* docs/Makefile: added support for ilisp-refcard.tex compilation.
+	
+	* docs/ilisp-refcard.tex: initial revision.
+	
+	* docs/ilisp-refcard.tgz: removed for keeping only
+	  ilisp-refcard.tex.
+
 2000-07-19  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (Files of ILISP): clarified entry for *.lisp and
