@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-chs.el,v 1.3 2001/10/28 13:46:25 amoroso Exp $
+;;; $Id: ilisp-chs.el,v 1.4 2001/11/02 13:09:49 amoroso Exp $
 
 (require 'cl)
 
@@ -125,7 +125,7 @@
 	))
 
 (unless clisp-hs-program
-  (setq clisp-hs-program "clisp -I")) ; ILISP friendly
+  (setq clisp-hs-program "clisp -ansi -I")) ; ANSI mode, ILISP friendly
 
 (provide 'ilisp-chs)
 
