@@ -11,7 +11,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.5 2001/10/20 09:57:16 mna Exp $
+;;; $Id: sbcl.lisp,v 1.6 2001/11/06 00:00:30 mna Exp $
 
 
 (in-package "ILISP")
@@ -72,7 +72,8 @@
   (let ((fun (or (macro-function sym)
 		 (and (fboundp sym) (symbol-function sym)))))
     (cond (fun
-            (if (and (= (sb-impl::get-type fun)
+            (if (and (= (the-function-if-defined ((#:widetag-of :sb-impl)
+                                                  (#:get-type :sb-impl)) fun)
                         ;; <3>
                         #.(the-symbol-if-defined
                            ((#:closure-header-widetag :sb-vm)
@@ -117,7 +118,8 @@
        (multiple-value-bind (func kind)
 	   (extract-function-info-from-name x)
 	 (if (and func kind)
-           (case (sb-impl::get-type func)
+           (case (the-function-if-defined ((#:widetag-of :sb-impl)
+                                           (#:get-type :sb-impl)) func)
              ;; <3>
              ((#.(the-symbol-if-defined ((#:closure-header-widetag :sb-vm)
                                          (#:closure-header-type :sb-vm)
