@@ -24,7 +24,7 @@
 ;;; use imenu for displaying a fancy function/definition list.
 
 
-;;; modified for a better display of function+arglist!
+;;; modified for a better display of function+arglist! 
 ;;; let tokens contain spaces and test with string-equal.
 
 (defun imenu--completion-buffer (index-alist &optional prompt)
