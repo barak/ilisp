@@ -127,8 +127,7 @@
 
 ;;;%% arglist - return arglist of function
 ;;;
-;;; 19991219 Marco Antoniotti
-;;; New version is patterned after DESCRIBE-FUNCTION in the
+;;; This function is patterned after DESCRIBE-FUNCTION in the
 ;;; 'describe.lisp' file of CMUCL.
 
 (defun arglist (symbol package)
@@ -136,8 +135,7 @@
    (let* ((package-name (if (packagep package)
 			    (package-name package)
 			    package))
-	  (x (ilisp-find-symbol symbol package-name))
-	  )
+	  (x (ilisp-find-symbol symbol package-name)))
      (flet ((massage-arglist (args)
 	      (typecase args
 		(string (if (or (null args) (string= args "()"))
@@ -156,10 +154,9 @@
 		 #.vm:function-header-type
 		 #.vm:closure-function-header-type)
 		(massage-arglist
-		 (funcall #+CMU17 #'lisp::%function-arglist
-			  #-CMU17 #'lisp::%function-header-arglist
-			  func)))
-
+                 (the-function-if-defined
+                  (#:%function-arglist :lisp #:%function-header-arglist :lisp)
+                  func)))
 	       (#.vm:funcallable-instance-header-type
 		(typecase func
 		  (kernel:byte-function
@@ -171,9 +168,8 @@
 		  (eval:interpreted-function
 		   (massage-arglist (eval::interpreted-function-arglist func)))
 		
-		  (t (print 99 *trace-output*) "No arglist available.")
-		  ))			; typecase
-	       (t "No arglist available.")) ; case
+		  (t (print 99 *trace-output*) "No arglist available.")))
+	       (t "No arglist available."))
 	     "Unknown function - no arglist available." ; For the time
 					; being I just
 					; return this
@@ -181,32 +177,6 @@
 					; an error would
 					; be better.
 	     ))))))
-
-#| Original version.
-(defun arglist (symbol package)
-  (ilisp-errors
-   (let* ((package-name (if (packagep package)
-			    (package-name package)
-			    package))
-	  (x (ilisp-find-symbol symbol package-name))
-	  (fun (get-correct-fn-object x)))
-     (values
-      (cond ((eval:interpreted-function-p fun) 
-	     (eval:interpreted-function-arglist fun))
-	    ((= (lisp::get-type fun)
-		#.vm:funcallable-instance-header-type) 
-	     ;; generic function / method
-	     (pcl::generic-function-pretty-arglist fun))
-	    ((compiled-function-p fun)
-	     (let ((string-or-nil
-		    (funcall #+CMU17 #'lisp::%function-arglist
-			     #-CMU17 #'lisp::%function-header-arglist
-		     fun)))
-	       (if string-or-nil
-		   (read-from-string string-or-nil)
-		   "No argument info.")))
-	    (t (error "Unknown type of function")))))))
-|#
 
 
 ;;; source-file symbol package type --
@@ -219,40 +189,23 @@
    (let* ((x (ilisp-find-symbol symbol package))
 	  (fun (get-correct-fn-object x)))
      (when (and fun (not (eval:interpreted-function-p fun)))
-	   ;; The hack above is necessary because CMUCL does not
-	   ;; correctly record source file information when 'loading'
-	   ;; a non compiled file.
-	   ;; In this case we fall back on the TAGS machinery.
-	   ;; (At least as I underestand the code).
-	   ;; Marco Antoniotti 11/22/94.
-	   (cond (#+CMU17 (pcl::generic-function-p fun)
-			  #-CMU17
-			  (= (lisp::get-type fun)
-			     #.vm:funcallable-instance-header-type)
-			  (dolist (method (pcl::generic-function-methods fun))
-				  (print-simple-source-info
-				   (or #+CMU17
-				       (pcl::method-fast-function method)
-				       (pcl::method-function method))))
-			  t)
-		 (t (print-simple-source-info fun)))))))
-
-;;; Old version. Left here for the time being.
-;(defun source-file (symbol package type)
-;  (declare (ignore type))
-;  (ilisp-errors
-;   (let* ((x (ilisp-find-symbol symbol package))
-;	  (fun (get-correct-fn-object x)))
-;     (when fun
-;       (cond ((= (lisp::get-type fun)
-;		 #.vm:funcallable-instance-header-type)
-;	      ;; A PCL method! Uh boy!
-;	      (dolist (method (pcl::generic-function-methods fun))
-;		(print-simple-source-info
-;		 (lisp::%closure-function (pcl::method-function method))))
-;	      t)
-;	     (t (print-simple-source-info fun)))))))
-
+       ;; The hack above is necessary because CMUCL does not
+       ;; correctly record source file information when 'loading'
+       ;; a non compiled file.
+       ;; In this case we fall back on the TAGS machinery.
+       ;; (At least as I underestand the code).
+       ;; Marco Antoniotti 11/22/94.
+       (cond ((or (the-function-if-defined (#:generic-function-p :pcl) fun)
+                  (the-function-if-defined (#:get-type :lisp)
+                                           (= (funcall the-function fun)
+                                              #.vm:funcallable-instance-header-type)))
+               (dolist (method (pcl::generic-function-methods fun))
+                 (print-simple-source-info
+                  (the-function-if-defined
+                   (#:method-fast-function :pcl #:method-function :pcl)
+                   method)))
+               t)
+             (t (print-simple-source-info fun)))))))
 
 ;;; Patch suggested by Richard Harris <rharris@chestnut.com>
 
@@ -271,8 +224,9 @@ Takes a symbol or function and returns the pathname for the file the
 function was defined in.  If it was not defined in some file, nil is
 returned."
   (flet ((frob (code)
-	       (let ((info #+CMU17 (kernel:%code-debug-info code)
-			   #-CMU17 (kernel:code-debug-info code)))
+	       (let ((info (the-function-if-defined
+                            (#:%code-debug-info :kernel #:code-debug-info :kernel)
+                            code)))
 		 (when info
 		       (let ((sources (c::debug-info-source info)))
 			 (when sources
@@ -281,12 +235,10 @@ returned."
 				       (c::debug-source-name source)))))))))
 	(typecase function
 		  (symbol (fun-defined-from-pathname (fdefinition function)))
-		  #+CMU17
-		  (kernel:byte-closure
-		   (fun-defined-from-pathname
-		    (kernel:byte-closure-function function)))
-		  #+CMU17
-		  (kernel:byte-function
+                  (#.(the-symbol-if-defined (#:byte-closure :kernel))
+                   (fun-defined-from-pathname
+                    (kernel:byte-closure-function function)))		  
+		  (#.(the-symbol-if-defined (#:byte-function :kernel))
 		   (frob (c::byte-function-component function)))
 		  (function
 		   (frob (kernel:function-code-header
@@ -304,29 +256,6 @@ returned."
     (when (and path (probe-file path))
       (print (namestring (truename path)))
       t)))
-
-
-;;; Old version (semi patched). Left here for the time being.
-;(defun print-simple-source-info (fun)
-;  (let ((info (#+CMU17
-;	       kernel:%code-debug-info
-;	       #-CMU17
-;	       kernel:code-debug-info       
-;	       (kernel:function-code-header fun))))
-;    (when info
-;	  (let ((sources (c::compiled-debug-info-source info)))
-;	    (when sources
-;		  (dolist (source sources)
-;			  (let ((name (c::debug-source-name source)))
-;			    (when (eq (c::debug-source-from source) :file)
-;				  ;; Patch suggested by
-;				  ;; hunter@work.nlm.nih.gov (Larry
-;				  ;; Hunter) 
-;				  ;; (print (namestring name)) ; old
-;				  (print (truename name))
-;				  )))
-;		  t)))))
-
 
 (defun cmulisp-trace (symbol package breakp)
   "Trace SYMBOL in PACKAGE."

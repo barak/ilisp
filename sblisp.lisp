@@ -8,8 +8,7 @@
 ;;; Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
 ;;;               1993, 1994 Ivan Vasquez
 ;;;               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-;;;               1996, 1997, 1998, 1999 Marco Antoniotti and Rick Campbell
-;;;               2000 Matthias Hölzl
+;;;               1996-2000 Marco Antoniotti and Rick Campbell
 ;;;
 ;;; Other authors' names for which this Copyright notice also holds
 ;;; may appear later in this file.
@@ -21,11 +20,10 @@
 ;;; ILISP is freely redistributable under the terms found in the file
 ;;; COPYING.
 
-
-;;;
+;;; based on cmulisp.lisp
 ;;; Todd Kaufmann    May 1990
 ;;;
-;;; Make CMU CL run better within GNU inferior-lisp (by ccm).
+;;; Make SBCL work with ILISP.
 ;;;
 ;;; This init file is compatible with a version of SBCL,
 ;;; where version >= 0.6.10!
@@ -83,12 +81,10 @@
                                ;; this is a temporary portability hack for
                                ;; versions < 0.6.9, that will go away,
                                ;; eventually.
-                               (#.(if (find-package :sb-conditions)
-                                    (intern "RESTART-REPORT-FUNCTION"
-                                            (find-package :sb-conditions))
-                                    (intern "RESTART-REPORT-FUNCTION"
-                                            (find-package :sb-kernel)))
-                                  restart)
+                               (the-function-if-defined
+                                (#:restart-report-function :sb-conditions
+                                 #:restart-report-function :sb-kernel)
+                                restart)
                                nil)))
 			 restart-list)))
 		   (cond ((zerop num) (car first))
@@ -120,31 +116,6 @@
 
 
 (export '(arglist source-file sblisp-trace))
-
-;;;%% arglist - return arglist of function - former version
-
-;;(defun arglist (symbol package)
-;;  (ilisp-errors
-;;   (let* ((x (ilisp-find-symbol symbol (package-name package)))
-;;          (fun (get-correct-fn-object x)))
-;;     (values
-;;      (cond ((sb-eval:interpreted-function-p fun) 
-;;             (sb-eval:interpreted-function-arglist fun))
-;;            ((= (sb-impl::get-type fun)
-;;                #.sb-vm:funcallable-instance-header-type) 
-;;             ;; generic function / method
-;;             (sb-pcl::generic-function-pretty-arglist fun))
-;;            ((compiled-function-p fun)
-;;             (let ((string-or-nil
-;;                    (sb-impl::%function-arglist fun)))
-;;               (if string-or-nil
-;;                   (read-from-string string-or-nil)
-;;                   "No argument info.")))
-;;            (t (error "Unknown type of function")))))))
-;;
-
-;;; 2000-04-02: Martin Atzmueller
-;;; better (more bulletproof) arglist code adapted from cmulisp.lisp:
 
 (defun extract-function-info-from-name (sym)
   (let ((mf (macro-function sym)))
@@ -228,23 +199,6 @@
 		  t)
 		 (t (print-simple-source-info fun)))))))
 
-;;; Old version. Left here for the time being.
-;(defun source-file (symbol package type)
-;  (declare (ignore type))
-;  (ilisp-errors
-;   (let* ((x (ilisp-find-symbol symbol package))
-;	  (fun (get-correct-fn-object x)))
-;     (when fun
-;       (cond ((= (sb-impl::get-type fun)
-;		 #.sb-vm:funcallable-instance-header-type)
-;	      ;; A PCL method! Uh boy!
-;	      (dolist (method (sb-pcl::generic-function-methods fun))
-;		(print-simple-source-info
-;		 (sb-impl::%closure-function (sb-pcl::method-function method))))
-;	      t)
-;	     (t (print-simple-source-info fun)))))))
-
-
 ;;; Patch suggested by Richard Harris <rharris@chestnut.com>
 
 ;;; FUN-DEFINED-FROM-PATHNAME takes a symbol or function object.  It
@@ -287,26 +241,6 @@ returned."
     (when (and path (probe-file path))
       (print (namestring (truename path)))
       t)))
-
-
-;;; Old version (semi patched). Left here for the time being.
-;(defun print-simple-source-info (fun)
-;  (let ((info (sb-kernel:%code-debug-info
-;	       (sb-kernel:function-code-header fun))))
-;    (when info
-;	  (let ((sources (sb-c::compiled-debug-info-source info)))
-;	    (when sources
-;		  (dolist (source sources)
-;			  (let ((name (sb-c::debug-source-name source)))
-;			    (when (eq (sb-c::debug-source-from source) :file)
-;				  ;; Patch suggested by
-;				  ;; hunter@work.nlm.nih.gov (Larry
-;				  ;; Hunter) 
-;				  ;; (print (namestring name)) ; old
-;				  (print (truename name))
-;				  )))
-;		  t)))))
-
 
 (defun sblisp-trace (symbol package breakp)
   "Trace SYMBOL in PACKAGE."

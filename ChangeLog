@@ -4,6 +4,47 @@
 	procedure documentaion that has been passed through TeXinfo (Guile
 	1.4.1).
 
+2001-03-13  Martin Atzmueller  <martin@atzmueller.net>
+
+	* sblisp.lisp ("POP"): tweaked dynamic code (using the new
+	macros).
+
+	* cmulisp.lisp (arglist): old feature-based stuff replaced
+	with even more dynamic code based on the new macros (below).
+	(source-file): ditto.
+	(fun-defined-from-pathname): ditto (the-function-if-defined).
+	(fun-defined-from-pathname): ditto (the-symbol-if-defined).
+
+	* cl-ilisp.lisp: old version of print-function-arglist (in
+	comments) removed.
+	(ilisp-print-info-message): old debugging code (in comments)
+	removed.
+	(the-function-if-defined): new macro: instead of testing on
+	compiler-features in *features*,
+	this macro tests on the presence of certain functions.
+	(the-symbol-if-defined): new macro: instead of testing on
+	compiler-features in *features*,
+	this macro tests on the presence of certain symbols.
+	Both help SBCL and CMUCL in curing some versioning differences.
+
+	* sblisp.lisp: old version of print-simple-source-info
+	(in comments) removed.
+
+	* cmulisp.lisp: old version of print-simple-source-info
+	(in comments) removed.
+
+2001-03-12  Martin Atzmueller  <martin@atzmueller.net>
+
+	* sblisp.lisp ("POP"): tweaks.
+	  Old version of arglist (in comments) removed.
+	  Old version of source-file (in comments) removed.
+
+        * cmulisp.lisp (patch contributed by Hannu Koivisto):
+          (arglist) CMU17 read-time conditional stuff replaced with
+          a more dynamic feature testing code.  Also few cosmetic fixes.
+          Old version of arglist (in comments) removed.
+	  Old version of source-file (in comments) removed.
+
 2001-03-12  Paolo Amoroso  <amoroso@mclink.it>
 
 	* INSTALLATION (log message): removed the whole contents of the

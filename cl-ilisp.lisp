@@ -97,6 +97,45 @@
 
 (defvar *ilisp-message-addon-string* "ILISP:")
 
+(defmacro the-symbol-if-defined ((if-symbol
+                                  if-package
+                                  &optional else-symbol else-package)
+                                 &body body)
+  (let* ((sym-if (and (find-package if-package)
+                      (find-symbol (symbol-name if-symbol)
+                                   (find-package if-package))))
+          (sym-else
+           (unless sym-if
+             (and else-symbol
+                  (find-package else-package)
+                  (find-symbol (symbol-name else-symbol)
+                               (find-package else-package))))))
+    (if (consp (first body))
+      `(let ((the-symbol ,(or sym-if sym-else)))
+        ,@body)
+      `',(or sym-if  sym-else))))
+                   
+(defmacro the-function-if-defined ((if-function
+                                    if-package
+                                    &optional else-function else-package)
+                                   &body body)
+  (let* ((fun-if
+           (ignore-errors
+             (find-symbol (symbol-name if-function)
+                          (find-package if-package))))
+         (fun-else
+           (unless fun-if
+             (ignore-errors
+               (and else-function
+                    (find-symbol (symbol-name else-function)
+                                 (find-package else-package)))))))
+    (when (or fun-if fun-else)
+      (if (and (consp body) (not (consp (first body))))
+        `(,(or fun-if fun-else) ,@body)
+        `(let ((the-function (symbol-function ',(or fun-if fun-else))))
+          ,@body)))))
+      
+
 ;;; Martin Atzmueller 2000-01-15
 ;;; ilisp-message was mostly set up because Clisp expects an
 ;;; ~& or ~% before the message-string, otherwise it does not display anything!"
@@ -387,24 +426,6 @@ The trick is to try to handle print case issues intelligently."
     (terpri)
     (values)))
 
-#| Original version
-(defun print-function-arglist (fn)
-  "Pretty arglist printer"
-  (let* ((a (get-function-arglist fn))
- 	 (arglist (ldiff a (member '&aux a))))
-	 (desc (ilisp-function-short-description fn)))
-    (break "sun la")
-    (format t "~&~s~a" fn (or desc ""))
-    (write-string ": ")
-    (if arglist
-	(write arglist :case :downcase :escape nil)
-      (write-string "()"))
-    (terpri)
-    (values)))
-|#
-
-
-
 (defun ilisp-generic-function-p (symbol)
   (let ((generic-p
 	 (find-symbol "GENERIC-FUNCTION-P"
@@ -467,7 +488,6 @@ Error messages are generated appropriately."
 	 (*print-length* nil)
 	 (*print-level* nil)
 	 (*package* (ilisp-find-package package)))
-     ;; (break "Cheking ILISP-PRINT-INFO-MESSAGE")
      (cond ((null real-symbol)
 	    (format t "")
 	    ;; (ilisp-message t "symbol ~S not present in ~S." symbol package)
