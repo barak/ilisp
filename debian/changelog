@@ -1,8 +1,9 @@
 ilisp (5.12.0+cvs.2003.03.05b) unstable; urgency=low
 
   * Remove /usr/lib/ilisp and /usr/lib/ilisp in preinst on an upgrade
+  * Make sure symlink from an ancient version of ilisp is remove in preinst
 
- -- Kevin M. Rosenberg <kmr@debian.org>  Tue,  4 Mar 2003 22:08:53 -0700
+ -- Kevin M. Rosenberg <kmr@debian.org>  Tue,  4 Mar 2003 22:20:55 -0700
 
 ilisp (5.12.0+cvs.2003.03.05) unstable; urgency=low
 
