@@ -261,13 +261,6 @@ o Allegro
 
 o CLISP
 
-        Unless you add the following form to your ~/.clisprc file:
-
-          (pushnew (pathname ".lisp") system::*source-file-types*)
-
-        the ILISP command `M-x ilisp-compile-inits' will not be able to
-        compile CLISP's initialization files.
-
         (The list below was provided by Valentino Kyriakides)
 
         The following lists some unusual ILISP behaviour related to CLISP.
