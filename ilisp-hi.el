@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.15 2002/09/05 13:33:03 anisotropy9 Exp $
+;;; $Id: ilisp-hi.el,v 1.16 2002/09/05 21:00:43 rgrjr Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -596,37 +596,15 @@ current directory of the LISP."
 ;;;
 (defun lisp-find-file (file &optional pop no-name)
   "Find FILE, optionally POPping.
-If optional NO-NAME is nil, and there is a buffer with a name that is
-the same as the final pathname component, select that instead of
-reading the file associated with the full path name.  If the expanded
-name of FILE and buffer match, select that buffer."  
-
-  (let* ((buffers (buffer-list))
-	 (position 0)
-	 (expand-symlinks t)
-	 (expanded (expand-file-name file))
-	 filename)
-    (if (not no-name)
-	(progn (while (string-match "/" file position)
-		 (setq position (match-end 0)))
-	       (setq filename (substring file position))))
-    (while buffers
-      (save-excursion 
-	(set-buffer (car buffers))
-	(let* ((name (and (not no-name) (buffer-name)))
-	       (buffer-file (buffer-file-name))
-	       (buffer-expanded
-		(cdr 
-		 (if (string-equal buffer-file (car lisp-buffer-file)) 
-		     lisp-buffer-file
-		     (setq lisp-buffer-file
-			   (cons buffer-file 
-				 (expand-file-name buffer-file)))))))
-	  (if (or (and name (string-equal filename name))
-		  (string-equal expanded buffer-expanded))
-	      (setq file buffer-file
-		    buffers nil)
-	      (setq buffers (cdr buffers)))))))
+The optional NO-NAME arg is obsolete."
+  ;; [Formerly, if NO-NAME is nil and there is a buffer with a name that is the
+  ;; same as the final pathname component, lisp-find-file selected that buffer
+  ;; instead of reading the file associated with the full path name.  This
+  ;; feature was used only by edit-definitions-lisp (via lisp-locate-definition)
+  ;; and replace-lisp, where it may have helped for remote lisps without shared
+  ;; file access, but only if you happen not to have duplicate file names.  In
+  ;; the 21st century, remote file access is more common; by the same token, so
+  ;; are duplicate file names.  -- rgr, 26-Aug-02.]
   (if pop
       (lisp-pop-to-buffer (find-file-noselect file))
       (find-file file)))

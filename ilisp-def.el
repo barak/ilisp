@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.18 2002/09/03 16:29:54 mkoeppe Exp $
+;;; $Id: ilisp-def.el,v 1.19 2002/09/05 21:00:43 rgrjr Exp $
 
 ;;;%Variables
 ;;;%%Deflocal
@@ -447,12 +447,6 @@ By default the file will be loaded from the ilisp-directory.")
 
 (defvar ilisp-comment-marker (make-marker)
   "Marker for end of a comment region.")
-
-
-(defvar lisp-buffer-file nil 
-  "Cons of buffer-file-name and the expanded name.")
-
-(make-variable-buffer-local 'lisp-buffer-file)
 
 (defvar ilisp-last-message nil)
 

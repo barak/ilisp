@@ -1,3 +1,19 @@
+2002-09-05  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
+
+	* cl-ilisp.lisp (ilisp-compile), 
+	cmulisp.lisp (fun-defined-from-pathname): Teach CMUCL not to
+	forget the source file of interactively compiled definitions.
+
+	* ilisp-hi.el (lisp-find-file): Remove a misfeature: If NO-NAME
+	was nil and there is a buffer with a name that is the same as the
+	final pathname component, lisp-find-file selected that buffer
+	instead of reading the file associated with the full pathname.
+	NO-NAME is now obsolete, so is lisp-buffer-file (in lisp-def.el),
+	and lisp-find-file is now much smaller.
+	
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space):  Don't lose on
+	#:foo.
+	
 2002-09-03  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-def.el (ilisp-*process-connection-type*): New variable.
