@@ -25,10 +25,10 @@
 
 ;;; Commentary:
 
-;; Kent Pitman and the Harlequin Group have made the text of American
-;; National Standard for Information Technology -- Programming Language --
-;; Common Lisp, ANSI X3.226-1994 available on the WWW, in the form of the
-;; Common Lisp HyperSpec.  This package makes it convenient to peruse this
+;; Kent Pitman and Xanalys Inc. have made the text of American National
+;; Standard for Information Technology -- Programming Language -- Common
+;; Lisp, ANSI X3.226-1994 available on the WWW, in the form of the Common
+;; Lisp HyperSpec.  This package makes it convenient to peruse this
 ;; documentation from within Emacs.
 
 ;;; Code:
@@ -67,32 +67,32 @@ your favorite browser in sequence.  The browser should have a \"back\"
 function to view the separate definitions.
 
 The Common Lisp HyperSpec is the full ANSI Standard Common Lisp, provided
-by Kent Pitman and the Harlequin Group.  By default, the Harlequin WWW site
-is visited to retrieve the information.  The Harlequin Group allows you to
-transfer the entire Common Lisp HyperSpec to your own site under certain
-conditions.  Visit http://www.harlequin.com/books/HyperSpec/ for more
+by Kent Pitman and Xanalys Inc.  By default, the Xanalys Web site is
+visited to retrieve the information.  Xanalys Inc. allows you to transfer
+the entire Common Lisp HyperSpec to your own site under certain conditions.
+Visit http://www.xanalys.com/software_tools/reference/HyperSpec/ for more
 information.  If you copy the HyperSpec to another location, customize the
 variable `common-lisp-hyperspec-root' to point to that location."
   (interactive (list (let ((symbol-at-point (thing-at-point 'symbol)))
                        (if (and symbol-at-point
                                 (intern-soft (downcase symbol-at-point)
                                              common-lisp-hyperspec-symbols))
-                         symbol-at-point
+                           symbol-at-point
                          (completing-read
                           "Look up symbol in Common Lisp HyperSpec: "
                           common-lisp-hyperspec-symbols #'boundp
                           t symbol-at-point
                           'common-lisp-hyperspec-history)))))
   (maplist (lambda (entry)
-            (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry)))
-            (if (cdr entry)
-              (sleep-for 1.5)))
-    (let ((symbol (intern-soft (downcase symbol-name)
-                               common-lisp-hyperspec-symbols)))
-      (if (and symbol (boundp symbol))
-        (symbol-value symbol)
-        (error "The symbol `%s' is not defined in Common Lisp"
-               symbol-name)))))
+             (browse-url (concat common-lisp-hyperspec-root "Body/" (car entry)))
+             (if (cdr entry)
+                 (sleep-for 1.5)))
+           (let ((symbol (intern-soft (downcase symbol-name)
+                                      common-lisp-hyperspec-symbols)))
+             (if (and symbol (boundp symbol))
+                 (symbol-value symbol)
+               (error "The symbol `%s' is not defined in Common Lisp"
+                      symbol-name)))))
 
 ;;; Added the following just to provide a common entry point according
 ;;; to the various 'hyperspec' implementations.
