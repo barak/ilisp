@@ -10,18 +10,10 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.9 2002/09/12 01:18:56 rgrjr Exp $
+;;; $Id: cmulisp.lisp,v 1.10 2002/09/12 01:54:31 rgrjr Exp $
 
 
 (in-package :ilisp)
-
-;;;% CMU CL does not define defun as a macro
-(defun ilisp-compile (form package filename)
-  "Compile FORM in PACKAGE recording FILENAME as the source file."
-  (ilisp-errors
-   (ilisp-eval
-    (format nil "(funcall (compile nil '(lambda () ~A)))" form)
-    package filename)))
 
 ;;;% Stream settings, when running connected to pipes.
 ;;;
