@@ -1,3 +1,18 @@
+2001-12-07  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ild.el: added support for breakpoint stepping (patch contributed
+	by Ole Rohne <ole.rohne@cern.ch>).
+
+	* ilisp-cmu.el: added support for breakpoint stepping (patch
+	contributed by Ole Rohne <ole.rohne@cern.ch>).
+
+	* docs/ilisp.texi (Interface to Lisp debuggers): documented
+	`ild-step'.
+	(Acknowledgments): added Ole Rohne.
+	Updated version info.
+
+	* ACKNOWLEDGMENTS: added Ole Rohne.
+
 2001-11-06  Martin Atzmueller  <martin@atzmueller.net>
 
 	* sbcl.lisp (arglist): tweak due to more renamings in the
