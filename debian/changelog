@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.01.30) unstable; urgency=low
+
+  * New upstream (closes: 179037)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Thu, 30 Jan 2003 08:08:07 -0700
+
 ilisp (5.12.0+cvs.2003.01.11) unstable; urgency=low
 
   * Don't remove .el files from elc directory since upstream ilisp-mak.el does
