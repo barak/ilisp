@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.12 2002/05/31 11:43:58 amoroso Exp $
+;;; $Id: cl-ilisp.lisp,v 1.13 2002/08/20 11:24:56 anisotropy9 Exp $
 
 
 ;;; Old history log.
@@ -296,7 +296,7 @@ The trick is to try to handle print case issues intelligently."
 |#
 
 ;;; 2000-09-29 11:28:36 rurban
-;;; I needed this for Xemacs/cmd.exe/cormanlisp which swallows all my backslashes.
+;;; I needed this for XEmacs/cmd.exe/cormanlisp which swallows all my backslashes.
 ;;; Slashes do work fine on NT.
 (defun ilisp-w32-fix-filename (filename)
   "Pathslash hack: replace all '\\' by '/' in filenames.

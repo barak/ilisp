@@ -211,7 +211,7 @@ Fixes and enhancements since 5.7
    it is not turned on.  You have to fix it manually by transforming two
    '#+(and nil gcl)' into '#+(and t gcl)'
 
--- A few fixes were made to realign ILISP to Xemacs 19.14
+-- A few fixes were made to realign ILISP to XEmacs 19.14
 
 -- The file 'clisp.lisp' has been renamed to 'cl-ilisp.lisp', in order
    to avoid confusion with the CLISP implementation of Common Lisp.
