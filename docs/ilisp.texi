@@ -109,7 +109,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.23, March 2002
+@subtitle Edition 0.23, June 2002
 @subtitle For ILISP Version: 5.12
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -134,7 +134,7 @@ Copyright @copyright{} @itemize
 @sp 2
 This is edition 0.23 of the @cite{ILISP User Manual}
 for ILISP Version: 5.12,
-March 2002.
+June 2002.
 
 @sp 2
 
@@ -634,10 +634,11 @@ version is currently v6, by downloading the file
 
 Daniel Barlow, Stephen Carney and Erik Naggum independently developed
 Emacs Lisp packages for looking up Lisp symbols in the HyperSpec and
-displaying the relevant sections with a Web browser. ILISP includes all
-of them in the @file{extra} directory of the distribution tree. By
-default ILISP uses Naggum's package.  If you want to use one of the
-others, see the comments at the beginning of the corresponding files.
+displaying the relevant sections with a Web browser. ILISP used to include all
+of them in the @file{extra} directory of the distribution tree.
+However, because of some changes to the CLHS only Erik Naggum's
+version is now distributed.  If you want to use one of the
+others, please contact the other authors.
 @cindex ANSI Common Lisp
 @cindex HyperSpec
 @cindex Common Lisp HyperSpec
