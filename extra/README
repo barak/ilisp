@@ -8,10 +8,6 @@ conjunction with ILISP.
 
 HyperSpec
 ---------
-You may see three different 'hyperspec' packages here.  Erik Naggum's is
-the one currently used, but you may substitute the one of your liking by
-changing the link to 'hyperspec.el' (see also the INSTALLATION file).
-
 Note that some software in this directory (HyperSpec packages in
 particular) is 'non free', according to the definition accepted by the FSF
 (see <http://www.gnu.org> for the definition).  However, the HyperSpec (as
