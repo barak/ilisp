@@ -1,3 +1,19 @@
+2000-07-31  Paolo Amoroso  <amoroso@mclink.it>
+
+	* INSTALLATION: added information on the reference card and
+	  setting LN and HyperSpec in Makefile.
+
+	* docs/ilisp.texi (Configuration and compilation): added
+	  information on setting LN and HyperSpec in Makefile.
+
+	* Makefile: added commands to link, compile and remove the
+	  HyperSpec access package. Now compilation creates
+	  `extra/hyperspec.el' as a link/copy of the appropriate package.
+
+	* extra/hyperspec.el: removed to let the makefile create a
+	  link/copy to the appropriate HyperSpec package during
+	  compilation.
+
 2000-07-27  Paolo Amoroso  <amoroso@mclink.it>
 
 	* Welcome: updated list of maintainers.
