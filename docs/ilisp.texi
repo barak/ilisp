@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: July 13, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: July 19, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,8 +77,8 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.17 of the ILISP manual
-for ILISP Version: 5.10.1.
+This is edition 0.18 of the ILISP manual
+for ILISP Version: 5.10.2.
 
 @example
 Copyright (C) 1991,1992,1993 Todd Kaufmann
@@ -109,8 +109,8 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.17, July 2000
-@subtitle For ILISP Version: 5.10.1
+@subtitle Edition 0.18, July 2000
+@subtitle For ILISP Version: 5.10.2
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
 @c which can be used to change all ilisp-*prefix* bindings to C-c (or
@@ -132,8 +132,8 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.17 of the @cite{ILISP User Manual}
-for ILISP Version: 5.10.1,
+This is edition 0.18 of the @cite{ILISP User Manual}
+for ILISP Version: 5.10.2,
 July 2000.
 
 @sp 2
@@ -874,8 +874,13 @@ Support for XEmacs.
 @cindex @file{ilxemacs.el}
 
 @item *.lisp
-ILISP support code.  Each dialect will have one of these files.
+Support code for Common Lisp.  Each dialect will have one of these
+files.
 @cindex @file{.lisp} files
+
+@item *.scm
+Support code for Scheme.  Each dialect will have one of these files.
+@cindex @file{.scm} files
 
 @end table
 
