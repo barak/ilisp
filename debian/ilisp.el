@@ -93,7 +93,6 @@
 
 	     (setq ilisp-*use-frame-for-output* nil)
 	     (setq ilisp-*use-fsf-compliant-keybindings* t)
-	     (setq ilisp-*use-fsf-compliant-keybindings* t)
 
 	     ;; Make sure that you don't keep popping up the 'inferior
              ;; Lisp' buffer window when this is already visible in

@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2002.09.20) unstable; urgency=low
+
+  * Fix duplicated line in ilisp.el
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sat, 21 Sep 2002 12:50:02 -0600
+
 ilisp (5.12.0+cvs.2002.09.19) unstable; urgency=low
 
   * Remove user compiled files from /usr/lib/ilisp/ when package is purged.
