@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-utl.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-utl.el,v 1.3 2002/09/25 01:51:54 rgrjr Exp $
 
 (defun lisp-show-send (string)
   "Show STRING in the *ilisp-send* buffer."
@@ -27,20 +27,16 @@
   "Put string in the *ilisp-send* buffer, backslashifying troublesome chars.
 I.e. put backslashes before quotes and backslashes and return the resulting
 string."
-  (save-excursion
-    (lisp-show-send string)
-    (set-buffer "*ilisp-send*")
-    (goto-char (point-min))
-    (while (search-forward "\\" nil t)
-      (delete-char -1)
-      (insert "\\\\"))
-    (goto-char (point-min))
-    (while (search-forward "\"" nil t)
-      (backward-char)
-      (insert ?\\)
-      (forward-char))
-    (buffer-substring (point-min) (point-max))))
-
+  ;; The quoting is now all done by prin1-to-string, since elisp and Common Lisp
+  ;; string quoting syntax is identical.
+  (or (stringp string)
+      (error "ilisp bug: argument to %s is %s, which is not a string."
+	     'lisp-slashify string))
+  (let* ((string (prin1-to-string string))
+	 ;; strip off surrounding quotes.
+	 (result (substring string 1 (1- (length string)))))
+    (lisp-show-send result)	;; for side effect.
+    result))
 
 ;;;%%String
 (defun lisp-prefix-p (s1 s2)
