@@ -1,6 +1,11 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 25, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: April 26, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
+
+@dircategory Lisp Programming
+@direntry
+* ILisp: (ilisp).       Inferior Lisp mode.
+@end direntry
 
 @iftex
 @finalout
