@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-chs-init.lisp,v 1.3 2002/03/26 09:41:04 anisotropy9 Exp $
+;;; $Id: cl-chs-init.lisp,v 1.4 2003/05/09 23:29:59 bill_clementson Exp $
 
 ;;; Old history logs.
 ;;;
@@ -62,9 +62,6 @@
 (eval-when (:execute :load-toplevel)
   (when (not (compiled-function-p #'ilisp-inspect))
     (ilisp-message t "File is not compiled, use M-x ilisp-compile-inits"))
-
-  (when (boundp 'system::*source-file-types*)
-    (pushnew (pathname ".lisp") system::*source-file-types* :test #'equalp))
   (sys::debug-unwind))
 
 

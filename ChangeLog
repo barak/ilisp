@@ -1,7 +1,13 @@
 2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
 
-	* ild.el, ilisp-key.el: Complete revision of the FSF key 
-	bindings.
+	* cl-chs-init.lisp: Applied patch sent by Eduardo Muñoz that
+	fixes problem of CLISP "barfing" when #P".lisp" (a pathname) 
+	is member of system::*source-file-types* (a list of strings). 
+
+
+2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ild.el, ilisp-key.el: Complete revision of the FSF key bindings.
 
 	* ilisp-hi.el: Added functions eval-last-sexp-lisp and 
 	eval-last-sexp-and-go-lisp.
