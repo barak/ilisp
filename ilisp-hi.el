@@ -660,7 +660,8 @@ after being enabled it will display the arglist or value of a specific
 symbol after the symbol has been typed in followed by #\\Space."
   (interactive)
   (when (and ilisp-*arglist-message-lisp-space-p* ; only if enabled and...
-             (ilisp-value 'ilisp-print-info-message-command t) ; we can print info
+             (ignore-errors             ; we can print info
+               (ilisp-value 'ilisp-print-info-message-command t))
 	     (ignore-errors
 	       (or (equal (ilisp-value 'ilisp-status) " :ready")
 		   (equal (ilisp-value 'ilisp-status) " :error")))
