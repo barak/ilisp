@@ -7,7 +7,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mouse.el,v 1.1 2003/04/10 18:50:34 rgrjr Exp $
+;;; $Id: ilisp-mouse.el,v 1.2 2003/04/11 15:16:46 rgrjr Exp $
 
 ;;; Unlike most other ilisp source files, ilisp-mouse is meant to be loadable by
 ;;; itself, in case you want to click M-left on a C definition name or URL, for
@@ -113,10 +113,11 @@ text table doesn't like \".\", \"~\", and other constituent chars."
 			   (let ((end (point)))
 			     (forward-sexp -1)
 			     (ilisp-mouse-snarf-sexp-after-point end))))
-		       (t
-			 (or (and (fboundp 'ffap-file-at-point)
-				  (ffap-file-at-point))
-			     (find-tag-default)))))))
+		       ;; [using ffap-file-at-point might be more featureful,
+		       ;; but it mangles URLs.  -- rgr, 11-Apr-03.]
+		       ;; ((and (fboundp 'ffap-file-at-point)
+		       ;;       (ffap-file-at-point)))
+		       (t (find-tag-default))))))
     (cond ((or (not (stringp thing))
 	       (eq (aref thing 0) ?\())
 	    ;; Thing is sometimes null; this happens (e.g.) in empty buffers.
