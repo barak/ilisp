@@ -1,3 +1,8 @@
+2000-07-03  Paolo Amoroso  <amoroso@mclink.it>
+
+	* .ILISP.prcs-aux, ILISP.prj: removed PRCS auxiliary files no
+	  longer needed with CVS.
+	
 2000-06-30  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-sch.el (guile): fixed malformed
