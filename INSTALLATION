@@ -5,15 +5,15 @@ WELCOME TO ILISP.
 
 FIRST INSTALLATION STEP: UNPACKING AND COMPILING.
 
-Copy the ILISP distribution archive, e.g. ilisp-5.9.4.tar.gz, to the
+Copy the ILISP distribution archive, e.g. ilisp-x.y.z.tar.gz, to the
 location where you would like to install it. Next extract the archive (you
 may need root privileges to perform these operations):
 
-% gzip -dc ilisp-5.9.4.tar.gz | tar xf -
+% gzip -dc ilisp-x.y.z.tar.gz | tar xf -
 
 or:
 
-% unzip ilisp-5.9.4.zip
+% unzip ilisp-x.y.z.zip
 
 Some configuration needs to be done before compiling the Emacs Lisp files
 that comprise ILISP.  Start with the Makefile file, in the section after
@@ -29,10 +29,10 @@ If your Emacs supports the `easymenu' package, it is possible to make ILISP
 add to Lisp mode buffers and buffers with inferior Lisp processes, or to
 Scheme mode buffers and buffers with inferior Scheme processes, an Ilisp
 menu with all available commands.  To enable this feature, set to T the
-variable ENABLE-ILISP-CL-EASY-MENU-P in `ilisp-def.el' for the Common Lisp
-dialects, and ENABLE-ILISP-SCHEME-EASY-MENU-P for Scheme dialects.  Setting
-these variables also causes the default Lisp menu to be removed before
-displaying the Ilisp one.
+variable ILISP-*ENABLE-CL-EASY-MENU-P* in `ilisp-def.el' for the Common
+Lisp dialects, and ILISP-*ENABLE-SCHEME-EASY-MENU-P* for Scheme dialects.
+Setting these variables also causes the default Lisp menu to be removed
+before displaying the Ilisp one.
 
 See the next section for additional configuration options and known
 problems for specific Lisp dialects.
@@ -108,7 +108,7 @@ Common Lisp documentation shipped with Franz Inc.'s Allegro CL product
 inclusion since version 5.9 of ILISP of the `hyperspec' packages, make
 access to the Franz documentation no longer necessary. So by default ILISP
 does not load the `fi:clman' module, but if you still want to use its
-commands set the ILISP-USE-FI-CLMAN-INTERFACE-P to T in `ilisp-def.el'.
+commands set the ILISP-*USE-FI-CLMAN-INTERFACE-P* to T in `ilisp-def.el'.
 
 The ILISP documentation consists of a user manual and a reference card.
 Both of them are in the `docs' directory of the distribution tree.
