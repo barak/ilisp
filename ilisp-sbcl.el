@@ -69,7 +69,7 @@
 	(function (lambda (old line)
 		    (comint-prompt-status old line 'sblisp-check-prompt)))
 
-	ilisp-error-regexp "\\(ILISP:[^\"]*\\)\\|\\(Error [^\n]*\n\n\\)"
+	ilisp-error-regexp "\\(ILISP:[^\"]*\\)\\|\\(error [^\n]*\n\n\\)\\|\\(debugger invoked on [^:]*:\\)"
 	;; The above regexp has been suggested by
 	;; hunter@work.nlm.nih.gov (Larry Hunter)
 
@@ -77,7 +77,10 @@
 
 	ilisp-find-source-command "(ILISP:source-file \"%s\" \"%s\" \"%s\")"
 
-	comint-fix-error ":pop"
+	;;; 2000-10-08 Martin Atzmzeller; old one: comint-fix-error ":pop"
+        ;;; comint-fix-error (ilisp::pop-debug-command)
+        comint-fix-error ":pop"
+
 
 	comint-continue ":go"
 
