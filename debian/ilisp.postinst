@@ -67,7 +67,6 @@ case "$1" in
 	set_keybindings
 	chown -R cl-builder:cl-builder /usr/lib/ilisp
 	/usr/sbin/register-common-lisp-source ilisp
-	clc-autobuild-library ilisp yes
 	ensure_symlinks
 	;;
     abort-upgrade|abort-remove|abort-deconfigure)
