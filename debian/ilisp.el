@@ -2,9 +2,7 @@
 ;;;
 ;;; Copyright (c) 2002 Kevin Rosenberg GNU License
 
-(if (file-executable-p "/usr/sbin/register-common-lisp-source")
-    (defvar ilisp-*directory* "/usr/share/common-lisp/source/ilisp/")
-  (defvar ilisp-*directory* "/usr/share/ilisp/"))
+(defvar ilisp-*directory* "/usr/lib/ilisp/")
 
 (autoload 'run-ilisp "ilisp" "Select a new inferior LISP." t)
 

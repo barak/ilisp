@@ -49,7 +49,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installdocs debian/local-modifications
+	dh_installdocs
 	dh_installemacsen
 	dh_installchangelogs	
 	dh_strip
