@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.21 2003/11/03 04:40:16 rgrjr Exp $
+;;; $Id: cl-ilisp.lisp,v 1.22 2004/08/11 19:12:46 kevinrosenberg Exp $
 
 
 ;;; Old history log.
@@ -53,7 +53,7 @@
 ;;; 19960715 Marco Antoniotti
 ;;; 20010831 Marco Antoniotti
 
-#+(or (and nil gcl))
+#+(or (and gcl))
 (export '(ilisp-errors
 	  ilisp-save
 	  ilisp-restore
@@ -215,15 +215,12 @@ messages, i.e. \"ILISP: ... \" in an uniform way."
 ;;;
 (defun ilisp-save ()
   "Save the current state of the result history."
-  (declare (special / // /// + ++ +++))
   (unless *ilisp-old-result*
     (setq *ilisp-old-result* (list /// // +++ ++ + /))))
 
 ;;;
 (defun ilisp-restore ()
   "Restore the old result history."
-  (declare (special / // + ++ * ** -))
-    
   (setq // (pop *ilisp-old-result*)
 	** (first //)
 	/  (pop *ilisp-old-result*)

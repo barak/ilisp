@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.10 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.11 2004/08/11 19:12:46 kevinrosenberg Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Definitions
@@ -41,7 +41,7 @@
 ;;; solution provided by Franz Inc seems a sub-optimal fix."
 ;;; 27 March 2002 Will Deakin
 
-#-(and nil gcl)
+#-(and gcl)
 (defpackage :ilisp
   (:use :common-lisp
 	#+:CMU :conditions

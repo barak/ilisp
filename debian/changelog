@@ -1,3 +1,15 @@
+ilisp (5.12.0+cvs.2004.08.11) unstable; urgency=low
+
+  * Fix for sbcl from Christophe Rhodes
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Wed, 11 Aug 2004 13:12:25 -0600
+
+ilisp (5.12.0+cvs.2004.08.03) unstable; urgency=low
+
+  * Enable GCL avoid defsystem hack (closes:241541)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Tue,  3 Aug 2004 06:30:44 -0600
+
 ilisp (5.12.0+cvs.2004.08.02.2) unstable; urgency=low
 
   * Add German translation (closes:263028)
