@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl-easy-menu.el,v 1.7 2003/05/29 18:23:56 bill_clementson Exp $
+;;; $Id: ilisp-cl-easy-menu.el,v 1.8 2003/05/29 19:53:24 bill_clementson Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de
@@ -144,7 +144,10 @@
      ;; With which var can I test if 'fi' is really loaded? Can I just
      ;; use FEATUREP?
      [ "Clman-apropos" fi:clman-apropos nil ] 
-     [ "Hyperspec - apropos"
+     [ "CLtL2"
+       cltl2-lookup
+      ,ilisp-*use-cltl2-interface-p* ]
+      [ "Hyperspec - apropos"
        hyperspec-lookup
        ,ilisp-*use-hyperspec-interface-p* ]
      )
@@ -168,6 +171,7 @@
      [ "Clear changes" clear-changes-lisp t ]
      "--"
      [ "Trace defun" trace-defun-lisp t ]
+     [ "Trace defun - break" trace-defun-lisp-break t ]
      )
     "--"
     [ "Reset Ilisp Connection" reset-ilisp t ]
@@ -192,6 +196,7 @@
      [ "Local"    ild-local 	(ilisp-ild-p) ]
      [ "Return"   ild-return 	(ilisp-ild-p) ]
      [ "Retry"    ild-retry 	(ilisp-ild-p) ]
+     [ "Step"     ild-step	(ilisp-ild-p) ]
      [ "Trap on exit" ild-trap-on-exit (ilisp-ild-p) ]
      "--"
      [ "Fast lisp" fast-lisp t ]

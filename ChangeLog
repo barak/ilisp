@@ -1,6 +1,7 @@
 2003-05-29  Bill Clementson  <bill_clementson@yahoo.com>
 
-	* ilisp-cl-easy-menu.el: Added ilisp-compile-buffer to menu.
+	* ilisp-cl-easy-menu.el: Added ilisp-compile-buffer,
+	trace-defun-lisp-break, ild-step, cltl2-lookup to menu.
 
 2003-05-27  Bill Clementson  <bill_clementson@yahoo.com>
 
