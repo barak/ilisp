@@ -76,7 +76,7 @@ docs: FORCE
 	cd docs; $(MAKE)
 
 clean: 
-	-$(RM) *.elc *~ extra/*.elc extra/*~
+	-$(RM) *.elc *~ extra/*.elc extra/*~ TAGS
 	(cd docs; $(MAKE) clean)
 
 loadfile:
