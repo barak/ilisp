@@ -28,6 +28,8 @@
 (defdialect scheme "Scheme" ilisp
   (setq ilisp-block-command "(begin \n%s)")
   (setq ilisp-load-command "(load \"%s\")")
+  (setq ilisp-locator 'ilisp-locate-scheme-definition)
+  (setq ilisp-calls-locator 'ilisp-locate-scheme-calls)
   )
 
 (unless scheme-program
@@ -174,6 +176,7 @@
           ilisp-documentation-command "(help %s)"
           ilisp-print-info-message-command "(ilisp-print-info-message '%s \"%s\")"
           ilisp-arglist-command "(ilisp-arglist '%s \"%s\")"
+	  ilisp-find-source-command "(ilisp-source-file \"%s\" \"%s\")"
           ilisp-macroexpand-command "(ilisp-macroexpand \"%s\" \"%s\")"
           ilisp-macroexpand-1-command "(ilisp-macroexpand-1 \"%s\" \"%s\")"
           ilisp-trace-command "(ilisp-trace '%s \"%s\" 'nil)"
