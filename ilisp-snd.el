@@ -353,8 +353,9 @@ With prefix specify manually."
 (defun lisp-string-to-symbol (string)
   "Convert STRING to a symbol, (package delimiter symbol).
 'package' is either package:symbol or from the current buffer."
-  (let* ((start (if ilisp-package-separator-regexp
-		    (string-match ilisp-package-separator-regexp string)))
+  (let* ((start (if (ilisp-value 'ilisp-package-separator-regexp t)
+		    (string-match (ilisp-value 'ilisp-package-separator-regexp t)
+                                  string)))
          (end (if start (match-end 0))))
     (if start
         (lisp-symbol

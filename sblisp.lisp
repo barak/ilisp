@@ -22,7 +22,6 @@
 ;;; COPYING.
 
 
-
 ;;;
 ;;; Todd Kaufmann    May 1990
 ;;;
@@ -30,15 +29,8 @@
 ;;;
 ;;; This init file is compatible with version of SBCL (version >= 0.6.2!)
 
-(in-package "ILISP")
 
-;;;% CMU CL does not define defun as a macro
-(defun ilisp-compile (form package filename)
-  "Compile FORM in PACKAGE recording FILENAME as the source file."
-  (ilisp-errors
-   (ilisp-eval
-    (format nil "(funcall (compile nil '(lambda () ~A)))" form)
-    package filename)))
+(in-package "ILISP")
 
 ;;;% Stream settings, when running connected to pipes.
 ;;;
@@ -61,6 +53,7 @@
   ;; *query-io* and *debug-io* are synonym streams to this, so this fixes
   ;; everything.
   )
+
 
 ;;;% Debugger extensions
 

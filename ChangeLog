@@ -1,3 +1,46 @@
+2000-09-13  Atzmueller  <martin@atzmueller.net>
+
+	* sblisp.lisp (ilisp-compile): special case is not necessary
+	anymore. removed	
+
+	* cl-ilisp.lisp (ilisp-compile): cleanup.
+
+2000-09-11  Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-dia.el (setup-ilisp): use
+	ilisp-*enable-ilisp-special-frame-p*.
+	If T, push ilisp-buffer on 'special-display-buffer-names.
+
+	* ilisp-def.el (ilisp-*enable-ilisp-special-frame-p*): new
+	variable, put ilisp-buffer-name in special-display-buffer-names,
+	if set to T.
+
+2000-09-10  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-out.el: partly incorporated M. Koeppes patch.
+	(see 'special-display-buffer-names).
+	Kept `ilisp-*arglist-message-switch-back-p*'; if we don't put the
+	ilisp-buffer in 'special-display-buffer-names then this is still
+	necessary. Might add new variable
+	ilisp-*ilisp-buffer-display-special*.
+
+	* ilisp-snd.el (lisp-string-to-symbol): symbol-completion in
+	source buffers was broken due to 'ilisp-package-seperator-regex as
+	a local variable. fixed.
+	
+	* Makefile (compile): add '--force' option when linking 'hyperspec.el'.
+	
+	* ilisp-out.el: (ilisp-make-output-frame)
+	incorporated patch by Will Deakin as of August 03.
+
+2000-09-09  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-hi: (ilisp-arglist-message-lisp-space) handle the special
+	case #\".
+
+	* ilisp-sbcl: (sblisp-program) invoke sbcl with --noinform, to
+	prevent printing of startup-message.	
+
 2000-08-18  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ChangeLog (2000-08-17, ilisp-imenu.el): fixed wrong attribution

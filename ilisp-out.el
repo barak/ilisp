@@ -36,7 +36,7 @@
     t))
 
 (defun ilisp-make-output-frame (name)
-  (when window-system
+  (when (and window-system ilisp-*use-frame-for-output*)
     (make-frame `((name . ,name)
 		  (minibuffer . nil)
 		  (visibility . nil)
@@ -124,7 +124,7 @@ This is needed for 'ilisp-scroll-output', and 'ilisp-bury-output'")
 
 ;;; arglist-output
 
-(defvar ilisp-arglist-output "Output sink for Arglist messages.")
+(defvar ilisp-arglist-output nil "Output sink for Arglist messages.")
 
 (if ilisp-*use-frame-for-arglist-output-p*
     (progn
@@ -227,7 +227,7 @@ sink."
   "Gets the Output-Window for sink's buffer."
   (let ((buffer (get-buffer (ilisp-output-sink-buffer ilisp-output-sink))))
     (when buffer
-      (get-buffer-window buffer))))
+      (get-buffer-window buffer t))))
 
 
 ;;; Popper replacement
@@ -243,7 +243,7 @@ sink."
   (let* ((ilisp-output-sink (or pilisp-output-sink
 				ilisp-*last-ilisp-output-sink*))
          (buffer (ilisp-output-buffer ilisp-output-sink))
-	 (window (and buffer (get-buffer-window buffer)))
+         (window (and buffer (get-buffer-window buffer t)))
          (frame (ilisp-output-sink-frame ilisp-output-sink)))
     (when buffer
       (bury-buffer buffer))
@@ -275,7 +275,7 @@ sink."
   (interactive "P")
   (let* ((ilisp-output-sink ilisp-*last-ilisp-output-sink*)
          (buffer (ilisp-output-buffer ilisp-output-sink))
-	 (window (and buffer (get-buffer-window buffer)))
+         (window (and buffer (get-buffer-window buffer t)))
 	 (old-window (selected-window)))
     (when window
       (unwind-protect
@@ -293,7 +293,7 @@ sink."
   "Grow the typeout window by ARG (default 1) lines."
   (interactive "p")
   (let* ((buffer (ilisp-output-buffer ilisp-output))
-	 (window (and buffer (get-buffer-window buffer)))
+         (window (and buffer (get-buffer-window buffer t)))
 	 (old-window (selected-window)))
     (when window
       (unwind-protect
@@ -314,34 +314,22 @@ sink."
   (when (< (point) (point-max))
     (delete-region (1+ (point)) (point-max))))
 
-
-(defun ilisp-write-string-to-buffer (buffer string)
-  (save-excursion
-    (set-buffer buffer)
-    ;; Maybe an option to keep the old output?
-    (erase-buffer)
-    ;; New: select mode for the output buffer.
-    (if (not (eq major-mode ilisp-output-buffer-major-mode))
-	(funcall ilisp-output-buffer-major-mode))
-    (setq ilisp-output-mode t)
-    (princ string buffer)
-    (ilisp-trim-blank-lines)
-    (goto-char (point-min))))
-
 (defun ilisp-write-string-to-buffer (ilisp-output-sink string)
   (let ((buffer (ilisp-output-buffer ilisp-output-sink t)))
     (save-excursion
       (set-buffer buffer)
+      (let ((buffer-read-only nil))
       ;; Maybe an option to keep the old output?
-      (erase-buffer)
+        (erase-buffer))
       ;; New: select mode for the output buffer.
       (unless (eq major-mode
 		  (ilisp-output-sink-major-mode-def ilisp-output-sink))
 	(funcall (ilisp-output-sink-major-mode-def ilisp-output-sink)))
       (setf (symbol-value (ilisp-output-sink-mode ilisp-output-sink)) t)
+      (let ((buffer-read-only nil))
       (princ string buffer)
       (ilisp-trim-blank-lines)
-      (goto-char (point-min)))))
+        (goto-char (point-min))))))
 
 
 (defun ilisp-desired-height (ilisp-output-sink windowp)
@@ -458,18 +446,25 @@ sink."
 
 
 (defun ilisp-window-live-p (window)
-  (let* ((initial-window (selected-window))
-	 (win initial-window)
-	 (found nil))
-    (while win
-      (cond ((eq window win)
-	     (setq found t
-		   win nil))
-	    (t
-	     (setq win (next-window win 'no))
-	     (if (eq win initial-window)
-		 (setq win nil)))))
-    found))
+  (window-live-p window))
+
+;;; This old implementation ignores windows in other frames, 
+;;; which makes a lot of trouble if the ILISP buffer is shown in 
+;;; a single dedicated window in a frame.
+
+;;(defun ilisp-window-live-p (window)
+;;  (let* ((initial-window (selected-window))
+;;       (win initial-window)
+;;       (found nil))
+;;    (while win
+;;      (cond ((eq window win)
+;;           (setq found t
+;;                 win nil))
+;;          (t
+;;           (setq win (next-window win 'no))
+;;           (if (eq win initial-window)
+;;               (setq win nil)))))
+;;    found))
 
 
 ;; XEmacs change -- window-edges is gone in 19.12+ so use
@@ -549,13 +544,16 @@ This is probably the window from which enlarge-window would steal lines."
 ;; top-left-most window on the current screen.  That is different behavior
 ;; from the popper, which always split the current window.
 (defun ilisp-window-to-use-for-typeout ()
-  (ilisp-find-top-left-most-window))
+  (let ((window (ilisp-find-top-left-most-window)))
+    (while (window-dedicated-p window)
+      (setq window (next-window window nil 'visible)))
+    window))
 
 
 (defun ilisp-display-buffer-in-typeout-window (ilisp-output-sink)
   "Display buffer in a window at the top of the screen."
   (let* ((buffer (ilisp-output-sink-buffer ilisp-output-sink))
-         (window (get-buffer-window buffer)))
+         (window (get-buffer-window buffer t)))
 
     ;; If buffer already has a window, keep it.
     (if (null window)
@@ -781,17 +779,17 @@ Dispatch on the value of 'lisp-no-popper':
     ;; this-command trick:
     ;; if this-command is ilisp-message-lisp-space, switch back!
     (if (and (eql this-command 'ilisp-arglist-message-lisp-space)
-             ilisp-*arglist-message-switch-back-p*)
+             ilisp-*arglist-message-switch-back-p*
+             (not (member (buffer-name old-buffer) special-display-buffer-names)))
 	(progn
 	  (raise-frame (window-frame old-window))
 	  (switch-to-buffer old-buffer)))))
-
 
 (defun ilisp-display-output-in-echo-area (output ilisp-output-sink)
   "Display output as a message in the echo area."
   ;; First clear any existing typeout so as to not confuse the user.
   (or (eq (selected-window)
-	  (get-buffer-window (ilisp-output-sink-buffer ilisp-output-sink)))
+          (get-buffer-window (ilisp-output-sink-buffer ilisp-output-sink) t))
       (ilisp-bury-output ilisp-output-sink))
   
   ;; v5.7: Patch suggested by hunter@work.nlm.nih.gov (Larry Hunter)

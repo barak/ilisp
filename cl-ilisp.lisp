@@ -302,42 +302,10 @@ The trick is to try to handle print case issues intelligently."
   ;; Marco Antoniotti: Jan 2 1995.
   #-lucid
   (ilisp-eval
-   (format nil "(funcall (compile nil '(lisp:lambda () ~A)))"
+   (format nil "(funcall (compile nil '(lambda () ~A)))"
 	   form)
    package
    filename)
-  
-  ;; The following piece of conditional code is left in the
-  ;; distribution just for historical purposes.
-  ;; It will disappear in the next release.
-  ;; Marco Antoniotti: Jan 2 1995.
-  #+lucid-ilisp-5.6
-  (labels ((compiler (form env)
-		     (if (and (consp form)
-			      (eq (first form) 'function)
-			      (consp (second form)))
-			 #-LCL3.0
-		       (evalhook `(compile nil ,form) nil nil env)
-		       #+LCL3.0
-		       ;; If we have just compiled a named-lambda, and the
-		       ;; name didn't make it in to the procedure object,
-		       ;; then stuff the appropriate symbol in to the
-		       ;; procedure object.
-		       (let* ((proc (evalhook `(compile nil ,form)
-					      nil nil env))
-			      (old-name (and proc (sys:procedure-ref proc 1)))
-			      (lambda (second form))
-			      (name (and (eq (first lambda)
-					     'lucid::named-lambda)
-					 (second lambda))))
-			 (when (or (null old-name)
-				   (and (listp old-name)
-					(eq :internal (car old-name))))
-			       (setf (sys:procedure-ref proc 1) name))
-			 proc)
-		       (evalhook form #'compiler nil env))))
-	  (let ((*evalhook* #'compiler))
-	    (ilisp-eval form package filename)))
   #+lucid
   ;; Following form is a patch provided by Christopher Hoover
   ;; <ch@lks.csi.com>

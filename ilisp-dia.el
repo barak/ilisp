@@ -157,6 +157,8 @@ inferior LISP.  PARENT is the name of the parent dialect."
   (kill-all-local-variables)
   (lisp-mode)
   (setq ilisp-buffer (format "*%s*" buffer))
+  (when ilisp-*enable-ilisp-special-frame-p*
+    (push ilisp-buffer special-display-buffer-names))
   (set-buffer (get-buffer-create ilisp-buffer))
   (setq major-mode 'ilisp-mode
 	mode-name "ILISP")

@@ -116,7 +116,7 @@
 	)
   )
 
-(unless sblisp-program (setq sblisp-program "sbcl"))
+(unless sblisp-program (setq sblisp-program "sbcl --noinform"))
 
 ;;; end of file -- ilisp-sbcl.el --
 

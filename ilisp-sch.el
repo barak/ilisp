@@ -79,7 +79,6 @@
   ;; (setq ilisp-describe-command "(describe %s)")
   )
 
-
 ;;;Chez Scheme
 ;; hacked by <lynbech@daimi.aau.dk>
 

@@ -491,6 +491,10 @@ will not have any effect! This effectively means, that this variable
 must be set here. It relies on ilisp-*use-frame-for-output*, too.
 Only if both are t the output will be sent to a frame.")
 
+(defvar ilisp-*enable-ilisp-special-frame-p* nil
+  "If T, the ILISP inferior lisp buffer-name will be in
+special-display-buffer-names; therefore the lisp-interaction buffer
+will be in a 'special' seperate frame.")
 
 (defvar ilisp-*enable-imenu-p* t
   "Enables/disables loading/use of IMENU.

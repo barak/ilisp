@@ -681,7 +681,8 @@ symbol after the symbol has been typed in followed by #\\Space."
 	   (ilisp-symbol-avec-package
 	    (unless (eql paren-pos 0)
 	      (lisp-string-to-symbol
-	       (if (and double-quote-pos (eql double-quote-pos 0) string)
+	       (if (and double-quote-pos (eql double-quote-pos 0)
+                        string (ignore-errors (elt string 2)))
 		   (substring string 1 -1)
 		   string))))
 	   (symbol (third ilisp-symbol-avec-package))
