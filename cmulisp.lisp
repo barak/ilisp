@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.7 2002/09/05 13:33:03 anisotropy9 Exp $
+;;; $Id: cmulisp.lisp,v 1.8 2002/09/11 22:04:46 rgrjr Exp $
 
 
 (in-package :ilisp)
@@ -101,12 +101,21 @@
 	fun)))
 
 (defun extract-function-info-from-name (sym)
-  (let ((mf (macro-function sym)))
-    (if mf
-	(values mf :macro)
-	(if (fboundp sym)
-	    (values (symbol-function sym) :function)
-	    (values nil nil)))))
+  (let ((function (and (fboundp sym)
+		       (symbol-function sym))))
+    (cond ((macro-function sym)
+	    (values (macro-function sym) :macro))
+	  ((not function)
+	    (values nil nil))
+	  ((lisp::encapsulation-info function)
+	    ;; If the function has been traced, we need to get to the underlying
+	    ;; function.  [what about multiple encapsulations?  -- rgr,
+	    ;; 11-Sep-02.]
+	    (values (lisp::encapsulation-info-definition
+		      (lisp::encapsulation-info function))
+		    :function))
+	  (t
+	    (values function :function)))))
 
 ;;;%% arglist - return arglist of function
 ;;;
@@ -115,17 +124,17 @@
 
 (defun arglist (symbol package)
   (ilisp-errors
-   (let* ((package-name (if (packagep package)
-			    (package-name package)
-			    package))
-	  (x (ilisp-find-symbol symbol package-name)))
+   (let ((x (if (symbolp symbol)
+		symbol
+		(ilisp-find-symbol symbol
+				   (if (packagep package)
+				       (package-name package)
+				       package)))))
      (flet ((massage-arglist (args)
 	      (typecase args
-		(string (if (or (null args) (string= args "()"))
-			    ""
-			    args))
-		(list (format nil "~S" args))
-		(t ""))))
+		(string args)
+		(null "()")
+		(t (format nil "~S" args)))))
 
        (multiple-value-bind (func kind)
 	   (extract-function-info-from-name x)
