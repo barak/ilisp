@@ -11,7 +11,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.6 2001/11/06 00:00:30 mna Exp $
+;;; $Id: sbcl.lisp,v 1.7 2002/01/17 08:09:24 mna Exp $
 
 
 (in-package "ILISP")
@@ -112,7 +112,13 @@
 		(string (if (or (null args) (string= args "()"))
                           ""
                           args))
-		(list (format nil "~S" args))
+		(list (if args
+                        (let ((*print-pretty* t)
+                              (*print-escape* t)
+                              (*print-base* 10)
+                              (*print-radix* nil))
+                          (format nil "~A" args))
+                        "()"))
 		(t ""))))
 
        (multiple-value-bind (func kind)
