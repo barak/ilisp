@@ -1,3 +1,11 @@
+2001-04-05  Paolo Amoroso  <amoroso@mclink.it>
+
+        * docs/ilisp.texi (FTP and Web directions): added URL of ILISP's
+        filelist at SourceForge and new index entry. Minor reformatting.
+
+        * GETTING-ILISP: added URL of ILISP's filelist at
+        SourceForge. Minor reformatting.
+
 2001-04-04  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (symbol-not-present): Strip parens from the
