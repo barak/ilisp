@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2002.08.23-3) unstable; urgency=low
+
+  * Change ilisp.el startup sequence, improves autoloading with opening
+  a lisp file.
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sat, 31 Aug 2002 14:43:26 -0600
+
 ilisp (5.12.0+cvs.2002.08.23-1) unstable; urgency=low
 
   * Newest CVS checkout

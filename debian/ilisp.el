@@ -65,14 +65,14 @@
 (setq scheme-program "/usr/bin/guile")
 
 
-(setq ilisp-*use-frame-for-output* nil)
-(setq *ilisp-use-frame-for-output* nil)
-
-
 ;;; Default paths
 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
 (setq cltl2-root-url "file:///usr/share/doc/cltl/")
+
+(setq ilisp-*use-frame-for-output* nil)
+(setq ilisp-*use-fsf-compliant-keybindings* t)
+
 
 ;;; Loading lisp files starts ilisp
 (set-default 'auto-mode-alist
@@ -80,7 +80,8 @@
 		       ("\\.lsp$" . lisp-mode)
 		       ("\\.cl$" . lisp-mode)) auto-mode-alist))
 
-(setq ilisp-*use-fsf-compliant-keybindings* t)
+(add-hook 'lisp-mode-hook '(lambda () (require 'ilisp)))
+
 ;;; Load hooks
 (add-hook
  'scheme-mode-hook (function 
@@ -92,7 +93,11 @@
              ;; Set a keybinding for the COMMON-LISP-HYPERSPEC command
              ;; (defkey-ilisp "" 'common-lisp-hyperspec)
 
-             ;; Make sure that you don't keep popping up the 'inferior
+	     (setq ilisp-*use-frame-for-output* nil)
+	     (setq ilisp-*use-fsf-compliant-keybindings* t)
+	     (setq ilisp-*use-fsf-compliant-keybindings* t)
+
+	     ;; Make sure that you don't keep popping up the 'inferior
              ;; Lisp' buffer window when this is already visible in
              ;; another frame. Actually this variable has more impact
              ;; than that. Watch out.
@@ -107,5 +112,6 @@
              (add-hook 'ilisp-init-hook
                        '(lambda ()
                           (default-directory-lisp ilisp-last-buffer)))
+
              ))
 
