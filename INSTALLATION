@@ -278,3 +278,12 @@ Scheme->C
 
             (define-c-external (nobuff) void "nobuff")
             (nobuff)
+
+
+TIPS
+
+o Enlightment window manager under Gnome
+
+        If ILISP popup windows unexpectedly keep the input focus, in the
+        Enlightment Configuration Editor choose the "Beahvior" item and
+        toggle off all the "[...] get keyboard focus" items.
