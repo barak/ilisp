@@ -1,3 +1,66 @@
+2001-01-22  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-mod.el (lisp-command-args): removed commented out version.
+
+2001-01-21  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-snd.el (comint-send-code-init-function): new function,
+	moved out of ilisp-init-internal for doing init stuff in the
+	comint process buffer.
+
+	* ilisp-out.el:
+	  * (ilisp-desired-height) output sink buffer's window is now searched
+	    from all frames because a separate typeout frame might be in use.
+	  * (ilisp-shrink-wrap-window-and-frame)
+	    * Window size modification code removed because there's only one
+	      window anyway and an attempt to resize it results to an error.
+	    * when+not -> unless.
+	  * (ilisp-display-buffer-in-typeout-frame)
+	    * ignore-errors workaround removed from around
+	      ilisp-shrink-wrap-window-and-frame call since the real problem
+	      is now (hopefully) fixed.
+	    * Cosmetic changes: debug code comments removed and some closing
+	      parens moved away from their own lines.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>)
+
+	* ilisp-snd.el: cosmetic changes: removed some unnecessary comments,
+	moved some closing parens away from their own lines.
+
+	* ilisp-snd.el:
+	  * (lisp-buffer-package-internal)
+	    * Allow nil when fetching the value of the ilisp-hash-form-regexp
+	      variable.
+	    * If ilisp-hash-form-regexp is nil, assume that the system doesn't
+	      know about packages and return nil as the package.
+	  * Old implementation of lisp-buffer-package-internal in comments
+	    removed; it's still available via CVS if someone really needs it for
+	    documentation purposes.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>)
+
+	* ilisp-sch.el:
+	  * (guile) Setting of ilisp-package-regexp removed as it's not
+	    used anymore.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>)
+
+	* ilisp-doc.el:
+	  * (ilisp-documentation) References to ilisp-package-regexp replaced
+	    with ilisp-hash-form-regexp; it's used for the same purpose
+	    ilisp-package-regexp was.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>)
+
+	* ilisp-def.el:
+	  * (ilisp-in-package-command-string) New definition for an ilisp-local
+	    variable that was in use already.
+	  * (ilisp-defpackage-command-string) Ditto.
+	  * (ilisp-hash-form-regexp) Ditto.
+	  * (ilisp-package-regexp) Removed as it's not used anymore.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>)
+
+	* ilisp-cl.el:
+	  * (common-lisp) Setting of ilisp-package-regexp removed as it's not
+	    used anymore.
+	(patch contributed by Hannu Koivisto  <azure@iki.fi>)
+
 2001-01-18  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-out.el (ilisp-display-buffer-in-typeout-frame): if there
