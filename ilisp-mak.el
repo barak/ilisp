@@ -82,7 +82,8 @@
     (let ((files '("completer"
 		   "comint-ipc"
 		   "bridge"
-		   "custom-ilisp"
+                   ;; not integrated yet!
+		   ;; "custom-ilisp"
 		   "ilisp-def"
 		   ;; "ilisp-el" ; Got rid of all the functions in it.
 		   "ilisp-sym"
