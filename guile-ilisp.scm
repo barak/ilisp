@@ -9,17 +9,19 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.13 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: guile-ilisp.scm,v 1.14 2001/05/22 21:40:54 mkoeppe Exp $
 
 
-(define-module (guile-user)
-  :use-module (guile-ilisp))
-
 (define-module (guile-ilisp)
   :use-module (ice-9 debug)
   :use-module (ice-9 session)
   :use-module (ice-9 documentation)
   :use-module (ice-9 regex))
+
+(define-module (guile-user)
+  :use-module (guile-ilisp))
+
+(define-module (guile-ilisp))
 
 (define (read-from-string str)
   (call-with-input-string str read))
