@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.el,v 1.7 2002/05/23 20:38:06 marcoxa Exp $     
+;;; $Id: ilisp.el,v 1.8 2002/05/31 11:48:59 amoroso Exp $     
 
 ;;; Author: Chris McConnell <ccm@cs.cmu.edu>
 ;;; Maintainer: The Net <ilisp@cons.org>
@@ -173,6 +173,7 @@
   (load "ilisp-luc")
   (load "ilisp-sch")
   (load "ilisp-openmcl")
+  (load "ilisp-ccl")
 
   )
 
