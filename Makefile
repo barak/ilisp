@@ -24,6 +24,14 @@ Version = 5.10.1
 #EMACS = /usr/local/bin/emacs
 EMACS = emacs
 
+# If your operating system does not support file links (e.g. Windows),
+# change this to an ordinary copy command
+LN = ln -s
+
+# Pick the HyperSpec access package you prefer among the ones available in
+# directory `extra'
+HyperSpec = hyperspec-naggum.el
+
 # The SHELL variable is used only for making the distribution.
 SHELL = /bin/csh
 
@@ -68,6 +76,8 @@ DocFiles = docs/Makefile \
 
 compile:
 	$(EMACS) -batch -l ilisp-mak.el
+	(cd extra; $(LN) $(HyperSpec) hyperspec.el)
+	$(EMACS) -batch --eval '(byte-compile-file "extra/hyperspec.el")'
 
 tags:
 	etags *.el
@@ -76,7 +86,7 @@ docs: FORCE
 	cd docs; $(MAKE)
 
 clean: 
-	-$(RM) *.elc *~ extra/*.elc extra/*~ TAGS
+	-$(RM) *.elc *~ extra/*.elc extra/hyperspec.el extra/*~ TAGS
 	(cd docs; $(MAKE) clean)
 
 loadfile:
@@ -109,7 +119,6 @@ tarring:
             $(patsubst %,$(Ilisp_tar_dir)/%,$(DocFiles))                \
             $(Ilisp_tar_dir)/extra/README                               \
             $(Ilisp_tar_dir)/extra/hyperspec-*.el                       \
-            $(Ilisp_tar_dir)/extra/hyperspec.el                         \
             $(Ilisp_tar_dir)/pictures/ilisp-icon.*                      \
         )
 
