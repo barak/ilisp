@@ -1,5 +1,13 @@
 2000-11-06  Paolo Amoroso  <amoroso@mclink.it>
 
+	* ilisp-sbcl.el (sblisp-source-directory-regexp,
+	  sblisp-local-source-directory): added back because the file
+	  includes other references to the variables and since I don't
+	  have SBCL, I don't know what's the best approach to removing the
+	  obsolete support for source directory.
+
+2000-11-06  Paolo Amoroso  <amoroso@mclink.it>
+
 	* ilisp-sbcl.el (ilisp-sblisp-init-file): added comment on init
 	  file source extension.
 	  (sblisp): added `ilisp-directory-command' and
