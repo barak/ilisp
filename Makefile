@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.14 2001/06/06 12:08:03 amoroso Exp $
+# $Id: Makefile,v 1.15 2001/07/27 11:13:27 mkoeppe Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -81,6 +81,7 @@ compile:
 	$(EMACS) -batch -l ilisp-mak.el
 	(cd extra; $(LN) -f $(HyperSpec) hyperspec.el)
 	$(EMACS) -batch --eval '(byte-compile-file "extra/hyperspec.el")'
+	$(EMACS) -batch --eval '(byte-compile-file "extra/cltl2.el")'
 
 tags:
 	etags *.el
@@ -124,6 +125,7 @@ tarring:
             $(patsubst %,$(Ilisp_tar_dir)/%,$(DocFiles))                \
             $(Ilisp_tar_dir)/extra/README                               \
             $(Ilisp_tar_dir)/extra/hyperspec-*.el                       \
+	    $(Ilisp_tar_dir)/extra/cltl2.el				\
             $(Ilisp_tar_dir)/pictures/ilisp-icon.*                      \
         )
 

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.13 2001/06/06 12:09:23 amoroso Exp $
+;;; $Id: ilisp-def.el,v 1.14 2001/07/27 11:13:27 mkoeppe Exp $
 
 ;;;%Variables
 ;;;%%Deflocal
@@ -536,5 +536,9 @@ Default is T.")
 (defvar ilisp-*use-fi-clman-interface-p* nil
   "Enables/disables use of Franz Inc's 'fi:clman' module.
 Default is NIL.")
+
+(defvar ilisp-*use-cltl2-interface-p* t
+  "Enables/disables loading of the CLtL2 lookup module provided with ILISP.
+Default is T.")
 
 ;;; end of file -- ilisp-def.lisp --

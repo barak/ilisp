@@ -1,3 +1,11 @@
+2001-07-27  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* extra/cltl2.el: New file, contributed by Utz-Uwe Haus
+	<haus@uuhaus.de>, for browsing the CLTL2 online edition.
+	* ilisp-def.el (ilisp-*use-cltl2-interface-p*): New variable.
+	* ilisp-key.el: Bind cltl2-lookup to C-z L (or C-z M-l).
+	* ACKNOWLEDGMENTS, Makefile, ilisp.el: Appropriate additions.
+
 2001-07-16  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (doc->arglist): Fix parsing of texinfo-formatted

@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.el,v 1.3 2001/05/12 22:10:53 marcoxa Exp $     
+;;; $Id: ilisp.el,v 1.4 2001/07/27 11:13:27 mkoeppe Exp $     
 
 ;;; Author: Chris McConnell <ccm@cs.cmu.edu>
 ;;; Maintainer: The Net <ilisp@cons.org>
@@ -116,6 +116,8 @@
 (unless (featurep 'hyperspec)
   (load-library "extra/hyperspec"))
 
+(unless (featurep 'cltl2)
+  (load-library "extra/cltl2"))
 
 ;;; 19990806 Martin Atzmueller
 ;;; Added support for ILISP EASY-MENU. Muts be loaded *before* the
