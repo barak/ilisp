@@ -57,7 +57,7 @@ Returns t for rescan and otherwise a position number."
 	  ;; Make a completion question
 	  (setq name (completing-read prompt
 				      index-alist
-				      string-equal
+				      #'string-equal
                                       t nil 'imenu--history-list name)))))
     (cond ((not (stringp name))
 	   nil)
