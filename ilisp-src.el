@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.5 2002/09/01 01:51:32 rgrjr Exp $
+;;; $Id: ilisp-src.el,v 1.6 2002/09/21 20:23:40 rgrjr Exp $
 
 (require 'cl)
 
@@ -167,7 +167,8 @@ if successful."
 		 (type (cdr definition))
 		 (first (not (eq lisp-last-file file)))
 		 (buffer (current-buffer))
-		 name)
+		 (name (if (not (eq type t))
+			   (lisp-buffer-symbol symbol))))
 	    (lisp-find-file file pop)
 	    (if first (setq lisp-first-point (point)))
 	    (if back
@@ -179,10 +180,9 @@ if successful."
 		(goto-char point)
 		(if (not first) 
 		    (progn (forward-line 1) (beginning-of-line))))
-	    (if (eq type 't)
+	    (if (eq type t)
 		(message "Search %s for %s" file symbol)
-		(message "Searching %s for %s %s" file type
-			 (setq name (lisp-buffer-symbol symbol))))
+		(message "Searching %s for %s %s" file type name))
 	    (if (funcall locator symbol type first back)
 		(progn
 		  (setq lisp-last-file file
@@ -191,9 +191,9 @@ if successful."
 		      (forward-line -1)
 		      (beginning-of-line))
 		  (recenter 0)
-		  (if name 
+		  (if (eq type t)
 		      (message "Found %s %s definition" type name)
-		      (message "Found %s"))
+		      (message "Found %s" symbol))
 		  t)
 		(if first 
 		    (goto-char lisp-first-point)
