@@ -1,3 +1,8 @@
+2001-04-04  Paolo Amoroso  <amoroso@mclink.it>
+
+        * docs/ilisp.texi (How to run a Lisp process using ILISP, ILISP
+        Customization): added info on MzScheme and DrScheme-jr.
+
 2001-04-03  Paolo Amoroso  <amoroso@mclink.it>
 
         * docs/ilisp.texi: updated date and version info.
