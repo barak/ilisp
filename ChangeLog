@@ -1,3 +1,23 @@
+2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ild.el, ilisp-key.el: Complete revision of the FSF key 
+	bindings.
+
+	* ilisp-hi.el: Added functions eval-last-sexp-lisp and 
+	eval-last-sexp-and-go-lisp.
+
+	* ilisp-cl-easy-menu.el: Added functions eval-last-sexp-lisp 
+	and eval-last-sexp-and-go-lisp to the menu and removed the
+	non-existent function lisp-indent-for-comment.
+
+	* ilisp-src.el: Applied patch sent by Eduardo Muñoz that  
+	allows "unenhanced" Lisps to use the M-. functionality.
+	
+	* icompile.bat: Added additional parameter to make it optional
+	to produce the monolithic ilisp-all.elc file (this file loads a 
+	bit faster but you lose visibility to the ilisp functions in
+	elisp).
+	
 2003-04-11  Bob Rogers  <rogers@rgrjr.dyndns.org>
 
 	* cmulisp.lisp (ilisp-callers): Interface to new CMUCL 18e
