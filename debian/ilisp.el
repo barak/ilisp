@@ -34,6 +34,10 @@
 (autoload 'lispworks "ilisp" "Inferior Lispworks Common Lisp." t)
 (setq lispworks-program "/usr/bin/lw-console -multiprocessing")
 
+;; OpenMCL
+(autoload 'openmcl "ilisp" "Inferior OpenMCL Common Lisp." t)
+(setq openmcl-program "/usr/bin/openmcl")
+
 ;;; CMULISP
 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
 (setq cmulisp-program "/usr/bin/lisp")
