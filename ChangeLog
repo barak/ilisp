@@ -1,3 +1,15 @@
+2000-07-13  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (Files of ILISP): uncommented ilisp-cmp.el
+	  entry.
+
+	* ilisp-out.el (ilisp-write-string-to-buffer (ilisp-output-sink
+	  string)): ensure that the buffer associated to
+	  `ilisp-output-sink' exists. The old code only worked for the
+	  standard display functions due to their side effects (patch
+	  contributed by Matthias Koeppe
+	  <mkoeppe@mail.math.uni-magdeburg.de>).
+
 2000-07-12  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-cmp.el (complete-lisp): fixed bug with both XEmacs and GNU
