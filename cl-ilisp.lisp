@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.11 2002/03/26 09:41:04 anisotropy9 Exp $
+;;; $Id: cl-ilisp.lisp,v 1.12 2002/05/31 11:43:58 amoroso Exp $
 
 
 ;;; Old history log.
@@ -147,7 +147,7 @@
 
 ;; MNA: ecl (ecls-0.5) still had special-form-p in COMMON-LISP,
 ;; which produced an error, when redefined.
-#+(and :ANSI-CL (not :ecl))
+#+(and (or :CORMANLISP :ANSI-CL) (not :ecl))
 (defun special-form-p (symbol)
   "Backward compatibility for non ANSI CL's."
   (special-operator-p symbol))
@@ -295,6 +295,22 @@ The trick is to try to handle print case issues intelligently."
     (read-from-string form)))
 |#
 
+;;; 2000-09-29 11:28:36 rurban
+;;; I needed this for Xemacs/cmd.exe/cormanlisp which swallows all my backslashes.
+;;; Slashes do work fine on NT.
+(defun ilisp-w32-fix-filename (filename)
+  "Pathslash hack: replace all '\\' by '/' in filenames.
+Convert cygwin paths also.
+This will only work on Microsoft NT, not on a Win95 based OS."
+  ;; (setq filename "r:\\gnu\\XEMACS~1.35\\lisp\\replace.elc")
+  ;; (setq filename "/cygdrive/r/xx") => "r:/"
+  (do ((pos (position #\\ filename) (position #\\ filename)))
+      ((null pos) filename)
+    (setf (aref filename pos) #\/))
+  (if (string-equal "/cygdrive/" (subseq filename 0 10))
+      (setf filename (concatenate 'string (subseq filename 10 11) ":" (subseq filename 11)))
+      filename))
+
 ;;;
 (defun ilisp-eval (form package filename)
   "Evaluate FORM in PACKAGE recording FILENAME as the source file."
@@ -307,6 +323,8 @@ The trick is to try to handle print case issues intelligently."
 	  (if (and at-location colon-location)
 	      (subseq filename (1+ colon-location))
 	      filename))
+	 #+:cormanlisp
+	 (filename (ilisp-w32-fix-filename filename))
 	 (*package* (ilisp-find-package package))
 	 #+allegro (excl::*source-pathname* filename)
 	 #+allegro (excl::*redefinition-warnings* nil)
@@ -730,7 +748,7 @@ original string."
        (if results (prin1 results) (princ "()"))
        nil))))
 
-
+#-:cormanlisp
 (eval-when (load eval)
   (when
       #+(and :CMU (or :CMU17 :CMU18))
