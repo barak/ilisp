@@ -14,7 +14,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.emacs,v 1.6 2002/05/31 11:49:40 amoroso Exp $
+;;; $Id: ilisp.emacs,v 1.7 2002/06/02 22:44:21 marcoxa Exp $
 
 
 ;;; If ilisp lives in some non-standard directory, you must tell
@@ -150,7 +150,7 @@
                        ("\\.cl$" . lisp-mode))
                      auto-mode-alist))
 
-(setq lisp-mode-hook '(lambda () (require 'ilisp)))
+(add-hook 'lisp-mode-hook '(lambda () (require 'ilisp)))
 
 (set-default 'auto-mode-alist
              (append '(("\\.scm$" . scheme-mode)
@@ -159,7 +159,7 @@
                        ("\\.stklos$" . scheme-mode))
                      auto-mode-alist))
 
-(setq scheme-mode-hook '(lambda () (require 'ilisp)))
+(add-hook 'scheme-mode-hook '(lambda () (require 'ilisp)))
 
 
 ;;; Configuration of Erik Naggum's HyperSpec access package.
