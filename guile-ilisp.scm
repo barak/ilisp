@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.19 2002/06/28 13:02:45 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.20 2002/10/29 15:57:55 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -148,6 +148,10 @@ arglist only.  If EXPENSIVE?, take some more effort."
 		       (list #:allow-other-keys)
 		       '())
 		   (if rest-arg rest-arg '()))))))))
+     ((and (procedure-with-setter? obj)
+	   (closure? (procedure obj)))
+      (let ((formals (cadr (procedure-source (procedure obj)))))
+	(if arglist-only? formals (cons sym formals))))
      ((closure? obj)
       (let ((formals (cadr (procedure-source obj))))
 	(if arglist-only? formals (cons sym formals))))
