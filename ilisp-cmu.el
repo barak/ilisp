@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmu.el,v 1.3 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-cmu.el,v 1.4 2001/12/07 16:13:47 amoroso Exp $
 
 (defvar cmulisp-source-directory-regexp 
   "\\/afs\\/cs\\.cmu\\.edu\\/project\\/clisp\\/src\\/[0-9]*\\/"
@@ -99,6 +99,8 @@
 
   (setq ild-abort-string ":abort"
 	ild-continue-string ":go"
+	ild-step-string ":step"
+	ild-step-string-arg nil
 	ild-next-string ":down"
 	ild-next-string-arg nil		; needs work
 	ild-previous-string ":up"
