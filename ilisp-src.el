@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.4 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-src.el,v 1.5 2002/09/01 01:51:32 rgrjr Exp $
 
 (require 'cl)
 
@@ -571,6 +571,28 @@ Return T if successful.  A definition is of the form
 ;;;
 ;;; 19990804 Marco Antoniotti
 ;;; The new ones (method and generic-fucntion) should be carefully checked.
+;;;
+;;; [For the record, the "^F." patterns in many of the regular expressions below
+;;; match Symbolics font-change escape sequences.  People used to define "^F" as
+;;; a splicing reader macro in other Lisps so that they could develop on the
+;;; Symbolics, where they would see text presented in whatever typeface they
+;;; chose, but could also compile the same sources on Unix Lisps, as long as
+;;; they made sure all font changes were adjacent to whitespace or in comments.
+;;; The following idiom:
+;;;
+;;;	"\\([ \t\n]+\\(.\\)?[ \t\n]*\\|[ \t\n]*.[ \t\n]+\\)"
+;;;
+;;; is therefore very common; it looks for at least one whitespace character
+;;; with an optional leading, embedded, or following "^F." escape.  This may be
+;;; more compactly matched by the following regexp:
+;;;
+;;;	"\\([ \t\n]+\\(.[ \t\n]*\\)?\\|.[ \t\n]+\\)"
+;;;
+;;; Even that much may not be necessary; I seem to recall that the Symbolics
+;;; font-change encoding routine never inserted a font change before a
+;;; whitespace character, since they are considered fontless.  On the other
+;;; hand, preserving this functionality is probably no longer very important
+;;; (though I'm not brave enough to rip it all out).  -- Bob Rogers, 31-Aug-02.]
 
 (defvar ilisp-cl-source-locater-patterns
   '((setf
@@ -654,7 +676,7 @@ file.  BACK is T to go backwards."
 		 struct struct))))
 	 ;; Defclass accessors
 	 (class
-	  "\\(:accessor\\|:writer\\|:reader\\)\\([ \t\n]+\\(.\\)?+[ \t\n]*\\|[ \t\n]*.[ \t\n]+\\)%s[ \t\n)]"))
+	  "\\(:accessor\\|:writer\\|:reader\\)\\([ \t\n]+\\(.\\)?[ \t\n]*\\|[ \t\n]*.[ \t\n]+\\)%s[ \t\n)]"))
     (or
      (if (equal type "any")
 	 (lisp-re 
