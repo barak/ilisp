@@ -21,7 +21,8 @@
 ;;; COPYING.
 
 
-;;;============================================================================
+(require 'cl)
+
 ;;; Global definitions/declarations
 
 (defconst +ilisp-emacs-version-id+
@@ -50,8 +51,7 @@ Set in ilcompat.el.")
 	  (t emacs-minor-version)))
 
 
-;;;============================================================================
-;;; Code
+;;; Load Emacs version specific compatibility modules
 
 (cond ((or (eq +ilisp-emacs-version-id+ 'lucid-19)
 	   (eq +ilisp-emacs-version-id+ 'lucid-19-new))
@@ -62,9 +62,25 @@ Set in ilcompat.el.")
       ((eq +ilisp-emacs-version-id+ 'fsf-20) (load "ilfsf20"))
       )
 
-;;;============================================================================
+
+;;; Misc. bug work-arounds and compatibility bindings
+
+(unless (eval-when-compile (ignore-errors (last '(a . b))))
+  ;; From Emacs 19.34's cl.el.
+  (defun last (x &optional n)
+    "Returns the last link in the list LIST.
+With optional argument N, returns Nth-to-last link (default 1)."
+    (if n
+        (let ((m 0) (p x))
+          (while (consp p) (incf m) (pop p))
+          (if (<= n 0) p
+            (if (< n m) (nthcdr (- m n) x) x)))
+      (while (consp (cdr x)) (pop x))
+      x)))
+
+
 ;;; Epilogue
 
-(provide 'compat)
+(provide 'ilcompat)
 
 ;;; end of file -- compat.el --

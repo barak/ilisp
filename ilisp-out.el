@@ -245,12 +245,16 @@ sink."
          (buffer (ilisp-output-buffer ilisp-output-sink))
          (window (and buffer (get-buffer-window buffer t)))
          (frame (ilisp-output-sink-frame ilisp-output-sink)))
-    (when buffer
+    (when buffer 
+      (with-current-buffer buffer
+        (erase-buffer))
       (bury-buffer buffer))
     (if frame
-        (ilisp-delete-message-frame ilisp-output-sink)
-        (when window
-          (ilisp-delete-window window)))))
+      (when (not (eql this-command
+                      'ilisp-arglist-message-lisp-space))
+        (ilisp-delete-message-frame ilisp-output-sink))
+      (when window
+        (ilisp-delete-window window)))))
 
 
 (defun ilisp-delete-window (window)
@@ -614,7 +618,6 @@ This is probably the window from which enlarge-window would steal lines."
         (delete-frame frame))
       (setf (ilisp-output-sink-frame ilisp-output-sink) nil))))
 
-
 (defun ilisp-display-buffer-in-typeout-area (ilisp-output-sink)
   (let ((buffer (ilisp-output-sink-buffer ilisp-output-sink)))
     (cond ((and window-system ilisp-*use-frame-for-output*)
@@ -654,6 +657,7 @@ This is probably the window from which enlarge-window would steal lines."
 						    ilisp-output-sink))
 	      (unless (frame-visible-p output-frame)
 		(make-frame-visible output-frame))
+              (raise-frame output-frame)
 	      )
 	  (progn
 	    (select-window previous-output-window)
@@ -665,7 +669,8 @@ This is probably the window from which enlarge-window would steal lines."
 	(unless (and (eq (window-frame buffer-window)
 			 output-frame)
 		     (not (frame-visible-p output-frame)))
-	  (make-frame-visible output-frame))))))
+	  (make-frame-visible output-frame))
+        (raise-frame output-frame)))))
 
 
 

@@ -159,9 +159,7 @@
    (let* ((package-name (if (packagep package)
 			    (package-name package)
 			    package))
-	  (x (if (symbolp symbol)
-               symbol
-               (ilisp-find-symbol package-name))))
+          (x (ilisp-find-symbol symbol package-name)))
      (flet ((massage-arglist (args)
 	      (typecase args
 		(string (if (or (null args) (string= args "()"))

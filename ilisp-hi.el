@@ -166,10 +166,17 @@ With prefix, insert a call as well."
   (let ((old-point (point)))
     (mark-whole-buffer)
     (unwind-protect
-	 (compile-region-lisp (point) (mark) nil)
+      (let ((result
+              (compile-region-lisp (point) (mark) 'result
+                                   (format "Compiling Buffer %s"
+                                           (buffer-name (current-buffer))))))
+        (lisp-display-output result))
       (goto-char old-point)
       (set-mark old-point)
-      (deactivate-mark)
+      (or (and (fboundp 'deactivate-mark)
+               (deactivate-mark))
+          (and (fboundp 'zmacs-deactivate-region)
+               (zmacs-deactivate-region)))
       ;; ... and go implicitly -> you see what's going on!
       (switch-to-lisp t))))
 
@@ -652,7 +659,8 @@ This function is intended to be bound to the #\\Space key so that,
 after being enabled it will display the arglist or value of a specific
 symbol after the symbol has been typed in followed by #\\Space."
   (interactive)
-  (when (and ilisp-*arglist-message-lisp-space-p* ; only if enabled
+  (when (and ilisp-*arglist-message-lisp-space-p* ; only if enabled and...
+             (ilisp-value 'ilisp-print-info-message-command t) ; we can print info
 	     (ignore-errors
 	       (or (equal (ilisp-value 'ilisp-status) " :ready")
 		   (equal (ilisp-value 'ilisp-status) " :error")))

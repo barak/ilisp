@@ -208,6 +208,7 @@ is put in the send stream.")
 (defun comint-sender (process string)
   "Send to PROCESS STRING with newline if comint-send-newline."
   ;; (comint-send-string process string)
+  (comint-log process string)
   (process-send-string process string)
   (if comint-send-newline
       (progn

@@ -81,21 +81,37 @@
 (ilisp-set-doc 'ilisp-mode ilisp-documentation)
 (ilisp-set-doc 'lisp-mode ilisp-documentation)
 
-;;;%%ILISP
-(defun lisp-command-args (string)
-  "Break up STRING into (command args ...)."
-  (let ((len (length string))
-	(position 0)
-	(arg 0)
-	(args nil))
-    (while (< position len)
-      (if (eq (aref string position) ?\ )
-	  (setq args (cons (substring string arg position)  args)
-		arg (1+ position)))
-      (setq position (1+ position)))
-    (setq args (reverse (cons (substring string arg position)  args)))
-    args))
+;;; old version
+;; (defun lisp-command-args (string)
+;;  "Break up STRING into (command args ...)."
+;;  (let ((len (length string))
+;;	(position 0)
+;;	(arg 0)
+;;	(args nil))
+;;    (while (< position len)
+;;      (if (eq (aref string position) ?\ )
+;;	  (setq args (cons (substring string arg position)  args)
+;;		arg (1+ position)))
+;;      (setq position (1+ position)))
+;;    (setq args (reverse (cons (substring string arg position)  args)))
+;;    args))
 
+;;;%%ILISP
+(defun lisp-command-args (command-line)
+  "Break up COMMAND-LINE into (command args ...)"
+  (condition-case nil
+      (loop with start = 0
+            while start
+            for pos = (string-match "\\S-" command-line start)
+            while pos
+            if (char-equal (aref command-line pos) ?\")
+            collect (let ((str+end-pos (read-from-string command-line pos)))
+                      (setq start (cdr str+end-pos))
+                      (car str+end-pos))
+            else collect (let ((end-pos (string-match "\\s-" command-line pos)))
+                           (setq start end-pos)
+                           (substring command-line pos end-pos)))
+    (error (error "Invalid inferior Lisp program command line"))))
 
 
 ;;;

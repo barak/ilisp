@@ -23,30 +23,25 @@
 
 
 ;;;
-;;; This file is used by make to compile ilisp.
+;;; This file is used by make to compile ILISP.
 ;;;
 
 (require 'cl)
 
 (message "ILISP Compilation: starting.")
 
-;;; (require 'byte-compile)
-
 (if (not (file-exists-p "ilcompat.el"))
     (error "ILISP Compilation: compatibility file 'ilcompat.el' non existent.")
   (progn
-    (setq load-path (cons "." load-path))
-
+    (push "." load-path)
     (load "ilcompat.el")		; Need to load this beforehand
 					; to use the +ilisp-emacs-version-id+
 					; constant.
-
     (message ";;; Emacs Version %s" +ilisp-emacs-version-id+)
 
     (if (eq +ilisp-emacs-version-id+ 'fsf-18)
-	(load "comint-v18")
+        (load "comint-v18")
       (load "comint"))
-
 
     ;; Try to generate bytecodes for emacs 19.
     ;; I am no expert on the Byte Compiler.  Anyone who is please send
@@ -59,23 +54,21 @@
 	    byte-compile-warnings '(redefine callargs unresolved)))
 
     ;; Compile compatibility files
-    (progn
-      (cond ((or (eq +ilisp-emacs-version-id+ 'lucid-19)
-		 (eq +ilisp-emacs-version-id+ 'lucid-19-new)
-		 (eq +ilisp-emacs-version-id+ 'xemacs))
-	     (byte-compile "illuc19.el") ; Note that in current version
-					; of ILISP illuc19 and
-					; ilxemacs are linked
-	     )
-	    ((eq +ilisp-emacs-version-id+ 'fsf-20)
-	     (byte-compile "ilfsf20.el"))
-	    ((eq +ilisp-emacs-version-id+ 'fsf-19)
-	     (byte-compile "ilfsf19.el"))
-	    ((eq +ilisp-emacs-version-id+ 'fsf-18)
-	     (byte-compile "ilfsf18.el"))
-	    (t (error "ILISP Compilation: unrecogninized Emacs version %s"
-		      +ilisp-emacs-version-id+)))
-      (byte-compile "ilcompat.el"))
+    
+    (cond ((or (eq +ilisp-emacs-version-id+ 'lucid-19)
+               (eq +ilisp-emacs-version-id+ 'lucid-19-new))
+           (byte-compile-file "illuc19.el"))
+          ((eq +ilisp-emacs-version-id+ 'xemacs)
+           (byte-compile-file "ilxemacs.el"))
+          ((eq +ilisp-emacs-version-id+ 'fsf-20)
+           (byte-compile-file "ilfsf20.el"))
+          ((eq +ilisp-emacs-version-id+ 'fsf-19)
+           (byte-compile-file "ilfsf19.el"))
+          ((eq +ilisp-emacs-version-id+ 'fsf-18)
+           (byte-compile-file "ilfsf18.el"))
+          (t (error "ILISP Compilation: unrecognized Emacs version %s"
+                    +ilisp-emacs-version-id+)))
+    (byte-compile-file "ilcompat.el")
 
     ;; Other files in the distribution.
 
@@ -85,7 +78,6 @@
                    ;; not integrated yet!
 		   ;; "custom-ilisp"
 		   "ilisp-def"
-		   ;; "ilisp-el" ; Got rid of all the functions in it.
 		   "ilisp-sym"
 		   "ilisp-inp"
 		   "ilisp-ind"
@@ -133,10 +125,8 @@
 	(byte-compile-file (format "%s.el" f) 0)
 	(load f))
       ;; Main mode file
-      (byte-compile-file "ilisp.el")
-      )
+      (byte-compile-file "ilisp.el"))
 
     (message "Done compiling and loading ILISP.")))
 
 ;;; end of file -- ilisp-mak.el --
-

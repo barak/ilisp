@@ -276,6 +276,9 @@ determined at initilization time.")
 (deflocal ilisp-compile-file-command nil
   "Format string for compiling a file in LISP given FILE and EXTENSION.")
 
+(deflocal ilisp-print-info-message-command nil
+  "Format string for printing argument list information etc. given a STRING.")
+
 ;;;%%%%Source
 (deflocal ilisp-source-types nil
   "Alist of strings for source types.

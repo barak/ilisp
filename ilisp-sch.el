@@ -26,7 +26,9 @@
 ;;; Scheme
 
 (defdialect scheme "Scheme" ilisp
-  (setq ilisp-block-command "(begin \n%s)")
+  (setq ilisp-block-command "(begin #f\n%s)") ; is #f a good idea or should it be
+                                              ; something more distinct such as
+                                              ; '--ilisp-empty-block--?
   (setq ilisp-load-command "(load \"%s\")")
   (setq ilisp-locator 'ilisp-locate-scheme-definition)
   (setq ilisp-calls-locator 'ilisp-locate-scheme-calls)
@@ -34,6 +36,25 @@
 
 (unless scheme-program
   (setq scheme-program "scheme"))
+
+
+;;; MzScheme & DrScheme-jr
+
+(defdialect mzscheme "MzScheme"
+  scheme
+  (setq ilisp-program "mzscheme")
+  (setq ilisp-macroexpand-command "(expand-defmacro %s)"
+        ilisp-macroexpand-1-command "(expand-defmacro-once %s)"
+        ilisp-eval-command "(eval (read (open-input-string \"%s\")))"
+	ilisp-trace-command " (begin (require-library \"trace.ss\") (trace %s))"
+	ilisp-untrace-command "(untrace %s) ;%s"
+	ilisp-directory-command  "(current-directory)"
+	ilisp-set-directory-command "(current-directory \"%s\")"))
+
+(defdialect drscheme-jr "DrScheme-jr"
+  mzscheme
+  (setq ilisp-program "drscheme-jr -l \"Full Scheme (MzScheme)\""))
+
 
 ;;;Cscheme
 ;;; This has a problem since interrupts cause things to crash
@@ -161,7 +182,6 @@
           ilisp-hash-form-regexp
           "^[ \t]*(define-module[ \t\n]"
 
-          ilisp-block-command "(begin #f %s)" ;; Guile doesn't grok empty blocks
           ilisp-in-package-command "(ilisp-in-package \"%s\")"
           ilisp-in-package-command-string "in-package" ;;; FIXME
           ilisp-defpackage-command-string "define-module"
