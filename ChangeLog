@@ -1,3 +1,14 @@
+2001-09-05  Paolo Amoroso  <amoroso@mclink.it>
+
+        * INSTALLATION: added coverage of CLtL2 lookup.
+
+        * ilisp.emacs: added sample CLtL2 configuration instructions.
+
+        * docs/ilisp.doc: updated version info.
+        (Acknowledgments): added Utz-Uwe Haus.
+        (Configuration and compilation, Documentation functions): added
+        coverage of CLtL2 lookup.
+
 2001-08-27  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-def.el (ilisp-binary-extension,
