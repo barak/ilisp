@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.11 2001/05/22 21:41:21 mkoeppe Exp $
+# $Id: Makefile,v 1.12 2001/05/29 16:18:32 anisotropy9 Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -72,7 +72,7 @@ DocFiles = docs/Makefile \
            docs/ilisp.texi
 
 
-FaslFiles = *.fasl *.fas *.lib *.x86f
+FaslFiles = *.fasl *.fas *.lib *.x86f *.sparcf
 
 #==============================================================================
 # Rules
