@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.4 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-mak.el,v 1.5 2001/07/18 08:35:20 anisotropy9 Exp $
 
 (require 'cl)
 
@@ -23,6 +23,9 @@
 					; to use the +ilisp-emacs-version-id+
 					; constant.
     (message ";;; Emacs Version %s" +ilisp-emacs-version-id+)
+
+    (if (eq +ilisp-emacs-version-id+ 'xemacs)
+	(setq load-path (cons "../xemacs-base" load-path)))
 
     (if (eq +ilisp-emacs-version-id+ 'fsf-18)
         (load "comint-v18")
