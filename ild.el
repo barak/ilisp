@@ -3,6 +3,14 @@
 ;;; ILD: A common Common Lisp debugger user interface for ILisp.
 ;;;   ---Jeffrey Mark Siskind
 
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: ild.el,v 1.1.1.1.2.1 2001/05/07 23:49:55 marcoxa Exp $
+
 ;;; Keystroke c-u? What it does
 ;;; ---------------------------------------------------------
 ;;; m-a            Abort

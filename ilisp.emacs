@@ -1,24 +1,20 @@
 ;;;  -*- Mode: Emacs-Lisp -*-
 
 ;;; ilisp.emacs --
-
-;;; This file is part of ILISP.
-;;; Version: 5.10.1
-;;;
-;;; Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-;;;               1993, 1994 Ivan Vasquez
-;;;               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-;;;               1996-2000 Marco Antoniotti and Rick Campbell
-;;;
-;;; Send mail to 'majordomo@cons.org' to be included in the ILISP mailing
-;;; list.
-
 ;;; This file shows examples of some of the things you might want to
 ;;; do to install or customize ILISP.  You may not want to include all
 ;;; of them in your .emacs.  For example, the default key binding
 ;;; prefix for ILISP is C-z and this file changes the default prefix
 ;;; to C-c. For more information on things that can be changed, see
-;;; the file ilisp.el. 
+;;; the file ilisp.el.
+;;;
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: ilisp.emacs,v 1.2.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 
 ;;; If ilisp lives in some non-standard directory, you must tell

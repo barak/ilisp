@@ -1,30 +1,16 @@
 ;;; -*- Mode: Emacs-Lisp -*-
 
 ;;; ilisp-cmu.el --
-
-;;; This file is part of ILISP.
-;;; Version: 5.10.1
-;;;
-;;; Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-;;;               1993, 1994 Ivan Vasquez
-;;;               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-;;;               1996-2000 Marco Antoniotti and Rick Campbell
-;;;
-;;; Other authors' names for which this Copyright notice also holds
-;;; may appear later in this file.
-;;;
-;;; Send mail to 'majordomo@cons.org' to be included in the
-;;; ILISP mailing list. 'ilisp@cons.org' is the general ILISP
-;;; mailing list were bugs and improvements are discussed.
-;;;
-;;; ILISP is freely redistributable under the terms found in the file
-;;; COPYING.
-
-
-;;;
 ;;; ILISP CMU Common Lisp dialect definition
 ;;;
-;;;%%%CMULisp
+;;;
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: ilisp-cmu.el,v 1.2.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 (defvar cmulisp-source-directory-regexp 
   "\\/afs\\/cs\\.cmu\\.edu\\/project\\/clisp\\/src\\/[0-9]*\\/"
@@ -62,7 +48,7 @@
 	     (cons cmulisp-source-directory-regexp
 		   cmulisp-local-source-directory)))
     (message "cmulisp-local-source-directory not set."))
-  (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\) "
+  (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) "
 	ilisp-trace-command "(ILISP:cmulisp-trace \"%s\" \"%s\" \"%s\")"
 	comint-prompt-status 
 	(function (lambda (old line)

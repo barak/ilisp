@@ -1,20 +1,15 @@
 ;;;; mzscheme-ilisp.scm --- ILISP support functions for MzScheme
 ;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de> 
-
-;;; This file is part of ILISP.
-;;; Version: 5.10.1
 ;;;
 ;;; Copyright (C) 2000 Matthias Koeppe
 ;;;
-;;; Other authors' names for which this Copyright notice also holds
-;;; may appear later in this file.
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
 ;;;
-;;; Send mail to 'majordomo@cons.org' to be included in the
-;;; ILISP mailing list. 'ilisp@cons.org' is the general ILISP
-;;; mailing list were bugs and improvements are discussed.
-;;;
-;;; ILISP is freely redistributable under the terms found in the file
-;;; COPYING.
+;;; $Id: mzscheme-ilisp.scm,v 1.1.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 (define (ilisp-matching-symbols string package function? external? prefix?)
   (let loop ((syms (make-global-value-list))
@@ -25,5 +20,8 @@
 	  (if (and (>= (string-length sym-str) (string-length string))
 		   (string=? (substring sym-str 0 (string-length string))
 			     string))
-	      (loop (cdr syms) (cons (list (symbol->string (caar syms))) result))
+	      (loop (cdr syms)
+		    (cons (list (symbol->string (caar syms))) result))
 	      (loop (cdr syms) result))))))
+
+;;; end of file -- mzscheme-ilisp.scm --

@@ -2,6 +2,15 @@
 
 ILISP HISTORY
 ===============================================================================
+Version: 5.11.
+
+New Version.
+
+Please refer to the ChangeLog entries to see what relevant changes
+have happened.  There are way too many changes.
+
+
+===============================================================================
 Version: 5.10.1.
 
 ILISP is on SOURCEFORGE!
@@ -11,7 +20,7 @@ Fixes and enhancements since 5.9.4.
 Many.
 
 -- More CLish conventions for naming variables.
-   Note that 'ilisp-refix' is now 'ilisp-*prefix*' . Check your ilisp
+   Note that 'ilisp-prefix' is now 'ilisp-*prefix*' . Check your ilisp
    initializations in your .emacs or wherever you keep them.
 
 -- Better FSF compliance (see variable

@@ -1,23 +1,21 @@
 # -*- Mode: Makefile -*-
 
 # Makefile --
+#
 # This file is part of ILISP.
-# Version: 5.10.1
+# Please refer to the file COPYING for copyrights and licensing
+# information.
+# Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+# of present and past contributors.
 #
-# Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-#               1993, 1994 Ivan Vasquez
-#               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-#               1996-2000 Marco Antoniotti and Rick Campbell
-#
-# Send mail to 'majordomo@cons.org' to be included in the
-# ILISP mailing list.
+# $Id: Makefile,v 1.8.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 # Note: this makefile assumes GNU make
 
 #==============================================================================
 # Various Variables
 
-Version = 5.10.1
+Version = 5.11
 
 # Use whichever you like most
 #EMACS = xemacs

@@ -1,30 +1,15 @@
 ;;; -*- Mode: Emacs-Lisp -*-
 
 ;;; ilisp-utl.el --
-
-;;; This file is part of ILISP.
-;;; Version: 5.10.1
-;;;
-;;; Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-;;;               1993, 1994 Ivan Vasquez
-;;;               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-;;;               1996-2000 Marco Antoniotti and Rick Campbell
-;;;
-;;; Other authors' names for which this Copyright notice also holds
-;;; may appear later in this file.
-;;;
-;;; Send mail to 'majordomo@cons.org' to be included in the
-;;; ILISP mailing list. 'ilisp@cons.org' is the general ILISP
-;;; mailing list were bugs and improvements are discussed.
-;;;
-;;; ILISP is freely redistributable under the terms found in the file
-;;; COPYING.
-
-
-
-;;;
 ;;; ILISP misc tools.
 ;;;
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: ilisp-utl.el,v 1.1.1.1.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 (defun lisp-show-send (string)
   "Show STRING in the *ilisp-send* buffer."

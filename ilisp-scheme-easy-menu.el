@@ -1,6 +1,14 @@
 ;;; ilisp-scheme-easy-menu.el --- (easy)menu's on Emacs for Ilisp
 
-;; Copyright (C) 1996 Holger Schauer
+;;; Copyright (C) 1996 Holger Schauer
+;;;
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: ilisp-scheme-easy-menu.el,v 1.1.1.1.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de

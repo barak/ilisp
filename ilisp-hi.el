@@ -1,29 +1,15 @@
 ;;; -*- Mode: Emacs-Lisp -*-
 
 ;;; ilisp-hi.el --
-
-;;; This file is part of ILISP.
-;;; Version: 5.10.1
-;;;
-;;; Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-;;;               1993, 1994 Ivan Vasquez
-;;;               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-;;;               1996-2000 Marco Antoniotti and Rick Campbell
-;;;
-;;; Other authors' names for which this Copyright notice also holds
-;;; may appear later in this file.
-;;;
-;;; Send mail to 'majordomo@cons.org' to be included in the
-;;; ILISP mailing list. 'ilisp@cons.org' is the general ILISP
-;;; mailing list were bugs and improvements are discussed.
-;;;
-;;; ILISP is freely redistributable under the terms found in the file
-;;; COPYING.
-
-
-;;;
 ;;; ILISP high level interface functions Lisp <-> Emacs
 ;;;
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: ilisp-hi.el,v 1.10.2.1 2001/05/07 23:49:55 marcoxa Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -514,13 +500,13 @@ The default directory of the optional BUFFER is used is available.  If
 you are in an inferior LISP buffer, set the default directory to the
 current directory of the LISP."
   (interactive)
-  (if (and (not buffer) (memq major-mode ilisp-modes)
+  (if (and (not buffer)
+	   (memq major-mode ilisp-modes)
            (ilisp-value 'ilisp-directory-command))
-      (let ((dir
-	     (ilisp-send
-	      (ilisp-value 'ilisp-directory-command)
-	      (format "Getting LISP directory")
-	      'dir)))
+      (let ((dir (ilisp-send
+		  (ilisp-value 'ilisp-directory-command)
+		  (format "Getting LISP directory")
+		  'dir)))
 	(if (ilisp-value 'comint-errorp t)
 	    (progn
 	      (lisp-display-output dir)
@@ -528,13 +514,15 @@ current directory of the LISP."
 	    (setq default-directory (read dir)
 		  lisp-prev-l/c-dir/file (cons default-directory nil))
 	    (message "Default directory is %s" default-directory)))
-      (let ((directory (save-excursion
-			 (set-buffer (or buffer (current-buffer)))
-			 default-directory)))
-	(ilisp-send 
+      (let ((directory
+	     (expand-file-name (save-excursion
+				 (set-buffer (or buffer (current-buffer)))
+				 default-directory))))
+	(ilisp-send
 	 (format (ilisp-value 'ilisp-set-directory-command) directory)
 	 (format "Set %s's directory to %s" 
-		 (buffer-name (ilisp-buffer)) directory)
+		 (buffer-name (ilisp-buffer))
+		 directory)
 	 'dir
 	 ;; (if lisp-wait-p nil 'dispatch)
 	 ;; The above line might cause problems with Lispworks.
