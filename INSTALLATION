@@ -1,0 +1,256 @@
+-*- Mode: Text -*-
+
+WELCOME TO ILISP.
+
+
+FIRST INSTALLATION STEP: UNPACKING AND COMPILING.
+
+Copy the ILISP distribution archive, e.g. ilisp-5.9.4.tar.gz, to the
+location where you would like to install it. Next extract the archive (you
+may need root privileges to perform these operations):
+
+% gzip -dc ilisp-5.9.4.tar.gz | tar xf -
+
+or:
+
+% unzip ilisp-5.9.4.zip
+
+Some configuration needs to be done before compiling the Emacs Lisp files
+that comprise ILISP.  Start with the Makefile file, in the section after
+the comment Various variables (you can safely ignore the variables for
+configuring packaging and distribution, which are intended for
+maintainers).
+
+First, set the EMACS variable to be the pathname of the Emacs you will be
+using ILISP with.  This is the Emacs that will be used to compile ILISP
+with.
+
+If your Emacs supports the `easymenu' package, it is possible to make ILISP
+add to Lisp mode buffers and buffers with inferior Lisp processes, or to
+Scheme mode buffers and buffers with inferior Scheme processes, an Ilisp
+menu with all available commands.  To enable this feature, set to T the
+variable ENABLE-ILISP-CL-EASY-MENU-P in `ilisp-def.el' for the Common Lisp
+dialects, and ENABLE-ILISP-SCHEME-EASY-MENU-P for Scheme dialects.  Setting
+these variables also causes the default Lisp menu to be removed before
+displaying the Ilisp one.
+
+See the next section for additional configuration options and known
+problems for specific Lisp dialects.
+
+Run `make' or `make compile' to build ILISP from source.  Ignore any
+compilation warnings unless they result in ILISP not compiling completely.
+
+For reducing the Emacs startup time you may run `make loadfile'. This
+concatenates all `.elc' (the compiled Emacs Lisp files) into an
+`ilisp-all.elc' file and removes the `*.elc' files.  So your Emacs can load
+one single compiled file faster than a bunch of smaller compiled files.
+
+To activate ILISP you should add appropriate Emacs Lisp forms to your
+`.emacs' or to the system-wide `default.el' file, depending on who will be
+using ILISP.  These forms take care of starting it whenever you access a
+Lisp file or run an inferior Lisp process.  You can copy relevant portions
+of the sample file `ilisp.emacs', which also shows how to customize some
+ILISP features.
+
+You should add the directory where all of the ILISP Emacs Lisp files reside
+to your load-path.  There is an example of this in `ilisp.emacs'.
+
+As an alternative you could set up a `.ilisp' which contains the
+appropriate portions of `ilisp.emacs', in order to avoid cluttering too
+much `.emacs' or `default.el'.
+
+The first time a dialect is started, the interface files will complain
+about not being compiled, just ignore the message.  Once a Lisp dialect is
+started up, you should execute the command ilisp-compile-inits which will
+compile the `*.lisp' files and write them to the same directory as the
+ilisp files.
+
+The binary files should have a unique extension for each different
+combination of architecture and Lisp dialect.  You will need to change
+ILISP-INIT-BINARY-EXTENSION and ILISP-INIT-BINARY-COMMAND to get additional
+extensions.  The binary for each different architecture should be
+different.  If you want to build the interface files into a Lisp world, you
+will also need to set ILISP-LOAD-INITS to NIL in the same place that you
+change ILISP-PROGRAM to load the Lisp world.
+
+There is an ILISP-SITE-HOOK for initializing site specific stuff like
+program locations when ILISP is first loaded.  You may want to define
+appropriate autoloads in your system Emacs start up file.
+
+Example site init:
+
+;;; CMU site
+(setq ilisp-site-hook
+      '(lambda ()
+        (setq ilisp-motd "CMU ILISP V%s")
+        (setq expand-symlinks-rfs-exists t)
+        (setq allegro-program "/usr/local/acl5/lisp")
+        (setq lucid-program "/usr/misc/.lucid/bin/lisp")))
+
+Kent Pitman and The Harlequin Group Ltd. have made publicly available on
+the Web the Common Lisp HyperSpec, an HTML version of the full text of the
+ANSI Common Lisp specification.  Daniel Barlow, Stephen Carney and Erik
+Naggum independently developed Emacs Lisp packages for looking up Lisp
+symbols in the HyperSpec and displaying the relevant sections with a Web
+browser.  ILISP includes all of them in the `extra' directory of the
+distribution tree. By default ILISP uses Naggum's package.  If you want to
+use one of the others, see the comments at the beginning of the
+corresponding files.
+
+The `ilisp.emacs' file provides sample instructions for making Naggum's
+package access a local copy of the HyperSpec. Since the package relies on
+the `browse-url' Emacs package, make sure that the latter is properly
+configured.
+
+Previous versions of ILISP provided commands for accessing the online
+Common Lisp documentation shipped with Franz Inc.'s Allegro CL product
+(`fi:clman' module). The public availability of the HyperSpec, and the
+inclusion since version 5.9 of ILISP of the `hyperspec' packages, make
+access to the Franz documentation no longer necessary. So by default ILISP
+does not load the `fi:clman' module, but if you still want to use its
+commands set the ILISP-USE-FI-CLMAN-INTERFACE-P to T in `ilisp-def.el'.
+
+The ILISP documentation consists of a user manual and a reference card.
+Both of them are in the `docs' directory of the distribution tree.
+
+The generation of GNU Info, DVI, PostScript and HTML versions of the manual
+from the Texinfo source is controlled by the `Makefile' in the `docs'
+directory.  Run `make docs' or just `make' to generate all of the formats.
+If you are interested in only some of them then issue the appropriate
+command: `make info' for GNU Info, `make dvi' for DVI, `make ps' for
+PostScript and `make html' for HTML.  To remove the intermediate files
+produced during the generation of DVI output you can run `make tmpclean'.
+
+The ILISP reference card is available in DVI and PostScript formats
+together with the TeX source.  Check the comments at the beginning of the
+TeX source if you need to generate a version with a different number of
+columns.
+
+
+SECOND INSTALLATION STEP: DIALECT REQUIREMENTS.
+
+ILISP assumes a minimum of CLtL2 compliance. This requirements
+immediately clashes with the problems of some KCL-derivativs,
+including GCL.  Here is a list of known problems for several CL
+implementations (we do not know whether there are problems with
+Scheme's - please let us know).
+
+o All Common Lisp dialects
+
+	Be sure that the variables:
+
+	ilisp-binary-extension
+	ilisp-init-binary-extension
+	ilisp-binary-command
+
+	Have the appropriate value.  Older versions of ILISP (< 5.8)
+	assumed a single CL installation and suggested a change to the
+	hook 'ilisp-site-hook' in the 'ilisp.emacs' file.
+
+	This should not be so anymore.
+
+
+o KCL, AKCL, Ibuki, GCL, and ECL
+
+	- DEFPACKAGE
+	  You need to have your system configured with a
+	  DEFPACKAGE. You can either generate an image which contains
+	  it or you can arrange the init file to load it for you.
+
+	  You can find a DEFPACKAGE in the AI.Repository of CMU.
+
+	  If you do not want - for mysterious reasons - DEFPACKAGE in
+          your GCL, you can manually edit the files 'ilisp-pkg.lisp'
+          and 'cl-ilisp.lisp' at the DEFPACKAGE and EXPORT forms.
+
+	- LOOP
+	  Most likely the DEFPACKAGE will require a full fledged LOOP.
+	  The same instructions apply.
+
+
+o CMUCL
+
+	If you are interested in maintaining CMU CL or compiling it from
+	source try to set the variables:
+
+	cmulisp-source-directory-regexp
+	cmulisp-local-source-directory
+
+	to sensible values, e.g. set 'cmulisp-local-source-directory'
+	to "target:". Refer to CMUCL documentation for an explanation
+	of this setting.
+
+
+o Harlequin
+
+	No known extra installation glitches
+
+
+o Lucid
+
+	No known extra installation glitches
+
+
+o Allegro
+
+	No known extra installation glitches
+
+
+o CLISP
+
+        Unless you add the following form to your ~/.clisprc file:
+
+          (pushnew (pathname ".lisp") system::*source-file-types*)
+
+        the ILISP command `M-x ilisp-compile-inits' will not be able to
+        compile CLISP's initialization files.
+
+        (The list below was provided by Valentino Kyriakides)
+
+        The following lists some unusual ILISP behaviour related to CLISP.
+        Some of these are of general interest, and should hopefully be
+        fixed in an upcomming ILISP distribution. Most of these points were
+        reported by Bruno Haible.
+
+        - On startup, ILISP presents a Lisp prompt and shortly afterwards
+          another Lisp prompt. This is somehow confusing.
+
+        - While prompted, a user can backspace over the prompt, or can move
+          the cursor down to inexistent lines, thus making the buffer look
+          bad.
+
+        - The history mode is unfortunately circular, which means that
+          after M-p M-n you don't get back your original empty line. Also,
+          a two- character input like "()" doesn't appear in the history.
+
+        - CLISP does not know that once it received a form for evaluation
+          the cursor is in column 0. Therefore (format t "~&") will output
+          a blank line. This results in too many blank lines.
+
+        - The default completion character for clisp (Tab) does not work.
+          Instead there are two different completion characters, with two
+          other keybindings.
+
+        - The Lisp code invisibly loaded into clisp is interpreted. Since
+          it is not user-visible, it could as well be compiled, for speed.
+
+        - In a CLISP debugger loop typing "abort" often throws you into the
+          next deeper debugging level, instead of leaving the actual
+          one. So you often have to retype "abort" x-times to get it work.
+
+        - When the ILISP/CLISP interaction hangs (blocks), you have to type
+          C-g to abort your last command, in order get the minibuffer work
+          again. After this you have to do a "M-x panic-lisp" to reassign
+          the ILISP/CLISP interaction.
+
+
+Scheme->C
+
+        - To get Scheme->C to work under ILISP it may be necessary to
+          create a custom executable with the following C foreign function:
+
+            #include <stdio.h>
+            void nobuff(){setbuf(stdout, (char*)0);}
+
+            (define-c-external (nobuff) void "nobuff")
+            (nobuff)

@@ -1,0 +1,58 @@
+2000-04-19  Marco Antoniotti  <marcoxa@parades.rm.cnr.it>
+
+	* docs/ilisp.texi (Acknowledgements): Added Karl Fogel.
+
+	* ilisp-mak.el (top level): added load/compile entry for
+	'custom-ilisp'.
+
+	* ilisp.el (load): added loading of 'custom-ilisp'.
+
+2000-03-26  Marco Antoniotti  <marcoxa@parades.rm.cnr.it>
+
+	* ilisp-dia.el (setup-ilisp): Changed value of
+	'ilisp-symbol-delimiter'.
+
+	* ilisp-def.el (ilisp-bindings-*bind-right-bracket-p*):  Added
+	variable to control binding of ']' to 'close-all-lisp'.
+	Modified all the places where the above binding is
+	set. I.e. 'ilisp-key.el' and 'ilisp-ext.el'.
+
+	* extra/hyperspec.el (common-lisp-hyperspec-root): updated default
+	link to new
+	'http://www.xanalys.com/software_tools/reference/HyperSpec/'
+
+	* ilcompat.el (+ilisp-emacs-version-id+): Minimum hack to take
+	into account version 21 of Xemacs.  Of course the real thing would
+	be to actually upgrade the whole 'compatibility' file support.
+
+2000-02-03  Karl Fogel  <kfogel@onshore.com>
+
+	* doc/ilisp.texi (Keybindings): new node, document the
+	FSF-compliant keybinding situation.
+	(Miscellany): removed mention of ] for `close-all-lisp' (see
+	change to `lisp-bindings' in ilisp-key.el, below).
+
+	* ilisp-def.el: (ilisp-prefix): Set to C-c if above new defcustom
+	is non-nil, else set to C-z if above is nil or unbound.
+	(ilisp-use-fsf-compliant-keybindings): New defcustom.
+	(ilisp-use-fsf-compliant-keybindings): 
+
+	* ilisp-key.el: (ilisp-safe-define-key): New func, binds a key to
+	a command in keymap, using new optional arg FSF-KEY if
+	`ilisp-use-fsf-compliant-keybindings' is non-nil.
+	
+	(ilisp-define-ilisp-key-for-map): Replaces `ilisp-defkey'.  Use
+	ilisp-safe-define-key, passing new optional argument to it.
+	Changed name partly because this function does something new now,
+	and partly to avoid confusion with `defkey-ilisp', which has an
+	entirely different purpose.  All callers changed.
+	
+	(lisp-bindings): Use above new functions where appropriate.
+	Pass `no-fsf-key' where no worthwhile binding is possible under
+	the FSF-approved keyspace.
+	Don't bind ] to `close-all-lisp' (see comment in source).
+
+	(defkey-ilisp): take new optional FSF-KEY arg, similarly to
+	`ilisp-define-ilisp-key-for-map' (see above).
+
+	* ild.el: pass `no-fsf-key' arg to all keybinding calls here.

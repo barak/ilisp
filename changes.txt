@@ -1,0 +1,54 @@
+- merge!!! :)
+
+**************************************************************************
+NEW CHANGES AFTER merge
+**************************************************************************
+
+- changed vars in ilisp-def:
+  ilisp-*prefix*
+  ilisp-*use-fsf-compliant-keybindings*
+  ilisp-*use-frame-for-output*
+  ilisp-*prefix-match*
+  ilisp-*version*
+  ilisp-*arglist-message-lisp-space-p*
+  ilisp-*use-frame-for-arglist-output-p*
+  ilisp-*enable-imenu-p*
+  ilisp-*enable-cl-easy-menu-p*
+  ilisp-*enable-scheme-easy-menu-p*
+  ilisp-*enable-ild-support-p*
+  ilisp-*use-hyperspec-interface-p*
+  ilisp-*use-fi-clman-interface-p*
+  ilisp-*directory*
+
+- *.el: replaced vars.
+
+- in ilisp-key: new custom: ilisp-bindings-*bind-space-p*:
+  if t bind #\SPACE to #'ilisp-arglist-message-lisp-space
+
+- changed vars in ilisp-out:
+  changed all sink's to ilisp-output-sink's
+  ilisp-*icon-file*   
+  ilisp-*last-ilisp-output-sink*
+
+- doc/ilisp.texi: replaced found vars of above with their replacements.
+
+- doc/ilisp.texi: documented the frame-p stuff, arglist-p stuff, imenu-p stuff.
+
+- doc/ilisp.texi: documented imenu.el, ilisp-imenu.el.
+
+- ilisp-out.el & ilisp-chs.el: in ilisp-display-output-default: now printing of error messages
+  in the lisp-listener should work!!
+  at least it works for clisp, as I found out.
+
+- ilisp-def: new variable ilisp-*arglist-message-switch-back-p*
+
+- ilisp-hi: in lisp-send-region: fixed a bug; we had multiple outputs despite
+  the fact that we should not have had that (eq switch 'result) => no display.
+
+- sblisp.lisp: changed #'arglist; code is a adapted version of #'arglist in
+  cmulisp.lisp. did not work for (arglist 'make-array) for example.
+
+- cl-ilisp: reformatting of last ) ) [oops! :)]
+            bugfix: special-operator-p replaced by special-form-p in
+            #'ilisp-print-info-message.
+            added support for ECL (ECLS).

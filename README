@@ -1,0 +1,34 @@
+ILISP 5.9.x
+===========
+
+ILISP is a powerful GNU Emacs interface to many dialects of Lisp,
+including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL, IBCL,
+and CMUCL.  Also some Scheme implementations are supported as well as
+a preliminary version of Xlisp/XlispStat.
+
+Written by Chris McConnell <ccm+@cs.cmu.edu> and now maintained by
+Marco Antoniotti <marcoxa@cons.org>.
+
+Please refer to the following files in this directory:
+ HISTORY:	A detailed summary of changes over the course of ILISP's
+		existence.
+ GETTING-ILISP:	Directions for obtaining this collection using
+		anonymous FTP.
+ INSTALLATION:	Directions about how to install ILISP and specific
+		dialect needs.
+
+Please send bug reports, questions, suggestions, etc. to:
+
+  ILISP Discussion <ilisp@cons.org>
+
+Please address all list administration messages, such as requests to
+subscribe or unsubscribe from ilisp@cons.org, to:
+
+  ILISP Administrivia <majordomo@cons.org>
+
+
+See <http://ilisp.cons.org> for more information.
+
+Enjoy
+
+The ILISP Maintainers

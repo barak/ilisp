@@ -1,0 +1,55 @@
+Thanks to
+
+Ben Hyde,
+Ben Wing,
+Bjorn Victor,
+Brian Dennis,
+Christian Lynbech,
+Christof Ullwer,
+Christopher Hoover,
+Chuck Irvine,
+Dan Pierson,
+David Bakash,
+David Braunegg,
+David Duff,
+David Gadbois,
+Erik Naggum,
+Frank Ritter,
+Fred White,
+Guido Bosch,
+Hans Chalupsky,
+Jamie Zawinski,
+Jason Trenouth,
+Jeffrey Mark Siskind,
+Jim Healy,
+Kimball Collins,
+Larry Hunter,
+Larry Stead,
+Mark Kantrowitz,
+Martin Atzmueller,
+Marty Hall,
+Matsuo Yoshihiro,
+Michael Ernst,
+Michael Kashket,
+Neil Smithline,
+Paolo Amoroso,
+Paul Fuqua (for the CMU-CL GC display code)
+Qiegang Long,
+Richard Harris,
+Richard Stallman,
+Rick Campbell,
+Robert P. Goldman,
+Scott Fahlman,
+Thomas M. Breuel,
+Tim Bradshaw,
+Tom Emerson,
+Yusuf Pisan,
+Karl Fogel,
+
+for bug reports, suggestions and code.  Our apologies to anyone we may
+have forgotten.
+
+Special thanks to Todd Kaufmann for the texinfo file, work on bridge,
+epoch-pop and for really exercising everything.
+
+The ILISP Maintainer

@@ -1,0 +1,30 @@
+Welcome to ILISP.
+
+ILISP is a GNU Emacs package for controlling an inferior process
+running a lisp dialect.  You can get ILISP at
+<http://ilisp.cons.org>.
+
+
+ILISP is currently being maintained by Marco Antoniotti
+<marcoxa@cons.org> and Rick Campbell <campbell@c2.net>.
+
+There is an ILISP mailing list managed by `majordomo'.
+Please address all list administration messages, such as requests to
+subscribe or unsubscribe, to:
+
+	  <majordomo@cons.org> ILISP Administrivia
+
+To send a message to everyone on the list, address it to:
+
+          <ilisp@cons.org> ILISP Discussion
+
+The list has had a very low volume lately, so you may not see messages
+for a while after subscribing.
+
+Please note that there is no "bug" list like ilisp-bugs@cons.org.
+The primary list serves the purpose of a general bug fix and
+discussion area.
+
+Enjoy
+
+The ILISP Maintainers
