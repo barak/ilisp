@@ -11,6 +11,8 @@ case "$1" in
     install)
 	;;
     upgrade)
+	set +e
+	rm -f '/usr/lib/ilisp/*.scm' # remove bogus symlink
 	for i in /usr/lib/ilisp/*; do 
 	    b=`basename $i`
 	    # Don't delete symlinks with .lisp or .scm extension
