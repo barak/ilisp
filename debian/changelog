@@ -1,6 +1,12 @@
-ilisp (5.12.0+cvs.2002.12.10.1) unstable; urgency=low
+ilisp (5.12.0+cvs.2002.12.12) unstable; urgency=low
 
-  * Remove reference to common lisp controller
+  * Change short description (closes: 172820)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Thu, 12 Dec 2002 13:00:43 -0700
+
+ilisp (5.12.0+cvs.2002.12.11) unstable; urgency=low
+
+  * Remove reference to common lisp controller (closes: 172559)
 
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 10 Dec 2002 15:24:47 -0700
 
