@@ -1,31 +1,17 @@
 ;;; -*- Mode: Lisp -*-
 
 ;;; sbcl.lisp --
-
-;;; This file is part of ILISP.
-;;; Version: 5.10.1
-;;;
-;;; Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-;;;               1993, 1994 Ivan Vasquez
-;;;               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-;;;               1996, 1997, 1998, 1999 Marco Antoniotti and Rick Campbell
-;;;               2000 Matthias Hölzl
-;;;
-;;; Other authors' names for which this Copyright notice also holds
-;;; may appear later in this file.
-;;;
-;;; Send mail to 'majordomo@cons.org' to be included in the
-;;; ILISP mailing list. 'ilisp@cons.org' is the general ILISP
-;;; mailing list were bugs and improvements are discussed.
-;;;
-;;; ILISP is freely redistributable under the terms found in the file
-;;; COPYING.
-
-
-;;; This file was adapted from cmulisp.lisp, which was written by Todd
-;;; Kaufmann in May 1990
 ;;;
 ;;; This init file was last tested with SBCL 0.6.12.21
+
+;;; This file is part of ILISP.
+;;; Please refer to the file COPYING for copyrights and licensing
+;;; information.
+;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+;;; of present and past contributors.
+;;;
+;;; $Id: sbcl.lisp,v 1.2 2001/06/06 10:51:04 mna Exp $
+
 
 (in-package "ILISP")
 
@@ -149,7 +135,7 @@
 
 (defun source-file (symbol package type)
   (declare (ignore type))
-  (sb-impl-errors
+  (ilisp-errors
    (let* ((x (ilisp-find-symbol symbol package))
 	  (fun (get-correct-fn-object x)))
      (when (and fun (not (sb-eval:interpreted-function-p fun)))

@@ -1,3 +1,13 @@
+2001-06-06  Martin Atzmueller  <martin@atzmueller.net>
+
+	* sbcl.lisp: new (ILISP 5.11) boilerplate text (from sblisp.lisp).
+
+	* ACKNOWLEDGMENTS: add Matthias Hoelzl, who first contributed
+	sblisp.lisp. add Dan Barlow to the hall of fame, too.
+
+	* sbcl.lisp (source-file): "typo": SB-IMPL-ERRORS does not exist,
+	and should be ILISP-ERRORS.
+
 2001-06-05  Paolo Amoroso  <amoroso@mclink.it>
 
 	* sbcl.lisp: initial release (file contributed by Daniel Barlow
