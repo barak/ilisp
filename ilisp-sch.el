@@ -132,6 +132,12 @@
 ;;; Guile
 ;;; with hacks from Istvan Marko <imarko@pacificnet.net>
 ;;; and Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de>
+;;;
+;;; This has been written for Guile 1.3.4
+;;; and updated for Guile 1.4.1
+;;;
+;;; The documentation system changes in 1.4.1 will make some more
+;;; changes necessary.
 
 (defvar ilisp-guile-init-file "guile-ilisp.scm")
 
@@ -139,16 +145,19 @@
     scheme
     (setq ilisp-program "guile")
     (setq comint-prompt-regexp "^guile[^>]*> ")
+    ;; We send the command in `comint-fix-error' to the process if we
+    ;; want to return to the top level. In Guile, we are either in the
+    ;; debugger, which `quit' exits from, or we are at the top level,
+    ;; where `quit' evaluates to the quit procedure, which is
+    ;; harmless.
+    (setq comint-fix-error "quit")		
     (setq ilisp-load-or-send-command
           "(begin \"%s\" (load \"%s\"))")
     (ilisp-load-init 'guile ilisp-guile-init-file)
     (setq ilisp-symbol-delimiters "^ \t\n\('\"#\)"
           ilisp-package-regexp "^[ \t]*\\s(define-module \\((.*)\\))"
           ilisp-error-regexp "\\(ERROR\\|ABORT\\): "
-          ilisp-package-command 
-          ;; This will only get us the last component of the module name
-          ;"(save-module-excursion (lambda () %s (module-name (current-module))))"
-          "(ilisp-get-package '%s)"
+          ilisp-package-command "(ilisp-get-package '%s)"
 
           ilisp-hash-form-regexp
           "^[ \t]*(define-module[ \t\n]"
@@ -158,7 +167,7 @@
           ilisp-in-package-command-string "in-package" ;;; FIXME
           ilisp-defpackage-command-string "define-module"
           ilisp-package-name-command "(module-name (current-module))"
-          ilisp-eval-command "(ilisp-eval \"%s\" \"%s\" \"%s\")"
+          ilisp-eval-command "(ilisp-eval \"%s\" \"%s\" \"%s\" %d)" 
           ilisp-directory-command "(getcwd)"
           ilisp-set-directory-command "(chdir \"%s\")"
           ilisp-complete-command "(ilisp-matching-symbols \"%s\" \"%s\" '%s '%s '%s)"
