@@ -29,6 +29,16 @@
 (define (read-from-string str)
   (call-with-input-string str read))
 
+(define (read-from-string/source str filename line column)
+  "Read from string STR, pretending the source is the given FILENAME, LINE, COLUMN."
+  (call-with-input-string
+   str
+   (lambda (port)
+     (set-port-filename! port filename)
+     (set-port-line! port (- line 1))
+     (set-port-column! port (- column 1))
+     (read port))))
+
 (define (string->module str)
   (let ((v (call-with-input-string str read)))
     (cond
@@ -121,29 +131,48 @@
 	 (last (cdr l)))
 	(else (car l))))
 
+(define eval-in-package
+  ;; A two-argument version of `eval'
+  (if (= (car (procedure-property eval 'arity)) 2)
+      (lambda (expression environment)	; we have a R5RS eval
+	(save-module-excursion
+	 (lambda ()
+	   (eval expression environment))))
+      (lambda (expression environment)	; we have a one-arg eval (Guile <= 1.4)
+	(save-module-excursion
+	 (lambda ()
+	   (set-current-module environment)
+	   (eval expression))))))  
+
 (define-public (ilisp-get-package sequence-of-defines)
   "Get the last module name defined in the sequence of define-module forms."
-  (let ((last-form (last sequence-of-defines)))
-    (cond ((and (pair? last-form)
-		(eq? (car last-form) 'define-module))
-	   (cadr last-form))
-	  (else '(guile-user)))))
+  ;; First eval the sequence-of-defines.  This will register the
+  ;; module with the Guile interpreter if it isn't there already.
+  ;; Otherwise `resolve-module' will give us a bad environment later,
+  ;; which just makes trouble.
+  (let ((module-last-name
+	 (eval-in-package 
+	  (append sequence-of-defines
+		  '(module-name (current-module)))
+	  (string->module "(guile-user)"))))
+    ;; Now we have the name of the module -- but only the last
+    ;; component.  No idea how to get the full one; so we need to
+    ;; "parse" the sequence-of-defines ourselves.
+    (let ((last-form (last sequence-of-defines)))
+      (cond ((and (pair? last-form)
+		  (eq? (car last-form) 'define-module))
+	     (cadr last-form))
+	    (else '(guile-user))))))
 
 (define-public (ilisp-in-package package)
   (set-current-module (string->module package)))
 
-(define-public (ilisp-eval form package filename)
-  "Evaluate FORM in PACKAGE recording FILENAME as the source file."
-  (save-module-excursion
-   (lambda ()
-     (set-current-module (string->module package))
-     (eval-string form))))
-
-(define (eval-in-package expression package)
-  (save-module-excursion
-   (lambda ()
-     (set-current-module (string->module package))
-     (eval expression))))
+(define-public (ilisp-eval form package filename line)
+  "Evaluate FORM in PACKAGE recording FILENAME as the source file
+and LINE as the source code line there."
+  (eval-in-package
+   (read-from-string/source form filename line 1)
+   (string->module package)))
 
 (define-public (ilisp-trace symbol package breakp)
   (trace (eval-in-package symbol package))
