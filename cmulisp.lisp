@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.14 2003/04/12 02:24:13 rgrjr Exp $
+;;; $Id: cmulisp.lisp,v 1.15 2003/05/14 20:00:58 kevinrosenberg Exp $
 
 
 (in-package :ilisp)
@@ -50,7 +50,7 @@
 ;;; This implementation of "POP" simply looks for the first restart that says
 ;;; "Return to debug level n" or "Return to top level." and executes it.
 ;;;
-(debug::def-debug-command "POP" #+:new-compiler ()
+(debug::def-debug-command "POP" ()
   ;; find the first "Return to ..." restart
   (if (not (boundp 'debug::*debug-restarts*))
       (error "You're not in the debugger; how can you call this!?")
@@ -131,7 +131,7 @@
 		  (kernel:byte-closure
 		   "Byte compiled closure, no arglist available.")
 		  ((or generic-function pcl:generic-function)
-		   (pcl::generic-function-pretty-arglist func))
+		   (generic-function-pretty-arglist func))
 		  (eval:interpreted-function
 		   (massage-arglist (eval::interpreted-function-arglist func)))
 		
@@ -180,5 +180,11 @@
 	(dolist (caller callers)
 	  (print caller)))
       t)))
+
+(defun generic-function-pretty-arglist (gf)
+  (if (fboundp 'pcl::generic-function-lambda-list)
+      (pcl::generic-function-lambda-list gf))
+  (mop:generic-function-lambda-list gf))
+
 
 ;;; end of file -- cmulisp.lisp --
