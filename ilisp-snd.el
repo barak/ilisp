@@ -353,17 +353,17 @@ With prefix specify manually."
 (defun lisp-string-to-symbol (string)
   "Convert STRING to a symbol, (package delimiter symbol).
 'package' is either package:symbol or from the current buffer."
-  (let* ((start (string-match ":+" string))
-	 (end (if start (match-end 0))))
+  (let* ((start (string-match ilisp-package-separator-regexp string))
+         (end (if start (match-end 0))))
     (if start
-	(lisp-symbol
-	 (if (= start 0)
-	     ""
-	   (substring string 0 start))
-	 (substring string start end)
-	 (substring string end))
+        (lisp-symbol
+         (if (= start 0)
+             ""
+           (substring string 0 start))
+         (substring string start end)
+         (substring string end))
       (let ((package (lisp-buffer-package)))
-	(lisp-symbol package (if package "::") string)))))
+        (lisp-symbol package (if package "::") string)))))
 
 ;;;
 (defun lisp-symbol-to-string (symbol)
