@@ -73,7 +73,6 @@
 	 (setq lispworks-program "/usr/bin/lw-console -multiprocessing")
 	 (setq openmcl-program "/usr/bin/openmcl")
 	 (setq cmulisp-program "/usr/bin/lisp")
-	 (setq sbcl-program "/usr/bin/sbcl")
 	 (setq guile-program "/usr/bin/guile1.4")
 	 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
 	 ))
