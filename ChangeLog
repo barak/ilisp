@@ -1,3 +1,8 @@
+2000-11-15  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (Files and directories): added description of the
+	  behavior of `load-file-lisp' with .system files.
+
 2000-11-14  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (How to get the latest ILISP distribution):
