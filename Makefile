@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.19 2002/05/28 18:52:29 anisotropy9 Exp $
+# $Id: Makefile,v 1.20 2002/05/28 19:22:39 anisotropy9 Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -78,7 +78,6 @@ FaslFiles = *.fasl *.fas *.lib *.x86f *.sparcf *.pfsl
 # Rules
 
 compile:
-	(cd extra; $(LN) -f $(HyperSpec) hyperspec.el; cd ..)
 	$(EMACS) -batch -l ilisp-mak.el
 
 tags:
@@ -88,7 +87,7 @@ docs: FORCE
 	cd docs; $(MAKE)
 
 clean: 
-	-$(RM) *.elc *~ extra/*.elc extra/hyperspec.el extra/*~ TAGS \
+	-$(RM) *.elc *~ extra/*.elc extra/*~ TAGS \
 	$(FaslFiles)
 	(cd docs; $(MAKE) clean)
 
@@ -122,7 +121,7 @@ tarring:
             $(Ilisp_tar_dir)/*.scm                                      \
             $(patsubst %,$(Ilisp_tar_dir)/%,$(DocFiles))                \
             $(Ilisp_tar_dir)/extra/README                               \
-            $(Ilisp_tar_dir)/extra/hyperspec-*.el                       \
+            $(Ilisp_tar_dir)/extra/hyperspec.el                         \
 	    $(Ilisp_tar_dir)/extra/cltl2.el				\
             $(Ilisp_tar_dir)/pictures/ilisp-icon.*                      \
         )
