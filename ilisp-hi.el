@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.13 2002/05/31 11:47:26 amoroso Exp $
+;;; $Id: ilisp-hi.el,v 1.14 2002/07/01 14:50:35 mkoeppe Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -697,7 +697,7 @@ symbol after the symbol has been typed in followed by #\\Space."
       (flet ((no-arglist-output-p ()
                (or (and last-char 
                         (or;; don't do silly things after comment character
-                          (equal last-char " ;")
+                          (equal last-char ";")
                           ;; do something only if directly after a sexp.
                           (equal last-char " ")))
                    (string-equal package "#+") (string-equal package "#-")
