@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: July 24, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: July 31, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -445,14 +445,19 @@ section after the comment @code{Various variables} (you can
 safely ignore the variables for configuring packaging and distribution,
 which are intended for maintainers).
 
-First, set the @code{EMACS} variable to be the pathname of the
-Emacs you will be using ILISP with.  This is the Emacs that will be used
-to compile ILISP with.
+First, set the @code{EMACS} variable to be the pathname of the Emacs you
+will be using ILISP with. This is the Emacs that will be used to compile
+ILISP with. Be sure to check that @code{LN} and @code{HyperSpec} have
+appropriate values for your system, @strong{especially if you are a
+Windows user}.
+
 @cindex Compiling ILISP files 
 @cindex Byte-compiling ILISP files
 @cindex @file{Makefile}
 @findex ilisp-compile-inits 
 @vindex EMACS
+@vindex LN
+@vindex HyperSpec
 @vindex ilisp-load-inits
 @vindex ilisp-site-hook
 @vindex ilisp-program
