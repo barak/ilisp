@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-chs.el,v 1.7 2002/08/20 11:36:41 anisotropy9 Exp $
+;;; $Id: ilisp-chs.el,v 1.8 2003/05/30 16:39:47 bill_clementson Exp $
 
 (require 'cl)
 
@@ -119,6 +119,7 @@
 	ild-backtrace-string "backtrace"
 	ild-locals-string nil
 	ild-local-string-arg nil
+	ild-step-string "step"
 	ild-return-string "return"
 	ild-retry-string "redo"
 	ild-trap-on-exit-string "break+" ; I'm not sure about this
