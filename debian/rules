@@ -34,7 +34,8 @@ install: build
 	dh_install -p $(pkg) $(wildcard extra/*.el) $(emacs_dir)/extra
 	dh_install -p $(pkg) $(wildcard *.lisp) $(clc_source)
 	dh_install -p $(pkg) $(wildcard *.scm) $(ilisp_share)
-	dh_install -p $(pkg) debian/ilisp.system $(clc_systems)
+	dh_install -p $(pkg) debian/ilisp.asd $(clc_source)
+	dh_link -p $(pkg) $(clc_source)/ilisp.asd $(clc_systems)/ilisp.asd
 	dh_install -p $(pkg) debian/ilisp.el $(ilisp_etc_dir)
 	dh_installinfo -p $(pkg) docs/ilisp.info docs/ilisp.info-1 docs/ilisp.info-2
 
