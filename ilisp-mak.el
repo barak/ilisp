@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.9 2002/05/31 11:47:57 amoroso Exp $
+;;; $Id: ilisp-mak.el,v 1.10 2003/03/25 03:05:50 rgrjr Exp $
 
 (require 'cl)
 
@@ -94,6 +94,7 @@
 		   "ilisp-hi"
 		   "ilisp-aut"
 		   "ilisp-mnb"
+		   "ilisp-src"
 
 		   ;; ILD Support.
 		   "ild"
