@@ -1,0 +1,34 @@
+;;;; -*- Mode: LISP; Syntax: ANSI-Common-Lisp; Base: 10 -*-
+;;;; *************************************************************************
+;;;; FILE IDENTIFICATION
+;;;;
+;;;; Name:          ilisp.system
+;;;; Purpose:       System file for ILISP
+;;;; Programmer:    Craig Brozefsky, Kevin M. Rosenberg
+;;;; Date Started:  Aug 2002
+;;;;
+;;;; $Id: ilisp.system,v 1.1 2002/08/15 13:29:41 kevinrosenberg Exp $
+;;;; This file, part of CLSQL, is Copyright (c) 2002 by Kevin Rosenberg
+;;;; and Craig Brozefsky. It's is licensed with the GNU Public License.
+;;;; *************************************************************************
+
+;;; Kludge to keep lispworks.lisp file from having error
+;;; on Professional version of lispworks
+
+#+lispworks
+(unless (find-package :sql)
+	(defpackage :sql))
+
+#+(or cmu sbcl openmcl clisp lispworks allegro)
+(mk:defsystem ilisp
+  :source-pathname "cl-library:ilisp;"
+  :source-extension "lisp"
+  :components ((:file "ilisp-pkg")
+	       (:file "cl-ilisp" :depends-on ("ilisp-pkg"))
+	       #+cmu (:file "cmulisp" :depends-on ("cl-ilisp"))
+	       #+sbcl (:file "sbcl" :depends-on ("cl-ilisp"))
+	       #+openmcl (:file "openmcl" :depends-on ("cl-ilisp"))
+	       #+clisp (:file "cl-chs-init" :depends-on ("cl-ilisp"))
+	       #+lispworks (:file "lispworks" :depends-on ("cl-ilisp"))
+	       #+allegro (:file "allegro" :depends-on ("cl-ilisp"))
+	       ))
