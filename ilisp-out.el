@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.13 2002/11/12 01:46:05 mna Exp $
+;;; $Id: ilisp-out.el,v 1.14 2003/02/16 02:49:27 rgrjr Exp $
 
 ;;; Old history log.
 ;;;
@@ -265,7 +265,9 @@ sink."
             (setq ilisp-*output-sink-history*
                     (cdr ilisp-*output-sink-history*))))
 	(when window
-	  (ilisp-delete-window window)))))
+	  (condition-case error
+	      (ilisp-delete-window window)
+	    (error t))))))
 
 (defun ilisp-bury-output (&optional bury-all-p)
   "Delete the topmost typeout window, with sink's buffer, if any.
