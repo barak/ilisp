@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2002.12.22) unstable; urgency=low
+
+  * Remove Recommends that are in contrib section
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sun, 22 Dec 2002 00:32:29 -0700
+
 ilisp (5.12.0+cvs.2002.12.21) unstable; urgency=low
 
   * Change license to in accordance with ILISP Developer Questionnaire

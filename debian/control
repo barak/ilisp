@@ -8,7 +8,7 @@ Standards-Version: 3.5.8.0
 Package: ilisp
 Architecture: all
 Depends: emacsen-common, debconf (>= 1.0) 
-Recommends: ilisp-doc, hyperspec, cltl
+Recommends: ilisp-doc
 Description: Emacs interface to LISP implementations
  ILISP is a powerful GNU Emacs interface to many dialects of Lisp,
  including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL,
