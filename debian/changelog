@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.03.05c) unstable; urgency=low
+
+  * Spell Pre-Depends correctly (closes: 183578)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Wed,  5 Mar 2003 15:46:44 -0700
+
 ilisp (5.12.0+cvs.2003.03.05b) unstable; urgency=low
 
   * Remove /usr/lib/ilisp and /usr/lib/ilisp in preinst on an upgrade
