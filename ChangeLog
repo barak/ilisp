@@ -1,3 +1,17 @@
+2002-01-18  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-cmp.el: Emacs 21 minibuffer completion fix;
+	edit-callers-lisp would not accept minibuffer input when
+	minibuffer-no-complete is nil.
+	(ilisp-minibuffer-prompt-end): New function.
+	(ilisp-current-choice, ilisp-completion-word,
+	ilisp-completion-paren, ilisp-completion-exit): Use
+	ilisp-minibuffer-prompt-end instead of 1 or (point-min).
+
+	* guile-ilisp.scm (ilisp-source-file):
+	Add missing newline in negative answer, which
+	took ILISP to :error state.
+
 2002-01-17  Martin Atzmueller  <martin@atzmueller.net>
 
 	* sbcl.lisp (arglist): arglists now can be either strings, or
