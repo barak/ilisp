@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-key.el,v 1.3 2001/07/27 11:13:27 mkoeppe Exp $
+;;; $Id: ilisp-key.el,v 1.4 2002/05/23 20:38:51 marcoxa Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)
@@ -222,7 +222,8 @@ ilisp-*prefix* is set to the desired prefix."
   ;;       case she presumably knows what she wants. -Karl Fogel, 3 Feb 2000
   (cond ((eq +ilisp-emacs-version-id+ 'fsf-18))
 	((or (eq +ilisp-emacs-version-id+ 'fsf-19)
-	     (eq +ilisp-emacs-version-id+ 'fsf-20))
+	     (eq +ilisp-emacs-version-id+ 'fsf-20)
+	     (eq +ilisp-emacs-version-id+ 'fsf-21))
 	 (defkey-ilisp (read "[?\\S-\\C-a]") 'arglist-lisp)
 	 (defkey-ilisp (read "[?\\S-\\C-c]") 'compile-defun-lisp)
 	 (defkey-ilisp (read "[?\\S-\\C-d]") 'documentation-lisp)

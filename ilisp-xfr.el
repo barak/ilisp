@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-xfr.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-xfr.el,v 1.3 2002/05/23 20:41:42 marcoxa Exp $
 
 (require 'cl)
 
@@ -44,7 +44,8 @@ If we have a complete sexp, send it.  Otherwise, indent appropriately."
 		;;        (eq ilisp-emacs-version-id 'gnu-19)
 		;;       25/11/94 Marco Antoniotti
 		(when (or (eq +ilisp-emacs-version-id+ 'fsf-19)
-			  (eq +ilisp-emacs-version-id+ 'fsf-20))
+			  (eq +ilisp-emacs-version-id+ 'fsf-20)
+			  (eq +ilisp-emacs-version-id+ 'fsf-21))
 		  (setq comint-input-ring-index nil))
 		;; Nuke symbol table
 		(setq ilisp-original nil)
@@ -52,7 +53,7 @@ If we have a complete sexp, send it.  Otherwise, indent appropriately."
 		(set-marker (process-mark proc) (point))
 		(set-marker comint-last-input-end (point))
 		(goto-char (point-max)))
-	      (if (= pmark (point-max)) 
+	      (if (= pmark (point-max))
 		  (let ((comint-send-newline t))
 		    (when (not ilisp-no-newline) (insert ?\n))
 		    (set-marker (process-mark proc) (point))
