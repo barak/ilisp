@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: October 25, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: December 7, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,7 +77,7 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.22 of the ILISP manual
+This is edition 0.23 of the ILISP manual
 for ILISP Version: 5.11.1
 
 @example
@@ -109,7 +109,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.22, October 2001
+@subtitle Edition 0.23, December 2001
 @subtitle For ILISP Version: 5.11.1
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -132,9 +132,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.22 of the @cite{ILISP User Manual}
+This is edition 0.23 of the @cite{ILISP User Manual}
 for ILISP Version: 5.11.1,
-October 2001.
+December 2001.
 
 @sp 2
 
@@ -367,6 +367,7 @@ Erik Naggum,
 Dan Pierson,
 Yusuf Pisan,
 Frank Ritter,
+Ole Rohne,
 Jeffrey Mark Siskind,
 Neil Smithline,
 Richard Stallman,
@@ -2191,6 +2192,11 @@ display the @emph{n}-th local variable).
 @kindex M-C-l
 @cindex Displaying local variables
 @cindex Local variables
+@item M-C-s   (ild-step)
+Step to the next breakpoint.
+@pindex ild-step
+@kindex M-C-s
+@cindex Stepping to next breakpoint
 @item C-c r   (ild-return)
 Return.
 @pindex ild-return
