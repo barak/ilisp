@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.11 2003/12/18 02:44:29 rgrjr Exp $
+;;; $Id: ilisp-src.el,v 1.12 2003/12/20 15:32:20 rgrjr Exp $
 
 (require 'cl)
 
@@ -187,8 +187,11 @@ optional package prefix.")
       (condition-case error
 	  (while t
 	    (setq result (cons (read (current-buffer)) result)))
+	;; EOF could also be incomplete syntax, or some CL syntax we can't read.
 	(end-of-file nil))
-      (nreverse result))))
+      ;; Deal with NIL vs nil.  Other symbol case issues need to be addressed by
+      ;; the caller, but the empty list has to be the empty list.
+      (nreverse (nsubst nil 'NIL result)))))
 
 ;;; Source code definition line matching hacks.
 
@@ -683,9 +686,13 @@ back-p is non-nil."
 	(original-buffer (current-buffer)))
     ;; [can't use save-excursion because we have to update point in the
     ;; definitions buffer.  -- rgr, 6-Aug-02.]
+    (if lisp-find-definition-verbose-p
+	(message "[lfnp %swards in %s:]"
+		 (if back-p "back" "for") original-buffer))
     (unwind-protect
 	 (progn
-	   (set-buffer (get-buffer-create "*Edit-Definitions*"))
+	   (set-buffer (or (get-buffer "*Edit-Definitions*")
+			   (error "Bug:  No *Edit-Definitions* buffer.")))
 	   (if back-p 
 	       (forward-line -1))
 	   (while (not (or result
@@ -694,9 +701,15 @@ back-p is non-nil."
 		 (forward-line -1))
 	     (cond ((looking-at "\n"))
 		   ((looking-at "^;+ *\\(.*\\)")
+		     (if lisp-find-definition-verbose-p
+			 (message "  [p4: msg, point is now %s in %s]"
+				  (point) (buffer-name)))
 		     (cond ((not back-p)
 			     (message "%s" (match-string 1))
-			     (sit-for 1))))
+			     (sit-for 1)))
+		     (if lisp-find-definition-verbose-p
+			 (message "  [p4b: msg, point is now %s in %s]"
+				  (point) (buffer-name))))
 		   ((looking-at "^!+ *\\(.*\\)")
 		     (cond (back-p
 			     ;; [***bug***: we don't find these right when
