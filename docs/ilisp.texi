@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: June 6, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: September 5, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,7 +77,7 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.21 of the ILISP manual
+This is edition 0.22 of the ILISP manual
 for ILISP Version: 5.11.1
 
 @example
@@ -109,7 +109,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.21, June 2001
+@subtitle Edition 0.22, September 2001
 @subtitle For ILISP Version: 5.11.1
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -132,9 +132,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.21 of the @cite{ILISP User Manual}
+This is edition 0.22 of the @cite{ILISP User Manual}
 for ILISP Version: 5.11.1,
-June 2001.
+September 2001.
 
 @sp 2
 
@@ -351,6 +351,7 @@ David Gadbois,
 Robert P. Goldman,
 Marty Hall,
 Richard Harris,
+Utz-Uwe Haus,
 Jim Healy,
 Matthias Hoelzl,
 Christopher Hoover,
@@ -634,6 +635,31 @@ relies on the @code{browse-url} Emacs package, make sure that the latter
 is properly configured.
 @cindex @file{ilisp.emacs}
 @cindex @code{browse-url}
+
+Digital Press has made publicly available online, as a service to the
+Lisp community, the full text of the book ``Common Lisp, The Language''
+(by Guy L. Steele Jr., 2nd edition, Digital Press, 1990, ISBN
+1-55558-041-6; a.k.a. ``CLtL2'') in a number of formats, including HTML.
+ILISP provides support, contributed by Utz-Uwe Haus, for looking up Lisp
+symbols in the HTML version of the book and displaying the relevant
+sections with a Web browser.  See the file @file{extra/cltl2.el} for
+more information on configuring this feature. @xref{Documentation
+functions}, for usage instructions.
+@cindex Common Lisp
+@cindex CLtL2
+@cindex Common Lisp Manual
+
+The @file{ilisp.emacs} file provides sample instructions for making
+ILISP's CLtL2 support access a local copy of the book.  What has been
+said above about @code{browse-url} configuration also applies to CLtL2
+lookup.
+@cindex @file{ilisp.emacs}
+@cindex{browse-url}
+
+Note that, althouth Steele's book is a well written and useful resource,
+it covers the Common Lisp language in the state it was a few years
+before ANSI standardization.  If you need an accurate description of
+ANSI Common Lisp, see the above mentioned HyperSpec instead.
 
 Previous versions of ILISP provided commands for accessing the online
 Common Lisp documentation shipped with Franz Inc.'s Allegro CL product
@@ -1631,6 +1657,14 @@ Look up a standard symbol in the Common Lisp HyperSpec and display the
 relevant section.
 @cindex HyperSpec
 @cindex Common Lisp HyperSpec
+
+@item @key{C-z} L or @key{C-z} M-l   (cltl2-lookup)
+@kindex @key{C-z} L
+@kindex @key{C-z} M-l
+@pindex cltl2-lookup
+Look up a Common Lisp symbol in the CLtL2 book and display the relevant
+section.
+@cindex CLtL2
 
 @item @key{C-z} D   (fi:clman)
 @itemx @key{C-z} A   (fi:clman-apropos)
