@@ -1,5 +1,8 @@
 2000-12-21  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
+	* guile-ilisp.scm (ilisp-source-file): Made search for source
+	properties more reliable.
+
 	* ilisp-low.el (lisp-def.el): Handle some Scheme dialects' curried
 	definitions like (define ((f a) b) ...).
 
