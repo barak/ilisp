@@ -513,7 +513,7 @@ current directory of the LISP."
 	      (lisp-display-output dir)
 	      (error "Error getting directory"))
 	    (setq default-directory (read dir)
-		  lisp-prev-l/c-dir/file (cons default-direcotory nil))
+		  lisp-prev-l/c-dir/file (cons default-directory nil))
 	    (message "Default directory is %s" default-directory)))
       (let ((directory (save-excursion
 			 (set-buffer (or buffer (current-buffer)))
@@ -543,41 +543,41 @@ current directory of the LISP."
 	 (binary (lisp-file-extension file-name extension)))
     (save-excursion
       (set-buffer (ilisp-buffer))
-      (if (not (eq comint-send-queue comint-end-queue))
-	  (if (y-or-n-p "Abort commands before loading? ")
-	      (abort-commands-lisp)
-	      (message "Waiting for commands to finish")
-	      (while (not (eq comint-send-queue comint-end-queue))
-		(accept-process-output)
-		(sit-for 0))))
-      (if (and (car (comint-send-variables (car comint-send-queue)))
-	       (y-or-n-p "Interrupt top level? "))
-	  (let ((result (comint-send-results (car comint-send-queue))))
-	    (interrupt-subjob-ilisp)
-	    (while (not (cdr result))
-	      (accept-process-output)
-	      (sit-for 0)))))
-    (if (file-newer-than-file-p file-name binary)
-	(if (and (not ilisp-load-no-compile-query)
-		 extension (y-or-n-p "Compile first? "))
-	    ;; Load binary if just compiled
-	    (progn
-	      (message "")
-	      (compile-file-lisp file-name)
-	      (setq file-name binary)))
-	;; Load binary if it is current
-	(if (file-readable-p binary) (setq file-name binary)))
+      (unless (eq comint-send-queue comint-end-queue)
+        (if (y-or-n-p "Abort commands before loading? ")
+            (abort-commands-lisp)
+          (message "Waiting for commands to finish")
+          (while (not (eq comint-send-queue comint-end-queue))
+            (accept-process-output)
+            (sit-for 0))))
+      (when (and (car (comint-send-variables (car comint-send-queue)))
+                 (y-or-n-p "Interrupt top level? "))
+        (let ((result (comint-send-results (car comint-send-queue))))
+          (interrupt-subjob-ilisp)
+          (while (not (cdr result))
+            (accept-process-output)
+            (sit-for 0)))))
+    (unless (string= "system" (file-name-extension file-name))
+      (if (file-newer-than-file-p file-name binary)
+          (when (and (not ilisp-load-no-compile-query)
+                     extension (y-or-n-p "Compile first? "))
+            ;; Load binary if just compiled
+            (message "")
+            (compile-file-lisp file-name)
+            (setq file-name binary))
+        ;; Load binary if it is current
+        (when (file-readable-p binary)
+          (setq file-name binary))))
     (switch-to-lisp t t)
-
-	;; Ivan's hack for ange-ftp pathnames...
-	(let ((file-name
-		   (if (string-match "/.*?@.*:" file-name)
-			   (substring file-name (match-end 0))
-			   file-name)))
-	  (comint-sender
-	   (ilisp-process)
-	   (format (ilisp-value 'ilisp-load-command) file-name))
-	  (message "Loading %s" file-name))))
+    ;; Ivan's hack for ange-ftp pathnames...
+    (let ((file-name
+           (if (string-match "/.*?@.*:" file-name)
+               (substring file-name (match-end 0))
+             file-name)))
+      (comint-sender
+       (ilisp-process)
+       (format (ilisp-value 'ilisp-load-command) file-name))
+      (message "Loading %s" file-name))))
 
 
 
@@ -653,9 +653,7 @@ symbol after the symbol has been typed in followed by #\\Space."
 		   (equal (ilisp-value 'ilisp-status) " :error")))
 	     (or (eql (current-buffer) (ilisp-buffer)) ; if in
 					; ILISP-Buffer, or else 
-		 ;; Only prints something if buffer-package already exists.
-		 (and (ignore-errors (lisp-buffer-package))
-                      (stringp buffer-package))))
+		 (ignore-errors (lisp-buffer-package))))
     (let* ((old-point (point))
 	   (last-char (progn (ignore-errors (backward-char))
 			     (unless (eql (point) old-point)
