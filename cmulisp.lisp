@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.12 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: cmulisp.lisp,v 1.13 2003/04/11 12:59:05 rgrjr Exp $
 
 
 (in-package :ilisp)
@@ -151,5 +151,25 @@
    (let ((real-symbol (ilisp-find-symbol symbol package)))
      (setq breakp (read-from-string breakp))
      (when real-symbol (eval `(trace ,real-symbol :break ,breakp))))))
+
+(defun ilisp-callers (name package)
+  (ilisp-errors
+    (let ((symbol (ilisp-find-symbol name package))
+	  (callers nil))
+      (unless symbol
+	(error "No such symbol '~A' in package '~A'." name package))
+      (dolist (caller (xref:who-calls symbol))
+	(let ((caller-name (xref:xref-context-name caller)))
+	  (when (and (consp caller-name)
+		     (eq (car caller-name) :method))
+	    ;; standardize method name syntax.
+	    (setq caller-name (cons 'method (cdr caller-name))))
+	  ;; must use pushnew, because the current release doesn't correctly
+	  ;; flush old definitions.  -- rgr, 11-Apr-03.
+	  (pushnew caller-name callers :test #'equal)))
+      ;; print callers afterwards, to minimize GC messages interference.
+      (dolist (caller callers)
+	(print caller))
+      t)))
 
 ;;; end of file -- cmulisp.lisp --
