@@ -134,7 +134,8 @@
 ;;; rest of ILISP.
 
 (unless (load "ilisp-all.elc" t)
-  (load "custom-ilisp")
+  ;; not integrated yet!
+  ;; (load "custom-ilisp")
 
   (load "ilisp-def")
 
