@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.9 2002/02/24 16:01:53 amoroso Exp $
+;;; $Id: ilisp-out.el,v 1.10 2002/05/24 15:54:00 mkoeppe Exp $
 
 ;;; Old history log.
 ;;;
@@ -31,6 +31,7 @@
 		  (minibuffer . nil)
 		  (visibility . nil)
 		  (unsplittable . t)
+		  (tool-bar-lines . nil)
 		  (menu-bar-lines . 0)
                   ;; Use of icon-type is currently disabled due to a bug
                   ;; in at least Emacs 21.1 running on Windows.
