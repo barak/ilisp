@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 13, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: April 21, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -72,7 +72,7 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.16 of the ILISP manual
+This is edition 0.17 of the ILISP manual
 for ILISP Version: 5.10.1.
 
 @example
@@ -104,7 +104,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.16, April 2000
+@subtitle Edition 0.17, April 2000
 @subtitle For ILISP Version: 5.10.1
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -127,9 +127,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.16 of the @cite{ILISP User Manual}
+This is edition 0.17 of the @cite{ILISP User Manual}
 for ILISP Version: 5.10.1,
-January 2000.
+April 2000.
 
 @sp 2
 
@@ -228,8 +228,8 @@ known bugs and problems.
 @cindex How to get
 @cindex Getting ILISP
 @noindent
-You can get the distribution file, @code{ilisp-5.9.4.tar.gz}
-(@code{ilisp-5.9.4.zip}) via anonymous FTP or HTML at the following
+You can get the distribution file, @code{ilisp-x.y.z.tar.gz}
+(@code{ilisp-x.y.z.zip}) via anonymous FTP or HTML at the following
 addresses:
 
 @itemize @bullet
@@ -248,12 +248,12 @@ Please report any problems to the mailing list @code{ilisp@@cons.org}.
 @noindent
 Unpack and install:
 
-@code{% @dfn{gzip -dc ilisp-5.9.4.tar.gz | tar xf -}}
+@code{% @dfn{gzip -dc ilisp-x.y.z.tar.gz | tar xf -}}
 
 @noindent
 or
 
-@code{% @dfn{unzip ilisp-5.9.4.zip}}
+@code{% @dfn{unzip ilisp-x.y.z.zip}}
 
 @xref{Installation}.
 
@@ -418,7 +418,7 @@ Installation of ILISP and some initialization of your computing
 environment are described in this chapter.  Please read the following
 sections carefully before getting started with ILISP.
 
-Copy the ILISP distribution archive, e.g. @code{ilisp-5.9.4.tar.gz}, to
+Copy the ILISP distribution archive, e.g. @code{ilisp-x.y.z.tar.gz}, to
 the location where you would like to install it. Next extract the
 archive (@xref{FTP and Web directions}). You may need root privileges to
 perform these operations.
@@ -459,15 +459,15 @@ make ILISP add to Lisp mode buffers and buffers with inferior Lisp
 processes, or to Scheme mode buffers and buffers with inferior Scheme
 pProcesses, an @code{Ilisp} menu with all available commands. To enable
 this feature, set to @code{t} the variable
-@code{enable-ilisp-cl-easy-menu-p} in @file{ilisp-def.el} for the Common
-Lisp dialects, and @code{enable-ilisp-scheme-easy-menu-p} for Scheme
+@code{ilisp-*enable-cl-easy-menu-p*} in @file{ilisp-def.el} for the Common
+Lisp dialects, and @code{ilisp-*enable-scheme-easy-menu-p*} for Scheme
 dialects. Setting these variables also causes the default @code{Lisp}
 menu to be removed before displaying the @code{Ilisp} one.
 @cindex @code{easymenu} package
 @cindex @code{Ilisp} menu
 @cindex @code{Lisp} menu
-@vindex @code{enable-ilisp-cl-easy-menu-p}
-@vindex @code{enable-ilisp-scheme-easy-menu-p}
+@vindex @code{ilisp-*enable-cl-easy-menu-p*}
+@vindex @code{ilisp-*enable-scheme-easy-menu-p*}
 @cindex @file{ilisp-def.el}
 
 See the file @file{INSTALLATION} for additional configuration options
@@ -804,6 +804,10 @@ Match ring code.
 Scheme->C Scheme dialect definition.
 @cindex @file{ilisp-s2c.el}
 
+@item ilisp-sbcl.el
+SB Common Lisp dialect definition.
+@cindex @file{ilisp-sbcl.el}
+
 @item ilisp-sch.el
 Scheme dialects definitions.
 @cindex @file{ilisp-sch.el}
@@ -1115,7 +1119,6 @@ things) a list of all currently active keybindings.
 
 @c ==================================================================
 @node Buffers of ILISP, ILISP Commands, Keybindings, Top
-
 @chapter Buffers used by ILISP, and their commands
 @cindex buffers of ILISP
 @cindex ILISP buffers
@@ -1216,7 +1219,7 @@ screen, in a pop-up dialog box, or whetever.
 
 @item @key{C-z} 1   (ilisp-bury-output)
 deletes and buries the typeout output window.
-@kindex C-z 1
+@kindex @key{C-z} 1
 @pindex ilisp-bury-output
 @cindex bury output window
 
@@ -1226,13 +1229,13 @@ scrolls the output window if it is showing, otherwise does nothing.
 If it is called with a negative prefix, it will scroll backwards.
 @cindex scrolling output
 @pindex ilisp-scroll-output
-@kindex C-z v
+@kindex @key{C-z} v
 
 @item @key{C-z} G   (ilisp-grow-output)
 will grow the output window if showing by the prefix number of lines.
 @cindex grow output window
 @pindex ilisp-grow-output
-@kindex C-z G
+@kindex @key{C-z} G
 
 @end table
 
@@ -1478,8 +1481,8 @@ prompting, there is completion through the inferior Lisp by using
 minibuffer, all of the normal ILISP commands like @code{arglist-lisp}
 also work.@refill
 @cindex Describing Lisp objects
-@kindex @key{M-TAB}
-@kindex @key{TAB}
+@kindex M-TAB
+@kindex TAB
 @cindex Negative prefix
 @cindex Minibuffer completion
 @pindex describe-lisp
@@ -1908,12 +1911,13 @@ ilisp-raw-echo is T.
 Raw mode can be turned on interactively by the command
 @code{raw-keys-ilisp} (@kbd{@key{C-z} #}) and will continue until you
 type @key{C-g}.  Raw mode can also be turned on/off by inferior Lisp
-functions if the command @code{io-bridge-ilisp} (M-x io-bridge-ilisp)
-has been executed in the inferior Lisp either interactively or on a
-hook.  To turn on raw mode, a function should print ^[1^] and to turn
-it off should print ^[0^].  An example in Common Lisp would be:
+functions if the command @code{io-bridge-ilisp} (@code{M-x
+io-bridge-ilisp}) has been executed in the inferior Lisp either
+interactively or on a hook.  To turn on raw mode, a function should
+print @code{^[1^]} and to turn it off should print @code{^[0^]}.  An
+example in Common Lisp would be:
 
-@code{(progn (format t "1") (print (read-char)) (format t "0"))}
+@code{(progn (format t "^[1^]") (print (read-char)) (format t "^[0^]"))}
 
 @node Interrupts, Debuggers, Keyboard modes, ILISP Commands
 @section Interrupts, aborts, and errors
@@ -2081,16 +2085,16 @@ Select Lisp interaction buffer.
 @pindex select-lisp
 @kindex C-c L
 @cindex Selecting a Lisp interaction buffer
-@item C-z C-s   (slow-lisp)
+@item @key{C-z} C-s   (slow-lisp)
 Set compiler options for maximal debuggability.
 @pindex slow-lisp
-@kindex C-z C-s
+@kindex @key{C-z} C-s
 @cindex Setting compiler options
 @cindex Compiler options
-@item C-z C-f   (fast-lisp)
+@item @key{C-z} C-f   (fast-lisp)
 Set compiler options for fastest but least debuggable code.
 @pindex fast-lisp
-@kindex C-z C-f
+@kindex @key{C-z} C-f
 @cindex Setting compiler options
 @cindex Compiler options
 @end table
