@@ -1,3 +1,12 @@
+2000-06-27  Paolo Amoroso  <amoroso@mclink.it>
+
+	* guile-ilisp.scm: support functions for Guile, which also work
+	  with Guile 1.4 (new file contributed by Matthias Koeppe
+	  <mkoeppe@mail.math.uni-magdeburg.de>).
+
+	* ilisp-sch.el (guile): improved Guile support (patch contributed
+	  by Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
+
 2000-05-07  Martin Atzmueller  <marty@cs.utexas.edu>
 
 	* sblisp.lisp (source-file): fixed a typo.
