@@ -1,3 +1,10 @@
+2003-01-02  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space): changed argument
+	to `self-insert-command' so that several spaces can be inserted
+	via a prefix argument (fix suggested by Pascal_Bourguignon
+	<pjb@informatimago.com>).
+
 2002-12-21  Kevin Rosenberg <kevin@rosenberg.net>
 
 	* COPYING: Based on results of ILISP Developer Questionnaire
