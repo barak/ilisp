@@ -1,6 +1,7 @@
-ilisp (5.12.0+cvs.2003.05.19b) unstable; urgency=low
+ilisp (5.12.0+cvs.2003.05.20) unstable; urgency=low
 
   * New upstream
+  * move links to rules file (closes: 194095)
 
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 20 May 2003 10:48:25 -0600
 

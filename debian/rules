@@ -1,8 +1,6 @@
 #!/usr/bin/make -f
 # GNU copyright 1997 to 1999 by Joey Hess.
-# GNU copyright 2002 Kevin Rosenberg <kmr@debian.org>
-
-export DH_COMPAT=4
+# GNU copyright 2002 to 2003 Kevin Rosenberg <kmr@debian.org>
 
 pkg		:= ilisp
 pkg-doc		:= ilisp-doc
@@ -37,6 +35,8 @@ install: build
 	dh_install -p $(pkg) debian/ilisp.el $(ilisp_etc_dir)
 	dh_install -p $(pkg) debian/ilisp-keybindings.el $(ilisp_etc_dir)
 	dh_installinfo -p $(pkg) docs/ilisp.info docs/ilisp.info-1 docs/ilisp.info-2
+	dh_link -p $(pkg) usr/share/common-lisp/source/ilisp/*.lisp usr/lib/ilisp
+	dh_link -p $(pkg) usr/share/ilisp/*.scm usr/lib/ilisp
 
 clean:
 	dh_testdir

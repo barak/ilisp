@@ -43,7 +43,6 @@ set_keybindings()
 case "$1" in
     configure)
 	set_keybindings
-	for i in /usr/share/common-lisp/source/ilisp/*.lisp /usr/share/ilisp/*.scm; do ln -s $i /usr/lib/ilisp/; done
 	/usr/sbin/register-common-lisp-source ilisp
 	clc-autobuild-library ilisp yes
 	;;
