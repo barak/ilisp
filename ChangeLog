@@ -1,3 +1,57 @@
+2001-06-06  Marco Antoniotti  <marcoxa@cs.nyu.edu>
+
+	* /cvsroot/ilisp/ILISP/ACKNOWLEDGMENTS:
+	Added (while being utterly ashamed) the credit to Chris McConnell, the
+	author of the original ILISP.
+
+2001-06-06  amoroso  <amoroso@tapulon>
+
+	* /cvsroot/ilisp/ILISP/ChangeLog: *** empty log message ***
+
+	* /cvsroot/ilisp/ILISP/docs/ilisp.texi (Acknowledgements):
+	added Daniel Barlow and Matthias Hoelzl.
+
+2001-06-06  mna  <mna@tapulon>
+
+	* /cvsroot/ilisp/ILISP/ChangeLog, /cvsroot/ilisp/ILISP/ilisp-dia.el, /cvsroot/ilisp/ILISP/ilisp-doc.el, /cvsroot/ilisp/ILISP/ilisp-sbcl.el:
+	- ilisp-sbcl.el (sbcl): sb changed to sbcl in call to ilisp-load-inits.
+
+	- ilisp-doc.el (ilisp-documentation): SBLISP changed to SBCL.
+
+	- ilisp-dia.el: SBLISP changed to SBCL.
+
+2001-06-06  amoroso  <amoroso@tapulon>
+
+	* /cvsroot/ilisp/ILISP/ChangeLog: *** empty log message ***
+
+	* /cvsroot/ilisp/ILISP/ilisp-def.el (ilisp-*version*): set to 5.11.1.
+
+	* /cvsroot/ilisp/ILISP/README: Updated version info for 5.11.1.
+
+	* /cvsroot/ilisp/ILISP/COPYING (Version, Date):
+	update version infor for 5.11.1.
+
+	* /cvsroot/ilisp/ILISP/Makefile, /cvsroot/ilisp/ILISP/docs/Makefile (Version):
+	set to 5.11.1.
+
+	* /cvsroot/ilisp/ILISP/docs/ilisp.texi:
+	Updated version info for 5.11.1.
+	(Files of ILISP, How to run a Lisp process using ILISP, ILISP
+	Customization): the "sblisp" dialect is now called "sbcl".
+
+2001-06-06  mna  <mna@tapulon>
+
+	* /cvsroot/ilisp/ILISP/sblisp.lisp: sbcl.lisp has become sblisp.lisp
+
+	* /cvsroot/ilisp/ILISP/ACKNOWLEDGMENTS, /cvsroot/ilisp/ILISP/ChangeLog, /cvsroot/ilisp/ILISP/sbcl.lisp:
+	- sbcl.lisp: new (ILISP 5.11) boilerplate text (from sblisp.lisp).
+
+	- ACKNOWLEDGMENTS: add Matthias Hoelzl, who first contributed
+	  sblisp.lisp. add Dan Barlow to the hall of fame, too.
+
+	- sbcl.lisp (source-file): "typo": SB-IMPL-ERRORS does not exist,
+	  and should be ILISP-ERRORS.
+
 2001-06-06  Paolo Amoroso  <amoroso@mclink.it>
 
         * docs/ilisp.texi (Acknowledgements): added Daniel Barlow and
