@@ -36,6 +36,7 @@ install: build
 	dh_install -p $(pkg) debian/ilisp.el $(ilisp_etc_dir)
 	dh_install -p $(pkg) debian/ilisp-keybindings.el $(ilisp_etc_dir)
 	dh_installinfo -p $(pkg) docs/ilisp.info docs/ilisp.info-1 docs/ilisp.info-2
+	dh_installdirs -p $(pkg) $(compiled_dir)
 	for i in debian/$(pkg)/$(cl_dir)/*.lisp; do \
 	  l=`echo $$i | sed -e "s|^debian/$(pkg)/$(cl_dir)/||;"` ;\
           dh_link -p $(pkg) $(cl_dir)/$$l $(compiled_dir)/$$l ; \

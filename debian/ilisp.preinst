@@ -1,4 +1,5 @@
-#! /bin/sh -e
+#! /bin/sh 
+set -e
 
 # summary of how this script can be called:
 #        * <new-preinst> `install'
@@ -8,10 +9,7 @@
 
 case "$1" in
     install|upgrade)
-	rm -rf /usr/share/common-lisp/source/ilisp
-	rm -rf /usr/lib/ilisp /usr/share/ilisp
-	mkdir -p /usr/lib/ilisp
-	chown -R cl-builder.cl-builder /usr/lib/ilisp
+	#rm -rf /usr/lib/ilisp/*
 	;;
     abort-upgrade)
 	;;

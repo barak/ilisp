@@ -1,6 +1,5 @@
 #!/bin/sh 
 # postrm script for ilisp
-
 set -e
 
 # summary of how this script can be called:
@@ -15,8 +14,19 @@ set -e
 # for details, see /usr/doc/packaging-manual/
 
 case "$1" in
-    remove|upgrade|abort-install|failed-upgrade|abort-install|abort-upgrade)
-	rm -f /usr/lib/ilisp/*
+    upgrade)
+	for i in /usr/lib/ilisp/*; do 
+	    b=`basename $i`
+	    # Don't delete symlinks with .lisp or .scm extension
+	    if [ `basename $b .lisp` = $b -a `basename $b .scm` = $b ]; then
+		rm $i
+	    fi
+	done
+	;;
+    failed-upgrade|abort-upgrade)
+	;;
+    remove|abort-install)
+	rm -rf /usr/lib/ilisp/
         ;;
     purge|disappear)
 	rm -rf /usr/lib/ilisp/ /etc/ilisp
@@ -28,5 +38,3 @@ case "$1" in
 esac
 
 #DEBHELPER#
-
-

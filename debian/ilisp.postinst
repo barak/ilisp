@@ -1,5 +1,6 @@
-#! /bin/sh -e
+#! /bin/sh 
 # postinst script for ilisp
+set -e
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
@@ -43,6 +44,7 @@ set_keybindings()
 case "$1" in
     configure)
 	set_keybindings
+	chown -R cl-builder.cl-builder /usr/lib/ilisp
 	/usr/sbin/register-common-lisp-source ilisp
 	clc-autobuild-library ilisp yes
 	;;

@@ -7,16 +7,14 @@
 ;;;; Programmer:    Kevin M. Rosenberg
 ;;;; Date Started:  March 2003
 ;;;;
-;;;; $Id: ilisp.asd,v 1.6 2003/03/05 04:59:40 kevinrosenberg Exp $
+;;;; $Id: ilisp.asd,v 1.7 2003/05/27 17:42:31 kevinrosenberg Exp $
 ;;;;
 ;;;; UFFI users are granted the rights to distribute and use this software
 ;;;; as governed by the terms of the ILISP license.
 ;;;; *************************************************************************
 
-(defpackage #:ilisp-loader
-  (:use :common-lisp :asdf))
-
-(in-package #:ilisp-loader)
+(defpackage #:ilisp-system (:use #:cl #:asdf))
+(in-package #:ilisp-system)
 
 (defun symlink-ilisp-fasls ()
   (let ((fasls-path
@@ -39,7 +37,7 @@
 	    (delete-file symlink))
 	(let ((cmd (format nil "ln -sf ~A ~A"
 			   (namestring fasl) (namestring symlink))))
-	  (asdf:run-shell-command cmd))
+	  (run-shell-command cmd))
 	)))))
 
 #+(or allegro clisp lispworks cmu openmcl sbcl)
