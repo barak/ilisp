@@ -1,3 +1,8 @@
+2003-10-13  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm: Update the documentation->arglist code to
+	handle Guile 1.6.
+
 2003-09-14  Kevin Rosenberg  <kevin@rosenberg.net>
 	
 	* completer.el: Require ilcompat. Necessary when
