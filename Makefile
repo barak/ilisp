@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.10 2001/05/14 12:34:45 mkoeppe Exp $
+# $Id: Makefile,v 1.11 2001/05/22 21:41:21 mkoeppe Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -49,7 +49,9 @@ OtherFiles = README         \
              INSTALLATION   \
              COPYING        \
              GETTING-ILISP  \
-             Welcome
+             Welcome        \
+	     ChangeLog      \
+	     ACKNOWLEGDEMENTS
 
 # maybe add custom-ilisp.elc to LoadFiles later.
 LoadFiles = ilisp-def.elc ilisp-sym.elc \
