@@ -1,3 +1,21 @@
+2002-02-14  Paolo Amoroso  <amoroso@mclink.it>
+
+	* extra/hyperspec-naggum.el: replaced symbol table for CLHS v 4.0
+	with the one for v 6.0, which is now online at Xanalys' site
+	(patch contributed by Edmund Weitz <edi@agharta.de>).
+
+	* INSTALLATION (KCL, AKCL, Ibuki, GCL, and ECL): added suggestion
+	to get the latest CVS version of ECL (by Hannu Koivisto
+	<azure@iki.fi>).
+	(Xanalys LispWorks): added note on using CAPI (info contributed by
+	Dave Fox <davef@xanalys.com>).
+
+	* ilisp-kcl.el (ecl): `comint-prompt-regexp' tuned
+	slightly. Binary extension is now figured out in the generic
+	way. `comint-fix-error' kludged temporarily so that the user gets
+	a valid prompt (patch contributed by Hannu Koivisto
+	<azure@iki.fi>).
+
 2002-01-31  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-cl.el (common-lisp): removed ILISP-DEFPACKAGE-REGEXP,
