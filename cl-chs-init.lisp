@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-chs-init.lisp,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: cl-chs-init.lisp,v 1.3 2002/03/26 09:41:04 anisotropy9 Exp $
 
 ;;; Old history logs.
 ;;;
@@ -29,7 +29,7 @@
 ;;; another option might be sys::arglist ...
 ;;; added command to preload inspect1
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;;;
 (defun ilisp-inspect (sexp package)

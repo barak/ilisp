@@ -9,12 +9,12 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: allegro.lisp,v 1.4 2001/12/27 11:37:06 anisotropy9 Exp $
+;;; $Id: allegro.lisp,v 1.5 2002/03/26 09:41:04 anisotropy9 Exp $
 
 ;;; Allegro initializations
 ;;; Author: Chris McConnell, ccm@cs.cmu.edu
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;;; 20001203 Patch suggested by Larry Hunter <Larry.Hunter@uchsc.edu>
 ;;; EXCL::FN_SYMDEF is no longer available by default.

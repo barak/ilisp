@@ -10,10 +10,10 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.4 2001/10/19 19:00:43 mna Exp $
+;;; $Id: cmulisp.lisp,v 1.5 2002/03/26 09:41:04 anisotropy9 Exp $
 
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;;;% CMU CL does not define defun as a macro
 (defun ilisp-compile (form package filename)

@@ -10,9 +10,9 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: lucid.lisp,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: lucid.lisp,v 1.3 2002/03/26 09:41:04 anisotropy9 Exp $
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;;;
 (defun ilisp-callers (symbol package &aux (list-of-callers nil))

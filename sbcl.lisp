@@ -11,10 +11,10 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.7 2002/01/17 08:09:24 mna Exp $
+;;; $Id: sbcl.lisp,v 1.8 2002/03/26 09:41:04 anisotropy9 Exp $
 
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;; ILISP-specifics for SBCL. Since version 0.7 introduced lots of changes,
 ;; e.g.(bytecode-)interpreter goes away, and lots of other 'renaming'-changes,

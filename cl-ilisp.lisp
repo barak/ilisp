@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.10 2002/01/25 11:48:33 mkoeppe Exp $
+;;; $Id: cl-ilisp.lisp,v 1.11 2002/03/26 09:41:04 anisotropy9 Exp $
 
 
 ;;; Old history log.
@@ -42,7 +42,7 @@
   (setq excl:*cltl1-in-package-compatibility-p* t))
 
 
-(in-package "ILISP")
+(in-package :ilisp)
 
 ;;;
 ;;; GCL 2.2 and GCL 2.3 do not have defpackage (yet) so we need to put

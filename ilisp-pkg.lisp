@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.3 2001/10/19 19:00:43 mna Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.4 2002/03/26 09:41:04 anisotropy9 Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Prologue
@@ -41,37 +41,44 @@
 ;;; incorporate DEFPACKAGE in their standard builds.
 ;;; Marco Antoniotti <marcoxa@icsi.berkeley.edu> 19960715
 ;;;
+;;; "The use of keyword and uninterned symbol names in the package
+;;; definition is a result of internecine wars during the ANSI
+;;; definition process. The solution to make CL case insensitive and
+;;; have the reader use uppercase appears, with the power of
+;;; hindsight, shot-sighted. However, the backwardly incompatible
+;;; solution provided by Franz Inc seems a poor fix."
+;;; 26 March 2002 Will Deakin
 
 #-(and nil gcl)
-(defpackage "ILISP" (:use "COMMON-LISP" #+:CMU "CONDITIONS")
+(defpackage :ilisp (:use :common-lisp #+:CMU :conditions)
   ;; The following symbols should properly 'shadow' the inherited
   ;; ones.
-  (:export "ILISP-ERRORS"
-	   "ILISP-SAVE"
-	   "ILISP-RESTORE"
-	   "ILISP-SYMBOL-NAME"
-	   "ILISP-FIND-SYMBOL"
-	   "ILISP-FIND-PACKAGE"
-	   "ILISP-EVAL"
-	   "ILISP-COMPILE"
-	   "ILISP-DESCRIBE"
-	   "ILISP-INSPECT"
-	   "ILISP-ARGLIST"
-	   "ILISP-DOCUMENTATION"
-	   "ILISP-MACROEXPAND"
-	   "ILISP-MACROEXPAND-1"
-	   "ILISP-TRACE"
-	   "ILISP-UNTRACE"
-	   "ILISP-COMPILE-FILE-EXTENSION"
-	   "ILISP-COMPILE-FILE"
-	   "ILISP-CASIFY"
-	   "ILISP-MATCHING-SYMBOLS"
-	   "ILISP-CALLERS"
-	   "ILISP-SOURCE-FILES"
-	   "ILISP-PRINT-INFO-MESSAGE"
-           #+:SBCL "SBCL-TRACE"
-           #+:CMU "CMULISP-TRACE"
-           #+(or :SBCL :CMU) "SOURCE-FILE"
+  (:export #:ilisp-errors
+           #:ilisp-save
+           #:ilisp-restore
+           #:ilisp-symbol-name
+           #:ilisp-find-symbol
+           #:ilisp-find-package
+           #:ilisp-eval
+           #:ilisp-compile
+           #:ilisp-describe
+           #:ilisp-inspect
+           #:ilisp-arglist
+           #:ilisp-documentation
+           #:ilisp-macroexpand
+           #:ilisp-macroexpand-1
+           #:ilisp-trace
+           #:ilisp-untrace
+           #:ilisp-compile-file-extension
+           #:ilisp-compile-file
+           #:ilisp-casify
+           #:ilisp-matching-symbols
+           #:ilisp-callers
+           #:ilisp-source-files
+           #:ilisp-print-info-message
+           #+:SBCL #:sbcl-trace
+           #+:CMU #:cmulisp-trace
+           #+(or :SBCL :CMU) #:source-file
 	   )
   )
 ;;; ILISP --
