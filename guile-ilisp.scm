@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.17 2002/01/18 13:27:57 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.18 2002/05/24 16:39:51 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -346,7 +346,7 @@ procedure. This procedure is invoked by `arglist-lisp'."
 
 (define-public (ilisp-in-package package)
   (set-current-module (string->module package))
-  (process-use-modules '((guile-ilisp)))
+  (process-use-modules '(((guile-ilisp))))
   *unspecified*)
 
 (define-public (ilisp-eval form package filename line)
