@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.17 2002/05/28 18:52:29 anisotropy9 Exp $
+;;; $Id: ilisp-def.el,v 1.18 2002/09/03 16:29:54 mkoeppe Exp $
 
 ;;;%Variables
 ;;;%%Deflocal
@@ -108,6 +108,13 @@ way more appropriate for ilisp."
   "*If T, when completing through the inferior LISP matches only as a prefix.
 This will speed up completion, but you no longer get partial
 completion.")
+
+(defvar ilisp-*process-connection-type* nil
+  "*Control type of device used to communicate with the inferior LISP.
+This is the value of `process-connection-type' used by ILISP buffers.
+The default is nil, i.e., use a pipe, so that \"strings can be long\".  On
+some systems, it should be set to t, i.e., use a pseudo terminal, or
+signalling would not work right.")
 
 (deflocal ilisp-filter-regexp nil
   "*What not to save on an inferior LISP's input history.
