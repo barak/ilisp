@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.15 2002/09/10 20:21:54 rgrjr Exp $
+;;; $Id: cl-ilisp.lisp,v 1.16 2002/11/12 01:46:05 mna Exp $
 
 
 ;;; Old history log.
@@ -141,12 +141,12 @@
 
 ;; MNA: ecl (ecls-0.5) still had special-form-p in COMMON-LISP,
 ;; which produced an error, when redefined.
-#+(and (or :CORMANLISP :ANSI-CL) (not :ecl))
+#+(and (or :cormanlisp :ansi-cl) (not :ecl))
 (defun special-form-p (symbol)
   "Backward compatibility for non ANSI CL's."
   (special-operator-p symbol))
 
-#+(and :CLTL2 (not :ANSI-CL))
+#+(and :cltl2 (not :ansi-cl))
 (defun special-form-p (symbol)
   "For CLTL2 Lisp just use the old one."
   (lisp:special-form-p symbol))

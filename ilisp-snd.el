@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.16 2002/10/25 12:13:49 kevinrosenberg Exp $
+;;; $Id: ilisp-snd.el,v 1.17 2002/11/12 01:46:05 mna Exp $
 
 
 ;;;%% Package / Symbol support
@@ -97,9 +97,7 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 			 (point))
 		       (match-end 0))))
 	   
-	   (cond ((or (prog1
-                          (string-match in-package-regexp found)
-                        (setq in-package-found-p t))
+	   (cond ((or (string-match in-package-regexp found)
 		      (string-match defpackage-regexp found))
 		  (backward-char)
 		  (buffer-substring-no-properties (point) (progn (forward-sexp) (point))))
@@ -142,7 +140,6 @@ Common Lisp."
 	 (defpackage-regexp (ilisp-value 'ilisp-defpackage-command-string t))
 	 (hash-in-package-forms-list nil)
 	 (hash-defpackage-forms-list nil)
-         (in-package-found-p nil)
 	 (package nil)
          (should-not-cache-p nil))
     (if (not hash-form-regexp)
@@ -163,7 +160,6 @@ Common Lisp."
                        nil)
                       (t
                        (when (and sub-expr (string-match in-package-regexp sub-expr))
-                         (setq in-package-found-p t)
                          (push hash-expr hash-in-package-forms-list))
                        (when (and sub-expr (string-match defpackage-regexp sub-expr))
                          (push hash-expr hash-defpackage-forms-list))
@@ -598,7 +594,7 @@ it will be handled by HANDLER."
 		t (unless dispatch 'wait) 'restore "Restore" t t))	     
 	     (unless dispatch
 	       (while (not (cdr result))
-		 ;; (sit-for 0)  ; 19990912 Pretty useless.
+		 (sit-for 0 1 t)
 		 (accept-process-output))
 	       (comint-remove-whitespace (car result))))))))
 

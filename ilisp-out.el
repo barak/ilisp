@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.12 2002/09/11 22:10:47 rgrjr Exp $
+;;; $Id: ilisp-out.el,v 1.13 2002/11/12 01:46:05 mna Exp $
 
 ;;; Old history log.
 ;;;
@@ -254,16 +254,16 @@ sink."
   ;; given an active output sink, make it go away.
   (let* ((buffer (ilisp-output-sink-buffer ilisp-output-sink))
 	 (window (and buffer (get-buffer-window buffer t)))
-	 (frame (ilisp-output-sink-frame ilisp-output-sink)))
-    (if (eq ilisp-output-sink (car ilisp-*output-sink-history*))
-	(setq ilisp-*output-sink-history*
-	      (cdr ilisp-*output-sink-history*)))
+	 (frame (ilisp-output-sink-frame ilisp-output-sink)))    
     (with-current-buffer buffer
       (erase-buffer))
     (bury-buffer buffer)
     (if frame
 	(unless (eql this-command 'ilisp-arglist-message-lisp-space)
-	  (ilisp-delete-message-frame ilisp-output-sink))
+	  (ilisp-delete-message-frame ilisp-output-sink)
+          (if (eq ilisp-output-sink (car ilisp-*output-sink-history*))
+            (setq ilisp-*output-sink-history*
+                    (cdr ilisp-*output-sink-history*))))
 	(when window
 	  (ilisp-delete-window window)))))
 

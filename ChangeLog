@@ -1,3 +1,29 @@
+2002-11-11  Martin Atzmueller  <martin@atzmueller.net>
+
+	* cl-ilisp.lisp: apply patch by Bob Rogers, i.e. on	
+        Ilisp-devel: 'ilisp::special-form-p undefined in "modern"
+	Allegro', on Fri, 20 Sep 2002, reader conditionalization is
+	lowercase, now. (This makes reader conditionalization uniform in
+	the file, which is a good thing, too ;-)
+
+	* ilisp-out.el (ilisp-bury-output-internal): remove
+	popup-frame (i.e. *arglist-output*) only from
+	ilisp-*output-sink-history*, if the frame is really buried,
+	not if it is only erased. So, it is possible to delete it by
+	"C-c 1".
+
+2002-11-10  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-snd.el (ilisp-send): Incorporated patch by 
+        Eduardo Munoz fixing Bugs 525424 and 565365 from the SF
+	bugtracking system.
+	(from "Ilisp-help Fw: Solution to bugs 525424 &
+	565365" on Thu, 15 Aug 2002").
+	(lisp-buffer-package-internal): removed unnecessary variable
+	IN-PACKAGE-FOUND-P.
+	(lisp-find-hash-form): removed use of variable IN-PACKAGE-FOUND-P
+	as well.
+
 2002-10-29  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (info-message): If we have a
