@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-low.el,v 1.3 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-low.el,v 1.4 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 ;;;%Lisp mode extensions
 ;;;%%Sexps
@@ -31,7 +31,7 @@ are allowed."
 		(backward-sexp)
 		(skip-chars-backward "^ \t\n(\",")
 		(if (not prefix) (skip-chars-forward "#'"))
-		(buffer-substring (point) point))))
+		(buffer-substring-no-properties (point) point))))
       (error nil))))
 
 ;;;
@@ -45,19 +45,19 @@ symbol will be returned.  Optional NAMEP will return only the name without the d
 	 ;; 12    3    3 45    6    65      42      1 7      7
 	 ;;0011\(22 def*        22         32 43\(54 setf54         43   \(?32 11      00 60           60
 	 "\\(\\((\\(def[^ \t\n]*\\)[ \t\n]+\\(\\((\\(setf\\)[ \t\n]+\\)\\|(*\\)\\)\\|(?\\)\\([^ \t\n)]*\\)")
-	(let ((symbol (buffer-substring (match-beginning 7) (match-end 7))))
+	(let ((symbol (buffer-substring-no-properties (match-beginning 7) (match-end 7))))
 	  (if (match-end 6)
 	      (concat (if (not namep) 
 			  (concat 
-			   (buffer-substring (match-beginning 3) (match-end 3))
+			   (buffer-substring-no-properties (match-beginning 3) (match-end 3))
 			   " "))
 		      "("
-		      (buffer-substring (match-beginning 6) (match-end 6))
+		      (buffer-substring-no-properties (match-beginning 6) (match-end 6))
 		      " " symbol ")")
 	      (if (match-end 3)
 		  (concat (if (not namep)
 			      (concat 
-			       (buffer-substring (match-beginning 3) 
+			       (buffer-substring-no-properties (match-beginning 3) 
 						 (match-end 3))
 			       " "))
 			  symbol)
@@ -104,7 +104,7 @@ T if it is a negative."
     (let ((from
 	   (if (= (char-after (point)) ?\()
 	       (lisp-def-name)
-	       (buffer-substring (point) 
+	       (buffer-substring-no-properties (point) 
 				 (progn (forward-sexp) (point))))))
       (goto-char end)
       (if (= (char-after (1- (point))) ?\))
@@ -114,7 +114,7 @@ T if it is a negative."
 		from
 		(concat "from " from " to " (lisp-def-name))))
 	  (concat "from " from " to " 
-		  (buffer-substring (save-excursion
+		  (buffer-substring-no-properties (save-excursion
 				      (backward-sexp)
 				      (point)) 
 				    (1- (point))))))))

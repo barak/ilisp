@@ -1,3 +1,10 @@
+2002-10-24 Kevin Rosenberg <kevin@rosenberg.net>
+	* ilcompat.el, *.el:
+	Change calls from buffer-substring to buffer-substring-no-properties to
+	fix problem with fsf emacs 21.2 which copies font information with the 
+	buffer-substring command. Added buffer-substring-no-properties function
+	to ilcompat.el for platforms that don't have it implmented.
+
 2002-09-25  Will Deakin <anisotropy9@hotmail.com>
 	Stuff to fix the package stuff I broke when trying to 
 	* ilisp-snd.el: `refactored' ilisp-check-package-advanced with call

@@ -1,8 +1,20 @@
-ilisp (5.12.0+cvs.2002.10.24) unstable; urgency=low
+ilisp (5.12.0+cvs.2002.10.25b) unstable; urgency=low
+
+  * Rework handling of buffer-substring
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Fri, 25 Oct 2002 06:01:37 -0600
+
+ilisp (5.12.0+cvs.2002.10.25a) unstable; urgency=low
+
+  * ilxemacs.el: Call buffer-substring instead for xemacs20 compatibility.
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Fri, 25 Oct 2002 00:24:55 -0600
+
+ilisp (5.12.0+cvs.2002.10.25) unstable; urgency=low
 
   * change buffer-substring to buffer-substring-no-properties
   (closes: 166232)
-  * Make FSF keybindings be user selectable
+  * Make FSF-compliant keybindings user selectable
   
  -- Kevin M. Rosenberg <kmr@debian.org>  Thu, 24 Oct 2002 20:51:16 -0600
 

@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-ext.el,v 1.3 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-ext.el,v 1.4 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 ;;; Lisp mode extensions from the ILISP package.
 ;;; Copyright (C) 1990, 1991, 1992 Chris McConnell, ccm@cs.cmu.edu.
@@ -190,7 +190,7 @@ block."
 	     (fill-region-as-paragraph begin (point))))
 	  ((looking-at comment)
 	   (let ((fill-prefix
-		  (buffer-substring
+		  (buffer-substring-no-properties
 		   (progn (beginning-of-line) (point))
 		   (match-end 0))))
 	     (while (and (not (bobp)) (lisp-in-comment comment))

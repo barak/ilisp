@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmt.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-cmt.el,v 1.3 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 
 ;;;%Process interface
@@ -30,7 +30,7 @@
 	    (skip-chars-forward " \t\n")
 	    (if (and once (>= (point) once)) (setq done t)))
 	(error (setq end nil)))
-      (if end (buffer-substring begin end)))))
+      (if end (buffer-substring-no-properties begin end)))))
 
 ;;;
 (defun ilisp-input-filter (str)

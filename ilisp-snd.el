@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.15 2002/09/25 22:08:42 anisotropy9 Exp $
+;;; $Id: ilisp-snd.el,v 1.16 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 
 ;;;%% Package / Symbol support
@@ -89,7 +89,7 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 	(defpackage-regexp (ilisp-value 'ilisp-defpackage-command-string t)))
     (ignore-errors (backward-char))
     (and (re-search-forward hash-form-regexp)
-	 (let ((found (buffer-substring
+	 (let ((found (buffer-substring-no-properties
 		       (progn
 			 (match-end 0)	; this is due to problems with
 			 (backward-char) ; the #{+|-}-regexp.
@@ -102,12 +102,12 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
                         (setq in-package-found-p t))
 		      (string-match defpackage-regexp found))
 		  (backward-char)
-		  (buffer-substring (point) (progn (forward-sexp) (point))))
+		  (buffer-substring-no-properties (point) (progn (forward-sexp) (point))))
 		 (t
-		  (buffer-substring
+		  (buffer-substring-no-properties
 		   (point)
 		   (progn
-		     (let ((post-form (buffer-substring (point)
+		     (let ((post-form (buffer-substring-no-properties (point)
 							(progn
 							  (forward-sexp)
 							  (point))))
@@ -334,7 +334,7 @@ If STAY is T, the end of the symbol will be point."
 			    (not (bobp))
 			    (eq (char-after (1- prefix)) ?#)))
 		   (not (looking-at "[^: \t\n]*:*\\*[^ \t\n]")))))
-	(cons (lisp-string-to-symbol (buffer-substring start end))
+	(cons (lisp-string-to-symbol (buffer-substring-no-properties start end))
 	      (list function-p start end))))))
 
 
@@ -356,7 +356,7 @@ is no current sexp, return NIL."
 	      (backward-up-list 1)
 	      (down-list 1)
 	      (lisp-string-to-symbol
-	       (buffer-substring (point) 
+	       (buffer-substring-no-properties (point) 
 				 (progn (forward-sexp 1) (point)))))
 	  (error nil))))))
 
@@ -545,7 +545,7 @@ the buffer."
 				      fun))))))
     (let ((form 
 	   (save-excursion
-	     (buffer-substring (lisp-defun-begin) 
+	     (buffer-substring-no-properties (lisp-defun-begin) 
 			       (lisp-end-defun-text t)))))
       (switch-to-lisp t t)
       (comint-kill-input)

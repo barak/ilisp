@@ -432,7 +432,7 @@ bridge-end to bridge-filter.  With prefix, use current region to send."
 		    (point) (error "Didn't see bridge-end-regexp")))))
     
     (bridge-filter (get-buffer-process (current-buffer))
-		   (buffer-substring p0 p1))
+		   (buffer-substring-no-properties p0 p1))
     ))
 
 (provide 'bridge)

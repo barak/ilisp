@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilcompat.el,v 1.4 2002/05/23 20:30:25 marcoxa Exp $
+;;; $Id: ilcompat.el,v 1.5 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 (require 'cl)
 
@@ -74,6 +74,21 @@ With optional argument N, returns Nth-to-last link (default 1)."
       x)))
 
 
+(cond ((fboundp 'buffer-substring-no-properties)
+       ;; nothing to do (emacs 19-21, xemacs 21)
+       )
+      ((fboundp 'set-text-properties)
+       ;; I believe this is xemacs 20 and before
+       (defun buffer-substring-no-properties (start end)
+	 (let ((string (buffer-substring start end)))
+	   (set-text-properties 0 (length string) nil string)
+	   string)))
+      (t
+       ;; hope that buffer-substring works okay on this platform ;-)
+       (defun buffer-substring-no-properties (start end)
+	 (buffer-substring start end))))
+      
+  
 ;;; Epilogue
 
 (provide 'ilcompat)

@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.6 2002/09/21 20:23:40 rgrjr Exp $
+;;; $Id: ilisp-src.el,v 1.7 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 (require 'cl)
 
@@ -223,7 +223,7 @@ if successful."
 	    (let* ((start (progn (forward-char 1) (point))))
 	      (skip-chars-forward "^\"") 
 	      (setq file
-		    (prog1 (buffer-substring start (point))
+		    (prog1 (buffer-substring-no-properties start (point))
 		      (end-of-line)))
 	      (bury-buffer (current-buffer))))))
   (if (not (eq file 't)) file)))
@@ -513,7 +513,7 @@ source files.  See lisp-directory."
 		 (caller-function
 		  (progn
 		    (skip-chars-forward "^ \t\n")
-		    (buffer-substring start (point)))))
+		    (buffer-substring-no-properties start (point)))))
 	    (bury-buffer (current-buffer))
 	    (edit-definitions-lisp (lisp-string-to-symbol caller-function) 
 				  (car (car (ilisp-value 'ilisp-source-types)))

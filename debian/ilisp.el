@@ -4,21 +4,23 @@
 
 (defvar ilisp-*directory* "/usr/lib/ilisp/")
 
-;; Set default
-(setq ilisp-*use-fsf-compliant-keybindings* t)
+(require 'completer)
 
+(setq ilisp-*use-fsf-compliant-keybindings* t)
 (when (file-exists-p "/etc/ilisp/ilisp-keybindings.el")
   (load "/etc/ilisp/ilisp-keybindings.el"))
+(setq ilisp-*use-frame-for-output* nil)
+(setq ilisp-*use-frame-for-arglist-output-p* nil)
+(setq ilisp-motd nil)
 
 (autoload 'run-ilisp "ilisp" "Select a new inferior LISP." t)
-
-;; CLisp
 (autoload 'clisp-hs  "ilisp" "Inferior CLISP Common LISP." t)
-(setq clisp-hs-progam "clisp -a -I")
-
-;; AllegroCL
 (autoload 'allegro "ilisp" "Inferior Allegro Common Lisp." t)
-(setq allegro-program "/usr/bin/acl")
+(autoload 'lispworks "ilisp" "Inferior Lispworks Common Lisp." t)
+(autoload 'openmcl "ilisp" "Inferior OpenMCL Common Lisp." t)
+(autoload 'scheme  "ilisp" "Inferior generic Scheme." t)
+(autoload 'guile "ilisp" "Inferior Guile Scheme." t)
+
 (defun alisp ()
   (interactive)
   (setq allegro-program "/usr/bin/alisp")
@@ -36,17 +38,6 @@
   (setq allegro-program "/usr/bin/mlisp8")
   (allegro))
 
-;; Lispworks
-(autoload 'lispworks "ilisp" "Inferior Lispworks Common Lisp." t)
-(setq lispworks-program "/usr/bin/lw-console -multiprocessing")
-
-;; OpenMCL
-(autoload 'openmcl "ilisp" "Inferior OpenMCL Common Lisp." t)
-(setq openmcl-program "/usr/bin/openmcl")
-
-;;; CMULISP
-(autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
-(setq cmulisp-program "/usr/bin/lisp")
 (defun cmucl-normal ()
   "Inferior CMU Common LISP -- normal core."
   (interactive)
@@ -63,41 +54,35 @@
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-safe.core")
   (cmulisp))
 
+(setq ilisp-site-hook
+      '(lambda ()
+	 (setq clisp-hs-progam "clisp -a -I")
+	 (setq allegro-program "/usr/bin/acl")
+	 (setq lispworks-program "/usr/bin/lw-console -multiprocessing")
+	 (setq openmcl-program "/usr/bin/openmcl")
+	 (autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
+	 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
+	 (setq cmulisp-program "/usr/bin/lisp")
+	 (setq sbcl-program "/usr/bin/sbcl")
+	 (setq scheme-program "/usr/bin/guile")
 
-;; SBCL
-(autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
-(setq sbcl-program "/usr/bin/sbcl")
-
-;; Guile
-(autoload 'scheme  "ilisp" "Inferior generic Scheme." t)
-(autoload 'guile "ilisp" "Inferior Guile Scheme." t)
-(setq scheme-program "/usr/bin/guile")
-
+	 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
+	 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
+	 (setq cltl2-root-url "file:///usr/share/doc/cltl/")
+	 ))
 
 (add-hook 'ilisp-mode-hook
 	  '(lambda ()))
 
-;;; Default paths
+;; Loading lisp files starts ilisp
+(set-default 'auto-mode-alist
+	     (append '(("\\.lisp$" . lisp-mode)
+		       ("\\.lsp$" . lisp-mode)
+		       ("\\.cl$" . lisp-mode))
+		     auto-mode-alist))
 
-(require 'completer)
-
-(setq cmulisp-local-source-directory "/usr/src/cmucl/")
-(setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
-(setq cltl2-root-url "file:///usr/share/doc/cltl/")
-
-(setq ilisp-*use-frame-for-output* nil)
-(setq ilisp-*use-frame-for-arglist-output-p* nil)
-(setq ilisp-motd nil)
-
-;;; Loading lisp files starts ilisp
-;;(set-default 'auto-mode-alist
-;;	     (append '(("\\.lisp$" . lisp-mode)
-;;		       ("\\.lsp$" . lisp-mode)
-;;		       ("\\.cl$" . lisp-mode))
-;;		     auto-mode-alist))
-
-;;(add-hook 'lisp-mode-hook
-;;	  (function (lambda () (require 'ilisp))))
+(add-hook 'lisp-mode-hook
+	  (function (lambda () (require 'ilisp))))
 
 ;;; Load hooks
 (add-hook  'scheme-mode-hook
@@ -105,14 +90,8 @@
 
 (add-hook 'ilisp-load-hook
 	  '(lambda ()
-             ;; Set a keybinding for the COMMON-LISP-HYPERSPEC command
-             ;; (defkey-ilisp "" 'common-lisp-hyperspec)
-
-	     ;;(setq ilisp-*use-frame-for-output* nil)
-	     ;;(setq ilisp-*use-fsf-compliant-keybindings* t)
 	     (when ilisp-*use-fsf-compliant-keybindings*
 	       (setq ilisp-*prefix* "\C-c"))
-	     ;;(setq ilisp-*arglist-message-lisp-space-p* nil)
 	     (setq lisp-no-popper t)
 	     
 	     ;; Make sure that you don't keep popping up the 'inferior

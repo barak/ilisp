@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.16 2002/09/05 21:00:43 rgrjr Exp $
+;;; $Id: ilisp-hi.el,v 1.17 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -32,7 +32,7 @@ the process status when the command is actually executing.  MESSAGE is
 a message to let the user know what is going on."
   (if (= start end) (error "Region is empty"))
   (let ((sexp (lisp-count-pairs start end ?\( ?\)))
-	(string (buffer-substring start end)))
+	(string (buffer-substring-no-properties start end)))
     (setq string
 	  (format (ilisp-value format)
 		  (lisp-slashify
@@ -95,7 +95,7 @@ a message to let the user know what is going on."
       (forward-sexp)
       (setq end (point)))
     (eval-region-lisp start end switch
-		      (format "Evaluate %s" (buffer-substring start end)))))
+		      (format "Evaluate %s" (buffer-substring-no-properties start end)))))
 
 ;;;
 (defun eval-defun-lisp (&optional switch)
@@ -404,7 +404,7 @@ function call documentation."
     (skip-chars-forward " \t\n")
     (let* ((begin (point))
 	   (end (progn (forward-sexp) (point)))
-	   (form (buffer-substring begin end)))
+	   (form (buffer-substring-no-properties begin end)))
       (list
        (if (lisp-minus-prefix)
 	   (ilisp-read "Macroexpand: " form)
@@ -647,10 +647,10 @@ symbol after the symbol has been typed in followed by #\\Space."
     (let* ((old-point (point))
 	   (last-char (progn (ignore-errors (backward-char))
 			     (unless (eql (point) old-point)
-			       (buffer-substring old-point (point)))))
+			       (buffer-substring-no-properties old-point (point)))))
 
 	   (string
-             (buffer-substring old-point
+             (buffer-substring-no-properties old-point
                                (progn
                                  (goto-char old-point)
                                  (ignore-errors (backward-sexp))
@@ -662,7 +662,7 @@ symbol after the symbol has been typed in followed by #\\Space."
                            (backward-char)
                            (point))))
                (when save
-                 (buffer-substring save (1+ save)))))
+                 (buffer-substring-no-properties save (1+ save)))))
 	   (double-quote-pos (and string (string-match "\"" string)))
 	   (paren-pos (and string
 			   (string-match "(" string)))

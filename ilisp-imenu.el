@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-imenu.el,v 1.5 2002/01/31 14:56:45 mna Exp $
+;;; $Id: ilisp-imenu.el,v 1.6 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 
 (require 'imenu)
@@ -174,10 +174,10 @@ things of class KEY, which can be `:types' or `:variables'."
     ;; [ydi] modified for imenu-use-markers
     (let* ((beg (if imenu-use-markers (point-marker) (point)))
            (end (progn (forward-sexp) (point)))
-           (name (buffer-substring beg end))
+           (name (buffer-substring-no-properties beg end))
            (beg2 (progn (forward-sexp) (forward-sexp -1) (point)))
            (end2 (progn (forward-sexp) (point)))
-           (args (buffer-substring beg2 end2)))
+           (args (buffer-substring-no-properties beg2 end2)))
       (cons (concat name " " args) 
 	    beg))))
 
@@ -188,7 +188,7 @@ things of class KEY, which can be `:types' or `:variables'."
     ;; [ydi] modified for imenu-use-markers
     (let ((beg (if imenu-use-markers (point-marker) (point)))
 	  (end (progn (forward-sexp) (point))))
-      (cons (buffer-substring beg end)
+      (cons (buffer-substring-no-properties beg end)
 	    beg))))
 
 
@@ -203,7 +203,7 @@ things of class KEY, which can be `:types' or `:variables'."
 	       (forward-sexp 2)
 	       (let ((beg (point))
 		     (end (progn (forward-sexp -1) (point))))
-		 (buffer-substring beg end)))
+		 (buffer-substring-no-properties beg end)))
 	   (error nil)))))
 
 ;;;---

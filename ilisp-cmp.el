@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmp.el,v 1.10 2002/09/03 16:27:44 mkoeppe Exp $
+;;; $Id: ilisp-cmp.el,v 1.11 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 (defun ilisp-display-choices (symbol choices)
   "Display the possible choices for SYMBOL in alist CHOICES."
@@ -102,7 +102,7 @@ be the ilisp-table."
 		(ilisp-completion-table symbol ilisp-completion-function-p)))
 	(save-excursion 
 	  (skip-chars-backward "^: \(")
-	  (setq ilisp-mini-prefix (buffer-substring (ilisp-minibuffer-prompt-end) (point)))
+	  (setq ilisp-mini-prefix (buffer-substring-no-properties (ilisp-minibuffer-prompt-end) (point)))
 	  (delete-region (ilisp-minibuffer-prompt-end) (point)))
 	;; Nothing can match this table
 	(if (not minibuffer-completion-table)

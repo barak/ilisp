@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-bug.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-bug.el,v 1.3 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 
 (defun ilisp-bug ()
@@ -82,7 +82,7 @@ Point: %s
 Point-max: %s
 Code: %s"
 				major-mode start end point (point-max)
-				(buffer-substring start end)))))
+				(buffer-substring-no-properties start end)))))
 	      (insert string)))
 	(mapatoms
 	 (function (lambda (symbol)
