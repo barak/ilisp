@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 4, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: April 5, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -275,20 +275,24 @@ ilisp-bug} command and follow the displayed instructions. See the file
 @unnumberedsec FTP and Web directions
 @cindex FTP site
 @cindex Anonymous FTP
+@cindex Downloading ILISP
 @cindex Web site
 @cindex How to get
 @cindex Getting ILISP
 @noindent
 You can get the distribution file, @code{ilisp-x.y.z.tar.gz}
-(@code{ilisp-x.y.z.zip}) via anonymous FTP or HTML at the following
+(@code{ilisp-x.y.z.zip}), via HTTP or anonymous FTP at the following
 addresses:
 
 @itemize @bullet
 @item
-@code{ftp://ftp2.cons.org/pub/languages/lisp/ilisp/}, or
+@code{http://sourceforge.net/project/showfiles.php?group_id=3957}
 
 @item
 @code{http://www2.cons.org:8000/ftp-area/ilisp/}
+
+@item
+@code{ftp://ftp2.cons.org/pub/languages/lisp/ilisp/}
 
 @end itemize
 
