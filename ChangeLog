@@ -1,3 +1,13 @@
+2001-03-12  Paolo Amoroso  <amoroso@mclink.it>
+
+	* INSTALLATION (log message): removed the whole contents of the
+	INSTALLATION file, which was accidentally added to the log
+	message during the previous commit. Sorry :-(
+
+        * INSTALLATION (Harlequin/Xanalys LispWorks): added info on the
+        LWW 4.1.20 patch bundle (info contributed by Carl Shapiro
+        <cshapiro@panix.com>).
+
 2001-03-02  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (ilisp-help), ilisp-sch.el (guile): Get
