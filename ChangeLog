@@ -1,3 +1,8 @@
+2001-01-09  Martin Atzmueller  <martin@atzmueller.net>
+
+	* sblisp.lisp (arglist): fixed a bug, when we already have the
+	correct symbol.
+
 2001-01-07  Martin Atzmueller  <martin@atzmueller.net>
 
 	* Welcome: corrected my email contact address.
@@ -130,7 +135,7 @@
 	* Welcome: removed Rick Campbell from the list of current
 	  maintainers because he no longer works on ILISP.
 
-2000-11-06    <martin@atzmueller.net>
+2000-11-06  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-cl.el (common-lisp): changed ilisp-hash-form-regexp, so
 	that cl:in-package and cl:defpackage is understood as well as
