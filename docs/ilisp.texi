@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: July 31, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: August 2, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -109,7 +109,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.18, July 2000
+@subtitle Edition 0.18, August 2000
 @subtitle For ILISP Version: 5.10.2
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -134,7 +134,7 @@ Copyright @copyright{} @itemize
 @sp 2
 This is edition 0.18 of the @cite{ILISP User Manual}
 for ILISP Version: 5.10.2,
-July 2000.
+August 2000.
 
 @sp 2
 
@@ -285,6 +285,7 @@ Thomas M. Breuel,
 Rick Campbell,
 Hans Chalupsky,
 Kimball Collins,
+William Deakin,
 Brian Dennis,
 David Duff,
 Tom Emerson,
@@ -303,6 +304,7 @@ Ben Hyde,
 Chuck Irvine,
 Mark Kantrowitz,
 Michael Kashket,
+Matthias Koeppe,
 Qiegang Long,
 Christian Lynbech,
 Erik Naggum,
