@@ -1,3 +1,13 @@
+2000-08-17  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp.emacs: removed obsolete reference to TMC completion
+	  package FTP download (it is included with recent versions of
+	  Emacs).
+
+	* ilisp-imenu.el (imenu--completion-buffer): fixed incorrect
+	  reference to `string-equal' (patch contributed by Matthias
+	  Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
+
 2000-08-02  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ACKNOWLEDGMENTS: updated and sorted alphabetically the list of
