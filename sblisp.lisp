@@ -209,7 +209,7 @@
 
 (defun source-file (symbol package type)
   (declare (ignore type))
-  (sb-impl-errors
+  (ilisp-errors
    (let* ((x (ilisp-find-symbol symbol package))
 	  (fun (get-correct-fn-object x)))
      (when (and fun (not (sb-eval:interpreted-function-p fun)))
