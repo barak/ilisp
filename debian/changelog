@@ -1,6 +1,7 @@
 ilisp (5.12.0+cvs.2003.04.02) unstable; urgency=low
 
   * New upstream
+  * Add support for sbcl-mt dialect
 
  -- Kevin M. Rosenberg <kmr@debian.org>  Thu,  3 Apr 2003 01:23:28 -0700
 
