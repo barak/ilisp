@@ -1,3 +1,7 @@
+2003-03-03  Kevin Rosenberg <kevin@rosenberg.net>
+
+	* ilisp-sbcl.el: Add support for aclrepl prompt
+
 2003-02-16  Bob Rogers  <rogers@rgrjr.dyndns.org>
 
 	* cl-ilisp.lisp (ilisp-message): fix double format bug (was using

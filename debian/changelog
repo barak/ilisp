@@ -1,3 +1,11 @@
+ilisp (5.12.0+cvs.2003.03.03) unstable; urgency=low
+
+  * Add support for SBCL aclrepl in version 0.7.13. Must have
+  (require 'sb-aclrepl) in ~/.sbclrc so that ILISP recognizes this
+  on startup.
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Mon,  3 Mar 2003 18:40:19 -0700
+
 ilisp (5.12.0+cvs.2003.03.02c) unstable; urgency=low
 
   * Ensure that /usr/lib/ilisp exists on installation
