@@ -1,3 +1,7 @@
+2003-05-29  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ilisp-cl-easy-menu.el: Added ilisp-compile-buffer to menu.
+
 2003-05-27  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* completer.el: Applied patch submitted by Hannu

@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl-easy-menu.el,v 1.6 2003/05/27 23:51:01 bill_clementson Exp $
+;;; $Id: ilisp-cl-easy-menu.el,v 1.7 2003/05/29 18:23:56 bill_clementson Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de
@@ -100,6 +100,7 @@
      )
     ("Compile"
      [ "File" compile-file-lisp t ]
+     [ "Buffer" ilisp-compile-buffer t ]
      [ "Defun" compile-defun-lisp t ]
      [ "Defun and go" compile-defun-and-go-lisp t ]
      [ "Region" compile-region-lisp t ]
