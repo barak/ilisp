@@ -14,7 +14,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.emacs,v 1.7 2002/06/02 22:44:21 marcoxa Exp $
+;;; $Id: ilisp.emacs,v 1.8 2003/11/24 22:25:49 bill_clementson Exp $
 
 
 ;;; If ilisp lives in some non-standard directory, you must tell
@@ -168,7 +168,7 @@
 ; (setq common-lisp-hyperspec-root
 ;       "file:/home/joe/HyperSpec/")
 ; (setq common-lisp-hyperspec-symbol-table
-;       "/home/joe/HyperSpec/Data/Map_Sym.Txt")
+;       "/home/joe/HyperSpec/Data/Map_Sym.txt")
 
 ;; Here's how to get the newest version of the CLHS:
 ;; <http://groups.google.com/groups?selm=sfwvgftux7g.fsf%40shell01.TheWorld.com>
