@@ -60,6 +60,11 @@
 (defun set-ilisp-input-ring-size (n)
   (setq comint-input-ring-size n))
 
+(defmacro defgroup (&rest args))
+
+(defmacro defcustom (symbol value doc &rest args)
+  `(defvar ,symbol ,value ,doc))
+
 
 ;;;============================================================================
 ;;; Epilogue
