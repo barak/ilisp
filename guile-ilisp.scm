@@ -52,38 +52,110 @@
 	(substring s 0 i)
 	s)))
 
-(define (proc-doc-first-line obj)
-  (let ((f-l (first-line (proc-doc obj))))
-    (if (equal? (substring f-l 0 6) "No doc")
-	#f
-	f-l)))
+(define (doc->arglist doc with-procedure?)
+  "Parse DOC to find the arglist and return it as a string.  If
+WITH-PROCEDURE?, include the procedure symbol."
+  (let ((pattern " - primitive: "))
+    (cond
+     ((string=? (substring doc 0 (string-length pattern))
+		pattern)
+      ;; Guile 1.4.1 primitive procedure documentation, passed through
+      ;; TeXinfo:
+      ;;
+      ;;  - primitive: assoc key alist
+      ;;     Behaves like `assq' but uses `equal?' for key comparison.
+      ;;
+      (let ((index
+	     (if with-procedure?
+		 (string-length pattern)
+		 (1+ (string-index doc #\space
+				   (string-length pattern))))))
+	(string-append "("
+		       (first-line (substring doc index))
+		       ")")))
+     ((string=? (substring doc 0 1) "(")
+      ;; Guile <= 1.4 primitive procedure documentation and other
+      ;; conventions:
+      ;;
+      ;; (help [NAME])
+      ;; Prints useful information.  Try `(help)'.
+      ;;
+      (if with-procedure?
+	  (first-line doc)
+	  (let ((index (string-index doc #\space)))
+	    (if index
+		(string-append "("
+			       (substring (first-line doc)
+					  (+ index 1)))
+		"()"))))     
+     (else (string-append "CAN'T PARSE THIS DOCUMENTATION:\n"
+			  doc)))))
 
-(define-public (ilisp-print-info-message sym package)
-  ;; taken from session.scm (help)
+(define (info-message sym package expensive? arglist-only?)
+  "Evaluate SYM in PACKAGE and return an informational message about
+the value.  For procedures, return procedure symbol and arglist, or
+fall back to a message on the arity; if ARGLIST-ONLY?, return the
+arglist only.  If EXPENSIVE?, take some more effort."
+  ;; The code here is so lengthy because we want to return a
+  ;; meaningful result even if we aren't allowed to read the
+  ;; documentation files (EXPENSIVE? = #f).
   (let ((obj (catch #t
 		    (lambda ()
-		      (save-module-excursion
-		       (lambda ()
-			 (set-current-module (string->module package))
-			 (eval sym))))
+		      (eval-in-package sym
+				       (string->module package)))
 		    (lambda args
 		      #f))))
     (cond
      ((closure? obj)
       (let ((formals (cadr (procedure-source obj))))
-	(display (cons sym formals))))
-;;; too expensive...
-;;     ((and (procedure? obj)
-;;           (let ((d (proc-doc-first-line obj)))
-;;            (if d (display d))
-;;            d)))
-;;     ((and (macro? obj) (macro-transformer obj)
-;;          (let ((d (proc-doc-first-line (macro-transformer obj))))
-;;            (if d (display d))
-;;            d)))
+	(if arglist-only? formals (cons sym formals))))
+     ((or
+       (and expensive?
+	    (false-if-exception
+	     ;; object-documentation was introduced in Guile 1.4,
+	     ;; There is no documentation for primitives in earlier
+	     ;; versions.
+	     (object-documentation obj)))
+       (and (procedure? obj)
+	    (procedure-property obj 'documentation)
+	    ;; The documentation property is attached to a primitive
+	    ;; procedure when it was read from the documentation file
+	    ;; before.
+	    ))
+      => (lambda (doc)
+	   (doc->arglist doc (not arglist-only?))))
+     ((and (macro? obj)
+	   (macro-transformer obj)
+	   (closure? (macro-transformer obj))
+	   (procedure-documentation (macro-transformer obj)))
+      ;; Documentation may be in the doc string of the transformer, as
+      ;; is in session.scm (help).
+      => (lambda (doc)
+	   (doc->arglist doc (not arglist-only?))))
      ((procedure? obj)
-      (arity obj))))
-  (newline))
+      ;; Return a message about the arity of the procedure.
+      (with-output-to-string
+	(lambda () (arity obj))))
+     (else #f))))
+
+(define-public (ilisp-print-info-message sym package)
+  "Evaluate SYM in PACKAGE and print an informational message about
+the value.  For procedures, the arglist is printed.
+This procedure is invoked by the electric space key."
+  (cond
+   ((info-message sym package #f #f)
+    => (lambda (message)
+	 (display message)
+	 (newline)))))
+
+(define-public (ilisp-arglist symbol package)
+  "Evaluate SYMBOL in PACKAGE and print the arglist if we have a
+procedure. This procedure is invoked by `arglist-lisp'."  
+  (cond
+   ((info-message symbol package #t #t)
+    => (lambda (message)
+	 (display message)
+	 (newline)))))
 
 (define (word-separator? ch)
   (or (char=? ch #\-)
@@ -181,14 +253,6 @@ and LINE as the source code line there."
 (define-public (ilisp-untrace symbol package)
   (untrace (eval-in-package symbol (string->module package)))
   *unspecified*)
-
-(define-public (ilisp-arglist symbol package)
-  ;; This is a hack.
-  (let* ((s (with-output-to-string
-	     (lambda () (ilisp-print-info-message symbol package))))
-	 (l (with-input-from-string s read)))
-    (cond ((pair? l) (cdr l))
-	  (else *unspecified*))))
 
 (define (or-map* f list)
   "Apply f to successive elements of l until exhaustion or improper end
