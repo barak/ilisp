@@ -80,7 +80,7 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
                  the-package
                  "nil"))))
          (case-fold-search t)
-         (npic-regexp (ilisp-value 'ilisp-no-package-in-core-regexp)))
+         (npic-regexp (ilisp-value 'ilisp-no-package-in-core-regexp t)))
     (if (and npic-regexp (string-match npic-regexp package))
       (progn
         (message (format "Buffer package not found. Using fallback-package: %s"

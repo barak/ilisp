@@ -1,3 +1,8 @@
+2000-11-29  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-snd.el (ilisp-check-package-advanced): Don't signal an
+	error if ilisp-no-package-in-core-regexp is nil.
+
 2000-11-15  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (Files and directories): added description of the
