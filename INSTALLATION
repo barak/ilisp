@@ -207,7 +207,10 @@ o Harlequin/Xanalys LispWorks
         Windows, then you will need an additional patch
         `emacs20-terminal-io', available from <lisp-support@xanalys.com>,
         because Emacs has changed the coding-system used for comint
-        buffers.
+        buffers.  The LispWorks for Windows 4.1.20 patch bundle includes
+        some more patches (LSC #7270, LSC #7727 and LSC #7291) that make it
+        work with ILISP.  For more information check the README file which
+        comes with the bundle.
 
 
 o Lucid
