@@ -685,7 +685,7 @@ lookup.
 @cindex @file{ilisp.emacs}
 @cindex @code{browse-url}
 
-Note that, althouth Steele's book is a well written and useful resource,
+Note that, althougth Steele's book is a well written and useful resource,
 it covers the Common Lisp language in the state it was a few years
 before ANSI standardization.  If you need an accurate description of
 ANSI Common Lisp, see the above mentioned HyperSpec instead.
@@ -1318,6 +1318,13 @@ Send the defun to Lisp.
 @pindex eval-next-sexp-lisp
 @kindex @key{C-z} C-n
 @pindex eval-next-sexp-and-go-lisp
+
+@item @key{C-z} j   (eval-last-sexp-lisp)
+@itemx @key{C-z} C-j   (eval-last-sexp-and-go-lisp)
+@kindex @key{C-z} j
+@pindex eval-last-sexp-lisp
+@kindex @key{C-z} C-j
+@pindex eval-last-sexp-and-go-lisp
 
 @item @key{C-z} c   (compile-defun-lisp)
 @kindex @key{C-z} c
