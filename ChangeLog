@@ -1,3 +1,32 @@
+2002-02-24  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-kcl.el (ecl): comint-prompt-regexp tuned slightly (patch
+	contributed by Hannu Koivisto <azure@iki.fi>).
+
+	* ilisp-out.el (ilisp-make-output-frame): disabled use of
+	`icon-type' parameter	with `make-frame'. This caused fatal
+	problems with Emacs 21.1 on Win2K.
+	Removed old cruft in comments.
+	(lisp-pop-to-buffer): rewritten to work sanely in all cases and to
+	actually set input focus in Emacs 21 and XEmacs when requested
+	with new optional `set-input-focus-p parameter'. This solves some
+	problems with KDE (it stole focus in wrong situations, raised
+	frames on top of everything else but didn't change focus, etc.)
+	and Win2K.
+	(switch-to-lisp): now requests `lisp-pop-to-buffer' to set input
+	focus. Also cosmetic changes.
+	(ilisp-display-output-in-lisp-listener): cosmetic changes.
+	(above patches contributed by Hannu Koivisto <azure@iki.fi>).
+
+	* comint-ipc.el (comint-process-filter): output handler is now
+	called inside save-current-buffer instead of save-excursion so
+	that if, for example, `comint-insert' is called by the handler, it
+	is able to move the point. This fixes the bug that caused point
+	not to move after output after `set-lisp-package command', after
+	starting an inferior Lisp before using `ilisp-compile-inits', and
+	possibly other situations (patch contributed by Hannu Koivisto
+	<azure@iki.fi>).
+
 2002-02-20  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (Configuration and compilation): added info on
