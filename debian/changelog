@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.07.20) unstable; urgency=low
+
+  * Remove any preexisting C-c C-v keybinding (closes: 202225)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sun, 20 Jul 2003 21:31:36 -0600
+
 ilisp (5.12.0+cvs.2003.07.04) unstable; urgency=low
 
   * New upstream

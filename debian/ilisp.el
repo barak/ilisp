@@ -68,6 +68,10 @@
 
 (setq ilisp-site-hook
       '(lambda ()
+	 ;; delete any keybindings that start with this sequence, such
+	 ;; as oo-browser's  bindings 
+	 (global-unset-key [(control c) (control v)])
+
 	 (setq clisp-hs-progam "clisp -a -I")
 	 (setq allegro-program "/usr/bin/acl")
 	 (setq lispworks-program "/usr/bin/lw-console -multiprocessing")
