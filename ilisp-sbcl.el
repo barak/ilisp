@@ -77,10 +77,7 @@
 
 	ilisp-find-source-command "(ILISP:source-file \"%s\" \"%s\" \"%s\")"
 
-	;;; 2000-10-08 Martin Atzmzeller; old one: comint-fix-error ":pop"
-        ;;; comint-fix-error (ilisp::pop-debug-command)
         comint-fix-error ":pop"
-
 
 	comint-continue ":go"
 
