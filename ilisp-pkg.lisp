@@ -13,15 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.8 2002/08/23 21:40:09 anisotropy9 Exp $
-
-;;;----------------------------------------------------------------------------
-;;; Prologue
-
-#+(or allegro-v4.0 allegro-v4.1)
-(eval-when (compile load eval)
-  (setq excl:*cltl1-in-package-compatibility-p* t))
-
+;;; $Id: ilisp-pkg.lisp,v 1.9 2002/09/16 02:14:51 rgrjr Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Definitions
