@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.5 2002/03/26 09:41:04 anisotropy9 Exp $
+;;; $Id: cmulisp.lisp,v 1.6 2002/04/21 12:56:24 amoroso Exp $
 
 
 (in-package :ilisp)
@@ -67,9 +67,10 @@
 			(member-if
 			 #'(lambda (restart)
 			     (string=
-			      (funcall
-			       (conditions::restart-report-function restart)
-			       nil)
+                              (with-output-to-string (s)
+			        (funcall
+			         (conditions::restart-report-function restart)
+			         s))
 			      "Return to " :end1 10))
 			 restart-list)))
 		   (cond ((zerop num) (car first))
