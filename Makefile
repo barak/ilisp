@@ -60,7 +60,7 @@ LoadFiles = ilisp-def.elc ilisp-sym.elc \
 DocFiles = docs/Makefile \
 	   docs/README \
 	   docs/doc-changes.txt \
-           docs/ilisp-refcard.tgz \
+           docs/ilisp-refcard.tex \
            docs/ilisp.texi
 
 #==============================================================================
