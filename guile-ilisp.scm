@@ -65,14 +65,31 @@ WITH-PROCEDURE?, include the procedure symbol."
       ;;  - primitive: assoc key alist
       ;;     Behaves like `assq' but uses `equal?' for key comparison.
       ;;
-      (let ((index
+      ;; Continuation lines of arglists have an indentation of 10 chars.
+      (let ((start-index
 	     (if with-procedure?
 		 (string-length pattern)
 		 (1+ (string-index doc #\space
 				   (string-length pattern))))))
-	(string-append "("
-		       (first-line (substring doc index))
-		       ")")))
+	(let ((eol-index (string-index doc #\newline start-index)))
+	  (string-append 
+	   "("
+	   (let loop ((bol-index (+ 1 eol-index))
+		      (arglist (substring doc start-index eol-index)))
+	     (cond 
+	      ((and bol-index (>= bol-index (string-length doc)))
+	       arglist)
+	      ((and (>= (string-length doc) (+ bol-index 10))
+		    (string=? (substring doc bol-index (+ bol-index 10))
+			      "          "))
+	       (let ((eol-index (string-index doc #\newline bol-index)))
+		 (loop (and eol-index (+ 1 eol-index))
+		       (string-append arglist " " 
+				      (substring doc (+ bol-index 10)
+						 eol-index)))))
+	      (else
+	       arglist)))
+	   ")"))))
      ((string=? (substring doc 0 1) "(")
       ;; Guile <= 1.4 primitive procedure documentation and other
       ;; conventions:
