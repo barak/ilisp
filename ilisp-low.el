@@ -62,7 +62,7 @@ symbol will be returned.  Optional NAMEP will return only the name without the d
 	 ;; (( \( (def*) (( \( (setf)) | \(?)) | \(?) (symbol)
 	 ;; 12    3    3 45    6    65      42      1 7      7
 	 ;;0011\(22 def*        22         32 43\(54 setf54         43   \(?32 11      00 60           60
-	 "\\(\\((\\(def[^ \t\n]*\\)[ \t\n]+\\(\\((\\(setf\\)[ \t\n]+\\)\\|(?\\)\\)\\|(?\\)\\([^ \t\n)]*\\)")
+	 "\\(\\((\\(def[^ \t\n]*\\)[ \t\n]+\\(\\((\\(setf\\)[ \t\n]+\\)\\|(*\\)\\)\\|(?\\)\\([^ \t\n)]*\\)")
 	(let ((symbol (buffer-substring (match-beginning 7) (match-end 7))))
 	  (if (match-end 6)
 	      (concat (if (not namep) 
