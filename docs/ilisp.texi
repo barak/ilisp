@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 26, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: May 2, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -462,7 +462,7 @@ to compile ILISP with.
 If your Emacs supports the @code{easymenu} package, it is possible to
 make ILISP add to Lisp mode buffers and buffers with inferior Lisp
 processes, or to Scheme mode buffers and buffers with inferior Scheme
-pProcesses, an @code{Ilisp} menu with all available commands. To enable
+processes, an @code{Ilisp} menu with all available commands. To enable
 this feature, set to @code{t} the variable
 @code{ilisp-*enable-cl-easy-menu-p*} in @file{ilisp-def.el} for the Common
 Lisp dialects, and @code{ilisp-*enable-scheme-easy-menu-p*} for Scheme
@@ -734,7 +734,7 @@ High level interface code.
 @cindex @file{ilisp-hi.el}
 
 @item ilisp-hlw.el
-Harlequin LispWorks Common Lisp dialect definition.
+Xanalys/Harlequin LispWorks Common Lisp dialect definition.
 @cindex @file{ilisp-hlw.el}
 
 @item ilisp-hnd.el
@@ -984,13 +984,13 @@ Kyoto Common Lisp, original version.
 
 @item @code{liquid}
 Liquid Common Lisp, the successor of Lucid Common Lisp supported by
-Harlequin Ltd.
+Xanalys/Harlequin Ltd.
 
 @item @code{lispworks}
-LispWorks Common Lisp from Harlequin Ltd.
+LispWorks Common Lisp from Xanalys/Harlequin Ltd.
 
 @item @code{lucid}
-Lucid Common Lisp, currently supported by Harlequin Ltd.
+Lucid Common Lisp, currently supported by Xanalys/Harlequin Ltd.
 
 @item @code{oaklisp}
 Oaklisp scheme.
