@@ -155,7 +155,10 @@ procedure. This procedure is invoked by `arglist-lisp'."
    ((info-message symbol package #t #t)
     => (lambda (message)
 	 (display message)
-	 (newline)))))
+	 (newline)))
+   (else
+    (display "Can't get arglist.")
+    (newline))))
 
 (define (word-separator? ch)
   (or (char=? ch #\-)
