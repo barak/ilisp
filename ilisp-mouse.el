@@ -7,7 +7,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mouse.el,v 1.2 2003/04/11 15:16:46 rgrjr Exp $
+;;; $Id: ilisp-mouse.el,v 1.3 2003/04/11 22:02:05 rgrjr Exp $
 
 ;;; Unlike most other ilisp source files, ilisp-mouse is meant to be loadable by
 ;;; itself, in case you want to click M-left on a C definition name or URL, for
@@ -101,27 +101,30 @@ Recognizes ange-ftp and Lispm pathname syntax and expands pathnames so
 that relativity works, but leaves URLs alone.  Uses find-tag-default
 and/or ffap-file-at-point but hacks the syntax table, since the default
 text table doesn't like \".\", \"~\", and other constituent chars."
-  (let ((thing (with-lisp-syntax
-		 ;; Special cases for clicking on an S-expression, which could
-		 ;; be Common Lisp definition names.
-		 (cond ((eq (char-after) ?\()
-			 (save-excursion
-			   (ilisp-mouse-snarf-sexp-after-point)))
-		       ((eq (char-after) ?\))
-			 (save-excursion
-			   (forward-char 1)
-			   (let ((end (point)))
-			     (forward-sexp -1)
-			     (ilisp-mouse-snarf-sexp-after-point end))))
-		       ;; [using ffap-file-at-point might be more featureful,
-		       ;; but it mangles URLs.  -- rgr, 11-Apr-03.]
-		       ;; ((and (fboundp 'ffap-file-at-point)
-		       ;;       (ffap-file-at-point)))
-		       (t (find-tag-default))))))
+  (let* ((ffap-guess nil)
+	 (thing (with-lisp-syntax
+		  ;; Special cases for clicking on an S-expression, which could
+		  ;; be Common Lisp definition names.
+		  (cond ((eq (char-after) ?\()
+			  (save-excursion
+			    (ilisp-mouse-snarf-sexp-after-point)))
+			((eq (char-after) ?\))
+			  (save-excursion
+			    (forward-char 1)
+			    (let ((end (point)))
+			      (forward-sexp -1)
+			      (ilisp-mouse-snarf-sexp-after-point end))))
+			((and (fboundp 'ffap-guesser)
+			      ;; this will return an existing file name or URL,
+			      ;; or nil.  remember what we got, so we don't
+			      ;; second-guess the guesser.
+			      (setq ffap-guess (ffap-guesser))))
+			(t (find-tag-default))))))
     (cond ((or (not (stringp thing))
 	       (eq (aref thing 0) ?\())
 	    ;; Thing is sometimes null; this happens (e.g.) in empty buffers.
 	    thing)
+	  (ffap-guess)
 	  ((and (or (file-name-absolute-p thing)
 		    (= (aref thing 0) ?.))
 		(file-exists-p thing))
@@ -149,9 +152,8 @@ text table doesn't like \".\", \"~\", and other constituent chars."
 		(string-match "\\`\\(ftp\\|file\\)://\\([^:/]+\\):?\\(/.*\\)"
 			      thing))
 	    ;; Convert URL-style ftp: or file: references to ange-ftp syntax.
-	    ;; Taken from ffap-fixup-url and ffap-host-to-path in the
-	    ;; /anonymous@cs.ucsd.edu:/pub/mic/ffap.el.gz (or
-	    ;; /usr/local/lib/emacs/site-lisp/ffap.el) file.  -- rgr, 22-Mar-95.
+	    ;; Taken from ffap-fixup-url and ffap-host-to-path fns.  -- rgr,
+	    ;; 22-Mar-95.
 	    (require 'ange-ftp)
 	    (let ((host (match-string 2 thing))
 		  (rest (match-string 3 thing)))
@@ -276,7 +278,7 @@ pathnames, which generally works, though only for Unix syntax."
 ;;    ftp://huxley.bu.edu/~rogers/queue
 ;;    ./ilisp-mouse.el
 ;;    /etc/passwd
-;;    file:///etc/passwd
+;;    file:///etc/passwd [but ffap doesn't rewrite this as a local pathname] 
 ;;    file://localhost/etc/passwd
 
 ;;; end of file -- ilisp-mouse.el --
