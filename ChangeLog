@@ -1,3 +1,8 @@
+2002-06-03  Paolo Amoroso  <amoroso@mclink.it>
+
+	Version 5.12.0 released (tagging and releasing done by Marco
+	Antoniotti <marcoxa@cs.nyu.edu>).
+
 2002-06-03  Marco Antoniotti  <marcoxa@cs.nyu.edu>
 
 	* Makefile:
@@ -36,7 +41,7 @@
 	Updated references elsewhere in line with the removal of the
 	hyperspec-*.el files.
 
-2002-05-31  amoroso  <amoroso@tapulon>
+2002-05-31  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (Acknowledgments): added Reini Urban.
 	(Files of ILISP): added `ilisp-ccl.el'.
