@@ -71,6 +71,9 @@ DocFiles = docs/Makefile \
            docs/ilisp-refcard.tex \
            docs/ilisp.texi
 
+
+FaslFiles = *.fasl *.fas *.lib *.x86f
+
 #==============================================================================
 # Rules
 
@@ -86,7 +89,8 @@ docs: FORCE
 	cd docs; $(MAKE)
 
 clean: 
-	-$(RM) *.elc *~ extra/*.elc extra/hyperspec.el extra/*~ TAGS
+	-$(RM) *.elc *~ extra/*.elc extra/hyperspec.el extra/*~ TAGS \
+	$(FaslFiles)
 	(cd docs; $(MAKE) clean)
 
 loadfile:
