@@ -717,8 +717,8 @@ symbol after the symbol has been typed in followed by #\\Space."
           ;; or ilisp-*arglist-message-lisp-space-p* has to be set to 'all
           (when (or (equal prefix-char "(")
                     (eql ilisp-*arglist-message-lisp-space-p* 'all))
-            (ilisp-arglist-message-lisp ilisp-symbol-avec-package)))))
-    (self-insert-command 1)))
+            (ilisp-arglist-message-lisp ilisp-symbol-avec-package))))))
+  (self-insert-command 1))
     
 
 ;;; ilisp-arglist-message-lisp --
