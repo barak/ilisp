@@ -434,7 +434,7 @@ delimit words.  Optional ANY is a delimiter that matches any of the
 delimiters in WORD.  If optional MODE is nil or 'help then possible
 matches will always be returned."
   ;; Canonicalize slashes under windows-nt for proper completion
-  (when (eq system-type 'windows-nt)
+  (when (and (eq system-type 'windows-nt) (featurep 'xemacs))
     (setq string (replace-in-string string "/" "\\\\")))
   (let* ((case-fold-search completion-ignore-case)
 	 (last (and (eq mode 'exit-ok) (completer-last-component string)))
