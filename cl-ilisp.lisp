@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.18 2003/02/24 02:25:50 rgrjr Exp $
+;;; $Id: cl-ilisp.lisp,v 1.19 2003/03/01 23:04:18 kevinrosenberg Exp $
 
 
 ;;; Old history log.
@@ -760,8 +760,18 @@ original string."
        (if results (prin1 results) (princ "()"))
        nil))))
 
-#-:cormanlisp
+#-(or sbcl :cormanlisp)
 (eval-when (load eval)
+  (when
+      #+(and :CMU (or :CMU17 :CMU18))
+      (eval:interpreted-function-p #'ilisp-matching-symbols)
+      #-(and :CMU (or :CMU17 :CMU18))
+      (not (compiled-function-p #'ilisp-matching-symbols))
+      (ilisp-message *standard-output*
+		     "File is not compiled, use M-x ilisp-compile-inits")))
+
+#+sbcl
+(eval-when (:load-toplevel :execute)
   (when
       #+(and :CMU (or :CMU17 :CMU18))
       (eval:interpreted-function-p #'ilisp-matching-symbols)
