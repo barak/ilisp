@@ -175,11 +175,11 @@ and LINE as the source code line there."
    (string->module package)))
 
 (define-public (ilisp-trace symbol package breakp)
-  (trace (eval-in-package symbol package))
+  (trace (eval-in-package symbol (string->module package)))
   *unspecified*)
 
 (define-public (ilisp-untrace symbol package)
-  (untrace (eval-in-package symbol package))
+  (untrace (eval-in-package symbol (string->module package)))
   *unspecified*)
 
 (define-public (ilisp-arglist symbol package)
@@ -189,7 +189,26 @@ and LINE as the source code line there."
 	 (l (with-input-from-string s read)))
     (cond ((pair? l) (cdr l))
 	  (else *unspecified*))))
-      
+
+(define-public (ilisp-source-file symbol package)
+  "Find the source file of SYMBOL's definition in PACKAGE."
+  (catch #t
+	 (lambda ()
+	   (let ((value (eval-in-package (read-from-string symbol)
+					 (string->module package))))
+	     (cond
+	      ((and (procedure? value)
+		    (procedure-source value))
+	       => (lambda (source)
+		    (cond
+		     ((source-property (caddr source) 'filename)
+		      => (lambda (filename) (throw 'result filename)))))))
+	     'nil))
+	 (lambda (key . args)
+	   (if (eq? key 'result)
+	       (begin (write (car args)) (newline) #t)
+	       'nil))))
+
 (define-public (ilisp-macroexpand-1 expression package)
   (save-module-excursion
    (lambda ()
