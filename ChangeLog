@@ -1,3 +1,29 @@
+2000-05-07  Martin Atzmueller  <marty@cs.utexas.edu>
+
+	* sblisp.lisp (source-file): fixed a typo.
+
+	* ilisp-out.el (ilisp-bury-output): incorporated patch by Tim Moore
+          in #'ilisp-bury-output: if the output-window was *active* it
+          could not be deleted.
+
+	* ilisp-cmp.el (ilisp-complete): if the package of a symbol to
+	  be completed was not known an error was _not_ propagated in the
+	  right place. fixed.
+
+	* lispworks.lisp: integrated patch by Martin Simmons. UNTESTED. I
+	  can't install Lispworks Personal, b/c of failed Deps!
+
+	* ilfsf19.el: integrated patch by Martin Simmons for Emacs
+	  19.x. UNTESTED b/c I don't have Emacs19.
+
+	* Makefile: removed 'custom-ilisp.elc' when building a loadfile.
+
+	* ilisp.el: removed load entry for 'custom-ilisp'.
+
+	* ilisp-mak.el: removed load/compile entry for
+	'custom-ilisp'. This screwed up when using
+	ilisp-*use-fsf-compliant-keybindings*.
+
 2000-04-19  Marco Antoniotti  <marcoxa@parades.rm.cnr.it>
 
 	* docs/ilisp.texi (Acknowledgements): Added Karl Fogel.
