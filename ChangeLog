@@ -1,5 +1,9 @@
 2000-11-30  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
+	* ilisp-sch.el (guile), guile-ilisp.scm: Updated for Guile 1.4.1.
+	Handle the case of unregistered modules.  Send source position
+	to the interpreter when evaluating.
+
 	* ilisp-ext.el: Don't clobber C-M-l and C-M-r keybindings in FSF
 	compliant mode. Those are bound to `reposition-window' and
 	`isearch-backward-regexp', respectively, at least in GNU Emacs 20.
