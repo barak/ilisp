@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: June 17, 2002
+\input texinfo    @c -*-texinfo-*-         Last modified: December 6, 2002
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,8 +77,8 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.23 of the ILISP manual
-for ILISP Version: 5.12
+This is edition 0.24 of the ILISP manual
+for ILISP Version: 5.12.1
 
 @example
 Copyright (C) 1991,1992,1993 Todd Kaufmann
@@ -109,8 +109,8 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.23, June 2002
-@subtitle For ILISP Version: 5.12
+@subtitle Edition 0.24, December 2002
+@subtitle For ILISP Version: 5.12.1
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
 @c which can be used to change all ilisp-*prefix* bindings to C-c (or
@@ -132,9 +132,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.23 of the @cite{ILISP User Manual}
-for ILISP Version: 5.12,
-June 2002.
+This is edition 0.24 of the @cite{ILISP User Manual}
+for ILISP Version: 5.12.1,
+December 2002.
 
 @sp 2
 
@@ -170,7 +170,7 @@ running in a buffer.
 * Distribution::                How to get the latest ILISP distribution.
 
 * Acknowledgements::            Acknowledgements
-* Introduction::                An introduction to ILISP and its features.
+* Features::                    An list of ILISP features.
 * Installation::                How to install ILISP.
 * Starting up::                 How to run a Lisp process using ILISP.
 
@@ -200,7 +200,9 @@ it is copyrighted and there are restrictions on its distribution, but
 these restrictions are designed to permit everything that a good
 cooperating citizen would want to do.  What is not allowed is to try to
 prevent others from further sharing any version of ILISP that they might
-get from you.  The precise conditions appears following this section.
+get from you.  The precise conditions appear in the file
+@file{COPYING}.
+@cindex @file{COPYING}
 
 The easiest way to get a copy of ILISP is from someone else who has it.
 You need not ask for permission to do so, or tell any one else; just
@@ -259,12 +261,10 @@ information pages:
 You may send bug reports, questions, suggestions, etc. to
 @file{ilisp-help} or @file{ilisp-devel}.  To report a bug you can also
 switch to the buffer where the problem occurs, execute the @code{M-x
-ilisp-bug} command and follow the displayed instructions. See the file
-@file{HISTORY} for a list of known bugs and problems.
+ilisp-bug} command and follow the displayed instructions.
 @cindex Mailing lists
 @cindex Reporting bugs
 @cindex Bugs, reporting them
-@cindex @file{HISTORY}
 @pindex ilisp-bug
 
 @menu
@@ -315,7 +315,7 @@ or
 @xref{Installation}.
 
 
-@node Acknowledgements, Introduction, Distribution, Top
+@node Acknowledgements, Features, Distribution, Top
 @unnumbered Acknowledgements
 
 ILISP replaces the standard inferior Lisp mode.  ILISP is based on
@@ -405,8 +405,8 @@ source. @xref{Distribution}.
 @end example
 
 
-@node Introduction, Installation, Acknowledgements, Top
-@unnumbered Introduction
+@node Features, Installation, Acknowledgements, Top
+@unnumbered Features
 @cindex features
 
 ILISP is an interface from GNU Emacs to an inferior Lisp.  It has the
@@ -414,7 +414,7 @@ following features:
 
 @itemize @bullet
 @item
-Runs under Emacs-18, Emacs-19, Emacs-20, and XEmacs-19.
+Runs under Emacs 18 through 21, and XEmacs 19 through 21.
 
 @item
 Support for multiple Common Lisp (including Allegro, CLISP and CMU),
@@ -425,12 +425,20 @@ Dynamically sized pop-up windows that can be buried and scrolled from
 any window.
 
 @item
-Packages are properly handled including the distinction between
-exported and internal symbols.
+When the user sends an expression from a Lisp source buffer for
+evaluation in an inferior Lisp process, ILISP automatically switches to
+the package that is indicated at the beginning of the buffer.  The
+expression is therefore read by the inferior Lisp process with the
+correct current package.
 
 @item
-Synchronous, asynchronous or batch eval and compile of files, regions,
-definitions and sexps with optional switching and automatic calling.
+Evaluation and compilation of an entire file, or of a region, a
+definition, or an s-expression of a buffer.  The user can specify for
+ILISP to switch to the inferior Lisp buffer after evaluation or
+compilation.  The user can also specify that a function definition
+should be called after evaluation.  Evaluation and compilation can be
+done either synchronously (ILISP waits for the answer), asynchronously
+(ILISP does not wait), or in batch mode.
 
 @item
 Arglist, documentation, describe, inspect and macroexpand.
@@ -458,7 +466,8 @@ strings and code.
 Find unbalanced parentheses.
 
 @item
-Super brackets.
+ILISP has commands for closing all open parentheses of the current
+``defun'' (in Emacs terminology).
 
 @item
 Handles editing, entering and indenting full Lisp expressions.
@@ -483,7 +492,7 @@ Online manuals for ILISP and Common Lisp.
 
 @end itemize
 
-@node Installation, Starting up, Introduction, Top
+@node Installation, Starting up, Features, Top
 @chapter How to install ILISP
 @cindex Installation
 Installation of ILISP and some initialization of your computing
@@ -499,10 +508,9 @@ perform these operations.
 
 @menu
 * Configuration and compilation::      
-* Files of ILISP::              
 @end menu
 
-@node  Configuration and compilation, Files of ILISP,  , Installation
+@node  Configuration and compilation,  ,  , Installation
 @comment  node-name,  next,  previous,  up
 @section Configuration and compilation
 
@@ -514,9 +522,9 @@ which are intended for maintainers).
 
 First, set the @code{EMACS} variable to be the pathname of the Emacs you
 will be using ILISP with. This is the Emacs that will be used to compile
-ILISP with. Be sure to check that @code{LN} and @code{HyperSpec} have
-appropriate values for your system, @strong{especially if you are a
-Windows user}.
+ILISP with. Be sure to set @code{LN} to the name of your operating
+system's command for creating symbolic filesystem links,
+@strong{especially if you are a Windows user}.
 
 @cindex Compiling ILISP files 
 @cindex Byte-compiling ILISP files
@@ -729,288 +737,6 @@ with a different number of columns (the default is 3).
 @cindex Reference card
 
 
-@node Files of ILISP,  , Configuration and compilation, Installation
-@section Files of ILISP
-@cindex Files of ILISP
-The files included with the ILISP distribution are:
-
-@table @file
-
-@item bridge.el
-Process to process communication.
-@cindex @file{bridge.el}
-
-@item comint-ipc.el
-Extensions for sending commands and getting results.
-@cindex @file{comint-ipc.el}
-
-@item comint-v18.el
-The basic comint abstraction.  You only need this if running Emacs-18.
-@cindex @file{comint.el}
-
-@item completer.el
-Partial completion code.
-@cindex @file{completer.el}
-
-@item custom-ilisp.el
-ILISP customization.
-@cindex @file{custom-ilisp.el}
-
-@item docs/
-Directory containing the documentation.
-@cindex @file{docs}
-
-@item extra/
-Directory containing contributed packages.
-@cindex @file{extra}
-
-@item icompile.bat
-Windows batch file for compiling ILISP (useful if you don't have GNU
-@code{make}).
-@cindex @file{icompile.bat}
-
-@item ilcompat.el
-Compatibility code between FSF-18, FSF-19, FSF-20, LEmacs-19 and XEmacs.
-@cindex @file{ilcompat.el}
-
-@item ild.el
-Uniform interface to Lisp debuggers.
-@cindex @file{ild.el}
-
-@item ilfsf18.el
-Support for GNU Emacs v18.
-@cindex @file{ilfsf18.el}
-
-@item ilfsf19.el
-Support for GNU Emacs v19.
-@cindex @file{ilfsf19.el}
-
-@item ilfsf20.el
-Support for GNU Emacs v20.
-@cindex @file{ilfsf20.el}
-
-@item ilisp-acl.el
-Allegro Common Lisp dialect definition.
-@cindex @file{ilisp-acl}
-
-@item ilisp-aut.el
-Autoload definitions.
-@cindex @file{ilisp-aut.el}
-
-@item ilisp-bat.el
-ILISP batch code module.
-@cindex @file{ilisp-bat.el}
-
-@item ilisp-bug.el
-ILISP bug submittal code.
-@cindex @file{ilisp-bug.el}
-
-@item ilisp-ccl.el
-Corman Common Lisp dialect definition.
-@cindex @file{ilisp-ccl.el}
-
-@item ilisp-chs.el
-Haible and Stoll's CLISP Common Lisp dialect definition.
-@cindex @file{ilisp-chs.el}
-
-@item ilisp-cl-easy-menu.el
-ILISP menu definition (Common Lisp dialects) for the Easymenu package.
-@cindex @file{ilisp-cl-easy-menu.el}
-
-@item ilisp-cl.el
-Common Lisp dialect definition.
-@cindex @file{ilisp-cl.el}
-
-@item ilisp-cmp.el
-ILISP completer related code. 
-@cindex @file{ilisp-cmp.el}
-
-@item ilisp-cmt.el
-Comint related code/setup.
-@cindex @file{ilisp-cmt.el}
-
-@item ilisp-cmu.el
-CMU CL Common Lisp dialect definition.
-@cindex @file{ilisp-cmu.el}
-
-@item ilisp-def.el
-Variable definitions.
-@cindex @file{ilisp-def.el}
-
-@item ilisp-dia.el
-Code for customizing dialects
-@cindex @file{ilisp-dia.el}
-
-@item ilisp-doc.el
-ILISP mode documenation.
-@cindex @file{ilisp-doc.el}
-
-@item ilisp-ext.el
-Standalone lisp-mode extensions.
-@cindex @file{ilisp-ext.el}
-
-@item ilisp-hi.el
-High level interface code.
-@cindex @file{ilisp-hi.el}
-
-@item ilisp-hlw.el
-Xanalys/Harlequin LispWorks Common Lisp dialect definition.
-@cindex @file{ilisp-hlw.el}
-
-@item ilisp-hnd.el
-Error handling.
-@cindex @file{ilisp-hnd.el}
-
-@item ilisp-imenu.el
-ILISP specific code for imenu.
-@cindex @file{ilisp-imenu.el}
-
-@item ilisp-ind.el
-Indentation code.
-@cindex @file{ilisp-ind.el}
-
-@item ilisp-inp.el
-Buffer input module.
-@cindex @file{ilisp-inp.el}
-
-@item ilisp-kcl.el
-Kyoto Common Lisp dialect definition.
-@cindex @file{ilisp-kcl.el}
-
-@item ilisp-key.el
-Keymap setups, including @code{ilisp-lispm-bindings}.
-@cindex @file{ilisp-key.el}
-
-@item ilisp-kil.el
-Interface to reset/kill/abort inferior Lisp.
-@cindex @file{ilisp-kil.el}
-
-@item ilisp-low.el
-Low level interface code.
-@cindex @file{ilisp-low.el}
-
-@item ilisp-luc.el
-Lucid/Liquid Common Lisp dialect definition.
-@cindex @file{ilisp-luc.el}
-
-@item ilisp-mak.el
-Code for supporting the ILISP build process.
-@cindex @file{ilisp-mak.el}
-
-@item ilisp-menu.el
-Menu definitions.
-@cindex @file{ilisp-menu.el}
-
-@item ilisp-mnb.el
-Menubar definition code.
-@cindex @file{ilisp-mnb.el}
-
-@item ilisp-mod.el
-ILISP mode definition.
-@cindex @file{ilisp-mod.el}
-
-@item ilisp-mov.el
-Buffer-point movement code.
-@cindex @file{ilisp-mov.el}
-
-@item ilisp-openmcl.el
-OpenMCL dialect definition.
-@cindex @file{ilisp-openmcl.el}
-
-@item ilisp-out.el
-Output handling, include typeout window (a popper replacement).
-@cindex @file{ilisp-out.el}
-
-@item ilisp-prc.el
-Process handling code.
-@cindex @file{ilisp-prc.el}
-
-@item ilisp-prn.el
-Parenthesis handling.
-@cindex @file{ilisp-prn.el}
-
-@item ilisp-rng.el
-Match ring code.
-@cindex @file{ilisp-rng.el}
-
-@item ilisp-s2c.el
-Scheme->C Scheme dialect definition.
-@cindex @file{ilisp-s2c.el}
-
-@item ilisp-sbcl.el
-Steel Bank Common Lisp dialect definition.
-@cindex @file{ilisp-sbcl.el}
-
-@item ilisp-sch.el
-Scheme dialects definitions.
-@cindex @file{ilisp-sch.el}
-
-@item ilisp-scheme-easy-menu.el
-ILISP menu definition (Scheme dialects) for the Easymenu package.
-@cindex @file{ilisp-scheme-easy-menu.el}
-
-@item ilisp-snd.el
-ilisp-send definitions and associated code.
-@cindex @file{ilisp-snd.el}
-
-@item ilisp-src.el
-ILISP source code module.
-@cindex @file{ilisp-src.el}
-
-@item ilisp-sym.el
-ILISP symbol handling.
-@cindex @file{ilisp-sym.el}
-
-@item ilisp-utl.el
-Misc. utilities.
-@cindex @file{ilisp-utl.el}
-
-@item ilisp-val.el
-Buffer value interface.
-@cindex @file{ilisp-val.el}
-
-@item ilisp-xfr.el 
-Transfer between Lisp <-> Emacs code.
-@cindex @file{ilisp-xfr.el }
-
-@item ilisp-xls.el
-XLisp and XLisp-Stat dialects definitions.
-@cindex @file{ilisp-xls.el}
-
-@item ilisp.el
-File to be loaded, loads in all necessary parts of ILISP.
-@cindex @file{ilisp.el}
-
-@item ilisp.emacs
-File with sample @file{.emacs} code for ILISP.
-@cindex @file{ilisp.emacs}
-
-@item ilisp.texi
-Texinfo file for ILISP.
-@cindex @file{ilisp.texi}
-
-@item illuc19.el
-Support for Lucid Emacs v19.
-@cindex @file{illuc19.el}
-
-@item ilxemacs.el
-Support for XEmacs.
-@cindex @file{ilxemacs.el}
-
-@item *.lisp
-Support code for Common Lisp.  Each dialect will have one of these
-files.
-@cindex @file{.lisp} files
-
-@item *.scm
-Support code for Scheme.  Each dialect will have one of these files.
-@cindex @file{.scm} files
-
-@end table
-
-@cindex @file{.el} files 
-
-
 @c ==================================================================
 @node Starting up, Keybindings, Installation, Top
 @chapter How to run a Lisp process using ILISP
@@ -1069,10 +795,11 @@ Support code for Scheme.  Each dialect will have one of these files.
 @cindex Corman Lisp
 
 To start a Lisp use @kbd{M-x run-ilisp}, or a specific dialect like
-@kbd{M-x allegro}.  If called with a prefix you will be prompted for a
-buffer name and a program to run.  The default buffer name is the name
-of the dialect.  The default program for a dialect will be the value of
-DIALECT-program or the value of ilisp-program inherited from a less
+@kbd{M-x allegro}.  If one of these two functions is called with a
+numerical prefix, the user will be prompted for a buffer name and a
+program to run.  The default buffer name is the name of the dialect with
+@code{*}s around it.  The default program for a dialect will be the value
+of DIALECT-program or the value of ilisp-program inherited from a less
 specific dialect.  If there are multiple Lisp's, use the dialect name or
 @kbd{M-x select-ilisp} (@kbd{@key{C-z} S}) to select the current ILISP
 buffer.
@@ -1097,7 +824,7 @@ Chez Scheme by Cadence Research Systems.
 @item @code{clisp-hs}
 CLISP by Haible and Stoll.
 
-@item @code{cmucl}
+@item @code{cmulisp}
 CMU Common Lisp, the major development platform for ILISP so far.
 
 @item @code{cormanlisp}
@@ -1330,6 +1057,10 @@ Buffer containing the last form sent to the inferior Lisp.
 @cindex @code{*Last-Changes*} buffer
 @cindex @code{*Changed-Definitions*} buffer
 @xref{Batch commands}.
+
+@item *Arglist-Output*
+@cindex @code{*Arglist-Output*} buffer
+A buffer for showing arglist messages.
 @end table
 
 @menu
