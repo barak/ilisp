@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.21 2002/12/12 15:14:10 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.22 2003/01/10 09:35:09 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -231,18 +231,19 @@ arglist only.  If EXPENSIVE?, take some more effort."
   "Evaluate SYM in PACKAGE and print an informational message about
 the value.  For procedures, the arglist is printed.
 This procedure is invoked by the electric space key."
-  (let ((obj (catch #t
-		    (lambda ()
-		      (eval-in-package sym
-				       (string->module package)))
-		    (lambda args #f))))
+  (if (symbol? sym)
+      (let ((obj (catch #t
+			(lambda ()
+			  (eval-in-package sym
+					   (string->module package)))
+			(lambda args #f))))
 		     
-    (cond
-     ((and obj
-	   (info-message sym obj #f #f))
-      => (lambda (message)
-	   (display message)
-	   (newline))))))
+	(cond
+	 ((and obj
+	       (info-message sym obj #f #f))
+	  => (lambda (message)
+	       (display message)
+	       (newline)))))))
 
 (define (if-defined symbol package
 			   defined-procedure undefined-procedure)
