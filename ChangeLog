@@ -1,3 +1,26 @@
+2002-12-06  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (How to get the latest ILISP distribution):
+	fixed reference to license. Fixed typo. Removed reference to
+	HISTORY file.
+	(Introduction): renamed to "Features". Updated list of supported
+	Emacs versions. Clarified explanations of packages, evaluation and
+	super brackets features.
+	(Files of ILISP): removed.
+	(Configuration and compilation): removed reference to `HyperSpec'
+	variable in Makefile, clarified expected value of variable `LN'.
+	(How to run a Lisp process using ILISP): clarified usage of
+	`run-ilisp' and `allegro', and name of dialect buffer. `cmucl' ->
+	`cmulisp'.
+	(Buffers used by ILISP, and their commands): added first cut at
+	`*Arglist-Output*' item.
+	Changes contributed by Robert Strandh
+	<strandh@labri.u-bordeaux.fr>.
+
+	* INSTALLATION (FIRST INSTALLATION STEP: UNPACKING AND COMPILING):
+	removed reference to `HyperSpec' variable in Makefile, clarified
+	expected value of variable `LN'.
+
 2002-12-03  Kevin Rosenberg <kevin@rosenberg.net>
 
 	* ilisp-snd.el, comint-ipc.el: conditionalize
