@@ -172,6 +172,8 @@ o All Common Lisp dialects
 
 o KCL, AKCL, Ibuki, GCL, and ECL
 
+        Be sure to get the latest CVS version of ECL.
+
 	- DEFPACKAGE
 	  You need to have your system configured with a
 	  DEFPACKAGE. You can either generate an image which contains
@@ -225,6 +227,26 @@ o Xanalys LispWorks (formerly Harlequin LispWorks)
         bundle includes patches (LSC #7270, LSC #7727 and LSC #7291)
         that make it work with ILISP.  For more information check the
         README file which comes with the bundle.
+
+        LispWorks users who wish to use the CAPI (LispWorks GUI toolkit)
+        via ILISP can create a suitable image with this script (call it
+        'console-capi.lisp'):
+
+          (in-package "CL-USER")
+          (load-all-patches)
+          (compile (defun my-restart () 
+                     #+Unix
+                     (capi:ensure-motif-libraries)
+                     (mp:initialize-multiprocessing)))
+          (save-image "lw-ilisp-capi" :restart-function 'my-restart 
+                                      :environment nil
+                                      #+Win32 :console #+Win32 t)
+          (quit)
+
+        This is because the CAPI requires multiprocessing, and on some Unix
+        platforms the GUI libraries that CAPI uses are normally loaded on
+        startup of the IDE, which we're bypassing with :environment nil for
+        ILISP.
 
 
 o Lucid
