@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.8 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-out.el,v 1.9 2002/02/24 16:01:53 amoroso Exp $
 
 ;;; Old history log.
 ;;;
@@ -32,7 +32,10 @@
 		  (visibility . nil)
 		  (unsplittable . t)
 		  (menu-bar-lines . 0)
-		  (icon-type . ,(ilisp-find-ilisp-icon))))))
+                  ;; Use of icon-type is currently disabled due to a bug
+                  ;; in at least Emacs 21.1 running on Windows.
+                  ;; (icon-type . ,(ilisp-find-ilisp-icon))
+                  ))))
 
 
 (defvar ilisp-display-output-function 'ilisp-display-output-default
@@ -108,10 +111,6 @@ This is needed for 'ilisp-scroll-output', and 'ilisp-bury-output'")
        ))
 
 
-;;; Useless
-;;; (push (cons t ilisp-output) ilisp-*command-to-ilisp-output-sink-table*)
-
-
 ;;; arglist-output
 
 (defvar ilisp-arglist-output nil "Output sink for Arglist messages.")
@@ -177,14 +176,8 @@ It is used to determine where the output of a 'command' should go.")
 	       ilisp-*command-to-ilisp-output-sink-table*)))
 
 
-;;; (push (cons 'arglist-lisp ilisp-arglist-output)
-;;;      ilisp-*command-to-ilisp-output-sink-table*)
-
 (ilisp-set-sink-for-command 'arglist-lisp
 			    ilisp-arglist-output)
-
-;;; (push (cons 'ilisp-arglist-message-lisp-space ilisp-arglist-output)
-;;;      ilisp-*command-to-ilisp-output-sink-table*)
 
 (ilisp-set-sink-for-command 'ilisp-arglist-message-lisp-space
 			    ilisp-arglist-output)
@@ -815,90 +808,48 @@ Dispatch on the value of 'lisp-no-popper':
 	    (setq ilisp-last-buffer buffer))
 	  (comint-insert 
 	   (concat 
-	    (if ilisp-last-message
-		(concat ";;; " ilisp-last-message "\n"))
+	    (when ilisp-last-message
+              (concat ";;; " ilisp-last-message "\n"))
 	    (comint-remove-whitespace output)
 	    "\n"
 	    ilisp-last-prompt))
 	  (setq ilisp-last-message nil))
       (when (window-point window)
 	(select-window window)
-	(set-buffer buffer))
-      )))
+	(set-buffer buffer)))))
 
 
-
-;;; Changed according to suggestions by Robert P. Goldman
-(defun* lisp-pop-to-buffer (pbuffer &optional (ilisp-output-sink nil))
+(defun lisp-pop-to-buffer (pbuffer &optional ilisp-output-sink set-input-focus-p)
   "Like pop-to-buffer, but select a screen that buffer was shown in.
 ilisp-output-sink is the last ilisp-output-sink visited/active or nil
 if this is not relevant."
   (let* ((buffer (or pbuffer
 		     (when ilisp-output-sink
 		       (ilisp-output-sink-buffer ilisp-output-sink))))
-         (ilisp-window (if ilisp-epoch-running
-                           (epoch::get-buffer-window buffer)
-			 (get-buffer-window buffer))))
-    (if ilisp-window
-	(select-window ilisp-window)
-      ;; It is not currently displayed, so find some place to display
-      ;; it.
-      (progn
-	(cond (ilisp-epoch-running
-	       ;; Select a screen that the buffer has been displayed in before
-	       ;; or the current screen otherwise.
-	       (epoch::select-screen
-		;; allowed-screens in epoch 3.2, was called screens before that
-		(or (car (save-excursion
-			   (ignore-errors ; hack!
-			     (set-buffer buffer))
-			   (symbol-value 'allowed-screens)))
-		    (epoch::current-screen))))
-
-	      ;; Next clauses patterned after a suggestion by R. P. Goldman.
-	      ((or (eq +ilisp-emacs-version-id+ 'fsf-19)
-		   (eq +ilisp-emacs-version-id+ 'fsf-20))
-	       (let* ((window (get-buffer-window buffer t))
-		      (frame (if window (window-frame window))))
-		 (if (eq 'x (framep frame))
-		     (progn
-		       (raise-frame frame)
-		       (select-frame frame)))))
-	      (t nil))			; fsf-18, but also lucid and
-					; xemacs.
-					; I do not know how to make
-					; them work
-					; Marco Antoniotti, Jan 4th 1995
-	(if ilisp-output-sink
-	    (ilisp-bury-output ilisp-output-sink))
-	(pop-to-buffer buffer)))
+         (window (if ilisp-epoch-running
+                     (epoch::get-buffer-window buffer)
+                   (get-buffer-window buffer t)))
+         (frame  (when window (window-frame window))))
+    (cond ((not window)
+           (when ilisp-output-sink
+             (ilisp-bury-output ilisp-output-sink)) ; is this neccessary?
+           (pop-to-buffer buffer))
+          (set-input-focus-p
+           (if (fboundp 'select-frame-set-input-focus)
+               (select-frame-set-input-focus frame)
+             (raise-frame frame)
+             (select-frame frame)
+             (focus-frame frame))
+           (select-window window))
+          (t (when (or (memq (frame-visible-p frame) '(nil icon))
+                       (when (fboundp 'frame-iconified-p)
+                         (frame-iconified-p frame)))
+               (raise-frame frame)
+               (raise-frame (selected-frame)))
+             (select-frame frame)
+             (select-window window)))
     (set-buffer buffer)))
 
-;(defun lisp-pop-to-buffer (buffer)
-;  "Like pop-to-buffer, but select a screen that buffer was shown in.
-; Also, first bury any typeout-window."
-;  (let ((ilisp-window (if ilisp-epoch-running
-;			  (epoch::get-buffer-window buffer)
-;			  (get-buffer-window buffer))))
-;    (if ilisp-window
-;	(select-window ilisp-window)
-;	;; It is not currently displayed, so find some place to display it.
-;	(if ilisp-epoch-running
-;	    ;; Select a screen that the buffer has been displayed in before
-;	    ;; or the current screen otherwise.
-;	    (epoch::select-screen
-;	     ;; allowed-screens in epoch 3.2, was called screens before that
-;	     (or (car (save-excursion
-;			(set-buffer buffer)
-;			(symbol-value 'allowed-screens)))
-;		 (epoch::current-screen))))
-;	;; Do not pop to the output buffer.
-;	(ilisp-bury-output)
-;	(pop-to-buffer buffer)))
-;  (set-buffer buffer))
-
-
-;;; switch-to-lisp 
 
 (defun switch-to-lisp (eob-p &optional ilisp-only)
   "If in an ILISP buffer, switch to the last non-ILISP buffer visited.
@@ -908,10 +859,11 @@ windows, set pop-up-windows to NIL."
   (interactive "P")
   (if (and (not ilisp-only) ilisp-last-buffer 
 	   (memq major-mode ilisp-modes))
-      (lisp-pop-to-buffer ilisp-last-buffer)
-      (if (not (memq major-mode ilisp-modes))
-	  (setq ilisp-last-buffer (current-buffer)))
-      (lisp-pop-to-buffer (ilisp-buffer))
-      (cond (eob-p (goto-char (point-max))))))
+      (lisp-pop-to-buffer ilisp-last-buffer nil t)
+    (unless (memq major-mode ilisp-modes)
+      (setq ilisp-last-buffer (current-buffer)))
+    (lisp-pop-to-buffer (ilisp-buffer) nil t)
+    (when eob-p
+      (goto-char (point-max)))))
 
 ;;; end of file -- ilisp-out.el --
