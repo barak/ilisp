@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: December 10, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: February 18, 2002
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -78,7 +78,7 @@
 This file documents ILISP.
 
 This is edition 0.23 of the ILISP manual
-for ILISP Version: 5.11.1
+for ILISP Version: 5.12
 
 @example
 Copyright (C) 1991,1992,1993 Todd Kaufmann
@@ -109,8 +109,8 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.23, December 2001
-@subtitle For ILISP Version: 5.11.1
+@subtitle Edition 0.23, March 2002
+@subtitle For ILISP Version: 5.12
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
 @c which can be used to change all ilisp-*prefix* bindings to C-c (or
@@ -133,8 +133,8 @@ Copyright @copyright{} @itemize
 
 @sp 2
 This is edition 0.23 of the @cite{ILISP User Manual}
-for ILISP Version: 5.11.1,
-December 2001.
+for ILISP Version: 5.12,
+March 2002.
 
 @sp 2
 
@@ -618,13 +618,20 @@ Example site init:
 
 Kent Pitman and Xanalys Inc. have made publicly available on the Web the
 Common Lisp HyperSpec, an HTML version of the full text of the ANSI
-Common Lisp specification.  Daniel Barlow, Stephen Carney and Erik
-Naggum independently developed Emacs Lisp packages for looking up Lisp
-symbols in the HyperSpec and displaying the relevant sections with a Web
-browser. ILISP includes all of them in the @file{extra} directory of the
-distribution tree. By default ILISP uses Naggum's package.  If you want
-to use one of the others, see the comments at the beginning of the
-corresponding files.
+Common Lisp specification:
+@example
+http://www.xanalys.com/software_tools/reference/HyperSpec/
+@end example
+It is also possible to get a local copy of the HyperSpec, whose latest
+version is currently v6, by downloading the file
+@code{HyperSpec-6-0.tar.gz} from the above mentioned site.
+
+Daniel Barlow, Stephen Carney and Erik Naggum independently developed
+Emacs Lisp packages for looking up Lisp symbols in the HyperSpec and
+displaying the relevant sections with a Web browser. ILISP includes all
+of them in the @file{extra} directory of the distribution tree. By
+default ILISP uses Naggum's package.  If you want to use one of the
+others, see the comments at the beginning of the corresponding files.
 @cindex ANSI Common Lisp
 @cindex HyperSpec
 @cindex Common Lisp HyperSpec
