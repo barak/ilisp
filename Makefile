@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.16 2001/12/28 18:31:49 craigly Exp $
+# $Id: Makefile,v 1.17 2002/01/21 18:08:09 marcoxa Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -60,7 +60,7 @@ LoadFiles = ilisp-def.elc ilisp-sym.elc \
  ilisp-ext.elc ilisp-mod.elc ilisp-dia.elc ilisp-cmt.elc ilisp-rng.elc \
  ilisp-hnd.elc ilisp-utl.elc ilisp-cmp.elc ilisp-kil.elc ilisp-snd.elc \
  ilisp-xfr.elc ilisp-hi.elc ilisp-aut.elc \
- ilisp-cl.elc ilisp-cmu.elc ilisp-sbcl.elc ilisp-cl-easy-meny.elc\
+ ilisp-cl.elc ilisp-cmu.elc ilisp-sbcl.elc ilisp-cl-easy-menu.elc\
  ilisp-acl.elc ilisp-kcl.elc ilisp-luc.elc ilisp-sch.elc ilisp-hlw.elc \
  ilisp-xls.elc ilisp-chs.elc
 
