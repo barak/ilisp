@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.14 2002/07/01 14:50:35 mkoeppe Exp $
+;;; $Id: ilisp-hi.el,v 1.15 2002/09/05 13:33:03 anisotropy9 Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -195,10 +195,13 @@ an ILISP buffer."
 	    (insert form)
 	    (compile-defun-lisp)))
       ;; Display the value returned by the compilation. -fmw
+      ;; [and fake it if the compiler was silent.  -- rgr, 23-Aug-02.]
       (let* ((thing (car (cdr (cdr form))))
 	     (result (compile-region-lisp start end (or switch 'result)
 					  (format "Compiling %s" thing))))
-	(lisp-display-output result)))))
+	(lisp-display-output (if (equal result "")
+				 (format "Compiled %s" thing)
+				 result))))))
 
 ;;;%%%And-go
 (defun compile-region-and-go-lisp (start end)
@@ -700,7 +703,10 @@ symbol after the symbol has been typed in followed by #\\Space."
                           (equal last-char ";")
                           ;; do something only if directly after a sexp.
                           (equal last-char " ")))
-                   (string-equal package "#+") (string-equal package "#-")
+		   ;; could be something like #+foo, #-foo, or #:foo, any of
+		   ;; which is likely to lose.
+		   (and string
+			(string-match "^#" string))
                    double-quote-pos;; there is no output  for strings only.
                    (not (and symbol (stringp symbol) (> (length symbol) 0)))
                    (string-match "^\. " symbol)

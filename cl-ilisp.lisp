@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.13 2002/08/20 11:24:56 anisotropy9 Exp $
+;;; $Id: cl-ilisp.lisp,v 1.14 2002/09/05 13:33:03 anisotropy9 Exp $
 
 
 ;;; Old history log.
@@ -350,7 +350,7 @@ This will only work on Microsoft NT, not on a Win95 based OS."
   ;; NOTE: Rich Mallory proposed a variation of the next piece of
   ;; code. for the time being we stick to the following simpler code.
   ;; Marco Antoniotti: Jan 2 1995.
-  #-lucid
+  #-(or lucid cmu)
   (ilisp-eval
    (format nil "(funcall (compile nil '(lambda () ~A)))"
 	   form)
@@ -365,9 +365,25 @@ This will only work on Microsoft NT, not on a Win95 based OS."
  				 (merge-pathnames filename)))
  	(lcl:*redefinition-action* nil))
     (with-input-from-string (s form)
-			    (lucid::compile-in-core-from-stream s)
-			    (values)))
-  )
+      (lucid::compile-in-core-from-stream s)
+      (values)))
+  ;; Without this variant, CMUCL loses the source file information.  Tested in
+  ;; cmucl 18d, but it is likely to work in much older versions as well.
+  #+cmu
+  (let ((*package* (ilisp-find-package package))
+ 	(source-info
+	  (c::make-file-source-info (c::verify-source-files filename))))
+    (with-input-from-string (s form)
+      (c::compile-from-stream s :source-info source-info
+			      ;; this shuts of the "Converted foo/Compiling foo"
+			      ;; messages, which are a bit much for a single
+			      ;; defun, though may be desirable for a region.
+			      :print nil
+			      ;; [if we don't shut this off too, the default of
+			      ;; :maybe gets turned into t for top-level forms.
+			      ;; -- rgr, 23-Aug-02.]
+			      :byte-compile nil)
+      (values))))
 
 ;;;
 (defun ilisp-describe (sexp package)
