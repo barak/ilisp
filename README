@@ -1,5 +1,5 @@
-ILISP 5.11
-==========
+ILISP 5.11.1
+============
 
 ILISP is a powerful GNU Emacs interface to many dialects of Lisp, including
 Lucid, Allegro, Xanalys/Harlequin LispWorks, GCL, KCL, AKCL, ECL, IBCL, and
