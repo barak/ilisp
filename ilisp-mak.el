@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.10 2003/03/25 03:05:50 rgrjr Exp $
+;;; $Id: ilisp-mak.el,v 1.11 2003/04/10 18:50:33 rgrjr Exp $
 
 (require 'cl)
 
@@ -72,6 +72,7 @@
 		   "ilisp-inp"
 		   "ilisp-ind"
 
+		   "ilisp-mouse"
 		   "ilisp-prc"
 		   "ilisp-val"
 		   "ilisp-out"
