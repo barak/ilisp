@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-prc.el,v 1.3 2003/02/16 01:59:18 rgrjr Exp $
+;;; $Id: ilisp-prc.el,v 1.4 2003/07/19 01:28:52 rgrjr Exp $
 
 
 (defun ilisp-process ()
@@ -103,6 +103,11 @@ even though the user interface requests the dialect name, e.g. \"cmulisp\"."
 	  ;; 22-Sep-02.]
 	  (error "Oops; buffer %S no longer exists." new-ilisp-buffer))
 	(t
+	  ;; flush M-. cache first.  [it might be cleaner to cache based on the
+	  ;; dialect as well, but then we'd also have to provide a separate
+	  ;; command to flush the cache explicitly.  -- rgr, 18-Jul-03.]
+	  (setq lisp-inferior-source-definitions-cache nil)
+	  ;; install new selected dialect.
 	  (setq ilisp-buffer new-ilisp-buffer)
 	  (message "Selecting %s as the current ILISP dialect buffer."
 		   (substring new-ilisp-buffer 1 -1)))))
