@@ -24,6 +24,18 @@ set -e
 
 case "$1" in
     configure)
+        if [ -x /usr/sbin/register-common-lisp-source ]; then
+	    cd /usr/share
+	    ln -sf ../../ilisp \
+		/usr/share/common-lisp/source;
+	    ln -sf ../../ilisp/ilisp.system \
+		/usr/share/common-lisp/systems/ilisp.system;
+	    ln -sf ../../ilisp \
+		/usr/share/common-lisp/repositories;
+
+	    register-common-lisp-source ilisp;
+
+	fi
 	cd /usr/share/info
 	install-info --quiet --section "Emacs" "Emacs" \
 	    --menuentry=ilisp \
@@ -32,6 +44,14 @@ case "$1" in
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
+	if [ -x /usr/sbin/unregister-common-lisp-source ]; then
+
+	    unregister-common-lisp-source ilisp;
+
+	    rm -f /usr/share/common-lisp/source/ilisp
+	    rm -f /usr/share/common-lisp/respositories/ilisp
+	    rm -f /usr/share/common-lisp/systems/ilisp.system
+	fi
 
     ;;
 

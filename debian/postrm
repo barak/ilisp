@@ -21,7 +21,7 @@ case "$1" in
 
                                 # update the menu system
 #        if [ -x /usr/bin/update-menus ]; then update-menus; fi
-
+         rm -rf /usr/share/ilisp/
         ;;
 
     *)

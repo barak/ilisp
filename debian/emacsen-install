@@ -37,7 +37,6 @@ install -m 755 -d ${ELCDIR}
 install -m 755 -d ${ELCDIR}/extra
 cd ${ELDIR}
 cp `echo *.el` ${ELCDIR}
-cp `echo *.lisp` ${ELCDIR}
 cd ${ELDIR}/extra
 cp ${HYPERSPEC} ${ELCDIR}/extra/hyperspec.el
 cp cltl2.el ${ELCDIR}/extra/cltl2.el

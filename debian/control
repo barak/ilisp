@@ -7,6 +7,7 @@ Standards-Version: 3.0.1
 Package: ilisp
 Architecture: all
 Depends: emacsen
+Suggests: common-lisp-controller
 Description: Package for interacting with LISPs using EMACSes
  ILISP is a powerful GNU Emacs interface to many dialects of Lisp,
  including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL,

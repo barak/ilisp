@@ -2,26 +2,31 @@
 
 ;;; .ilisp --
 
+(if (file-executable-p "/usr/sbin/register-common-lisp-source")
+    (defvar ilisp-*directory* "/usr/share/common-lisp/source/ilisp/")
+    (defvar ilisp-*directory* "/usr/share/ilisp/"))
+
+
 (autoload 'run-ilisp "ilisp" "Select a new inferior LISP." t)
 
-(autoload 'clisp     "ilisp" "Inferior generic Common LISP." t)
+(autoload 'clisp-hs  "ilisp" "Inferior CLISP Common LISP." t)
 
 ;;; CMULISP
 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
 
-(autoload 'sblisp  "ilisp" "Inferior CMU Common LISP." t)
+(autoload 'cmulisp-small  "ilisp" "Inferior CMU Common LISP -- small core." t)
+
+(autoload 'cmulisp-normal  "ilisp" "Inferior CMU Common LISP -- normal core." t)
+
+(autoload 'cmulisp-safe  "ilisp" "Inferior CMU Common LISP -- safe core" t)
+
+(autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
 
 (autoload 'scheme    "ilisp" "Inferior generic Scheme." t)
 
-(autoload 'guile    "ilisp" "Inferior generic Scheme." t)
-
-(setq clisp-program "clisp")
-
-(setq cmulisp-program "/usr/bin/lisp")
+(autoload 'guile    "ilisp" "Inferior Guile Scheme." t)
 
 (setq scheme-program "/usr/bin/guile")
-
-(setq guile-program "/usr/bin/guile")
 
 (setq ilisp-*use-frame-for-output* nil)
 (setq *ilisp-use-frame-for-output* nil)
@@ -43,14 +48,3 @@
  'scheme-mode-hook (function 
 		    (lambda ()
 		      (require 'ilisp))))
-
-(add-hook 'ilisp-site-hook
-	  (function
-	   (lambda ()
-	     (setq ilisp-init-binary-extension "x86f")
-	     (setq ilisp-init-binary-command "(progn \"x86f\")")
-	     (setq ilisp-binary-extension "x86f")
-	     (setq ilisp-binary-command "\"x86f\"")
-	     )))
-
-

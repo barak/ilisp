@@ -1,3 +1,28 @@
+ilisp (5.11.1-7) unstable; urgency=low
+
+  * well 125744 was fixed, but I put the files in the old place on
+    accident.
+  * Fixed 140049 - bad symlinks
+  * Fixed 138669 - typo in ilisp-cmu
+  * Fixed 137011 - ilisp-pkg issues
+
+ -- Craig Brozefsky <craig@red-bean.com>  Mon, 25 Feb 2002 12:26:21 -0500
+
+ilisp (5.11.1-6) unstable; urgency=low
+
+  * common-lisp-controller support finally.  This is the official
+    interface for ILISP maintenance of source and compiled files for
+    it's various CL based backends.
+  * upstream updates, fresh baked from HEAD
+  * closed 125744 ilisp-mak.el turn on
+  * closed 98132  (use c-l-c now) take up with clisp maintainer
+  * closed 128856 (use c-l-c now) cleanup is really cmucl's problem
+  * closed 129980 (use c-l-c now)
+  * closed 87652  (use c-l-c now)
+  * closed 123631 (remaining changes are to be taken care of upstream)
+
+ -- Craig Brozefsky <craig@red-bean.com>  Fri, 22 Feb 2002 12:26:21 -0500
+
 ilisp (5.11.1-5) unstable; urgency=low
 
   * compile/install ilisp-imenu

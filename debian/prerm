@@ -18,7 +18,10 @@ set -e
 case "$1" in
     remove|upgrade|deconfigure)
        install-info --quiet --remove /usr/share/info/ilisp.info.gz
-        ;;
+       if [ -x /usr/bin/unregister-common-lisp-source ]; then
+	   unregister-common-lisp-source ilisp;
+       fi
+	;;
     failed-upgrade)
         ;;
     *)

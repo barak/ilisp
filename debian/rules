@@ -43,9 +43,11 @@ binary-arch: build
 	$(installdoc) -d debian/tmp/usr/share/info
 	$(installdoc) docs/*.info* debian/tmp/usr/share/info
 	$(installbin) -d debian/tmp/usr/share/emacs/site-lisp/ilisp
+	$(installbin) -d debian/tmp/usr/share/ilisp
 	$(installdoc) *.el debian/tmp/usr/share/emacs/site-lisp/ilisp
-	$(installdoc) *.lisp debian/tmp/usr/share/emacs/site-lisp/ilisp
-	$(installdoc) *.scm debian/tmp/usr/share/emacs/site-lisp/ilisp
+	$(installdoc) *.lisp debian/tmp/usr/share/ilisp
+	$(installdoc) *.scm debian/tmp/usr/share/ilisp
+	$(installdoc) debian/ilisp.system debian/tmp/usr/share/ilisp/ilisp.system
 	$(installbin) -d debian/tmp/usr/share/emacs/site-lisp/ilisp/extra
 	$(installdoc) extra/*.el debian/tmp/usr/share/emacs/site-lisp/ilisp/extra
 	$(installbin) -d debian/tmp/etc/ilisp
