@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.15 2001/07/16 13:24:59 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.16 2002/01/16 18:07:06 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -120,6 +120,34 @@ arglist only.  If EXPENSIVE?, take some more effort."
   ;; meaningful result even if we aren't allowed to read the
   ;; documentation files (EXPENSIVE? = #f).
     (cond
+     ((and (procedure? obj)
+	   (procedure-property obj 'arglist))
+      => (lambda (arglist)
+	   (let ((required-args (car arglist))
+		 (optional-args (cadr arglist))
+		 (keyword-args (caddr arglist))
+		 (allow-other-keys? (cadddr arglist))
+		 (rest-arg (car (cddddr arglist))))
+	     (with-output-to-string
+	       (lambda ()
+		 (define (arg-only arg/default)
+		   (if (pair? arg/default) (car arg/default) arg/default))
+		 (write
+		  (append
+		   (if arglist-only?
+		       '()
+		       (list sym))
+		   required-args
+		   (if (not (null? optional-args))
+		       (cons #:optional (map arg-only optional-args))
+		       '())
+		   (if (not (null? keyword-args))
+		       (cons #:key (map arg-only keyword-args))
+		       '())
+		   (if allow-other-keys?
+		       (list #:allow-other-keys)
+		       '())
+		   (if rest-arg rest-arg '()))))))))
      ((closure? obj)
       (let ((formals (cadr (procedure-source obj))))
 	(if arglist-only? formals (cons sym formals))))
