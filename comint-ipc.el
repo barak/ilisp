@@ -478,7 +478,7 @@ comint-send or comint-default-send, or results will be mixed up."
 		    ;; The code hereafter fixes the problem.
 		    
 		    (if handler
-			(save-excursion
+			(save-current-buffer
 			  (setq handler
 				(funcall handler comint-errorp wait-p
 					 message output last))))
