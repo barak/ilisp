@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.8 2002/05/23 20:40:41 marcoxa Exp $
+;;; $Id: ilisp-mak.el,v 1.9 2002/05/31 11:47:57 amoroso Exp $
 
 (require 'cl)
 
@@ -100,6 +100,7 @@
 
 		   ;; Dialects.
 		   "ilisp-cl"
+		   "ilisp-ccl"
 		   "ilisp-cmu"
 		   "ilisp-sbcl"
 		   "ilisp-chs"
