@@ -1,3 +1,10 @@
+2001-10-28  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-chs.el (clisp-hs-program): removed `-a' (deprecated, and
+	besides whe should let the user decide whether he prefers ANSI
+	mode) and `-q' (didn't give deserved credit) options from CLISP's
+	command line.
+
 2001-10-25  Paolo Amoroso  <amoroso@mclink.it>
 
         * completer.el:
