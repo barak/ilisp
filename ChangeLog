@@ -1,3 +1,11 @@
+2001-05-22  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* Makefile: Include ChangeLog and ACKNOWLEDGMENTS in the
+	distribution. 
+
+	* guile-ilisp.scm: Define module (guile-ilisp) before using it in
+	module (guile-user); this is needed for Guile 1.5.
+
 2001-05-14  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* Makefile: Put *.scm files into the distribution.
