@@ -340,9 +340,19 @@ first type in ilisp-source-types."
     (unwind-protect
        (if (and tags-file-name (not source-ok))
 	   (progn (setq lisp-using-tags t)
-		  (if (string-match "Lucid" emacs-version)
-		      (find-tag symbol-name stay)
-		      (find-tag symbol-name nil stay))
+		  (cond 
+		   (search
+		    ;; Search through all files listed in tags table
+		    (setq tags-loop-scan (list locator
+					       (list 'quote symbol) 
+					       type t nil)
+			  tags-loop-operate nil)
+		    (tags-loop-continue t))
+		   (t
+		    ;; Use tags
+		    (if (string-match "Lucid" emacs-version)
+			(find-tag symbol-name stay)
+		      (find-tag symbol-name nil stay))))
 		  (setq tagged t)))
        (if (not tagged)
 	   (progn
@@ -699,7 +709,10 @@ This is the Scheme counterpart of `lisp-locate-ilisp'."
 This is the Scheme counterpart of `lisp-locate-calls'."
   (let ((call-regexp 
 	 (format "[( \t\n]+%s[ \t\n()]+"
-		 (regexp-quote (lisp-buffer-symbol symbol))))
+		 (regexp-quote 
+		  ;; Scheme has no package prefixes, so we use
+		  ;; lisp-symbol-name instead of lisp-buffer-symbol.
+		  (lisp-symbol-name symbol))))
 	(def-regexp "[ \t\n]*(def[^ \t\n]*[ \t\n]+(*")
 	(result 'unknown))
     (while (eq result 'unknown)
