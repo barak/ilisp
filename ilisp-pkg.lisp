@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.5 2002/03/26 09:54:27 anisotropy9 Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.6 2002/03/27 20:48:11 anisotropy9 Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Prologue
@@ -46,8 +46,8 @@
 ;;; definition process. The solution to make CL case insensitive and
 ;;; have the reader use uppercase appears, with the power of
 ;;; hindsight, short-sighted. However, the backwardly incompatible
-;;; solution provided by Franz Inc seems a poor fix."
-;;; 26 March 2002 Will Deakin
+;;; solution provided by Franz Inc seems a sub-optimal fix."
+;;; 27 March 2002 Will Deakin
 
 #-(and nil gcl)
 (defpackage :ilisp (:use :common-lisp #+:CMU :conditions)
