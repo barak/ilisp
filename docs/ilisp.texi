@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: June 7, 2002
+\input texinfo    @c -*-texinfo-*-         Last modified: June 17, 2002
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -367,6 +367,7 @@ Hannu Koivisto,
 Qiegang Long,
 Christian Lynbech,
 Erik Naggum,
+Alain Picard
 Dan Pierson,
 Yusuf Pisan,
 Frank Ritter,
