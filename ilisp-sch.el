@@ -136,10 +136,7 @@
 ;;; and Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de>
 ;;;
 ;;; This has been written for Guile 1.3.4
-;;; and updated for Guile 1.4.1
-;;;
-;;; The documentation system changes in 1.4.1 will make some more
-;;; changes necessary.
+;;; and updated for Guile 1.4 and 1.4.1
 
 (defvar ilisp-guile-init-file "guile-ilisp.scm")
 
