@@ -1,3 +1,10 @@
+2001-01-16  Martin Atzmueller  <martin@atzmueller.net>
+
+        * ilisp-out.el: ILISP Output and ILISP Arglist Output frames are
+          no longer created at load time because they may not be used at
+          all and they are created on-demand anyway (patch contributed by
+	  Hannu Koivisto  <azure@iki.fi>).
+
 2001-01-09  Martin Atzmueller  <martin@atzmueller.net>
 
 	* sblisp.lisp (arglist): fixed a bug, when we already have the
