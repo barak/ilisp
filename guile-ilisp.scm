@@ -190,6 +190,15 @@ and LINE as the source code line there."
     (cond ((pair? l) (cdr l))
 	  (else *unspecified*))))
 
+(define (or-map* f list)
+  "Apply f to successive elements of l until exhaustion or improper end
+or while f returns #f. If returning early, return the return value of f."
+  (let loop ((result #f)
+	     (l list))
+    (or result
+	(and (pair? l)
+	     (loop (f (car l)) (cdr l))))))
+
 (define-public (ilisp-source-file symbol package)
   "Find the source file of SYMBOL's definition in PACKAGE."
   (catch #t
@@ -200,9 +209,12 @@ and LINE as the source code line there."
 	      ((and (procedure? value)
 		    (procedure-source value))
 	       => (lambda (source)
-		    (cond
-		     ((source-property (caddr source) 'filename)
-		      => (lambda (filename) (throw 'result filename)))))))
+		    (and=>
+		     (or-map* (lambda (s)
+				(false-if-exception
+				 (source-property s 'filename)))
+			      source)
+		     (lambda (filename) (throw 'result filename))))))
 	     'nil))
 	 (lambda (key . args)
 	   (if (eq? key 'result)
