@@ -1,3 +1,8 @@
+2003-05-18  Kevin Rosenberg <kevin@rosenberg.net>
+
+	* allegro.lisp: Change reader conditional with
+	Larry Hunter's fix.
+	
 2003-05-16  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp.texi: Updated documentation to reflect changes to FSF

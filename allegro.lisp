@@ -9,17 +9,15 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: allegro.lisp,v 1.6 2003/04/02 01:56:19 rgrjr Exp $
+;;; $Id: allegro.lisp,v 1.7 2003/05/19 18:15:41 kevinrosenberg Exp $
 
 ;;; Allegro initializations
 ;;; Author: Chris McConnell, ccm@cs.cmu.edu
 
 (in-package :ilisp)
 
-;;; 20001203 Patch suggested by Larry Hunter <Larry.Hunter@uchsc.edu>
-;;; EXCL::FN_SYMDEF is no longer available by default.
-
-#+(or allegro-v5.0 allegro-v6.0 allegro-v6.1)
+;; Larry Hunter's fix
+#+(and allegro-version>= (version>= 5))
 (eval-when (compile load) (require :llstructs))
 
 ;;;
