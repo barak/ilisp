@@ -64,7 +64,7 @@
 	 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
 	 (setq cmulisp-program "/usr/bin/lisp")
 	 (setq sbcl-program "/usr/bin/sbcl")
-	 (setq scheme-program "/usr/bin/guile")
+	 (setq guile-program "/usr/bin/guile1.4")
 
 	 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
 	 (setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
