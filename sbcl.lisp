@@ -10,10 +10,18 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.2 2001/06/06 10:51:04 mna Exp $
+;;; $Id: sbcl.lisp,v 1.3 2001/10/05 13:56:08 amoroso Exp $
 
 
 (in-package "ILISP")
+
+;;;% Determine a version
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (when (find-package "SB-EVAL")
+    (pushnew 'evaluator *features*))
+  (unless (typep (sb-kernel::specifier-type 'sb-kernel::byte-function)
+                 'sb-kernel::unknown-type)
+    (pushnew 'byte-compiler *features*)))
 
 ;;;% CMU CL does not define defun as a macro
 (defun ilisp-compile (form package filename)
@@ -59,7 +67,7 @@
 		 (and (fboundp sym) (symbol-function sym)))))
     (cond (fun
 	   (when (and (= (sb-impl::get-type fun) #.sb-vm:closure-header-type)
-		      (not (sb-eval:interpreted-function-p fun)))
+		      #+evaluator (not (sb-eval:interpreted-function-p fun)))
 	     (setq fun (sb-impl::%closure-function fun)))
 	   fun)
 	  (t
@@ -108,12 +116,15 @@
 
 	       (#.sb-vm:funcallable-instance-header-type
 		(typecase func
-		  (sb-kernel:byte-function
+		  #+byte-compiler
+                  (sb-kernel:byte-function
 		   "Byte compiled function or macro, no arglist available.")
+		  #+byte-compiler
 		  (sb-kernel:byte-closure
 		   "Byte compiled closure, no arglist available.")
 		  ((or generic-function sb-pcl::generic-function)
 		   (sb-pcl::generic-function-pretty-arglist func))
+                  #+evaluator
 		  (sb-eval:interpreted-function
 		   (massage-arglist
 		    (sb-eval::interpreted-function-arglist func)))
@@ -138,7 +149,8 @@
   (ilisp-errors
    (let* ((x (ilisp-find-symbol symbol package))
 	  (fun (get-correct-fn-object x)))
-     (when (and fun (not (sb-eval:interpreted-function-p fun)))
+     (when (and fun
+                #+evaluator (not (sb-eval:interpreted-function-p fun)))
 	   ;; The hack above is necessary because CMUCL does not
 	   ;; correctly record source file information when 'loading'
 	   ;; a non compiled file.
@@ -179,9 +191,11 @@ returned."
 		       (sb-c::debug-source-name source)))))))))
     (typecase function
       (symbol (fun-defined-from-pathname (fdefinition function)))
+      #+byte-compiler
       (sb-kernel:byte-closure
        (fun-defined-from-pathname
 	(sb-kernel:byte-closure-function function)))
+      #+byte-compiler
       (sb-kernel:byte-function
        (frob (sb-c::byte-function-component function)))
       (function
