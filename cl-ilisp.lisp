@@ -455,7 +455,7 @@ The trick is to try to handle print case issues intelligently."
 	   #+:sbcl
 	   (arglist symbol (symbol-package symbol))
 	   
-	   #-(or allegro lucid kcl ibcl ecl clisp cmu :sbcl)
+	   #-(or allegro lucid kcl ibcl ecl gcl lispworks clisp cmu :sbcl)
 	   (documentation symbol 'function)))))
 
 
