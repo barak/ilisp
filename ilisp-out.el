@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.14 2003/02/16 02:49:27 rgrjr Exp $
+;;; $Id: ilisp-out.el,v 1.15 2003/03/26 03:22:47 rgrjr Exp $
 
 ;;; Old history log.
 ;;;
@@ -876,7 +876,8 @@ if this is not relevant."
                    (get-buffer-window buffer t)))
          (frame  (when window (window-frame window))))
     (cond ((not window)
-           (when ilisp-output-sink
+           (when (and ilisp-output-sink
+		      (get-buffer (ilisp-output-sink-buffer ilisp-output-sink)))
 	     ;; is this necessary?
              (ilisp-bury-output-internal ilisp-output-sink))
            (pop-to-buffer buffer))
