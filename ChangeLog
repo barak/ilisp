@@ -1,3 +1,9 @@
+2003-05-21  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ild.el, ilisp-key.el, ilisp.texi: Updated FSF keybindings to use
+	"C-c C-v" prefix instead of "C-c C-f" due to conflict with xemacs
+	comint mode binding.
+
 2003-05-20  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ild.el, ilisp-key.el, ilisp.texi: Updated FSF keybindings to use

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ild.el,v 1.6 2003/05/20 15:51:14 bill_clementson Exp $
+;;; $Id: ild.el,v 1.7 2003/05/21 15:12:08 bill_clementson Exp $
 
 ;;; Keystroke c-u? What it does
 ;;; ---------------------------------------------------------
@@ -219,7 +219,7 @@
 (defkey-ilisp "\C-cr"   'ild-return        t  "\C-c\C-b\C-m")
 (defkey-ilisp "\C-\M-r" 'ild-retry         t  "\C-c\C-b\C-r")
 (defkey-ilisp "\C-xt"   'ild-trap-on-exit  t  "\C-c\C-b\C-x")
-(ilisp-safe-define-key global-map "\C-cL" 'select-lisp "\C-c\C-fa")
+(ilisp-safe-define-key global-map "\C-cL" 'select-lisp "\C-c\C-va")
 (ilisp-bind-ilisp-key-for-map lisp-mode-map  "\C-f" 'fast-lisp "\C-b\C-f")
 (ilisp-bind-ilisp-key-for-map ilisp-mode-map "\C-f" 'fast-lisp "\C-b\C-f")
 (ilisp-bind-ilisp-key-for-map lisp-mode-map  "\C-s" 'slow-lisp "\C-b\C-g")

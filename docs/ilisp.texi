@@ -1015,7 +1015,7 @@ control.
 
 @item
 All of the <buffer/edit> related functions are set up on on
-@kbd{@key{C-c C-f} C-<letter>} key bindings. Rationale: @kbd{C-c C-f}
+@kbd{@key{C-c C-v} C-<letter>} key bindings. Rationale: @kbd{C-c C-v}
 is an easy control key sequence to hit and the "buffer/edit" functions
 are used quite a lot.
 

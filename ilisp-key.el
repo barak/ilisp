@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-key.el,v 1.6 2003/05/20 15:51:21 bill_clementson Exp $
+;;; $Id: ilisp-key.el,v 1.7 2003/05/21 15:12:18 bill_clementson Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)
@@ -108,16 +108,16 @@ ilisp-*prefix* is set to the desired prefix."
     (define-key   keymap "]"        'close-all-lisp))
 
   (define-key   keymap "\M-q"              'reindent-lisp)
-  (ilisp-safe-define-key keymap "\C-]"     'close-and-send-lisp "\C-c\C-f]")
-  (ilisp-safe-define-key keymap "\M-]"     'close-all-lisp "\C-c\C-f\C-]")
+  (ilisp-safe-define-key keymap "\C-]"     'close-and-send-lisp "\C-c\C-v]")
+  (ilisp-safe-define-key keymap "\M-]"     'close-all-lisp "\C-c\C-v\C-]")
   (define-key   keymap "\t"                'indent-line-ilisp)
   (define-key   keymap "\n"                'newline-and-indent-lisp)
   (define-key   keymap "\M-\C-q"           'indent-sexp-ilisp)
-  (ilisp-bind-ilisp-key-for-map keymap ";" 'comment-region-lisp "\C-f\C-\\")
+  (ilisp-bind-ilisp-key-for-map keymap ";" 'comment-region-lisp "\C-v\C-\\")
 
   ;; note: again, a technical violation of FSF keybinding policy, but
   ;; safe & useful enough that I think it's best to leave it as is:
-  (ilisp-bind-ilisp-key-for-map keymap ")"        'find-unbalanced-lisp "\C-f\C-u")
+  (ilisp-bind-ilisp-key-for-map keymap ")"        'find-unbalanced-lisp "\C-v\C-u")
 
   (define-key   keymap "\M-\C-a"  'beginning-of-defun-lisp)
   (define-key   keymap "\M-\C-e"  'end-of-defun-lisp)
@@ -135,10 +135,10 @@ ilisp-*prefix* is set to the desired prefix."
 
   (ilisp-safe-define-key keymap "\M-," 'next-definition-lisp "\M-,")
   (ilisp-safe-define-key keymap "\M-." 'edit-definitions-lisp "\M-.")
-  (ilisp-safe-define-key keymap "\M-?" 'search-lisp "\C-c\C-f\C-s")
-  (ilisp-safe-define-key keymap "\M-\"" 'replace-lisp "\C-c\C-f\C-r")
-  (ilisp-bind-ilisp-key-for-map keymap "^" 'edit-callers-lisp "\C-f\C-e")
-  (ilisp-safe-define-key keymap "\M-`" 'next-caller-lisp "\C-c\C-f\C-n")
+  (ilisp-safe-define-key keymap "\M-?" 'search-lisp "\C-c\C-v\C-s")
+  (ilisp-safe-define-key keymap "\M-\"" 'replace-lisp "\C-c\C-v\C-r")
+  (ilisp-bind-ilisp-key-for-map keymap "^" 'edit-callers-lisp "\C-v\C-e")
+  (ilisp-safe-define-key keymap "\M-`" 'next-caller-lisp "\C-c\C-v\C-n")
   (define-key keymap "\M-\t" 'complete-lisp)
   
   ;; note: another technical fsf keybinding policy violation.  But
@@ -161,9 +161,9 @@ ilisp-*prefix* is set to the desired prefix."
   ;; todo: will there ever be `*-previous-*' functions defined,
   ;; analogous to `eval-next-sexp' etc?  If so, then the binding of
   ;; p/C-p below will be problematic.  -karl
-  (ilisp-bind-ilisp-key-for-map keymap "p" 'set-buffer-package-lisp "\C-fp")
+  (ilisp-bind-ilisp-key-for-map keymap "p" 'set-buffer-package-lisp "\C-vp")
 
-  (ilisp-bind-ilisp-key-for-map keymap "P" 'set-package-lisp "\C-f\C-p")
+  (ilisp-bind-ilisp-key-for-map keymap "P" 'set-package-lisp "\C-v\C-p")
   (ilisp-bind-ilisp-key-for-map keymap "w" 'compile-region-lisp "\C-k\C-r")
   ;; MA 09/01/1999:
   (ilisp-bind-ilisp-key-for-map keymap "\C-b" 'ilisp-compile-buffer   "\C-k\C-b")
@@ -183,22 +183,22 @@ ilisp-*prefix* is set to the desired prefix."
 			'compile-defun-and-go-lisp
 			"\C-kd")
   (ilisp-bind-ilisp-key-for-map keymap "t" 'trace-defun-lisp "\C-b\C-t")
-  (ilisp-bind-ilisp-key-for-map keymap "!" 'default-directory-lisp "\C-f\C-d")
-  (ilisp-bind-ilisp-key-for-map keymap " " 'mark-change-lisp "\C-f ")
+  (ilisp-bind-ilisp-key-for-map keymap "!" 'default-directory-lisp "\C-v\C-d")
+  (ilisp-bind-ilisp-key-for-map keymap " " 'mark-change-lisp "\C-v ")
 
-  (ilisp-bind-ilisp-key-for-map keymap "*l" 'list-changes-lisp "\C-f\C-@")
+  (ilisp-bind-ilisp-key-for-map keymap "*l" 'list-changes-lisp "\C-v\C-@")
   (ilisp-bind-ilisp-key-for-map keymap "*e" 'eval-changes-lisp "\C-j\C-@")
   (ilisp-bind-ilisp-key-for-map keymap "*c" 'compile-changes-lisp "\C-k\C-@")
-  (ilisp-bind-ilisp-key-for-map keymap "*0" 'clear-changes-lisp "\C-f\C-z")
+  (ilisp-bind-ilisp-key-for-map keymap "*0" 'clear-changes-lisp "\C-v@")
 
-  (ilisp-bind-ilisp-key-for-map keymap "b" 'switch-to-lisp "\C-f\C-a")
-  (ilisp-bind-ilisp-key-for-map keymap "y" 'call-defun-lisp "\C-f\C-c")
+  (ilisp-bind-ilisp-key-for-map keymap "b" 'switch-to-lisp "\C-v\C-a")
+  (ilisp-bind-ilisp-key-for-map keymap "y" 'call-defun-lisp "\C-v\C-c")
   (ilisp-bind-ilisp-key-for-map keymap "z" 'reset-ilisp "\C-b\C-z")
   (ilisp-bind-ilisp-key-for-map keymap "g" 'abort-commands-lisp "\C-ba")
   (ilisp-bind-ilisp-key-for-map keymap "s" 'status-lisp "\C-b\C-y")
-  (ilisp-bind-ilisp-key-for-map keymap "S" 'select-ilisp "\C-f\C-i")
+  (ilisp-bind-ilisp-key-for-map keymap "S" 'select-ilisp "\C-v\C-i")
   (define-key   keymap "\C-x\C-f" 'find-file-lisp)
-  (ilisp-bind-ilisp-key-for-map keymap "l" 'load-file-lisp "\C-f\C-l")
+  (ilisp-bind-ilisp-key-for-map keymap "l" 'load-file-lisp "\C-v\C-l")
   (ilisp-bind-ilisp-key-for-map keymap "k" 'compile-file-lisp "\C-k\C-f")
 
   ;; Conditionalized definitions of these keybindings, using the
@@ -267,17 +267,17 @@ ilisp-*prefix* is set to the desired prefix."
     (lisp-bindings lisp-mode-map))
   (when (boundp 'scheme-mode-map) 
     (lisp-bindings scheme-mode-map))
-  (ilisp-bind-ilisp-key-for-map emacs-lisp-mode-map ";" 'comment-region-lisp "\C-f\C-\\")
+  (ilisp-bind-ilisp-key-for-map emacs-lisp-mode-map ";" 'comment-region-lisp "\C-v\C-\\")
 
   (ilisp-bind-ilisp-key-for-map global-map "\C-t"
                                 'trace-defun-lisp-break
                                 "\C-b\C-u")
-  (ilisp-bind-ilisp-key-for-map global-map "b" 'switch-to-lisp "\C-f\C-a")
+  (ilisp-bind-ilisp-key-for-map global-map "b" 'switch-to-lisp "\C-v\C-a")
 
   ;; Globally defined output-control commands.
-  (ilisp-bind-ilisp-key-for-map global-map "1" 'ilisp-bury-output "\C-f\C-b")
-  (ilisp-bind-ilisp-key-for-map global-map "v" 'ilisp-scroll-output "\C-f\C-v")
-  (ilisp-bind-ilisp-key-for-map global-map "G" 'ilisp-grow-output "\C-f\C-g")
+  (ilisp-bind-ilisp-key-for-map global-map "1" 'ilisp-bury-output "\C-v\C-b")
+  (ilisp-bind-ilisp-key-for-map global-map "v" 'ilisp-scroll-output "\C-v\C-v")
+  (ilisp-bind-ilisp-key-for-map global-map "G" 'ilisp-grow-output "\C-v\C-g")
 
   ;; Added test to conditionalize the loading of the fi:clman map.
   ;;
