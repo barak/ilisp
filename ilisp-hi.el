@@ -53,7 +53,12 @@ a message to let the user know what is going on."
 		   (if (= sexp 1)
 		       string
 		       (format (ilisp-value 'ilisp-block-command) string)))
-		  (lisp-buffer-package) (buffer-file-name)))
+		  (lisp-buffer-package)
+		  (buffer-file-name) 
+		  (save-excursion	; start line
+		    (goto-char (min start end))
+		    (beginning-of-line)
+		    (1+ (count-lines 1 (min start end))))))
     (let ((result 
 	   (ilisp-send
 	    string message status
