@@ -1,5 +1,9 @@
 2001-12-10  Paolo Amoroso  <amoroso@mclink.it>
 
+	* extra/hyperspec-naggum.el (eval-when): replaced assignment to
+	symbol function with alias definition (fix suggested by Hannu
+	Koivisto <azure@iki.fi>).
+
 	* ACKNOWLEDGMENTS: added Edmund Weitz.
 
 	* docs/ilisp.texi (Acknowledgments): added Edmund Weitz.
