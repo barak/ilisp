@@ -1,16 +1,14 @@
 # -*- Mode: Makefile -*-
 
 # Makefile --
+#
 # This file is part of ILISP.
-# Version: 5.10.1
+# Please refer to the file COPYING for copyrights and licensing
+# information.
+# Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
+# of present and past contributors.
 #
-# Copyright (C) 1990, 1991, 1992, 1993 Chris McConnell
-#               1993, 1994 Ivan Vasquez
-#               1994, 1995, 1996 Marco Antoniotti and Rick Busdiecker
-#               1996-2000 Marco Antoniotti and Rick Campbell
-#
-# Send mail to 'majordomo@cons.org' to be included in the
-# ILISP mailing list.
+# $Id: Makefile,v 1.2.2.1 2001/05/07 23:34:21 marcoxa Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -26,6 +24,8 @@ SHELL = /bin/sh
 # aliased
 RM = /bin/rm -f
 
+LN = /bin/ln
+
 DVIPS = dvips
 
 DocFiles = ilisp.texi ilisp-refcard.tex
@@ -34,6 +34,9 @@ DocFiles = ilisp.texi ilisp-refcard.tex
 
 DVIDebris = *.aux *.cp *.cps *.fn *.fns *.ky *.kys *.log *.pg *.pgs \
             *.toc *.tp *.vr *.vrs
+
+HTML_Target_Dir	= html/doc
+HTML_Targets = ilisp.ps ilisp.pdf ilisp_toc.html ilisp.html
 
 #==============================================================================
 # Rules
@@ -55,6 +58,8 @@ info: ilisp.info
 html: ilisp.texi
 	-texi2html $<
 
+ilisp_toc.html ilisp.html: html
+
 pdf: ilisp.pdf
 
 ilisp.pdf: ilisp.ps
@@ -64,6 +69,12 @@ ilisp.dvi: ilisp.texi
 
 ilisp-refcard.dvi: ilisp-refcard.tex
 	tex $<
+
+# Administrative targets.
+
+updatehtml: $(HTML_Targets)
+	-(cd $(HTML_Target_Dir); $(RM) $(HTML_Targets))
+	-$(LN) $(HTML_Targets) $(HTML_Target_Dir)
 
 clean: 
 	-$(RM) $(DVIDebris) \
