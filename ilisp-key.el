@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-key.el,v 1.9 2003/05/27 23:51:18 bill_clementson Exp $
+;;; $Id: ilisp-key.el,v 1.10 2003/07/03 15:53:52 bill_clementson Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)
@@ -121,7 +121,7 @@ ilisp-*prefix* is set to the desired prefix."
 
   (define-key   keymap "\M-\C-a"  'beginning-of-defun-lisp)
   (define-key   keymap "\M-\C-e"  'end-of-defun-lisp)
-  (ilisp-safe-define-key keymap "\C-\M-r" 'reposition-window-lisp "\C-r")
+  (ilisp-safe-define-key keymap "\C-\M-r" 'reposition-window-lisp "\C-\M-r")
 
   ;; This series of bindings was very non-FSF-compliant, but was also
   ;; hard to fit into any consistent binding scheme.  I saved them for
