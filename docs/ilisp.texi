@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: August 2, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: November 14, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,8 +77,8 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.18 of the ILISP manual
-for ILISP Version: 5.10.2.
+This is edition 0.19 of the ILISP manual
+for ILISP Version: 5.11.
 
 @example
 Copyright (C) 1991,1992,1993 Todd Kaufmann
@@ -109,8 +109,8 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.18, August 2000
-@subtitle For ILISP Version: 5.10.2
+@subtitle Edition 0.19, November 2000
+@subtitle For ILISP Version: 5.11
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
 @c which can be used to change all ilisp-*prefix* bindings to C-c (or
@@ -132,9 +132,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.18 of the @cite{ILISP User Manual}
-for ILISP Version: 5.10.2,
-August 2000.
+This is edition 0.19 of the @cite{ILISP User Manual}
+for ILISP Version: 5.11,
+November 2000.
 
 @sp 2
 
@@ -206,16 +206,62 @@ The easiest way to get a copy of ILISP is from someone else who has it.
 You need not ask for permission to do so, or tell any one else; just
 copy it.
 
-If you do start using the package, please send mail to 
-@code{majordomo@@cons.org} to subscribe to the ILISP mailing
-list. (A message with @code{subscribe ilisp} in the body should suffice.)
+General information on ILISP is available at:
+@example
+http://ilisp.cons.org/
+@end example
 
-Please send bugs, questions or suggestions for discussion to
-@code{ilisp@@cons.org}.  Message sent there will be distributed to all
-subscribers.  To report a bug you can also switch to the buffer where
-the problem occurs, execute the @code{M-x ilisp-bug} command and follow
-the displayed instructions. See the file @file{HISTORY} for a list of
-known bugs and problems.
+The project site, which provides access to the CVS source tree, bug
+database, mailing lists and other resources, is hosted at SourceForge:
+@example
+http://sourceforge.net/projects/ilisp/
+@end example
+
+The following mailing lists are available:
+@table @file
+
+@item ilisp-announce
+Subscribe to this list if you want to receive public announcements
+regarding ILISP.
+@cindex @code{ilisp-announce} mailing list
+
+@item ilisp-devel
+This is the list for people who want to be actively involved in the
+development of ILISP.
+@cindex @code{ilisp-devel} mailing list
+
+@item ilisp-help
+This is the list for asking usage questions regarding ILISP.
+@cindex @code{ilisp-help} mailing list
+
+@item ilisp-cvs
+Subscribe to this list @emph{only} if you want to monitor the CVS
+repository activity.
+@cindex @code{ilisp-cvs} mailing list
+@end table
+
+You can subscribe to the lists and access the archives via the general
+information pages:
+@itemize @bullet
+@item
+@code{http://lists.sourceforge.net/mailman/listinfo/ilisp-announce}
+
+@item
+@code{http://lists.sourceforge.net/mailman/listinfo/ilisp-devel}
+
+@item
+@code{http://lists.sourceforge.net/mailman/listinfo/ilisp-help}
+
+@item
+@code{http://lists.sourceforge.net/mailman/listinfo/ilisp-cvs}
+@end itemize
+
+You may send bug reports, questions, suggestions, etc. to
+@file{ilisp-help} or @file{ilisp-devel}.  To report a bug you can also
+switch to the buffer where the problem occurs, execute the @code{M-x
+ilisp-bug} command and follow the displayed instructions. See the file
+@file{HISTORY} for a list of known bugs and problems.
+@cindex Mailing lists
 @cindex Reporting bugs
 @cindex Bugs, reporting them
 @cindex @file{HISTORY}
@@ -248,7 +294,9 @@ addresses:
 
 If you use a tty ftp client, just log in as 'anonymous'.
 
-Please report any problems to the mailing list @code{ilisp@@cons.org}.
+Please report any problems to the @file{ilisp-help} mailing list.
+@xref{Distribution}.
+@cindex @code{ilisp-help} mailing list
 
 @noindent
 Unpack and install:
@@ -328,9 +376,10 @@ code.  Our apologies to anyone we may have forgotten.
 Special thanks to Todd Kaufmann for the texinfo file, work on bridge,
 epoch-pop and for really exercising everything.
 
-Please send bug reports, fixes and extensions to
-@code{ilisp@@cons.org} so that they can be merged into the master
-source.
+Please send bug reports, fixes and extensions to the @file{ilisp-devel}
+mailing list so that they can be merged into the master
+source. @xref{Distribution}.
+@cindex @code{ilisp-devel} mailing list
 @noindent
 @example
 --Chris McConnell                     1991-03-18
