@@ -1,3 +1,8 @@
+2003-12-05  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* hyperspec.el: Corrected URL for hyperspec (change from xanalys
+	to lispworks). Fix submitted by Vincent Arkesteijn.
+
 2003-11-24  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp-mov.el: ILISP was getting confused by quote character in
