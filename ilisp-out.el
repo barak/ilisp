@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.11 2002/06/02 22:50:28 marcoxa Exp $
+;;; $Id: ilisp-out.el,v 1.12 2002/09/11 22:10:47 rgrjr Exp $
 
 ;;; Old history log.
 ;;;
@@ -50,13 +50,6 @@
 (defvar ilisp-display-output-function 'ilisp-display-output-default
   "The name of a function to display all ilisp output.
 The function gets a single argument, a string.")
-
-
-(defvar ilisp-*last-ilisp-output-sink* nil
-  "Last buffer displayed.
-This is needed for 'ilisp-scroll-output', and 'ilisp-bury-output'") 
-
-
 
 
 ;;; ilisp-output-sink --
@@ -167,6 +160,28 @@ This is needed for 'ilisp-scroll-output', and 'ilisp-bury-output'")
   "An association table between 'commands and 'output sinks.
 It is used to determine where the output of a 'command' should go.")
 
+;;; Output sink history.
+(defvar ilisp-*output-sink-history* nil
+  "List of output sinks (i.e. buffers) that may currently be in use,
+most recent first [internal state variable].  This grows when
+ilisp-output-buffer pushes a new sink onto it, and the topmost sink is
+used by 'ilisp-scroll-output' and 'ilisp-bury-output' (which pops it).
+Use the 'ilisp-last-active-output-sink' function to return the most
+recent sink that is still active, where 'active' means 'currently
+displayed on the screen'.")
+
+(defun ilisp-last-active-output-sink ()
+  "Return the topmost active output since in ilisp-*output-sink-history*,
+after popping any inactive ones."
+  (let ((result (car ilisp-*output-sink-history*)))
+    (while (and result
+		(let ((buffer (ilisp-output-sink-buffer result)))
+		  (or (null buffer)
+		      (null (get-buffer-window buffer t)))))
+      ;; not active; pop it, and try the next.
+      (setq ilisp-*output-sink-history* (cdr ilisp-*output-sink-history*))
+      (setq result (car ilisp-*output-sink-history*)))
+    result))
 
 ;;; Accessor functions for
 ;;; 'ilisp-*command-to-ilisp-output-sink-table*'.
@@ -205,8 +220,14 @@ sink."
 	(modeline (ilisp-output-sink-modeline ilisp-output-sink))
 	(set-modeline-p (ilisp-output-sink-set-modeline-p ilisp-output-sink))
 	)
-    (setq ilisp-*last-ilisp-output-sink* ilisp-output-sink)
-    ;; save ilisp-output-sink for scrolling and burying
+    ;; save ilisp-output-sink for scrolling and burying.  first, clean up old
+    ;; output sinks by calling ilisp-last-active-output-sink for side effect.
+    ;; then, move this sink to the top of the stack.
+    (ilisp-last-active-output-sink)
+    (or (eq ilisp-output-sink (car ilisp-*output-sink-history*))
+	(setq ilisp-*output-sink-history*
+	      (cons ilisp-output-sink
+		    (delete ilisp-output-sink ilisp-*output-sink-history*))))
     (unless (and (boundp modeline) (symbol-value modeline))
       (when set-modeline-p
 	(setf (symbol-value modeline)
@@ -229,25 +250,37 @@ sink."
 ;;; 19991220 Marco Antoniotti
 ;;; Changed the function to take care of the output frame.
 
-(defun* ilisp-bury-output (&optional (pilisp-output-sink nil))
-  "Delete the typeout window, with sink's buffer, if any"
-  (interactive)
-  (let* ((ilisp-output-sink (or pilisp-output-sink
-				ilisp-*last-ilisp-output-sink*))
-         (buffer (ilisp-output-buffer ilisp-output-sink))
-         (window (and buffer (get-buffer-window buffer t)))
-         (frame (ilisp-output-sink-frame ilisp-output-sink)))
-    (when buffer 
-      (with-current-buffer buffer
-        (erase-buffer))
-      (bury-buffer buffer))
+(defun ilisp-bury-output-internal (ilisp-output-sink)
+  ;; given an active output sink, make it go away.
+  (let* ((buffer (ilisp-output-sink-buffer ilisp-output-sink))
+	 (window (and buffer (get-buffer-window buffer t)))
+	 (frame (ilisp-output-sink-frame ilisp-output-sink)))
+    (if (eq ilisp-output-sink (car ilisp-*output-sink-history*))
+	(setq ilisp-*output-sink-history*
+	      (cdr ilisp-*output-sink-history*)))
+    (with-current-buffer buffer
+      (erase-buffer))
+    (bury-buffer buffer)
     (if frame
-      (when (not (eql this-command
-                      'ilisp-arglist-message-lisp-space))
-        (ilisp-delete-message-frame ilisp-output-sink))
-      (when window
-        (ilisp-delete-window window)))))
+	(unless (eql this-command 'ilisp-arglist-message-lisp-space)
+	  (ilisp-delete-message-frame ilisp-output-sink))
+	(when window
+	  (ilisp-delete-window window)))))
 
+(defun ilisp-bury-output (&optional bury-all-p)
+  "Delete the topmost typeout window, with sink's buffer, if any.
+If given a numeric argument, deletes all typeout windows."
+  (interactive "P")
+  (let ((ilisp-output-sink (ilisp-last-active-output-sink))
+	(buried-one-p nil))
+    (while (and ilisp-*output-sink-history*
+		(or bury-all-p
+		    (not buried-one-p)))
+      (ilisp-bury-output-internal ilisp-output-sink)
+      (setq buried-one-p t)
+      (setq ilisp-output-sink (ilisp-last-active-output-sink)))
+    (if (not buried-one-p)
+	(message "No more output to bury."))))
 
 (defun ilisp-delete-window (window)
   "Delete a window with minimal redisplay."
@@ -265,25 +298,23 @@ sink."
 	  (set-window-start lower-window (point)))
 	(select-window old-window)))))
 
-
 (defun ilisp-scroll-output (&optional lines)
   "Scroll the typeout-window, if any."
   (interactive "P")
-  (let* ((ilisp-output-sink ilisp-*last-ilisp-output-sink*)
-         (buffer (ilisp-output-buffer ilisp-output-sink))
-         (window (and buffer (get-buffer-window buffer t)))
+  (let* ((ilisp-output-sink (or (ilisp-last-active-output-sink)
+				(error "No output to scroll.")))
+	 (buffer (ilisp-output-buffer ilisp-output-sink))
+	 (window (and buffer (get-buffer-window buffer t)))
 	 (old-window (selected-window)))
-    (when window
-      (unwind-protect
-	  (progn
-	    (select-window window)
-	    (set-buffer buffer)
-	    ;; 19990806 Martin Atzmueller
-	    ;; (scroll-up lines)
-	    (let ((scroll-in-place nil))
-	      (scroll-up lines)))
-	(select-window old-window)))))
-
+    (unwind-protect
+	 (progn
+	   (select-window window)
+	   (set-buffer buffer)	;; [maybe redundant?]
+	   ;; 19990806 Martin Atzmueller
+	   ;; (scroll-up lines)
+	   (let ((scroll-in-place nil))
+	     (scroll-up lines)))
+      (select-window old-window))))
 
 (defun ilisp-grow-output (&optional n)
   "Grow the typeout window by ARG (default 1) lines."
@@ -773,9 +804,12 @@ Dispatch on the value of 'lisp-no-popper':
 (defun ilisp-display-output-in-echo-area (output ilisp-output-sink)
   "Display output as a message in the echo area."
   ;; First clear any existing typeout so as to not confuse the user.
-  (or (eq (selected-window)
-          (get-buffer-window (ilisp-output-sink-buffer ilisp-output-sink) t))
-      (ilisp-bury-output ilisp-output-sink))
+  (if (ilisp-output-buffer ilisp-output-sink)
+      (let ((buffer (get-buffer (ilisp-output-buffer ilisp-output-sink))))
+	(if (and buffer
+		 (not (eq (selected-window)
+			  (get-buffer-window buffer t))))
+	    (ilisp-bury-output-internal ilisp-output-sink))))
   
   ;; v5.7: Patch suggested by hunter@work.nlm.nih.gov (Larry Hunter)
   ;; If output contains '%', 'message' loses.
@@ -841,7 +875,8 @@ if this is not relevant."
          (frame  (when window (window-frame window))))
     (cond ((not window)
            (when ilisp-output-sink
-             (ilisp-bury-output ilisp-output-sink)) ; is this neccessary?
+	     ;; is this necessary?
+             (ilisp-bury-output-internal ilisp-output-sink))
            (pop-to-buffer buffer))
           (set-input-focus-p
            (if (fboundp 'select-frame-set-input-focus)

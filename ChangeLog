@@ -1,4 +1,9 @@
-2002-09-05  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
+2002-09-11  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
+
+	* ilisp-out.el (ilisp-bury-output): Handle multiple stacked output
+	frames, numeric arg now buries all.
+
+2002-09-05  Bob Rogers <rogers@rgrjr.dyndns.org>
 
 	* cl-ilisp.lisp (ilisp-compile), 
 	cmulisp.lisp (fun-defined-from-pathname): Teach CMUCL not to
