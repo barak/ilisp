@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.02.22) unstable; urgency=low
+
+  * Remove /etc/ilisp on purge
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sat, 22 Feb 2003 22:44:02 -0700
+
 ilisp (5.12.0+cvs.2003.02.16) unstable; urgency=low
 
   * New upstream version
