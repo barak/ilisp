@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmp.el,v 1.6 2002/01/18 13:31:16 mkoeppe Exp $
+;;; $Id: ilisp-cmp.el,v 1.7 2002/01/21 11:38:17 mkoeppe Exp $
 
 (defun ilisp-display-choices (symbol choices)
   "Display the possible choices for SYMBOL in alist CHOICES."
@@ -77,7 +77,7 @@ If FUNCTION-P is T, only symbols with function cells will be returned."
   "Restore the prefix from ilisp-mini-prefix at the start of the minibuffer."
   (if ilisp-mini-prefix
       (save-excursion
-	(goto-char (point-min))
+	(goto-char (ilisp-minibuffer-prompt-end))
 	(insert ilisp-mini-prefix)
 	(setq ilisp-mini-prefix nil))))
 
@@ -101,8 +101,8 @@ be the ilisp-table."
 		(ilisp-completion-table symbol ilisp-completion-function-p)))
 	(save-excursion 
 	  (skip-chars-backward "^: \(")
-	  (setq ilisp-mini-prefix (buffer-substring (point-min) (point)))
-	  (delete-region (point-min) (point)))
+	  (setq ilisp-mini-prefix (buffer-substring (ilisp-minibuffer-prompt-end) (point)))
+	  (delete-region (ilisp-minibuffer-prompt-end) (point)))
 	;; Nothing can match this table
 	(if (not minibuffer-completion-table)
 	    (setq minibuffer-completion-table '((" ")))))

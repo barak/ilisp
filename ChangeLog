@@ -1,3 +1,8 @@
+2002-01-21  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-cmp.el (ilisp-restore-prefix, ilisp-current-choice):
+	Another Emacs 21 minibuffer completion fix.
+
 2002-01-18  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-cmp.el: Emacs 21 minibuffer completion fix;
