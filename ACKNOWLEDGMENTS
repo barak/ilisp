@@ -10,6 +10,7 @@ Guido Bosch,
 Tim Bradshaw,
 David Braunegg,
 Thomas M. Breuel,
+Craig Brozefsky (Debian packaging),
 Gary Byers (for the OpenMCL code), 
 Rick Campbell,
 Hans Chalupsky,
@@ -36,6 +37,7 @@ Chuck Irvine,
 Mark Kantrowitz,
 Michael Kashket,
 Matthias Koeppe,
+Hannu Koivisto,
 Qiegang Long,
 Christian Lynbech,
 Erik Naggum,
@@ -54,8 +56,7 @@ Edmund Weitz,
 Fred White,
 Ben Wing,
 Matsuo Yoshihiro,
-Jamie Zawinski,
-Craig Brozefsky (Debian packaging)
+Jamie Zawinski
 
 for bug reports, suggestions and code.  Our apologies to anyone we may
 have forgotten.
