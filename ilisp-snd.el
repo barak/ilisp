@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.13 2002/08/23 21:40:09 anisotropy9 Exp $
+;;; $Id: ilisp-snd.el,v 1.14 2002/09/24 21:39:52 anisotropy9 Exp $
 
 
 ;;;%% Package / Symbol support
@@ -18,8 +18,6 @@
 ;;; Package hacks by Martin Atzmueller
 ;;;
 ;;; 19990824 Marco Antoniotti
-
-(defvar *ILISP-default-package* :common-lisp-user)
 
 (defun ilisp-add-set-package-hook ()	; Was: add-set-package-hook
   (interactive)
@@ -37,10 +35,25 @@
 ;;; ilisp-check-package-advanced --
 ;;; treat DEFPACKAGE before IN-PACKAGE.
 
+(defun ilisp-get-package-advanced (string)
+  "Passes a string from ilisp-check-package-advanced to ilisp process
+that attempts to determine the package symbol string name."
+  (let ((the-package
+	 (ilisp-send
+	  string "Finding Buffer package with hash-forms" 'pkg nil t)))
+    ;; there may have been an error: fix it.
+    (if (string-match (ilisp-value 'ilisp-error-regexp t) the-package)
+	(progn
+	  (comint-send (ilisp-process) (ilisp-value 'comint-fix-error) t t 'fix "Fixing erroneous package-situation in inferior-lisp." t nil)
+	  "nil")
+      (if the-package
+	  the-package
+	"nil"))))
+
 (defun ilisp-check-package-advanced (hash-defpackage-forms-list 
 				     hash-in-package-forms-list)
   "Advanced check for packages in buffer.
-It hanldes the special case of read-time conditionals - i.e. hash plus
+It handles the special case of read-time conditionals - i.e. hash plus
 or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
   (let* ((string
           (apply #'concat (nconc hash-defpackage-forms-list
@@ -48,26 +61,21 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
          (string
 	  (format (ilisp-value 'ilisp-package-command)
 		  (format (ilisp-value 'ilisp-block-command) string)))
-         (package
-             ;;; (string &optional message status and-go handler)
-           (let ((the-package
-                   (ilisp-send
-                    string "Finding Buffer package with hash-forms" 'pkg nil t)))
-             ;; there may have been an error: fix it.
-             (if (string-match (ilisp-value 'ilisp-error-regexp t) the-package)
-               (progn
-                 (comint-send (ilisp-process) (ilisp-value 'comint-fix-error) t t 'fix "Fixing erroneous package-situation in inferior-lisp." t nil)
-                 "nil")
-               (if the-package
-                 the-package
-                 "nil"))))
-         (case-fold-search t)
+         (package (ilisp-get-package-advanced string))
+	 (case-fold-search t)
          (npic-regexp (ilisp-value 'ilisp-no-package-in-core-regexp t)))
     (if (and npic-regexp (string-match npic-regexp package))
+;; wbd180902 Kludge round modern mode stuff to set default package 
       (progn
-        (message (format "Buffer package not found. Using fallback-package: %s"
-                         (ilisp-value 'ilisp-fallback-package)))
-        (values (ilisp-value 'ilisp-fallback-package) t))
+	(setq package 
+	      (ilisp-get-package-advanced 
+	       (format (ilisp-value 'ilisp-block-command)
+		       (format (ilisp-value 'ilisp-package-command)
+			       (format (ilisp-value 'ilisp-in-package-command)
+				       (ilisp-value 'ilisp-fallback-package))))))
+	(message 
+	 (format "Buffer package not found. Using fallback-package"))
+	(values package t))
       (progn
         (message "Buffer package: %s" package)
         (values package nil)))))
@@ -186,24 +194,6 @@ Common Lisp."
             (values package should-not-cache-p)))))))
 
 ;;;
-(defun set-package-lisp-always ()
-  "Set inferior LISP to a named package.
-The package is set whether the buffer has a package or not!"
-  (interactive)
-  (let* ((default *ILISP-default-package*)
-	 (name
-	  (read-string
-	   (format "Package [%s]: " (lisp-buffer-package)) ""))
-	 (package (and (equal name "") default name)))
-    
-    (if package
-	(ilisp-send (format (ilisp-value 'ilisp-in-package-command) package)
-		    (format "Set %s's package to %s" 
-			    (buffer-name (ilisp-buffer))
-			    package)
-		    'pkg 'dispatch)
-      (error "No package"))))
-	      
 ;;; Martin Atzmueller code ends here.
 ;;; --------------------------------------------------------------------------
 

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl.el,v 1.9 2002/08/23 21:40:09 anisotropy9 Exp $
+;;; $Id: ilisp-cl.el,v 1.10 2002/09/24 21:39:53 anisotropy9 Exp $
 
 (defvar ilisp-cl-ilisp-package-file "ilisp-pkg.lisp")
 
@@ -53,7 +53,7 @@
         "^nil"
 
         ilisp-fallback-package
-        ":common-lisp-user"
+        ':common-lisp-user
 
 	ilisp-in-package-command-string
 	"in-package"
@@ -65,7 +65,7 @@
 	"(package-name *package*)"
 
 	ilisp-in-package-command
-	"(in-package \"%s\")"
+	"(in-package %S)"
 
          ilisp-hash-form-regexp
          "\\(^[ \t]*#[+-].\\)\\|\\(^[ \t]*(\\(.*::?\\)?defpackage[ \t\n]\\)\\|\\(^[ \t]*(\\(.*::?\\)?in-package[ \t\n]*\\)"
