@@ -2,14 +2,11 @@ FTP and WWW directions
 ======================
 
 You can get the distribution file, `ilisp-x.y.z.tar.gz'
-(`ilisp-x.y.z.zip') via anonymous FTP or HTML at the following
-addresses:
+(`ilisp-x.y.z.zip'), via HTTP or anonymous FTP at the following addresses:
 
-  ftp://ftp2.cons.org/pub/languages/lisp/ilisp/
-
-or
-
+  http://sourceforge.net/project/showfiles.php?group_id=3957
   http://www2.cons.org:8000/ftp-area/ilisp/
+  ftp://ftp2.cons.org/pub/languages/lisp/ilisp/
 
 If you use a tty ftp client, just log in as 'anonymous'.
 
