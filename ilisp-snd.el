@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.11 2002/04/11 07:49:36 mna Exp $
+;;; $Id: ilisp-snd.el,v 1.12 2002/05/31 11:48:21 amoroso Exp $
 
 
 ;;;%% Package / Symbol support
@@ -456,9 +456,7 @@ If FILE is NIL, the entry will be removed."
                     (if (file-newer-than-file-p binary source)
                       binary
                       source))))
-            (ilisp-load-or-send
-             load-file)))
-                             
+            (ilisp-load-or-send (file-name-hack load-file))))
         (comint-send-code (ilisp-process)
                           'ilisp-done-init)
         (setq done t))                         
