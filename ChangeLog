@@ -24,6 +24,44 @@
 	'custom-ilisp'. This screwed up when using
 	ilisp-*use-fsf-compliant-keybindings*.
 
+2000-05-03  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi: Replaced occurrences of `Harlequin' with
+	`Xanalys/Harlequin'. "Configuration and compilation": Fixed a typo.
+
+2000-04-29  Paolo Amoroso  <amoroso@mclink.it>
+
+	* INSTALLATION: Added tips for making ILISP work with LispWorks
+	(contributed by Martin Simmons <martin@xanalys.com>).
+
+2000-04-26  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (Files of ILISP): Uncommented completer.el;
+	added custom-ilisp.el; fixed Common Lisp spelling in the
+	ilisp-cl.el entry; removed imenu.el.
+
+	* docs/ilisp.texi: Added entry for the dir file (suggestion by
+	Matthias Hoelzl <hoelzl@informatik.uni-muenchen.de>).
+
+2000-04-21  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/doc-changes.txt: Restored information lost in the move to
+	SourceForge. Added warning stating that the file will no longer be
+	maintained.
+
+	* docs/ilisp.texi: Restored changes made in Jan-Feb 2000 and lost
+	in the move to SourceForge (see docs/doc-changes.txt). Renamed to
+	the ILISP-*VARNAME* convention some variable names missed in the
+	transition to ILISP 5.10.1. Fixed the appearance of control
+	characters and command names in section "Switching between
+	interactive and raw keyboard modes".
+
+	* INSTALLATION: Restored information lost in the move to
+	SourceForge (replaced unnecessary references to explicit version
+	numbers in file names--e.g. 5.9.4--with generic
+	ones--i.e. x.y.z). Renamed variable names to the ILISP-*VARNAME*
+	convention.
+	
 2000-04-19  Marco Antoniotti  <marcoxa@parades.rm.cnr.it>
 
 	* docs/ilisp.texi (Acknowledgements): Added Karl Fogel.
