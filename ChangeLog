@@ -1,3 +1,26 @@
+2000-07-19  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (Files of ILISP): clarified entry for *.lisp and
+	  added *.scm entry. Updated version info of the document.
+	
+	* Makefile (clean): added TAGS among the files to remove.
+
+	* ilisp-snd.el (lisp-string-to-symbol): test
+	  `ilisp-package-separator-regexp' (patch contributed by Matthias
+	  Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
+	
+	* ilisp-sch.el (guile): improved error handling for Guile (patch
+	  contributed by Matthias Koeppe
+	  <mkoeppe@mail.math.uni-magdeburg.de>).
+	
+	* ilisp-def.el (ilisp-package-separator-regexp): turned into a
+	  local variable (patch contributed by Matthias Koeppe
+	  <mkoeppe@mail.math.uni-magdeburg.de>).
+	
+	* ilisp-cl.el (common-lisp): added
+	  `ilisp-package-separator-regexp' (patch contributed by Matthias
+	  Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
+
 2000-07-13  Paolo Amoroso  <amoroso@mclink.it>
 
 	* docs/ilisp.texi (Files of ILISP): uncommented ilisp-cmp.el
