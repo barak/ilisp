@@ -79,7 +79,7 @@ FaslFiles = *.fasl *.fas *.lib *.x86f
 
 compile:
 	$(EMACS) -batch -l ilisp-mak.el
-	(cd extra; $(LN) --force $(HyperSpec) hyperspec.el)
+	(cd extra; $(LN) -f $(HyperSpec) hyperspec.el)
 	$(EMACS) -batch --eval '(byte-compile-file "extra/hyperspec.el")'
 
 tags:
