@@ -491,7 +491,7 @@ the next one.")
 
 (defvar ilisp-*arglist-message-lisp-space-p* t
   "If T display the arglist or value of a function/symbol after a #\\Space.
-Set to t if you want the arglist or value of a function/symbol
+Set to 'all if you want the arglist or value of a function/symbol
 to be printed.")
 
 (defvar ilisp-*arglist-message-switch-back-p* nil

@@ -1679,7 +1679,7 @@ traced.
 
 The first time an inferior Lisp mode command is executed in a Lisp Mode
 buffer, the package will be determined by using the regular expression
-@code{ilisp-package-regexp} to find a package sexp and then passing that
+@code{ilisp-hash-form-regexp} to find a package sexp and then passing that
 sexp to the inferior Lisp through @code{ilisp-package-command}.  For the
 @samp{common-lisp} dialect, this will find the first @code{(in-package
 PACKAGE)} form in the file.  A buffer's package will be displayed in the
@@ -1688,12 +1688,13 @@ the current inferior Lisp package.@refill
 
 Buffer package caching can be turned off by setting the variable
 @code{lisp-dont-cache-package} to @code{T}.  This will force ILISP to
-search for the closest previous @code{ilisp-package-regexp} in the
-buffer each time an inferior Lisp mode command is executed. 
+search for the closest previous "in-package" form corresponding to
+@code{ilisp-hash-form-regexp} in the buffer each time an inferior Lisp
+mode command is executed. 
 @cindex Buffer package
 @cindex Buffer package caching
 @vindex lisp-dont-cache-package
-@vindex ilisp-package-regexp
+@vindex ilisp-hash-form-regexp
 @findex ilisp-package-command
 @cindex In-package form
 

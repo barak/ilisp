@@ -1,3 +1,14 @@
+2001-01-24  Martin Atzmueller  <martin@atzmueller.net>
+
+	* docs/ilisp.texi (Package Commands): updated documentation, since
+	ilisp-package-regexp is gone, this has become
+	ilisp-hash-form-regexp.
+
+2001-01-23  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-def.el (ilisp-*arglist-message-lisp-space-p*):
+	documentation update.
+
 2001-01-22  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-mod.el (lisp-command-args): removed commented out version.
