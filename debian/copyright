@@ -19,7 +19,8 @@ Upstream Author(s): Marco Antoniotti, Rick Campbell, Rick Busdiecker
 		    Ivan Vasquez, Chriss McConnell
 
 Changes compared to upstream:
-  Modified ilisp-cl.el to handle Common Lisp Controller pathnames
+  Modified ilisp-hi.el and ilisp-snd.el to handle Common Lisp Controller pathnames.
+  (See /usr/share/doc/ilisp/local-modifications for more details)
 
 
 Original Upstream Copyright
