@@ -1,7 +1,7 @@
 Source: ilisp
 Section: devel
 Priority: optional
-Maintainer: Kevin M. Rosenberg <kmr@debian.org>
+Maintainer: Debian QA Group <packages@qa.debian.org>
 Build-Depends-Indep: debhelper (>= 4.1.16), texinfo, tetex-bin, gs-common, texi2html
 Standards-Version: 3.6.1.1
 
