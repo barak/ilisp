@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.05.26) unstable; urgency=low
+
+  * new upstream
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Mon, 26 May 2003 15:46:01 -0600
+
 ilisp (5.12.0+cvs.2003.05.21) unstable; urgency=low
 
   * New upstream
