@@ -1,3 +1,7 @@
+2003-08-04  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
+
+	* ilisp-utl.el (lisp-slashify): Bind print-escape-* variables.
+
 2003-07-03  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp-key.el: Fixed fsf keybinding for reposition-window-lisp.

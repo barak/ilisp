@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-utl.el,v 1.3 2002/09/25 01:51:54 rgrjr Exp $
+;;; $Id: ilisp-utl.el,v 1.4 2003/08/05 02:18:13 rgrjr Exp $
 
 (defun lisp-show-send (string)
   "Show STRING in the *ilisp-send* buffer."
@@ -32,7 +32,11 @@ string."
   (or (stringp string)
       (error "ilisp bug: argument to %s is %s, which is not a string."
 	     'lisp-slashify string))
-  (let* ((string (prin1-to-string string))
+  (let* ((string (let (;; turn off all of this non-CL-compatible escaping.
+		       (print-escape-multibyte nil)
+		       (print-escape-newlines nil)
+		       (print-escape-nonascii nil))
+		   (prin1-to-string string)))
 	 ;; strip off surrounding quotes.
 	 (result (substring string 1 (1- (length string)))))
     (lisp-show-send result)	;; for side effect.
