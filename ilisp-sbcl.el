@@ -43,10 +43,6 @@
   ;; decide where to append the compiled-file extension.
   "sblisp")
 
-(defun sblisp-source-directory-fixup-function ()
-  (if sblisp-local-source-directory
-      (replace-match sblisp-local-source-directory)))
-
 (defun sblisp-check-prompt (old new)
   "Compare the break level printed at the beginning of the prompt."
   (let* ((was-in-break (and old (string-match "]+" old)))
@@ -63,12 +59,7 @@
 (defdialect sblisp "SB Common LISP"
   common-lisp
   (ilisp-load-init 'sb ilisp-sblisp-init-file)
-  (if sblisp-local-source-directory
-      (setq ilisp-source-directory-fixup-alist
-	    (list 
-	     (cons sblisp-source-directory-regexp
-		   sblisp-local-source-directory)))
-    (message "sblisp-local-source-directory not set."))
+
   (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\) "
 	ilisp-trace-command "(ILISP:sblisp-trace \"%s\" \"%s\" \"%s\")"
 	comint-prompt-status 
@@ -78,7 +69,7 @@
 	ilisp-error-regexp "\\(ILISP:[^\"]*\\)\\|\\(error [^\n]*\n\n\\)\\|\\(debugger invoked on [^:]*:\\)"
 	;; The above regexp has been suggested by
 	;; hunter@work.nlm.nih.gov (Larry Hunter)
-
+        
 	ilisp-arglist-command "(ILISP:ilisp-arglist \"%s\" \"%s\")"
 
         ilisp-directory-command "(sb-unix:unix-current-directory)"
