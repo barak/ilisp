@@ -329,7 +329,7 @@ sink."
     (goto-char (point-min))))
 
 (defun ilisp-write-string-to-buffer (ilisp-output-sink string)
-  (let ((buffer (ilisp-output-buffer ilisp-output-sink)))
+  (let ((buffer (ilisp-output-buffer ilisp-output-sink t)))
     (save-excursion
       (set-buffer buffer)
       ;; Maybe an option to keep the old output?
