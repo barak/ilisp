@@ -32,8 +32,8 @@
 
 (require 'completer)
 
-;;; If want TMC completion then you will have to Ftp it yourself
-;;; from think.com It's become to flaky for me to deal with. -- Ivan
+;;; Uncomment the following lines if you want TMC completion (see
+;;; completion.el among the Emacs ELisp sources).
 
 ; (load "completion")
 ; (initialize-completions)
