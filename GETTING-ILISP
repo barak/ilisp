@@ -1,8 +1,8 @@
 FTP and WWW directions
 ======================
 
-You can get the distribution file, `ilisp-5.9.tar.gz'
-(`ilisp-5.9.zip') via anonymous FTP or HTML at the following
+You can get the distribution file, `ilisp-x.y.z.tar.gz'
+(`ilisp-x.y.z.zip') via anonymous FTP or HTML at the following
 addresses:
 
     ftp://ftp2.cons.org/pub/languages/lisp/ilisp/
