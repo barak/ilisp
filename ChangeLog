@@ -1,3 +1,13 @@
+2004-01-07  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	Users that want to use ILISP for Lisp but not for Scheme
+	can now use (setq lisp-source-modes '(lisp-mode)) to prevent
+	ILISP from changing the Scheme mode bindings.
+	
+	* ilisp-key.el (ilisp-bindings): Don't setup mode bindings if mode
+	isn't in `lisp-source-modes.'  
+	Patch by Mike Sperber <sperber@informatik.uni-tuebingen.de> 
+
 2003-12-20  Bob Rogers  <rogers@rgrjr.dyndns.org>
 
 	* comint-ipc.el (comint-process-filter): add unwind-protect,
