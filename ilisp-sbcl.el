@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.18 2003/03/23 14:26:30 amoroso Exp $
+;;; $Id: ilisp-sbcl.el,v 1.19 2003/04/02 01:56:20 rgrjr Exp $
 
 ;;;%%%Steel Bank Common Lisp
     
@@ -122,6 +122,7 @@
 (defdialect sbcl "Steel Bank Common LISP"
   common-lisp
   (ilisp-load-init 'sbcl ilisp-sbcl-init-file)
+  (ilisp-load-init 'new-edit-definitions "find-src")
 
   ;; set the right check-prompt function, according to the right SBCL version:
   ;; we have to do this after the Lisp has been started, because we have to

@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmu.el,v 1.5 2002/08/23 21:40:09 anisotropy9 Exp $
+;;; $Id: ilisp-cmu.el,v 1.6 2003/04/02 01:56:20 rgrjr Exp $
 
 (defvar cmulisp-source-directory-regexp 
   "\\/afs\\/cs\\.cmu\\.edu\\/project\\/clisp\\/src\\/[0-9]*\\/"
@@ -42,6 +42,7 @@
 (defdialect cmulisp "CMU Common LISP"
   common-lisp
   (ilisp-load-init 'cmu ilisp-cmulisp-init-file)
+  (ilisp-load-init 'new-edit-definitions "find-src")
   (if cmulisp-local-source-directory
       (setq ilisp-source-directory-fixup-alist
 	    (list 
@@ -69,7 +70,7 @@
         ilisp-directory-command "(namestring (ext:default-directory))"
         ilisp-set-directory-command "(setf (ext:default-directory) \"%s\")"
 
-	ilisp-find-source-command "(ilisp:source-file \"%s\" \"%s\" \"%s\")"
+	ilisp-find-source-command "(ilisp::source-file %S %S %S)"
 
 	comint-fix-error ":pop"
 

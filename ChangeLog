@@ -1,3 +1,9 @@
+2003-04-01  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
+
+	* ilisp-src.el, find-src.lisp, others: Improved M-. functionality
+	using a new lisp->emacs protocol for returning information about
+	known definitions.
+
 2003-03-23  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-sbcl.el: make debugger exit command `:r toplevel'

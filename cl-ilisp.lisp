@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.19 2003/03/01 23:04:18 kevinrosenberg Exp $
+;;; $Id: cl-ilisp.lisp,v 1.20 2003/04/02 01:56:20 rgrjr Exp $
 
 
 ;;; Old history log.
@@ -250,13 +250,24 @@ messages, i.e. \"ILISP: ... \" in an uniform way."
 ;;; Notes:
 ;;; 19990806 Unknown Author (blame Marco Antoniotti for this)
 ;;; Added test for KEYWORD case.
-
-(defun ilisp-find-package (package-name)
-  "Return package PACKAGE-NAME or the current package."
+;;; [now takes an error-p arg.  -- rgr, 22-Aug-02.]
+(defun ilisp-find-package (package-name &key (error-p t))
+  "return package package-name or the current package."
   (cond ((string-equal package-name "nil") *package*)
-	((string-equal package-name "") (find-package "KEYWORD"))
-	(t (or (find-package (ilisp-symbol-name package-name))
-	       (error "Package ~A not found" package-name)))))
+	((string-equal package-name "") (find-package (string :keyword)))
+	((find-package (ilisp-symbol-name package-name)))
+	(error-p
+	  (error "package ~a not found" package-name))))
+
+(defun extract-function-info-from-name (name)
+  ;; [Note that this also handles (setf foo) specs.  -- rgr, 11-Sep-02.]
+  (cond ((and (symbolp name)
+	      (macro-function name))
+	  (values (macro-function name) :macro))
+	((fboundp name)
+	  (values (fdefinition name) :function))
+	(t
+	  (values nil nil))))
 
 ;;;
 (defun ilisp-find-symbol (symbol-name package-name)

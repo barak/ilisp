@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.18 2002/12/03 20:51:13 kevinrosenberg Exp $
+;;; $Id: ilisp-snd.el,v 1.19 2003/04/02 01:56:20 rgrjr Exp $
 
 
 ;;;%% Package / Symbol support
@@ -269,22 +269,50 @@ With prefix specify manually."
 
 ;;;%Interface functions
 ;;;%%Symbols
+(defun lisp-default-package-symbol (string)
+  ;; use the default package, if we can find one.
+  (let ((package (lisp-buffer-package)))
+    (lisp-symbol package (if package "::") string)))
+
+(defvar lisp-match-simple-name "[^: \t\n();]+"
+  "Regexp that matches a Lisp symbol (excluding package names).  This
+is greatly oversimplified.")
+
 (defun lisp-string-to-symbol (string)
-  "Convert STRING to a symbol, (package delimiter symbol).
-'package' is either package:symbol or from the current buffer."
-  (let* ((start (if (ilisp-value 'ilisp-package-separator-regexp t)
-		    (string-match (ilisp-value 'ilisp-package-separator-regexp t)
-                                  string)))
-         (end (if start (match-end 0))))
-    (if start
-        (lisp-symbol
-         (if (= start 0)
-             ""
-           (substring string 0 start))
-         (substring string start end)
-         (substring string end))
-      (let ((package (lisp-buffer-package)))
-        (lisp-symbol package (if package "::") string)))))
+  "Given that STRING names a Lisp symbol, convert it to an ilisp
+'symbol' object, i.e. a list of \(package delimiter symbol\).  'package'
+is either an explicit prefix, or is defaulted from the current buffer
+package."
+  ;; [changed to ensure the putative prefix doesn't contain funky characters, so
+  ;; it doesn't lose on "(pcl::fast-method foo ...)", for example.  but, rather
+  ;; than consing up a regexp every time, it would be cleaner to define an
+  ;; ilisp-package-prefix-regexp that matches the whole thing, prefix plus
+  ;; delimiter, and use that instead.  -- rgr, 30-Mar-03.]
+  (let ((separator-regexp (ilisp-value 'ilisp-package-separator-regexp t)))
+    (cond ((null separator-regexp)
+	    (lisp-default-package-symbol string))
+	  ((and (string-match (concat "^\\(" lisp-match-simple-name "\\)\\("
+				      separator-regexp "\\)")
+			      string)
+		;; doesn't count if it's all prefix; probably malformed if so.
+		(< (match-end 0) (length string)))
+	    (lisp-symbol (match-string 1 string)
+			 (match-string 2 string)
+			 (substring string (match-end 0))))
+	  (t
+	    (lisp-default-package-symbol string)))))
+
+(defun lisp-strip-package-prefix-from-symbol (thing)
+  ;; thing is ordinarily an *elisp* symbol, but may be a string.
+  (let ((regexp (ilisp-value 'ilisp-package-separator-regexp t))
+	(string (cond ((symbolp thing) (symbol-name thing))
+		      ((stringp thing) thing)
+		      ;; this is almost certainly the wrong thing . . .
+		      (t (format "%s" thing)))))
+    (cond ((null regexp) string)
+	  ((string-match regexp string)
+	    (substring string (match-end 0)))
+	  (t string))))
 
 ;;;
 (defun lisp-symbol-to-string (symbol)
@@ -332,7 +360,6 @@ If STAY is T, the end of the symbol will be point."
 		   (not (looking-at "[^: \t\n]*:*\\*[^ \t\n]")))))
 	(cons (lisp-string-to-symbol (buffer-substring-no-properties start end))
 	      (list function-p start end))))))
-
 
 ;;;
 (defun lisp-function-name ()

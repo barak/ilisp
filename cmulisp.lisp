@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.11 2003/01/30 15:08:28 kevinrosenberg Exp $
+;;; $Id: cmulisp.lisp,v 1.12 2003/04/02 01:56:20 rgrjr Exp $
 
 
 (in-package :ilisp)
@@ -92,14 +92,6 @@
 	(lisp::%closure-function fun)
 	fun)))
 
-(defun extract-function-info-from-name (sym)
-  (cond ((macro-function sym)
-	  (values (macro-function sym) :macro))
-	((fboundp sym)
-	  (values (fdefinition sym) :function))
-	(t
-	  (values nil nil))))
-
 ;;;%% arglist - return arglist of function
 ;;;
 ;;; This function is patterned after DESCRIBE-FUNCTION in the
@@ -152,97 +144,6 @@
 					; an error would
 					; be better.
 	     ))))))
-
-
-;;; source-file symbol package type --
-;;; New version provided by Richard Harris <rharris@chestnut.com> with
-;;; suggestions by Larry Hunter <hunter@work.nlm.nih.gov>.
-
-(defun source-file (symbol package type)
-  (declare (ignore type))
-  (ilisp-errors
-   (let* ((x (ilisp-find-symbol symbol package))
-	  (fun (get-correct-fn-object x)))
-     (when (and fun (not (eval:interpreted-function-p fun)))
-       ;; The hack above is necessary because CMUCL does not
-       ;; correctly record source file information when 'loading'
-       ;; a non compiled file.
-       ;; In this case we fall back on the TAGS machinery.
-       ;; (At least as I underestand the code).
-       ;; Marco Antoniotti 11/22/94.
-       (cond ((or (the-function-if-defined ((#:generic-function-p :pcl) ())
-                                           fun)
-                  (the-function-if-defined ((#:get-type :lisp) ()
-                                            :function-binding-p t)
-                                           (= (funcall the-function fun)
-                                              #.vm:funcallable-instance-header-type)))
-               (dolist (method (pcl::generic-function-methods fun))
-                 (print-simple-source-info
-                  (the-function-if-defined ((#:method-fast-function :pcl)
-                                            (#:method-function :pcl))
-                                           method)))
-               t)
-             (t (print-simple-source-info fun)))))))
-
-;;; Patch suggested by Richard Harris <rharris@chestnut.com>
-
-;;; FUN-DEFINED-FROM-PATHNAME takes a symbol or function object.  It
-;;; returns a pathname for the file the function was defined in.  If it was
-;;; not defined in some file, then nil is returned.
-;;;
-;;; FUN-DEFINED-FROM-PATHNAME is from hemlock/rompsite.lisp (cmucl17f), 
-;;; with added read-time conditionalization to work in older versions
-;;; of cmucl.  It may need a little bit more conditionalization for
-;;; some older versions of cmucl.
-
-(defun fun-defined-from-pathname (function)
-  "Returns the file where FUNCTION is defined in (if the file can be found).
-Takes a symbol or function and returns the pathname for the file the
-function was defined in.  If it was not defined in some file, nil is
-returned."
-  (flet ((frob (code)
-	   ;; extract a source file from a code object.
-	   (let ((info (the-function-if-defined ((#:%code-debug-info
-						  :kernel)
-						 (#:code-debug-info
-						  :kernel))
-						code)))
-	     (dolist (source (and info (c::debug-info-source info)))
-	       (case (c::debug-source-from source)
-		 (:file
-		   (when (c::debug-source-name source)
-		     (return (c::debug-source-name source))))
-		 ;; this accesses the c::source-info data installed by the
-		 ;; ilisp-compile fn.
-		 (:stream
-		   (let ((dsi (c::debug-source-info source)))
-		     (when dsi
-		       (let ((file-info (first (c::source-info-files dsi))))
-			 (when file-info
-			   (return (c::file-info-name file-info))))))))))))
-	(typecase function
-		  (symbol (fun-defined-from-pathname (fdefinition function)))
-                  (#.(the-symbol-if-defined ((#:byte-closure :kernel) ()))
-                    (fun-defined-from-pathname
-                     (kernel:byte-closure-function function)))
-		  (#.(the-symbol-if-defined ((#:byte-function :kernel) ()))
-                    (frob (c::byte-function-component function)))
-		  (function
-		   (frob (kernel:function-code-header
-			  (kernel:%function-self function))))
-		  (t nil))))
-
-
-;;; print-simple-source-info --
-;;; Patches suggested by Larry Hunter <hunter@work.nlm.nih.gov> and
-;;; Richard Harris <rharris@chestnut.com>
-;;; Nov 21, 1994.
-
-(defun print-simple-source-info (fun)
-  (let ((path (fun-defined-from-pathname fun)))
-    (when (and path (probe-file path))
-      (print (namestring (truename path)))
-      t)))
 
 (defun cmulisp-trace (symbol package breakp)
   "Trace SYMBOL in PACKAGE."

@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.9 2002/09/16 02:14:51 rgrjr Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.10 2003/04/02 01:56:20 rgrjr Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Definitions
@@ -42,7 +42,45 @@
 ;;; 27 March 2002 Will Deakin
 
 #-(and nil gcl)
-(defpackage :ilisp (:use :common-lisp #+:CMU :conditions)
+(defpackage :ilisp
+  (:use :common-lisp
+	#+:CMU :conditions
+	;; MOP packages.  This avoids tons of #+ noise in the find-src.lisp
+	;; code.
+	;; [in allegro, :mop and :clos are the same package, though it isn't
+	;; called that in 5.0.1; it has nicknames aclmop (which was dropped in
+	;; 6.0) and acl-mop (still in 6.1).  -- rgr, 12-Sep-02.]
+	#+allegro :clos
+	;; Portable Common Loops (PCL) has a separate :mop package.
+	#+pcl :pcl #+pcl :mop
+	;; SBCL is PCL-derived, but uses distinct package names (and doesn't
+	;; advertices :PCL on *features*).
+	#+sbcl :sb-pcl)
+  ;; Known cmucl/pcl glitch: the :mop and :pcl packages define different
+  ;; versions of these, which are exported from the :lisp package.
+  #+(or pcl sbcl)
+  (:shadowing-import-from #-sbcl :mop #+sbcl :sb-pcl
+			  :class-name :built-in-class :class-of :find-class
+			  :structure-class)
+  ;; Now get some non-exported symbols
+  #+(or pcl sbcl)
+  (:import-from #+sbcl :sb-pcl #-sbcl :pcl
+		:arg-info-lambda-list :definition-source
+		:definition-source-mixin :generic-function-methods
+		;; [this is exported from PCL in CMUCL, but not from SB-PCL.  --
+		;; rgr, 20-Sep-02.]
+		#+sbcl :standard-accessor-method)
+  #+(or pcl sbcl allegro)
+  (:import-from #+sbcl :sb-pcl
+		#+(and pcl (not sbcl)) :pcl
+		#+allegro :excl
+		:arg-info :lambda-list :specializers)
+  ;; [i forget why i wanted this rather than lisp:standard-class . . .  -- rgr,
+  ;; 15-Sep-02.]
+  #+(or pcl sbcl)
+  (:shadowing-import-from #+sbcl :sb-pcl #-sbcl :pcl
+			  :standard-class)
+
   ;; The following symbols should properly 'shadow' the inherited
   ;; ones.
   (:export #:ilisp-errors
