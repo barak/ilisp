@@ -8,8 +8,6 @@
 
 case "$1" in
     install|upgrade)
-	test -e /usr/share/common-lisp/source/ilisp || rm -f /usr/share/common-lisp/source/ilisp
-	test -e /usr/share/common-lisp/systems/ilisp.system || rm -f /usr/share/common-lisp/systems/ilisp.system
 	;;
     abort-upgrade)
 	;;

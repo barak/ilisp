@@ -20,14 +20,8 @@
 
 case "$1" in
     configure)
-        if [ -x /usr/sbin/register-common-lisp-source ]; then
-	    register-common-lisp-source ilisp
-	fi
 	;;
     abort-upgrade|abort-remove|abort-deconfigure)
-	if [ -x /usr/sbin/unregister-common-lisp-source ]; then
-	    unregister-common-lisp-source ilisp
-	fi
 	;;
     *)
         echo "postinst called with unknown argument \`$1'" >&2
