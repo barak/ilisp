@@ -1,3 +1,9 @@
+2001-02-12  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space): don't try to
+	display arglist if there is no inferior Lisp running (patch
+	contributed by Hannu Koivisto <azure@iki.fi>).
+
 2001-01-24  Martin Atzmueller  <martin@atzmueller.net>
 
 	* docs/ilisp.texi (Package Commands): updated documentation, since
