@@ -1,3 +1,7 @@
+2001-04-03  Paolo Amoroso  <amoroso@mclink.it>
+
+        * docs/ilisp.texi: updated date and version info.
+
 2001-04-02  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-sch.el (mzscheme): Provide symbol completion for MzScheme. 
