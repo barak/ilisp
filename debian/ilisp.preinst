@@ -8,8 +8,17 @@ set -e
 #        * <old-preinst> `abort-upgrade' <new-version>
 
 case "$1" in
-    install|upgrade)
-	#rm -rf /usr/lib/ilisp/*
+    install)
+	;;
+    upgrade)
+	for i in /usr/lib/ilisp/*; do 
+	    b=`basename $i`
+	    # Don't delete symlinks with .lisp or .scm extension
+	    if [ `basename $b .lisp` = $b -a `basename $b .scm` = $b ]; then
+		echo 'Removing $i'
+		rm $i
+	    fi
+	done
 	;;
     abort-upgrade)
 	;;
