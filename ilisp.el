@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.el,v 1.5 2002/01/25 11:48:33 mkoeppe Exp $     
+;;; $Id: ilisp.el,v 1.6 2002/02/01 21:48:52 anisotropy9 Exp $     
 
 ;;; Author: Chris McConnell <ccm@cs.cmu.edu>
 ;;; Maintainer: The Net <ilisp@cons.org>
@@ -234,8 +234,7 @@
 ;;;
 ;;; 2000-03-04 Martin Atzmueller
 
-(when (and ilisp-*enable-imenu-p*
-           (not (eq +ilisp-emacs-version-id+ 'xemacs)))
+(when ilisp-*enable-imenu-p*
   (when (ignore-errors (require 'imenu))
     (load "ilisp-imenu")))
 
