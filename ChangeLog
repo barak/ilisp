@@ -1,3 +1,10 @@
+2001-01-05  Paolo Amoroso  <amoroso@mclink.it>
+
+        * docs/ilisp.texi (Acknowledgements): added Craig Brozefsky.
+        Updated date info.
+
+        * Welcome: added Craig Brozefsky to the list of maintainers.
+
 2000-12-26  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-sch.el, guile-ilisp.scm: Rewrote the Guile arglist
