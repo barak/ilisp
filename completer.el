@@ -133,6 +133,12 @@ string that matches the pattern will be used.")
 	    'display-completion-list)))
 
 
+(unless (fboundp 'minibuffer-prompt-end)
+  (defun minibuffer-prompt-end ()
+    "Return the buffer position of the end of the minibuffer prompt.
+Return (point-min) if current buffer is not a mini-buffer."
+    (point-min)))
+
 ;;;%Utilities
 (defun completer-message (message &optional point)
   "Display MESSAGE at optional POINT for two seconds."
@@ -304,8 +310,10 @@ the best match."
 (defun completer-region (delimiters)
   "Return the completion region bounded by characters in DELIMITERS.
 The search is for the current buffer assuming that point is in it."
-  (cons (save-excursion (skip-chars-backward delimiters) (point))
-	(save-excursion (skip-chars-forward delimiters) (point))))
+  (cons (save-excursion (skip-chars-backward delimiters (minibuffer-prompt-end))
+                        (point))
+	(save-excursion (skip-chars-forward delimiters)
+                        (point))))
 	 
 ;;;
 (defun completer-last-component (string)
@@ -736,9 +744,9 @@ resulting string."
   (save-excursion
     (goto-char (point-max))
     (if (and (eq minibuffer-completion-table 'read-file-name-internal)
-	     (re-search-backward "//\\|/~\\|.\\$" nil t))
-	(delete-region (point-min) (1+ (point))))
-    (buffer-substring (point-min) (point-max))))
+	     (re-search-backward "//\\|/~\\|.\\$" (minibuffer-prompt-end) t))
+	(delete-region (minibuffer-prompt-end) (1+ (point))))
+    (buffer-substring (minibuffer-prompt-end) (point-max))))
 
 ;;;
 (defun completer-minibuf-exit ()
@@ -885,7 +893,7 @@ See completer-minibuf for more information."
 	      guess (car completions)))
     (if guess
 	(progn
-	  (goto-char (point-min))
+	  (goto-char (minibuffer-prompt-end))
 	  (insert guess)
 	  (delete-region (point) (point-max))
 	  (exit-minibuffer))
