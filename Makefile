@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.12 2001/05/29 16:18:32 anisotropy9 Exp $
+# $Id: Makefile,v 1.13 2001/06/05 15:57:07 amoroso Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -31,7 +31,7 @@ LN = ln -s
 HyperSpec = hyperspec-naggum.el
 
 # The SHELL variable is used only for making the distribution.
-SHELL = /bin/csh
+SHELL = /bin/sh
 
 # The 'rm' command used (we redefine it mostly because it may be
 # aliased
