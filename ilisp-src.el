@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.9 2003/05/09 14:45:25 bill_clementson Exp $
+;;; $Id: ilisp-src.el,v 1.10 2003/05/11 21:48:20 bill_clementson Exp $
 
 (require 'cl)
 
@@ -616,8 +616,7 @@ if successful."
 	 (old-buffer (current-buffer))
 	 ;; go to the right place in the file buffer (if we can).
 	 (result (lisp-set-up-for-search-in-new-file
-		   (ilisp-defn-spec-file defn-spec)))
-	 (first-point (point)))
+		   (ilisp-defn-spec-file defn-spec))))
     (cond ((null result)
 	    nil)
 	  ((progn
@@ -646,7 +645,7 @@ if successful."
 	    ;; not found in this buffer.  restore point in searched buffer,
 	    ;; before returning to the old buffer.  [shouldn't this be in an
 	    ;; unwind-protect cleanup?  -- rgr, 4-Oct-02.]
-	    (goto-char first-point)
+	    (goto-char lisp-last-point)
 	    (set-buffer old-buffer)
 	    nil))))
 

@@ -1,9 +1,15 @@
+2003-05-11  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ilisp-src.el: Applied patch sent by Eduardo Muñoz that fixes
+	problem of point moving to beginning of the buffer when function 
+	lisp-locate-definition-in-file is trying to find a definition
+	in the current buffer. 
+
 2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* cl-chs-init.lisp: Applied patch sent by Eduardo Muñoz that
 	fixes problem of CLISP "barfing" when #P".lisp" (a pathname) 
 	is member of system::*source-file-types* (a list of strings). 
-
 
 2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
 
