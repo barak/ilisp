@@ -1,17 +1,15 @@
 @echo off
 
 rem --------------------------------------------------------------
-rem Be sure to customize the following 4 variables for your system
+rem Be sure to customize the following 3 variables for your system
 rem --------------------------------------------------------------
 set EMACSDIR=c:\emacs
 set ILISPDIR=c:\home\site\ilisp
 set EMACS=%EMACSDIR%\bin\emacs.exe
-set HYPERSPEC=hyperspec-naggum.el
+
 
 cd %ILISPDIR%
-cd extra
-copy %HYPERSPEC% hyperspec.el
-cd ..
+
 %EMACS% -batch -l ilisp-mak.el
 
 copy /B ilisp-def.elc+ilisp-sym.elc+ilisp-inp.elc+ilisp-ind.elc+ilisp-prc.elc+ilisp-val.elc+ilisp-out.elc ilisp-all.elc
