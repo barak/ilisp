@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: February 20, 2002
+\input texinfo    @c -*-texinfo-*-         Last modified: June 7, 2002
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -338,6 +338,7 @@ Thomas M. Breuel,
 Craig Brozefsky,
 Rick Campbell,
 Hans Chalupsky,
+Bill Clementson,
 Kimball Collins,
 William Deakin,
 Brian Dennis,
@@ -346,6 +347,7 @@ Tom Emerson,
 Michael Ernst,
 Scott Fahlman,
 Karl Fogel,
+Dave Fox,
 Paul Fuqua (for the CMU-CL GC display code),
 David Gadbois,
 Robert P. Goldman,
@@ -361,6 +363,7 @@ Chuck Irvine,
 Mark Kantrowitz,
 Michael Kashket,
 Matthias Koeppe,
+Hannu Koivisto,
 Qiegang Long,
 Christian Lynbech,
 Erik Naggum,
