@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: July 19, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: July 24, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -594,13 +594,15 @@ directory of the distribution tree.
 @cindex @file{docs}
 
 The generation of GNU Info, DVI, PostScript and HTML versions of the
-manual from the Texinfo source is controlled by the @file{Makefile} in
-the @file{docs} directory. Run @code{make docs} or just @code{make} to
-generate all of the formats. If you are interested in only some of them
-then issue the appropriate command: @code{make info} for GNU Info,
-@code{make dvi} for DVI, @code{make ps} for PostScript and @code{make
-html} for HTML. To remove the intermediate files produced during the
-generation of DVI output you can run @code{make tmpclean}.
+documentation from the Texinfo and TeX source is controlled by the
+@file{Makefile} in the @file{docs} directory. Run @code{make docs} or
+just @code{make} to generate all of the formats. If you are interested
+in only some of them then issue the appropriate command: @code{make
+info} for GNU Info, @code{make dvi} for DVI, @code{make ps} for
+PostScript and @code{make html} for HTML. To remove the intermediate
+files produced during the generation of DVI output you can run
+@code{make tmpclean}. Note that some of the output formats may not be
+supported for certain documents.
 @cindex User manual
 @cindex @file{Makefile}
 @cindex @file{docs}
@@ -611,10 +613,9 @@ generation of DVI output you can run @code{make tmpclean}.
 @pindex make ps
 @pindex make html
 
-The ILISP reference card is available in DVI and PostScript formats
-together with the TeX source. Check the comments at the beginning of the
-TeX source if you need to generate a version with a different number of
-columns.
+The ILISP reference card is available as a TeX source file. Check the
+comments at the beginning of the file if you need to generate a version
+with a different number of columns (the default is 3).
 @cindex Reference card
 
 
