@@ -152,8 +152,11 @@ bol-ilisp skips them.")
 (defvar ilisp-mode-hook '()
   "Hook for customizing ilisp mode.")
 
-(deflocal ilisp-init-hook nil
+(defvar ilisp-init-hook nil
   "Hook of functions to call on first prompt in inferior LISP.")
+
+(deflocal ilisp-init-hook-local nil
+  "Local Hook of functions to call on first prompt in inferior LISP.")
 
 ;;;%%Advanced customization
 ;;;%%%Commands

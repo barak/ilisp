@@ -514,7 +514,8 @@ The default directory of the optional BUFFER is used is available.  If
 you are in an inferior LISP buffer, set the default directory to the
 current directory of the LISP."
   (interactive)
-  (if (and (not buffer) (memq major-mode ilisp-modes))
+  (if (and (not buffer) (memq major-mode ilisp-modes)
+           (ilisp-value 'ilisp-directory-command))
       (let ((dir
 	     (ilisp-send
 	      (ilisp-value 'ilisp-directory-command)

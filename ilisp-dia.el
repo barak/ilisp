@@ -199,7 +199,9 @@ inferior LISP.  PARENT is the name of the parent dialect."
 	comint-abort-hook 'ilisp-abort-handler)
 
   (setq ilisp-use-map ilisp-mode-map
-	ilisp-init-hook '((lambda () (ilisp-init nil nil t)))
+	ilisp-init-hook-local '((lambda ()
+                                  (ilisp-init nil nil t)
+                                  (run-hooks 'ilisp-init-hook)))
 	ilisp-filter-regexp "\\`\\s *\\(:\\(\\w\\|\\s_\\)*\\)?\\s *\\'"
 	ilisp-filter-length 3
 	ilisp-error-filter 'ilisp-error-filter

@@ -123,7 +123,7 @@ Takes the program name from the variable ilisp-program.
 	      mode-name "ILISP")
 	(rplaca (car comint-send-queue) 
 		(function (lambda ()
-			    (run-hooks 'ilisp-init-hook))))
+			    (run-hooks 'ilisp-init-hook-local))))
 	(setq ilisp-initialized (delete* ilisp-buffer ilisp-initialized
 					 :test #'equal))
 	(unless (member* names ilisp-buffers :key #'car)

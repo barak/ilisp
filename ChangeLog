@@ -1,4 +1,22 @@
-2001-03-27    <ma@satello.my.net>
+2001-03-29  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-mod.el (ilisp): ilisp-init-hook replaced by
+	ilisp-init-hook-local.
+
+	* ilisp-dia.el (setup-ilisp): ilisp-init-hook replaced by
+	ilisp-init-hook-local. Default ilisp-init-hook-local hook now runs
+	hooks on ilisp-init-hook, too.
+
+	* ilisp-def.el (ilisp-init-hook): ilisp-init-hook has become a
+	DEFVAR.
+	(ilisp-init-hook-local): new variable ilisp-init-hook-local, that
+	replaces the old DEFLOCAL ilisp-init-hook. Thus fixing bug
+	reported by Hannu Koivisto (cmucl-imp 2001-03-16).
+
+	* ilisp-hi.el (default-directory-lisp): test if directory-command
+	is bound, if default-directory is set.
+
+2001-03-27  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space): don't try to
 	display an arglist, after a #+ or #- form, e.g. after a
