@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.7 2001/08/31 20:25:16 marcoxa Exp $
+;;; $Id: cl-ilisp.lisp,v 1.8 2001/10/19 19:00:43 mna Exp $
 
 
 ;;; Old history log.
@@ -88,9 +88,9 @@
 
 (defvar *ilisp-message-addon-string* "ILISP:")
 
-(defmacro the-symbol-if-defined ((if-symbol
-                                  if-package
-                                  &optional else-symbol else-package)
+(defmacro the-symbol-if-defined (((if-symbol if-package)
+                                  (&optional else-symbol else-package)
+                                  &key eval-p)
                                  &body body)
   (let* ((sym-if (and (find-package if-package)
                       (find-symbol (symbol-name if-symbol)
@@ -100,15 +100,18 @@
              (and else-symbol
                   (find-package else-package)
                   (find-symbol (symbol-name else-symbol)
-                               (find-package else-package))))))
+                               (find-package else-package)))))
+         (tmp-symbol (or sym-if sym-else)))
     (if (consp (first body))
-      `(let ((the-symbol ,(or sym-if sym-else)))
+      `(let ((the-symbol (symbol-value ',tmp-symbol)))
         ,@body)
-      `',(or sym-if  sym-else))))
+      (if eval-p
+        `,(eval tmp-symbol)
+        `',tmp-symbol))))
                    
-(defmacro the-function-if-defined ((if-function
-                                    if-package
-                                    &optional else-function else-package)
+(defmacro the-function-if-defined (((if-function if-package)
+                                    (&optional else-function else-package)
+                                    &key function-binding-p)
                                    &body body)
   (let* ((fun-if
            (ignore-errors
@@ -121,10 +124,10 @@
                     (find-symbol (symbol-name else-function)
                                  (find-package else-package)))))))
     (when (or fun-if fun-else)
-      (if (and (consp body) (not (consp (first body))))
-        `(,(or fun-if fun-else) ,@body)
+      (if function-binding-p        
         `(let ((the-function (symbol-function ',(or fun-if fun-else))))
-          ,@body)))))
+          ,@body)
+        `(,(or fun-if fun-else) ,@body)))))
       
 
 ;;; Martin Atzmueller 2000-01-15

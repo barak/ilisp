@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.11 2001/06/06 12:17:38 mna Exp $
+;;; $Id: ilisp-sbcl.el,v 1.12 2001/10/19 19:00:43 mna Exp $
 
 ;;;%%%Steel Bank Common Lisp
 
@@ -60,16 +60,16 @@
 	ilisp-reset ":r toplevel"
 	comint-interrupt-regexp "interrupted at"
 
-        ;; hardcoded binary extensions are undesirable, but note that
-        ;; in SBCL 0.7 these will go to "fasl", so there seems little
-        ;; point in getting ilisp{-init-,-}binary-command to work
-        ;; properly if that arrives soon
-
-        ilisp-binary-command nil
-        ilisp-init-binary-command nil
-	ilisp-binary-extension "x86f"
-	ilisp-init-binary-extension "x86f"
-	ilisp-binary-command "\"x86f\""
+        ;; Hardcoded binary extensions are undesirable.
+        ;; Since ilisp-cl.el takes care of ilisp-binary-command and
+        ;; ilisp-init-binary-command we don't need to take care of that here.
+        ;; Even it is was hardcoded, problems would arise, because sbcl-0.7.x
+        ;; uses ".fasl" as an extension, whereas sbcl-0.6.x uses specific
+        ;; extensions (like ".x86f").
+        ;; So go for the general mechanism.
+        ;; instead of the following:
+	;; ilisp-init-binary-command "\"x86f\""
+	;; ilisp-binary-command "\"x86f\""
 	)
 
   ;; ILD Support, largely untested

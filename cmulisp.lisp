@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cmulisp.lisp,v 1.3 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: cmulisp.lisp,v 1.4 2001/10/19 19:00:43 mna Exp $
 
 
 (in-package "ILISP")
@@ -107,8 +107,6 @@
 	    (values (symbol-function sym) :function)
 	    (values nil nil)))))
 
-(export '(arglist source-file cmulisp-trace))
-
 ;;;%% arglist - return arglist of function
 ;;;
 ;;; This function is patterned after DESCRIBE-FUNCTION in the
@@ -139,7 +137,7 @@
 		 #.vm:closure-function-header-type)
 		(massage-arglist
                  (the-function-if-defined
-                  (#:%function-arglist :lisp #:%function-header-arglist :lisp)
+                  ((#:%function-arglist :lisp) (#:%function-header-arglist :lisp))
                   func)))
 	       (#.vm:funcallable-instance-header-type
 		(typecase func
@@ -179,15 +177,17 @@
        ;; In this case we fall back on the TAGS machinery.
        ;; (At least as I underestand the code).
        ;; Marco Antoniotti 11/22/94.
-       (cond ((or (the-function-if-defined (#:generic-function-p :pcl) fun)
-                  (the-function-if-defined (#:get-type :lisp)
+       (cond ((or (the-function-if-defined ((#:generic-function-p :pcl) ())
+                                           fun)
+                  (the-function-if-defined ((#:get-type :lisp) ()
+                                            :function-binding-p t)
                                            (= (funcall the-function fun)
                                               #.vm:funcallable-instance-header-type)))
                (dolist (method (pcl::generic-function-methods fun))
                  (print-simple-source-info
-                  (the-function-if-defined
-                   (#:method-fast-function :pcl #:method-function :pcl)
-                   method)))
+                  (the-function-if-defined ((#:method-fast-function :pcl)
+                                            (#:method-function :pcl))
+                                           method)))
                t)
              (t (print-simple-source-info fun)))))))
 
@@ -208,9 +208,11 @@ Takes a symbol or function and returns the pathname for the file the
 function was defined in.  If it was not defined in some file, nil is
 returned."
   (flet ((frob (code)
-	       (let ((info (the-function-if-defined
-                            (#:%code-debug-info :kernel #:code-debug-info :kernel)
-                            code)))
+	       (let ((info (the-function-if-defined ((#:%code-debug-info
+                                                      :kernel)
+                                                     (#:code-debug-info
+                                                      :kernel))
+                                                    code)))
 		 (when info
 		       (let ((sources (c::debug-info-source info)))
 			 (when sources
@@ -219,11 +221,11 @@ returned."
 				       (c::debug-source-name source)))))))))
 	(typecase function
 		  (symbol (fun-defined-from-pathname (fdefinition function)))
-                  (#.(the-symbol-if-defined (#:byte-closure :kernel))
-                   (fun-defined-from-pathname
-                    (kernel:byte-closure-function function)))		  
-		  (#.(the-symbol-if-defined (#:byte-function :kernel))
-		   (frob (c::byte-function-component function)))
+                  (#.(the-symbol-if-defined ((#:byte-closure :kernel) ()))
+                    (fun-defined-from-pathname
+                     (kernel:byte-closure-function function)))
+		  (#.(the-symbol-if-defined ((#:byte-function :kernel) ()))
+                    (frob (c::byte-function-component function)))
 		  (function
 		   (frob (kernel:function-code-header
 			  (kernel:%function-self function))))

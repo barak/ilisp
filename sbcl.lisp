@@ -10,18 +10,16 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.3 2001/10/05 13:56:08 amoroso Exp $
+;;; $Id: sbcl.lisp,v 1.4 2001/10/19 19:00:43 mna Exp $
 
 
 (in-package "ILISP")
 
-;;;% Determine a version
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (when (find-package "SB-EVAL")
-    (pushnew 'evaluator *features*))
-  (unless (typep (sb-kernel::specifier-type 'sb-kernel::byte-function)
-                 'sb-kernel::unknown-type)
-    (pushnew 'byte-compiler *features*)))
+;; ILISP-specifics for SBCL. Since version 0.7 introduced lots of changes,
+;; e.g.(bytecode-)interpreter goes away, and lots of other 'renaming'-changes,
+;; take care of that, by testing via the 'magic'-macros:
+;; THE-SYMBOL-IF-DEFINED, and THE-FUNCTION-IF-DEFINED.
+
 
 ;;;% CMU CL does not define defun as a macro
 (defun ilisp-compile (form package filename)
@@ -66,15 +64,23 @@
   (let ((fun (or (macro-function sym)
 		 (and (fboundp sym) (symbol-function sym)))))
     (cond (fun
-	   (when (and (= (sb-impl::get-type fun) #.sb-vm:closure-header-type)
-		      #+evaluator (not (sb-eval:interpreted-function-p fun)))
-	     (setq fun (sb-impl::%closure-function fun)))
-	   fun)
+            (if (and (= (sb-impl::get-type fun)
+                        ;; sbcl-07 has closure-header-widetag, whereas
+                        ;; earlier sbcl has closure-header-type.
+                        #.(the-symbol-if-defined
+                           ((#:closure-header-widetag :sb-vm)
+                            (#:closure-header-type :sb-vm) :eval-p t)))
+                     (not (the-function-if-defined
+                           ((#:interpreted-function-p :sb-eval) ()) fun)))
+              ;; sbcl-07: %closure-function -> closure-fun
+              (the-function-if-defined ((#:%closure-fun :sb-impl)
+                                        (#:closure-function :sb-impl))
+                                       fun)
+              ;; else just return the old function-object
+              fun))
 	  (t
-	   (error "Unknown function ~a.  Check package." sym)
-	   nil))))
-
-(export '(arglist source-file sbcl-trace))
+            (error "Unknown function ~a.  Check package." sym)
+            nil))))
 
 ;;; 2000-04-02: Martin Atzmueller
 ;;; better (more bulletproof) arglist code adapted from cmulisp.lisp:
@@ -90,55 +96,62 @@
 (defun arglist (symbol package)
   (ilisp-errors
    (let* ((package-name (if (packagep package)
-			    (package-name package)
-			    package))
+                          (package-name package)
+                          package))
 	  (x (ilisp-find-symbol symbol package-name)))
      (flet ((massage-arglist (args)
 	      (typecase args
 		(string (if (or (null args) (string= args "()"))
-			    ""
-			    args))
+                          ""
+                          args))
 		(list (format nil "~S" args))
 		(t ""))))
 
        (multiple-value-bind (func kind)
 	   (extract-function-info-from-name x)
-	 ;; (print func *trace-output*)
-	 ;; (print kind *trace-output*)
 	 (if (and func kind)
-	     (case (sb-impl::get-type func)
-	       ((#.sb-vm:closure-header-type
-		 #.sb-vm:function-header-type
-		 #.sb-vm:closure-function-header-type)
-		(massage-arglist
-		 (funcall #'sb-impl::%function-arglist
-			  func)))
-
-	       (#.sb-vm:funcallable-instance-header-type
-		(typecase func
-		  #+byte-compiler
-                  (sb-kernel:byte-function
-		   "Byte compiled function or macro, no arglist available.")
-		  #+byte-compiler
-		  (sb-kernel:byte-closure
-		   "Byte compiled closure, no arglist available.")
-		  ((or generic-function sb-pcl::generic-function)
-		   (sb-pcl::generic-function-pretty-arglist func))
-                  #+evaluator
-		  (sb-eval:interpreted-function
-		   (massage-arglist
-		    (sb-eval::interpreted-function-arglist func)))
-		
-		  (t (print 99 *trace-output*) "No arglist available.")
-		  ))			; typecase
-	       (t "No arglist available.")) ; case
-	     "Unknown function - no arglist available." ; For the time
+           (case (sb-impl::get-type func)
+             ((#.(the-symbol-if-defined ((#:closure-header-widetag :sb-vm)
+                                         (#:closure-header-type :sb-vm)
+                                         :eval-p t))
+                 #.(the-symbol-if-defined ((#:simple-fun-header-widetag :sb-vm)
+                                           (#:function-header-type :sb-vm)
+                                           :eval-p t))
+		 #.(the-symbol-if-defined ((#:closure-fun-header-widetag
+                                            :sb-vm)
+                                           (#:closure-function-header-type
+                                            :sb-vm)
+                                           :eval-p t)))
+               (massage-arglist
+                (the-function-if-defined ((#:%simple-fun-arglist :sb-impl)
+                                          (#:%function-arglist :sb-impl))
+                                         func)))
+             (#.(the-symbol-if-defined
+                 ((#:funcallable-instance-header-widetag :sb-vm)
+                  (#:funcallable-instance-header-type :sb-vm)
+                  :eval-p t))
+               (typecase func
+                 (#.(the-symbol-if-defined ((#:byte-function :sb-kernel) ()))
+                   "Byte compiled function or macro, no arglist available.")
+                 (#.(the-symbol-if-defined ((#:byte-closure :sb-kernel) ()))
+                   "Byte compiled closure, no arglist available.")
+                 ((or generic-function sb-pcl::generic-function)
+                   (sb-pcl::generic-function-pretty-arglist func))
+                 (#.(the-symbol-if-defined ((#:interpreted-function :sb-eval) ()))
+                   (the-function-if-defined
+                    ((#:interpreted-function-arglist :sb-eval) ()
+                     :function-binding-p t)
+                    (massage-arglist (funcall the-function func))))
+                 (t (print 99 *trace-output*) "No arglist available.")
+                 ))			; typecase
+             (t "No arglist available.")) ; case
+           "Unknown function - no arglist available." ; For the time
 					; being I just
 					; return this
 					; value. Maybe
 					; an error would
 					; be better.
-	     ))))))
+           ))))))
 
 ;;; source-file symbol package type --
 ;;; New version provided by Richard Harris <rharris@chestnut.com> with
@@ -150,7 +163,8 @@
    (let* ((x (ilisp-find-symbol symbol package))
 	  (fun (get-correct-fn-object x)))
      (when (and fun
-                #+evaluator (not (sb-eval:interpreted-function-p fun)))
+                (not (the-function-if-defined
+                      ((#:interpreted-function-p :sb-eval) ()) fun)))
 	   ;; The hack above is necessary because CMUCL does not
 	   ;; correctly record source file information when 'loading'
 	   ;; a non compiled file.
@@ -191,16 +205,26 @@ returned."
 		       (sb-c::debug-source-name source)))))))))
     (typecase function
       (symbol (fun-defined-from-pathname (fdefinition function)))
-      #+byte-compiler
-      (sb-kernel:byte-closure
-       (fun-defined-from-pathname
-	(sb-kernel:byte-closure-function function)))
-      #+byte-compiler
-      (sb-kernel:byte-function
-       (frob (sb-c::byte-function-component function)))
+      (#.(the-symbol-if-defined ((#:byte-function :sb-kernel) ()))
+        "Byte compiled function or macro, no arglist available.")
+      (#.(the-symbol-if-defined ((#:byte-closure :sb-kernel) ()))
+        "Byte compiled closure, no arglist available.")
+      (#.(the-symbol-if-defined ((#:byte-closure :sb-kernel) ()))
+        (fun-defined-from-pathname
+         (the-function-if-defined ((#:byte-closure-function :sb-kernel) ()
+                                   :function-binding-p t)
+                                  (funcall the-function function))))
+      (#.(the-symbol-if-defined ((#:byte-function :sb-kernel) ()))
+        (the-function-if-defined ((#:byte-function-component :sb-c) ()
+                                  :function-binding-p t)
+                                 (frob (funcall the-function function))))
       (function
-       (frob (sb-kernel:function-code-header
-	      (sb-kernel:%function-self function))))
+        (frob (the-function-if-defined ((#:fun-code-header :sb-kernel)
+                                        (#:function-code-header :sb-kernel))
+                                       (the-function-if-defined
+                                        ((#:%simple-fun-self :sb-kernel)
+                                         (#:%function-self :sb-kernel))
+                                        function))))
       (t nil))))
 
 

@@ -13,7 +13,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-pkg.lisp,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-pkg.lisp,v 1.3 2001/10/19 19:00:43 mna Exp $
 
 ;;;----------------------------------------------------------------------------
 ;;; Prologue
@@ -69,6 +69,9 @@
 	   "ILISP-CALLERS"
 	   "ILISP-SOURCE-FILES"
 	   "ILISP-PRINT-INFO-MESSAGE"
+           #+:SBCL "SBCL-TRACE"
+           #+:CMU "CMULISP-TRACE"
+           #+(or :SBCL :CMU) "SOURCE-FILE"
 	   )
   )
 ;;; ILISP --

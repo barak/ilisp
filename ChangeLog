@@ -1,3 +1,32 @@
+2001-10-19  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-sbcl.el (sbcl): removed hardcoded compiled-file
+	extensions, e.g. "x86f", because
+	- ILISP already had a general mechanism to take care of that,
+	- sbcl-0.7.x uses ".fasl" instead of the former extensions.
+
+	* cmulisp.lisp (arglist): relevant changes to THE-*-IF-DEFINED
+	forms, due to changes to the macros.
+
+	* sbcl.lisp: tweaks, to make sbcl-0.7pre (and hopefully sbcl-0.7,
+	too) work with ILISP again. Used a lot of THE-SYMBOL-IF-DEFINED,
+	and THE-FUNCTION-IF-DEFINED magic.
+	Now it's not only necessary, to take care of differences between
+	sbcl-0.7.x and sbcl-0.6.x due to absence of
+	evaluator/byte-compiler in sbcl-0.7.x, but also to take care of
+	renamings of various (internal) functions ...
+
+	* cmulisp.lisp: removed exports.
+
+	* sbcl.lisp: removed exports.
+
+	* ilisp-pkg.lisp ("ILISP"): put the exports in one place, not in
+	seperate source files (deleting stuff from sbcl.lisp,
+	cmulisp.lisp).
+
+	* cl-ilisp.lisp (the-symbol-if-defined): tweak.
+	(the-function-if-defined): tweak as well, for better interface.
+
 2001-10-05  Paolo Amoroso  <amoroso@mclink.it>
 
 	* sbcl.lisp (SB-EVAL, ilisp-compile, arglist, source-file,
