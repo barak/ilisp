@@ -1,3 +1,12 @@
+2003-11-03  Hannu Koivisto  <azure@iki.fi>
+
+	* sbcl.lisp:
+	  * Now tries to require sb-introspect.
+	  * (arglist) Modified to support sb-introspect.
+
+	* cl-ilisp.lisp:
+	  * (maybe-function) New function.
+
 2003-10-13  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm: Update the documentation->arglist code to

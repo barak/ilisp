@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.20 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: cl-ilisp.lisp,v 1.21 2003/11/03 04:40:16 rgrjr Exp $
 
 
 ;;; Old history log.
@@ -80,6 +80,13 @@
 (defvar *ilisp-old-result* nil "Used for save/restore of top level values.")
 
 (defvar *ilisp-message-addon-string* "ILISP:")
+
+(defun maybe-function (symbol-name package-name)
+  (let ((symbol (and (find-package package-name)
+                     (find-symbol (symbol-name symbol-name)
+                                  (find-package package-name)))))
+    (when (fboundp symbol)
+      symbol)))
 
 (defmacro the-symbol-if-defined (((if-symbol if-package)
                                   (&optional else-symbol else-package)

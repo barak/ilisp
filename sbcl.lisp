@@ -11,10 +11,12 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.9 2003/04/02 02:53:37 rgrjr Exp $
+;;; $Id: sbcl.lisp,v 1.10 2003/11/03 04:40:16 rgrjr Exp $
 
 
 (in-package :ilisp)
+
+(ignore-errors (require :sb-introspect))
 
 ;; ILISP-specifics for SBCL. Since version 0.7 introduced lots of changes,
 ;; e.g.(bytecode-)interpreter goes away, and lots of other 'renaming'-changes,
@@ -67,12 +69,12 @@
 ;;; 2000-04-02: Martin Atzmueller
 ;;; better (more bulletproof) arglist code adapted from cmulisp.lisp:
 
-(defun arglist (symbol package)
+(defun arglist (symbol-name package)
   (ilisp-errors
    (let* ((package-name (if (packagep package)
-                          (package-name package)
+                            (package-name package)
                           package))
-	  (x (ilisp-find-symbol symbol package-name)))
+	  (symbol (ilisp-find-symbol symbol-name package-name)))
      (flet ((massage-arglist (args)
 	      (typecase args
 		(string (if (or (null args) (string= args "()"))
@@ -86,49 +88,60 @@
                           (format nil "~A" args))
                         "()"))
 		(t ""))))
-
        (multiple-value-bind (func kind)
-	   (extract-function-info-from-name x)
+	   (extract-function-info-from-name symbol)
 	 (if (and func kind)
-           (case (the-function-if-defined ((#:widetag-of :sb-impl)
-                                           (#:get-type :sb-impl)) func)
-             ;; <3>
-             ((#.(the-symbol-if-defined ((#:closure-header-widetag :sb-vm)
-                                         (#:closure-header-type :sb-vm)
-                                         :eval-p t))
-                 #.(the-symbol-if-defined ((#:simple-fun-header-widetag :sb-vm)
-                                           (#:function-header-type :sb-vm)
-                                           :eval-p t))
-		 #.(the-symbol-if-defined ((#:closure-fun-header-widetag
-                                            :sb-vm)
-                                           (#:closure-function-header-type
-                                            :sb-vm)
-                                           :eval-p t)))
-               (massage-arglist
-                (the-function-if-defined ((#:%simple-fun-arglist :sb-impl)
-                                          (#:%function-arglist :sb-impl))
-                                         func)))
-             (#.(the-symbol-if-defined
-                 ((#:funcallable-instance-header-widetag :sb-vm)
-                  (#:funcallable-instance-header-type :sb-vm)
-                  :eval-p t))
-               (typecase func
-                 ;; <2>
-                 (#.(the-symbol-if-defined ((#:byte-function :sb-kernel) ()))
-                   "Byte compiled function or macro, no arglist available.")
-                 (#.(the-symbol-if-defined ((#:byte-closure :sb-kernel) ()))
-                   "Byte compiled closure, no arglist available.")
-                 ((or generic-function sb-pcl::generic-function)
-                   (sb-pcl::generic-function-pretty-arglist func))
-                 ;; <1>
-                 (#.(the-symbol-if-defined ((#:interpreted-function :sb-eval) ()))
-                   (the-function-if-defined
-                    ((#:interpreted-function-arglist :sb-eval) ()
-                     :function-binding-p t)
-                    (massage-arglist (funcall the-function func))))
-                 (t (print 99 *trace-output*) "No arglist available.")
-                 ))			; typecase
-             (t "No arglist available.")) ; case
+             ;; Instruments of darkness
+             (macrolet ((madness ()
+                          (let ((function-arglist-sym
+                                 (maybe-function '#:function-arglist '#:sb-introspect)))
+                            (if function-arglist-sym
+                                `(massage-arglist
+                                  (,function-arglist-sym func))
+                              `(case (the-function-if-defined
+                                      ((#:widetag-of :sb-impl)
+                                       (#:get-type :sb-impl))
+                                      func)
+                                ((,(symbol-value
+                                    (the-symbol-if-defined
+                                     ((#:closure-header-widetag :sb-vm)
+                                      (#:closure-header-type :sb-vm))))
+                                  ,(symbol-value
+                                    (the-symbol-if-defined
+                                     ((#:simple-fun-header-widetag :sb-vm)
+                                      (#:function-header-type :sb-vm))))
+                                  ,(symbol-value
+                                    (the-symbol-if-defined
+                                     ((#:closure-fun-header-widetag :sb-vm)
+                                      (#:closure-function-header-type :sb-vm)))))
+                                 (massage-arglist
+                                  (the-function-if-defined
+                                   ((#:%simple-fun-arglist :sb-impl)
+                                    (#:%function-arglist :sb-impl))
+                                   func)))
+                                (,(symbol-value
+                                   (the-symbol-if-defined
+                                    ((#:funcallable-instance-header-widetag :sb-vm)
+                                     (#:funcallable-instance-header-type :sb-vm))))
+                                 (typecase func
+                                   (,(the-symbol-if-defined
+                                      ((#:byte-function :sb-kernel) ()))
+                                    "Byte compiled function or macro, no arglist available.")
+                                   (,(the-symbol-if-defined
+                                      ((#:byte-closure :sb-kernel) ()))
+                                    "Byte compiled closure, no arglist available.")
+                                   ((or generic-function sb-pcl::generic-function)
+                                    (sb-pcl::generic-function-pretty-arglist func))
+                                   (,(the-symbol-if-defined
+                                      ((#:interpreted-function :sb-eval) ()))
+                                    (the-function-if-defined
+                                     ((#:interpreted-function-arglist :sb-eval) ()
+                                      :function-binding-p t)
+                                     (massage-arglist (funcall the-function func))))
+                                   (t (print 99 *trace-output*)
+                                      "No arglist available.")))
+                                (t "No arglist available."))))))
+               (madness))               ; 
            "Unknown function - no arglist available." ; For the time
 					; being I just
 					; return this
