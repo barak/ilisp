@@ -14,7 +14,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.emacs,v 1.5 2001/12/10 13:23:55 amoroso Exp $
+;;; $Id: ilisp.emacs,v 1.6 2002/05/31 11:49:40 amoroso Exp $
 
 
 ;;; If ilisp lives in some non-standard directory, you must tell
@@ -54,6 +54,9 @@
 
 ;; Franz
 (autoload 'allegro     "ilisp" "Inferior Allegro Common Lisp." t)
+
+;; Corman
+(autoload 'cormanlisp  "ilisp" "Inferior Corman Common Lisp." t)
 
 ;; Lucid
 ; (autoload 'lucid     "ilisp" "Inferior Lucid Common Lisp." t)
@@ -108,6 +111,11 @@
 ; (setq lucid-program "/usr/misc/.lucid/bin/lisp")
 
 (setq clisp-hs-program "clisp -I")
+
+;(setq *cormanlisp-dir* "C:\\CORMAN~1\\CORMAN~1.5\\")
+;(setq cormanlisp-program
+;      (concat *cormanlisp-dir* "clconsole.exe" 
+;	       " -image " *cormanlisp-dir* "CormanLisp.img"))
 
 ; (setq lispworks-program
 ;       "/somewhere/in/the/directory/tree/lispworks")
