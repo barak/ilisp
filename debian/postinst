@@ -45,6 +45,7 @@ case "$1" in
 	set_keybindings
 	for i in /usr/share/common-lisp/source/ilisp/*.lisp; do ln -s $i /usr/lib/ilisp/; done
 	/usr/sbin/register-common-lisp-source ilisp
+	clc-autobuild-library ilisp yes
 	;;
     abort-upgrade|abort-remove|abort-deconfigure)
 	;;
