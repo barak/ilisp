@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.9 2001/05/12 22:10:53 marcoxa Exp $
+# $Id: Makefile,v 1.10 2001/05/14 12:34:45 mkoeppe Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -118,6 +118,7 @@ tarring:
             $(patsubst %,$(Ilisp_tar_dir)/%,$(OtherFiles))              \
             $(Ilisp_tar_dir)/*.el                                       \
             $(Ilisp_tar_dir)/*.lisp                                     \
+            $(Ilisp_tar_dir)/*.scm                                      \
             $(patsubst %,$(Ilisp_tar_dir)/%,$(DocFiles))                \
             $(Ilisp_tar_dir)/extra/README                               \
             $(Ilisp_tar_dir)/extra/hyperspec-*.el                       \

@@ -1,3 +1,11 @@
+2001-05-14  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* Makefile: Put *.scm files into the distribution.
+
+2001-05-13  Marco Antoniotti <marcoxa@cs.nyu.edu>
+
+	Version 5.11 released.
+
 2001-05-09  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* guile-ilisp.scm (ilisp-get-package):  If the full module name is
