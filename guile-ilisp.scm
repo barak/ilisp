@@ -109,20 +109,14 @@ WITH-PROCEDURE?, include the procedure symbol."
      (else (string-append "CAN'T PARSE THIS DOCUMENTATION:\n"
 			  doc)))))
 
-(define (info-message sym package expensive? arglist-only?)
-  "Evaluate SYM in PACKAGE and return an informational message about
-the value.  For procedures, return procedure symbol and arglist, or
+(define (info-message sym obj expensive? arglist-only?)
+  "Return an informational message about OBJ, which is the value of SYM.
+For procedures, return procedure symbol and arglist, or
 fall back to a message on the arity; if ARGLIST-ONLY?, return the
 arglist only.  If EXPENSIVE?, take some more effort."
   ;; The code here is so lengthy because we want to return a
   ;; meaningful result even if we aren't allowed to read the
   ;; documentation files (EXPENSIVE? = #f).
-  (let ((obj (catch #t
-		    (lambda ()
-		      (eval-in-package sym
-				       (string->module package)))
-		    (lambda args
-		      #f))))
     (cond
      ((closure? obj)
       (let ((formals (cadr (procedure-source obj))))
@@ -160,37 +154,69 @@ arglist only.  If EXPENSIVE?, take some more effort."
   "Evaluate SYM in PACKAGE and print an informational message about
 the value.  For procedures, the arglist is printed.
 This procedure is invoked by the electric space key."
+  (let ((obj (catch #t
+		    (lambda ()
+		      (eval-in-package sym
+				       (string->module package)))
+		    (lambda args #f))))
+		     
+    (cond
+     ((and obj
+	   (info-message sym obj #f #f))
+      => (lambda (message)
+	   (display message)
+	   (newline))))))
+
+(define (if-defined symbol package
+			   defined-procedure undefined-procedure)
+  (let ((obj (catch #t
+		    (lambda ()
+		      (list (eval-in-package symbol
+					     (string->module package))))
+		    (lambda args #f))))
+    (if obj
+	(defined-procedure (car obj))
+	(undefined-procedure))))
+
+(define (symbol-not-present symbol package)
+  (display "Symbol `")
+  (display symbol)
+  (display "' not present in ")
   (cond
-   ((info-message sym package #f #f)
-    => (lambda (message)
-	 (display message)
-	 (newline)))))
+   ((string=? "nil" package)
+    (display "the current module ")
+    (display (module-name (current-module))))
+   (else
+    (display package)))
+  (display ".\n"))
 
 (define-public (ilisp-arglist symbol package)
   "Evaluate SYMBOL in PACKAGE and print the arglist if we have a
-procedure. This procedure is invoked by `arglist-lisp'."  
-  (cond
-   ((info-message symbol package #t #t)
-    => (lambda (message)
-	 (display message)
-	 (newline)))
-   (else
-    (display "Can't get arglist.")
-    (newline))))
+procedure. This procedure is invoked by `arglist-lisp'."
+  (if-defined symbol package
+	      (lambda (obj)
+		(cond
+		 ((info-message symbol obj #t #t)
+		  => (lambda (message)
+		       (display message)
+		       (newline)))
+		 (else
+		  (display "Can't get arglist.")
+		  (newline))))
+	      (lambda ()
+		(symbol-not-present symbol package))))
 
 (define-public (ilisp-help symbol package)
   "Evaluate SYMBOL in PACKAGE and print help for it."
-  (let* ((obj (catch #t
-		    (lambda ()
-		      (eval-in-package symbol
-				       (string->module package)))
-		    (lambda args
-		      #f)))
-	 (doc (and obj (object-documentation obj))))
-    (if doc
-	(display doc)
-	(display "No documentation."))
-    (newline)))
+  (if-defined symbol package
+	      (lambda (obj)
+		(let ((doc (object-documentation obj)))
+		  (if doc
+		      (display doc)
+		      (display "No documentation."))
+		  (newline)))
+	      (lambda ()
+		(symbol-not-present symbol package))))
 
 (define (word-separator? ch)
   (or (char=? ch #\-)
@@ -265,6 +291,8 @@ procedure. This procedure is invoked by `arglist-lisp'."
     ;; Now we have the name of the module -- but only the last
     ;; component.  No idea how to get the full one; so we need to
     ;; "parse" the sequence-of-defines ourselves.
+    ;; NOTE: Guile 1.4.1 gives us the full one but we have to take care
+    ;; for older versions... 
     (let ((last-form (last sequence-of-defines)))
       (cond ((and (pair? last-form)
 		  (eq? (car last-form) 'define-module))
@@ -272,7 +300,8 @@ procedure. This procedure is invoked by `arglist-lisp'."
 	    (else '(guile-user))))))
 
 (define-public (ilisp-in-package package)
-  (set-current-module (string->module package)))
+  (set-current-module (string->module package))
+  (process-use-modules '((guile-ilisp))))
 
 (define-public (ilisp-eval form package filename line)
   "Evaluate FORM in PACKAGE recording FILENAME as the source file
