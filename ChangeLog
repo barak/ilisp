@@ -1,3 +1,19 @@
+2000-11-06  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-sbcl.el (ilisp-sblisp-init-file): added comment on init
+	  file source extension.
+	  (sblisp): added `ilisp-directory-command' and
+	  `ilisp-set-directory-command'. William says: "This is a quick
+	  hack to make things work for now. In a later version of SBCL I'd
+	  like to have a cleaner way of doing this, without reaching into
+	  a private implementation package for unsupported functions, and
+	  perhaps interacting with CL:*DEFAULT-PATHNAME-DEFAULTS* the way
+	  that the ANSI spec suggests too."
+	  (sblisp-source-directory-regexp, sblisp-local-source-directory):
+	  removed because unsupported by SBCL.
+	  (patches contributed by William Harold Newman
+	  <william.newman@airmail.net>).
+	
 2000-10-08  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-hnd.el (ilisp-handler): fix call to ilisp-output-buffer.
