@@ -1,3 +1,14 @@
+2001-01-07  Martin Atzmueller  <martin@atzmueller.net>
+
+	* Welcome: corrected my email contact address.
+
+	* ilisp-sbcl.el (sblisp): cleaned up a comment.
+
+	* sblisp.lisp ("POP" debug command): reworked this,
+	since the SBCL debugger	code has changed a bit.
+
+	* sblisp.lisp (fun-defined-from-pathname): comment cleanup.
+
 2001-01-05  Paolo Amoroso  <amoroso@mclink.it>
 
         * docs/ilisp.texi (Acknowledgements): added Craig Brozefsky.
