@@ -1,3 +1,25 @@
+2000-10-08  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-hnd.el (ilisp-handler): fix call to ilisp-output-buffer.
+
+2000-10-07  Martin Atzmueller  <martin@atzmueller.net>
+	
+	* ilisp-sbcl.el (sblisp): new ilisp-error-regexp.
+	
+	* ilisp-snd.el (ilisp-check-package-advanced): Due to the
+	'in-package behavior (see below) check for errors, and fix them.
+	If the package is not found, the fallback-package will be used.
+	Display status after a search for package. 
+	
+	* ilisp-cl.el (common-lisp): ignoring errors in
+	ilisp-package-command _does_ not help any ANSI-CL! It is basically
+	redundant. This is because of the complicated behavior of
+	'in-package (see Hyperspec). 'in-package is implemented as a macro
+	in ANSI-CL, and might expand into a '(eval-when (...) something,
+	and the error will be thrown, nevertheless of any 'ignore-error
+	handler! Modified 'ignore-error -form, because there were some
+	strange things happening testing it in CLISP and SBCL.
+		
 2000-10-03  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-snd.el (lisp-buffer-package-internal): Doesn't try to find
