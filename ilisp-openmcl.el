@@ -53,9 +53,6 @@
 
 	comint-interrupt-regexp "Break .*:"
 
-	ilisp-binary-extension "pfsl"
-	ilisp-init-binary-extension "pfsl"
-	ilisp-binary-command "\"pfsl\""
 
 	ilisp-directory-command  "(ccl::current-directory-name)"
 	ilisp-set-directory-command "(ccl:cwd \"%s\")"
