@@ -144,7 +144,7 @@
     (ilisp-load-init 'gywguile ilisp-guile-init-file)
     (setq ilisp-symbol-delimiters "^ \t\n\('\"#\)"
           ilisp-package-regexp "^[ \t]*\\s(define-module \\((.*)\\))"
-          (setq ilisp-package-separator-regexp "$^") ;; never matches
+          ilisp-package-separator-regexp "$^" ;; never matches
           ilisp-package-command 
           ;; This will only get us the last component of the module name
           ;"(save-module-excursion (lambda () %s (module-name (current-module))))"
