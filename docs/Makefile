@@ -8,14 +8,14 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.5 2001/06/06 12:07:33 amoroso Exp $
+# $Id: Makefile,v 1.6 2002/05/28 18:52:29 anisotropy9 Exp $
 
 # Note: this makefile assumes GNU make
 
 #==============================================================================
 # Various Variables
 
-Version = 5.11.1
+Version = 5.12.0
 
 # The SHELL variable is used only for making the distribution.
 SHELL = /bin/sh

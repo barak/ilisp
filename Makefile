@@ -8,14 +8,14 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.18 2002/01/25 11:48:33 mkoeppe Exp $
+# $Id: Makefile,v 1.19 2002/05/28 18:52:29 anisotropy9 Exp $
 
 # Note: this makefile assumes GNU make
 
 #==============================================================================
 # Various Variables
 
-Version = 5.11.1
+Version = 5.12.0
 
 # Use whichever you like most
 #EMACS = xemacs
