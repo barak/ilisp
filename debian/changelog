@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2004.08.02.2) unstable; urgency=low
+
+  * Add German translation (closes:263028)
+  * More common-lisp-controller v4 changes
+  
+ -- Kevin M. Rosenberg <kmr@debian.org>  Mon,  2 Aug 2004 13:38:45 -0600
+
 ilisp (5.12.0+cvs.2004.08.02.1) unstable; urgency=low
 
   * Convert to common-lisp-controller v4

@@ -65,7 +65,7 @@ ensure_symlinks()
 case "$1" in
     configure)
 	set_keybindings
-	chown -R cl-builder:cl-builder /usr/lib/ilisp
+	chmod 777 /usr/lib/ilisp # Required so that users can build .fasl files
 	/usr/sbin/register-common-lisp-source ilisp
 	ensure_symlinks
 	;;
