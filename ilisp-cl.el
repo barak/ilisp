@@ -91,7 +91,7 @@
          "^[ \t]*(defpackage[ \t\n]*"
  
          ilisp-hash-form-regexp
-         "\\(^[ \t]*#[+-].\\)\\|\\(^[ \t]*(defpackage[ \t\n]\\)\\|\\(^[ \t]*(in-package[ \t\n]*\\)"
+         "\\(^[ \t]*#[+-].\\)\\|\\(^[ \t]*(\\(.*::?\\)?defpackage[ \t\n]\\)\\|\\(^[ \t]*(\\(.*::?\\)?in-package[ \t\n]*\\)"
 
 	ilisp-last-command
 	"*"
