@@ -1,7 +1,7 @@
 ;;;; guile-ilisp.scm --- ILISP support functions for GUILE
 ;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de> 
 ;;;
-;;; Copyright (C) 2000, 2001, 2002 Matthias Koeppe
+;;; Copyright (C) 2000, 2001, 2002, 2003 Matthias Koeppe
 ;;;
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.22 2003/01/10 09:35:09 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.23 2003/10/13 21:43:13 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
@@ -52,46 +52,53 @@
 (define (doc->arglist doc with-procedure?)
   "Parse DOC to find the arglist and return it as a string.  If
 WITH-PROCEDURE?, include the procedure symbol."
-  (let ((pattern " - primitive: "))
+  (letrec ((texinfo-doc->arglist
+	    ;; Guile >= 1.4.1 primitive procedure documentation, passed through
+	    ;; TeXinfo:
+	    ;;
+	    ;;  - primitive: assoc key alist
+	    ;;     Behaves like `assq' but uses `equal?' for key comparison.
+	    ;;
+	    ;; Newer versions of Guile (or is it TeXinfo?) use "Scheme
+	    ;; Procedure" rather than "primitive".
+	    ;;
+	    ;; Continuation lines of arglists have an indentation of
+	    ;; 10 chars.
+	    (lambda (pattern)
+	      (and (string=? (substring doc 0 (string-length pattern))
+			     pattern)
+		   (let ((start-index
+			  (if with-procedure?
+			      (string-length pattern)
+			      (min (1+ (or (string-index doc #\space
+							 (string-length pattern))
+					   (string-length pattern)))
+				   (or (string-index doc #\newline
+						     (string-length pattern))
+				       (string-length pattern))))))
+		     (let ((eol-index (or (string-index doc #\newline start-index)
+					  (string-length doc))))
+		       (string-append 
+			"("
+			(let loop ((bol-index (+ 1 eol-index))
+				   (arglist (substring doc start-index eol-index)))
+			  (cond 
+			   ((and bol-index (>= bol-index (string-length doc)))
+			    arglist)
+			   ((and (>= (string-length doc) (+ bol-index 10))
+				 (string=? (substring doc bol-index (+ bol-index 10))
+					   "          "))
+			    (let ((eol-index (string-index doc #\newline bol-index)))
+			      (loop (and eol-index (+ 1 eol-index))
+				    (string-append arglist " " 
+						   (substring doc (+ bol-index 10)
+							      eol-index)))))
+			   (else
+			    arglist)))
+			")")))))))
     (cond
-     ((string=? (substring doc 0 (string-length pattern))
-		pattern)
-      ;; Guile 1.4.1 primitive procedure documentation, passed through
-      ;; TeXinfo:
-      ;;
-      ;;  - primitive: assoc key alist
-      ;;     Behaves like `assq' but uses `equal?' for key comparison.
-      ;;
-      ;; Continuation lines of arglists have an indentation of 10 chars.
-      (let ((start-index
-	     (if with-procedure?
-		 (string-length pattern)
-		 (min (1+ (or (string-index doc #\space
-					    (string-length pattern))
-			      (string-length pattern)))
-		      (or (string-index doc #\newline
-					(string-length pattern))
-			  (string-length pattern))))))
-	(let ((eol-index (or (string-index doc #\newline start-index)
-			     (string-length doc))))
-	  (string-append 
-	   "("
-	   (let loop ((bol-index (+ 1 eol-index))
-		      (arglist (substring doc start-index eol-index)))
-	     (cond 
-	      ((and bol-index (>= bol-index (string-length doc)))
-	       arglist)
-	      ((and (>= (string-length doc) (+ bol-index 10))
-		    (string=? (substring doc bol-index (+ bol-index 10))
-			      "          "))
-	       (let ((eol-index (string-index doc #\newline bol-index)))
-		 (loop (and eol-index (+ 1 eol-index))
-		       (string-append arglist " " 
-				      (substring doc (+ bol-index 10)
-						 eol-index)))))
-	      (else
-	       arglist)))
-	   ")"))))
+     ((texinfo-doc->arglist " - primitive: "))
+     ((texinfo-doc->arglist " - Scheme Procedure: "))
      ((string=? (substring doc 0 1) "(")
       ;; Guile <= 1.4 primitive procedure documentation and other
       ;; conventions:
