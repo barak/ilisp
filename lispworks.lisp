@@ -16,7 +16,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: lispworks.lisp,v 1.9 2002/08/24 19:38:33 kevinrosenberg Exp $
+;;; $Id: lispworks.lisp,v 1.10 2003/06/28 02:10:16 rgrjr Exp $
 
 (in-package :ilisp)
 
@@ -131,7 +131,7 @@ Returns T if successful."
 	      (loop for (ignore pathname) in (dspec:find-name-locations types symbol)
 		    when (and (pathnamep pathname)
 			      (not (member pathname processed-pathnames :test #'equal)))
-		    do (print (truename pathname))
+		    do (print (namestring (truename pathname)))
 		    (push pathname processed-pathnames))))
        (process-symbol symbol)
 
