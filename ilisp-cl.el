@@ -66,7 +66,8 @@
 	":+"
 
 	ilisp-package-command
-	"(nth-value 0 (ignore-errors (let ((*package* *package*)) %s (package-name *package*))))"
+	;;; "(nth-value 0 (ignore-errors (let ((*package* *package*)) %s (package-name *package*))))"
+          "(let ((*package* *package*)) (nth-value 0 (ignore-errors %s (package-name *package*))))"
 
         ilisp-no-package-in-core-regexp
         "^nil"
