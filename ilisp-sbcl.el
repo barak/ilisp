@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.10 2001/06/05 15:58:08 amoroso Exp $
+;;; $Id: ilisp-sbcl.el,v 1.11 2001/06/06 12:17:38 mna Exp $
 
 ;;;%%%Steel Bank Common Lisp
 
@@ -38,7 +38,7 @@
 ;;;
 (defdialect sbcl "Steel Bank Common LISP"
   common-lisp
-  (ilisp-load-init 'sb ilisp-sbcl-init-file)
+  (ilisp-load-init 'sbcl ilisp-sbcl-init-file)
 
   (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\) "
 	ilisp-trace-command "(ILISP:sbcl-trace \"%s\" \"%s\" \"%s\")"

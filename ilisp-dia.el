@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-dia.el,v 1.4 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-dia.el,v 1.5 2001/06/06 12:17:38 mna Exp $
 
 
 ;;;%%CUSTOMIZING DIALECTS
@@ -34,7 +34,7 @@
 ;;;   lispworks (Harlequin)
 ;;;   lucid
 ;;;   cmulisp
-;;;   sblisp    (really a derivative of CMUCL)
+;;;   sbcl    (really a derivative of CMUCL)
 ;;;   kcl
 ;;;     akcl
 ;;;     ibcl

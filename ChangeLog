@@ -1,3 +1,11 @@
+2001-06-06  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-sbcl.el (sbcl): sb changed to sbcl in call to ilisp-load-inits.
+
+	* ilisp-doc.el (ilisp-documentation): SBLISP changed to SBCL.
+
+	* ilisp-dia.el: SBLISP changed to SBCL.
+
 2001-06-06  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-def.el (ilisp-*version*): set to 5.11.1.
