@@ -1,3 +1,10 @@
+2000-11-30  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-def.el (ilisp-eval-command, ilisp-defvar-command): 
+	Format strings now take an extra parameter, source LINE. 
+	* ilisp-hi.el (lisp-send-region): Send source line to inferior
+	lisp. 
+
 2000-11-29  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-snd.el (ilisp-check-package-advanced): Don't signal an
@@ -28,8 +35,8 @@
 
 2000-11-12  Paolo Amoroso  <amoroso@mclink.it>
 
-        * Welcome: removed Rick Campbell from the list of current
-          maintainers because he no longer works on ILISP.
+	* Welcome: removed Rick Campbell from the list of current
+	  maintainers because he no longer works on ILISP.
 
 2000-11-06    <martin@atzmueller.net>
 
