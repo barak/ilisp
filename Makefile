@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.22 2002/06/03 19:47:41 marcoxa Exp $
+# $Id: Makefile,v 1.23 2003/12/13 23:43:44 rgrjr Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -89,10 +89,8 @@ clean:
 	(cd docs; $(MAKE) clean)
 
 loadfile:
-	touch ilisp-all.elc
-	cat $(LoadFiles) > ilisp-all.elc
-	$(RM) $(LoadFiles)
-# Note that the redirection is done by a Bourne Shell.
+	@echo 'The "loadfile" target is no longer supported.'
+	@exit 1
 
 compress:
 	gzip *.el $(OtherFiles)

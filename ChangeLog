@@ -1,3 +1,10 @@
+2003-12-13  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
+
+	* Makefile:  Flush "loadfile" target, which created ilisp-all.elc
+	from the other binaries, plus related support & documentation.
+	This caused function doc strings to be garbled, with little or no
+	apparent benefit.  Bug reported 2003-12-07 by Edi Weitz.
+
 2003-12-05  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* hyperspec.el: Corrected URL for hyperspec (change from xanalys

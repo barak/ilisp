@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.el,v 1.9 2003/04/10 18:50:34 rgrjr Exp $     
+;;; $Id: ilisp.el,v 1.10 2003/12/13 23:43:44 rgrjr Exp $     
 
 ;;; Author: Chris McConnell <ccm@cs.cmu.edu>
 ;;; Maintainer: The Net <ilisp@cons.org>
@@ -66,31 +66,6 @@
 ;;; interactively, then the lisp or ilisp comes at the end of the
 ;;; function name, otherwise at the start.
 
-;;;%%KNOWN BUGS
-;;; 
-;;; If you type multiple things to the top level before you get a
-;;; prompt, the LISP may be running with the status light indicating
-;;; ready.  This is because I have no way to distinguish between input
-;;; to a program and that to the top level.
-;;;
-;;; When running a lisp on Ultrix, you need to set ilisp-program to
-;;; "/bin/sh -c your/path/your-lisp-image".
-;;; 
-;;; If you get lisp output breaking up in weird places it almost
-;;; certainly means that comint-prompt-regexp is not precise enough.
-;;;
-;;; I would like to eat Lucid's return from break in the process
-;;; filter, but I can't tell how many newlines to eat after.
-
-
-;;;%%CONTRIBUTORS
-
-;; Recent contributors include (in alphabetical order):
-
-;; Marco Antoniotti, Robert P. Goldman, Larry Hunter, Eyvind Ness, 
-;; Ivan Vazquez, Fred White
-
-
 (require 'cl)
 
 ;;;%Requirements
@@ -121,65 +96,59 @@
   (load-library "extra/cltl2"))
 
 ;; Load the ilisp mouse interface.  The user may have already loaded this, so we
-;; use the require/provide protocol to avoid reloading it.  For the same reason,
-;; we also don't want ilisp-mouse in ilisp-all.elc.  -- rgr, 9-Apr-03.
+;; use the require/provide protocol to avoid reloading it.  -- rgr, 9-Apr-03.
 (require 'ilisp-mouse)
 
 ;;; 19990806 Martin Atzmueller
 ;;; Added support for ILISP EASY-MENU. Muts be loaded *before* the
 ;;; rest of ILISP.
 
-(unless (load "ilisp-all.elc" t)
-  ;; not integrated yet!
-  ;; (load "custom-ilisp")
+;; not integrated yet!
+;; (load "custom-ilisp")
 
-  (load "ilisp-def")
+(load "ilisp-def")
 
-  (load "ilisp-sym")
-  (load "ilisp-inp")
-  (load "ilisp-ind")
+(load "ilisp-sym")
+(load "ilisp-inp")
+(load "ilisp-ind")
 
-  (load "ilisp-prc")
-  (load "ilisp-val")
-  (load "ilisp-out")
-  (load "ilisp-mov")
-  (load "ilisp-key")
-  (load "ilisp-prn")
-  (load "ilisp-low")
-  (load "ilisp-doc")
-  (load "ilisp-ext")			; Some emacs-lisp
+(load "ilisp-prc")
+(load "ilisp-val")
+(load "ilisp-out")
+(load "ilisp-mov")
+(load "ilisp-key")
+(load "ilisp-prn")
+(load "ilisp-low")
+(load "ilisp-doc")
+(load "ilisp-ext")			; Some emacs-lisp
 					; bindings. Lisp char syntax.
-  (load "ilisp-mod")
-  (load "ilisp-dia")
-  (load "ilisp-cmt")
-  (load "ilisp-rng")
-  (load "ilisp-hnd")
-  (load "ilisp-utl")
-  (load "ilisp-cmp")
-  (load "ilisp-kil")
-  (load "ilisp-snd")
-  (load "ilisp-xfr")
-  (load "ilisp-hi")
-  (load "ilisp-aut")
-  ;; (load "ilisp-mnb") ; Loaded last. Check end of file.
+(load "ilisp-mod")
+(load "ilisp-dia")
+(load "ilisp-cmt")
+(load "ilisp-rng")
+(load "ilisp-hnd")
+(load "ilisp-utl")
+(load "ilisp-cmp")
+(load "ilisp-kil")
+(load "ilisp-snd")
+(load "ilisp-xfr")
+(load "ilisp-hi")
+(load "ilisp-aut")
 
-
-  ;; Dialects.
-  ;; The user will define their autoloads to load "ilisp" when trying
-  ;; to run their dialect.  This will load all of the dialects in.
-  (load "ilisp-cl")
-  (load "ilisp-cmu")
-  (load "ilisp-sbcl")
-  (load "ilisp-chs")
-  (load "ilisp-acl")
-  (load "ilisp-hlw")
-  (load "ilisp-kcl")
-  (load "ilisp-luc")
-  (load "ilisp-sch")
-  (load "ilisp-openmcl")
-  (load "ilisp-ccl")
-
-  )
+;; Dialects.
+;; The user will define their autoloads to load "ilisp" when trying
+;; to run their dialect.  This will load all of the dialects in.
+(load "ilisp-cl")
+(load "ilisp-cmu")
+(load "ilisp-sbcl")
+(load "ilisp-chs")
+(load "ilisp-acl")
+(load "ilisp-hlw")
+(load "ilisp-kcl")
+(load "ilisp-luc")
+(load "ilisp-sch")
+(load "ilisp-openmcl")
+(load "ilisp-ccl")
 
 ;;; Create the keymaps before running the hooks.
 ;;; This is necessary if you want the lispm bindings in the load

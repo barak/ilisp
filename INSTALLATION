@@ -42,11 +42,6 @@ problems for specific Lisp dialects.
 Run `make' or `make compile' to build ILISP from source.  Ignore any
 compilation warnings unless they result in ILISP not compiling completely.
 
-For reducing the Emacs startup time you may run `make loadfile'. This
-concatenates all `.elc' (the compiled Emacs Lisp files) into an
-`ilisp-all.elc' file and removes the `*.elc' files.  So your Emacs can load
-one single compiled file faster than a bunch of smaller compiled files.
-
 To activate ILISP you should add appropriate Emacs Lisp forms to your
 `.emacs' or to the system-wide `default.el' file, depending on who will be
 using ILISP.  These forms take care of starting it whenever you access a

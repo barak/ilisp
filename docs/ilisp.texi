@@ -570,16 +570,6 @@ variables mentioned by the comment at the top).
 @cindex Windows, compiling under
 @cindex @file{icompile.bat}
 
-For reducing the Emacs startup time you may run @code{make
-loadfile}. This concatenates all @file{.elc} (the compiled Emacs Lisp
-files) into an @file{ilisp-all.elc} file and removes the @file{*.elc}
-files. So your Emacs can load one single compiled file faster than
-a bunch of smaller compiled files.
-@cindex Reducing Emacs startup time
-@cindex Startup time, how to reduce it
-@cindex @file{ilisp-all.elc}
-@pindex make loadfile
-
 To activate ILISP you should add appropriate Emacs Lisp forms to your
 @file{.emacs} or to the system-wide @file{default.el} file, depending on
 who will be using ILISP. These forms take care of starting it whenever
