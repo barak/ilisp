@@ -16,7 +16,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: lispworks.lisp,v 1.8 2002/08/23 21:40:09 anisotropy9 Exp $
+;;; $Id: lispworks.lisp,v 1.9 2002/08/24 19:38:33 kevinrosenberg Exp $
 
 (in-package :ilisp)
 
@@ -104,7 +104,9 @@ Returns T if successful."
 ;; Use dspec:*dspec-classes*
 ;; LispWorks4.2
 (defconstant *ilisp->lispworks-type-mappings*
-  '(("class" SQL:DEF-VIEW-CLASS CL:DEFCLASS)
+  '(
+    ;; ("class" SQL:DEF-VIEW-CLASS CL:DEFCLASS) ; KMR not all Lispworks has SQL package
+    ("class" CL:DEFCLASS)
     ("macro" CL:DEFMACRO)
     ("setf"  CL:FUNCTION)))
 

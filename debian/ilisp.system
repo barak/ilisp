@@ -7,17 +7,10 @@
 ;;;; Programmer:    Craig Brozefsky, Kevin M. Rosenberg
 ;;;; Date Started:  Aug 2002
 ;;;;
-;;;; $Id: ilisp.system,v 1.1 2002/08/15 13:29:41 kevinrosenberg Exp $
+;;;; $Id: ilisp.system,v 1.2 2002/08/24 19:38:33 kevinrosenberg Exp $
 ;;;; This file, part of CLSQL, is Copyright (c) 2002 by Kevin Rosenberg
 ;;;; and Craig Brozefsky. It's is licensed with the GNU Public License.
 ;;;; *************************************************************************
-
-;;; Kludge to keep lispworks.lisp file from having error
-;;; on Professional version of lispworks
-
-#+lispworks
-(unless (find-package :sql)
-	(defpackage :sql))
 
 #+(or cmu sbcl openmcl clisp lispworks allegro)
 (mk:defsystem ilisp
