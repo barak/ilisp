@@ -1,3 +1,9 @@
+2003-02-16  Bob Rogers  <rogers@rgrjr.dyndns.org>
+
+	* cl-ilisp.lisp (ilisp-message): fix double format bug (was using
+	format result as format string).
+	(ilisp-errors): reset ACL command index, as done for CLISP.
+
 2003-02-15  Bob Rogers  <rogers@rgrjr.dyndns.org>
 
 	* ilisp-prc.el (select-ilisp): Make the select-ilisp default
