@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.15 2003/03/04 02:55:23 kevinrosenberg Exp $
+;;; $Id: ilisp-sbcl.el,v 1.16 2003/03/04 03:02:27 kevinrosenberg Exp $
 
 ;;;%%%Steel Bank Common Lisp
     
@@ -82,12 +82,8 @@
 
 ;;; SBCL Versioning stuff - e.g. distinguishing between some versions ...
 
-(defvar ilisp-*have-aclrepl* nil "T if have acl-type repl prompt")
 (defvar ilisp-*sbcl<07-version* nil)
 ;; Distinguish SBCL-0.6.x (or earlier) vs. SBCL-0.7.x (and probably later).
-
-(defvar ilisp-*determine-aclrepl* 
-  "(find-package :sb-aclrepl)") ; check if aclrepl is being used
 
 (defvar ilisp-*determine-version-lisp-string* 
   "(find-package :sb-eval)") ; in SBCL-0.7.x an Interpreter didn't exist in the
@@ -98,12 +94,7 @@
   (let ((result (car (comint-send
                       (ilisp-process) ilisp-*determine-version-lisp-string*
                       t t 'init-sbcl-version nil nil))))
-    (setq ilisp-*sbcl<07-version* (not (string-match "[\n]*NIL[\n]*" result)))
-    (setq result (car (comint-send
-		       (ilisp-process) ilisp-*determine-aclrepl*
-		       t t 'init-sbcl-aclrepl nil nil)))
-    (setq ilisp-*have-aclrepl* (not (string-match "[\n]*NIL[\n]*" result)))
-    ))
+    (setq ilisp-*sbcl<07-version* (not (string-match "[\n]*NIL[\n]*" result)))))
 
 (defun sbcl-ilisp-customize ()
   (fset 'sbcl-check-prompt
@@ -112,17 +103,14 @@
           (function sbcl-check-prompt-sbcl>=07)))
   
   (set-ilisp-value 'comint-prompt-regexp
-		   (cond
-		    (ilisp-*have-aclrepl*
+		   (if ilisp-*sbcl<07-version*
+		       ;; old comint-prompt-regexp (sbcl-0.6 or earlier).
+		       "^\\([0-9]+\\]+\\|\\*\\) "
+                     ;; new comint-prompt-regexp for sbcl-0.7 (and maybe later).
+                     ;; "^\\(\\) "
 		     ;; Patch by kpc 94/8/30: allow prompts that look like this:
 		     ;; USER(23): USER(23):
-		     "^\\(\\(\\[[0-9]+i?c?\\] \\|\\[step\\] \\)?\\(<?[-A-Za-z]* ?[0-9]*?>\\|[-A-Za-z0-9]+([0-9]+):\\) \\)+")
-		    (ilisp-*sbcl<07-version*
-                     ;; old comint-prompt-regexp (sbcl-0.6 or earlier).
-                     "^\\([0-9]+\\]+\\|\\*\\) ")
-		    (t
-                     ;; new comint-prompt-regexp for sbcl-0.7 (and maybe later).
-                     "^\\([0-9]+\\]+\\|[0-9]+\\[[0-9]+\\]\\|\\*\\) "))))
+		     "^\\([0-9]+\\]+\\|[0-9]+\\[[0-9]+\\]\\|\\* \\|\\(\\[[0-9]+i?c?\\] \\|\\[step\\] \\)?\\(<?[-A-Za-z]* ?[0-9]*?>\\|[-A-Za-z0-9]+([0-9]+):\\) \\)+")
 
 (defun sbcl-version-hook-fun ()
   (when (equal (process-name (ilisp-process)) "sbcl")
