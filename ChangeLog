@@ -1,3 +1,13 @@
+2001-03-02  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (ilisp-help), ilisp-sch.el (guile): Get
+	documentation for the symbol from the right module.
+
+2001-03-01  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (doc->arglist, ilisp-arglist): Minor fixes
+	related to arglists.
+
 2001-02-20  Paolo Amoroso  <amoroso@mclink.it>
 
 	* cl-ilisp.lisp (get-function-arglist): fixed a bug that prevented
