@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: January 5, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: April 3, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,7 +77,7 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.19 of the ILISP manual
+This is edition 0.20 of the ILISP manual
 for ILISP Version: 5.11.
 
 @example
@@ -109,7 +109,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.19, January 2001
+@subtitle Edition 0.20, April 2001
 @subtitle For ILISP Version: 5.11
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -132,9 +132,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.19 of the @cite{ILISP User Manual}
+This is edition 0.20 of the @cite{ILISP User Manual}
 for ILISP Version: 5.11,
-January 2001.
+April 2001.
 
 @sp 2
 
