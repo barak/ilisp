@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list of
 ;;; present and past contributors.
 ;;;
-;;; $Id: find-src.lisp,v 1.1 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: find-src.lisp,v 1.2 2003/04/12 02:05:15 rgrjr Exp $
 
 (in-package :ilisp)
 
@@ -179,16 +179,17 @@ obsolete.  -- rgr, 4-Sep-02.]")
 	(assert (pathnamep file))
 	(when (eq (car definition-name) 'defmethod)
 	  (setq definition-name (cons 'method (cdr definition-name))))
-	(unless (and #-sbcl (not (member (pathname-type file :case :common)
-					 lisp::*load-lp-object-types*
-					 :test #'string=))
-		     #+sbcl (not (string= (pathname-type file)
-					  sb-fasl:*fasl-file-type*)))
-	  ;; this is actually the pathname of the binary, so we need to find a
-	  ;; suitable lisp source file, if we can.
-	  (dolist (type '("lisp" "cl" "lsp" "l"))
+	(when (or #-sbcl (member (pathname-type file :case :common)
+				 lisp::*load-lp-object-types*
+				 :test #'string=)
+		  #+sbcl (string= (pathname-type file)
+				  sb-fasl:*fasl-file-type*))
+	  ;; oops; this is actually the pathname of the binary; try to find a
+	  ;; suitable lisp source file, but don't fail if we can't.
+	  (dolist (type '("LISP" "CL" "LSP" "L"))
 	    (let ((source (probe-file
-			    (make-pathname :type type :defaults file))))
+			    (make-pathname :type type
+					   :defaults file :case :common))))
 	      (when source
 		(setq file source)
 		(return t)))))
