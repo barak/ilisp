@@ -1,50 +1,112 @@
 ;;;  -*- Mode: Emacs-Lisp -*-
-
-;;; .ilisp --
+;;;
+;;; Copyright (c) 2002 Kevin Rosenberg GNU License
 
 (if (file-executable-p "/usr/sbin/register-common-lisp-source")
     (defvar ilisp-*directory* "/usr/share/common-lisp/source/ilisp/")
-    (defvar ilisp-*directory* "/usr/share/ilisp/"))
-
+  (defvar ilisp-*directory* "/usr/share/ilisp/"))
 
 (autoload 'run-ilisp "ilisp" "Select a new inferior LISP." t)
 
+;; CLisp
 (autoload 'clisp-hs  "ilisp" "Inferior CLISP Common LISP." t)
+(setq clisp-hs-progam "clisp -a -I")
+
+;; AllegroCL
+(autoload 'allegro "ilisp" "Inferior Allegro Common Lisp." t)
+(setq allegro-program "/usr/bin/acl")
+(defun alisp ()
+  (interactive)
+  (setq allegro-program "/usr/bin/alisp")
+  (allegro))
+(defun alisp8 ()
+  (interactive)
+  (setq allegro-program "/usr/bin/alisp8")
+  (allegro))
+(defun mlisp ()
+  (interactive)
+  (setq allegro-program "/usr/bin/mlisp")
+  (allegro))
+(defun mlisp8 ()
+  (interactive)
+  (setq allegro-program "/usr/bin/mlisp8")
+  (allegro))
+
+;; Lispworks
+(autoload 'lispworks "ilisp" "Inferior Lispworks Common Lisp." t)
+(setq lispworks-program "/usr/bin/lw-console -multiprocessing")
 
 ;;; CMULISP
 (autoload 'cmulisp  "ilisp" "Inferior CMU Common LISP." t)
+(setq cmulisp-program "/usr/bin/lisp")
+(defun cmucl-normal ()
+  "Inferior CMU Common LISP -- normal core."
+  (interactive)
+  (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-normal.core")
+  (cmulisp))
+(defun cmucl-small () 
+  "Inferior CMU Common LISP -- small core."
+  (interactive)
+  (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-small.core")
+  (cmulisp))
+(defun cmucl-safe ()
+ "Inferior CMU Common LISP -- safe core."
+  (interactive)
+  (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-safe.core")
+  (cmulisp))
 
-(autoload 'cmulisp-small  "ilisp" "Inferior CMU Common LISP -- small core." t)
-
-(autoload 'cmulisp-normal  "ilisp" "Inferior CMU Common LISP -- normal core." t)
-
-(autoload 'cmulisp-safe  "ilisp" "Inferior CMU Common LISP -- safe core" t)
-
+;; SBCL
 (autoload 'sbcl  "ilisp" "Inferior Steel Bank Common LISP." t)
+(setq sbcl-program "/usr/bin/sbcl")
 
-(autoload 'scheme    "ilisp" "Inferior generic Scheme." t)
-
-(autoload 'guile    "ilisp" "Inferior Guile Scheme." t)
-
+;; Guile
+(autoload 'scheme  "ilisp" "Inferior generic Scheme." t)
+(autoload 'guile "ilisp" "Inferior Guile Scheme." t)
 (setq scheme-program "/usr/bin/guile")
+
 
 (setq ilisp-*use-frame-for-output* nil)
 (setq *ilisp-use-frame-for-output* nil)
 
-;;; If you run cmu-cl then set this to where your source files are.
+
+;;; Default paths
 (setq cmulisp-local-source-directory "/usr/src/cmucl/")
+(setq common-lisp-hyperspec-root "/usr/share/doc/hyperspec/")
+(setq cltl2-root-url "file:///usr/share/doc/cltl/")
 
-(setq common-lisp-hyperspec-root
-      "http://localhost/doc/hyperspec/")
-
-;;; This makes reading a lisp file load in ilisp.
-
+;;; Loading lisp files starts ilisp
 (set-default 'auto-mode-alist
 	     (append '(("\\.lisp$" . lisp-mode)
 		       ("\\.lsp$" . lisp-mode)
 		       ("\\.cl$" . lisp-mode)) auto-mode-alist))
 
+;;; Load hooks
 (add-hook
  'scheme-mode-hook (function 
 		    (lambda ()
 		      (require 'ilisp))))
+
+(add-hook 'ilisp-load-hook
+	  '(lambda ()
+	     (setq ilisp-*use-fsf-compliant-keybindings* t)
+
+             ;; Set a keybinding for the COMMON-LISP-HYPERSPEC command
+             ;; (defkey-ilisp "" 'common-lisp-hyperspec)
+
+             ;; Make sure that you don't keep popping up the 'inferior
+             ;; Lisp' buffer window when this is already visible in
+             ;; another frame. Actually this variable has more impact
+             ;; than that. Watch out.
+             ; (setq pop-up-frames t)
+
+             (message "Running ilisp-load-hook")
+             ;; Define LispMachine-like key bindings, too.
+             ; (ilisp-lispm-bindings) Sample initialization hook.
+
+             ;; Set the inferior Lisp directory to the directory of
+             ;; the buffer that spawned it on the first prompt.
+             (add-hook 'ilisp-init-hook
+                       '(lambda ()
+                          (default-directory-lisp ilisp-last-buffer)))
+             ))
+

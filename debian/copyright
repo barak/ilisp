@@ -1,15 +1,29 @@
-This package was debianized by Jesse Bouwman <jesse@onshore.com> on
-Wed,  2 Feb 2000 23:26:44 -0600.
+Debian Copyright File for ILISP package
+=======================================
 
-It was later update by Craig Brozefsky <craig@debian.org>
+This package was originally Debianized by Jesse Bouwman
+<jesse@onshore.com> on Wed, 2 Feb 2000 23:26:44 -0600.
 
-It was downloaded from ilisp.sourceforge.net
+It was later updated by Craig Brozefsky <craig@debian.org> and Kevin
+M. Rosenberg <kmr@debian.org>.
+
+The home page for ILISP is http://www.sourceforge.net/projects/ilisp
+
+Upstream source was downloaded from the ILISP CVS tree. You can
+checkout the source with:
+  cvs -d:pserver:anonymous@cvs.ilisp.sourceforge.net:/cvsroot/ilisp login
+  <Use blank password>
+  cvs -d:pserver:anonymous@cvs.ilisp.sourceforge.net:/cvsroot/ilisp co ILISP
 
 Upstream Author(s): Marco Antoniotti, Rick Campbell, Rick Busdiecker
 		    Ivan Vasquez, Chriss McConnell
 
-Copyright:
+Changes compared to upstream:
+  Modified ilisp-cl.el to handle Common Lisp Controller pathnames
 
+
+Original Upstream Copyright
+===========================
 COPYING -- TERMS AND LICENSING AGREEMENT FOR ILISP
 -------------------------------------------------------------------------------
 

@@ -1,3 +1,64 @@
+ilisp (5.12.0-5) unstable; urgency=low
+
+  * Add preinst script to remove symlinks from older versions of ilisp
+
+ -- Kevin M. Rosenberg <kevin@rosenberg.net>  Wed, 14 Aug 2002 15:08:49 -0600
+
+ilisp (5.12.0-4) unstable; urgency=low
+
+  * Add multiprocessing option to lispworks
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Wed, 14 Aug 2002 07:14:58 -0600
+
+ilisp (5.12.0-3) unstable; urgency=low
+
+  * Make new binary package, ilisp-doc, for PDF and HTML
+    documentation.
+  * Add to Build-Depends-Indep to support ilisp-docs
+  * Fix name of file referenced in control file description
+  
+ -- Kevin M. Rosenberg <kevin@rosenberg.net>  Tue, 13 Aug 2002 12:23:32 -0600
+
+ilisp (5.12.0-2) unstable; urgency=low
+
+  * Add aliases for clisp. Now, names of all lisp interpreters have exact
+  aliases (closes: 101924).
+  * Clean rules files
+  * Fix installation of info files
+  * Add Build-Depends-Indep for texinfo
+  * Change "make ilisp.info" to "make info" in rules file
+  * Change from setting prefix to C-c to setting
+  ilisp-*use-fsf-compliant-keybindings* to t
+  
+ -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 13 Aug 2002 10:47:03 -0600
+
+ilisp (5.12.0-1) unstable; urgency=low
+
+  * New Maintainer <kmr@debian.org>
+  * New upstream version 5.12.0 (closes: 150397)
+  * Update upstream's debian directory (closes: 150398)
+  * Add ilisp.system (closes: 141881)
+  * Fix compatibility with SBCL (closes: 151060)
+  * Use default hyperspec directory (closes: 153124)
+  * Update Standards-version in control file
+  * Use Debhelper V4 and add Build-Depends-Indep record to control file
+  * Add suggests field for hyperspec and cltl in control file
+  * Change Common Lisp Controller from Suggests to Depends in control file
+  * Change Depends from emacsen to emacsen-common in control file
+  * Modify upstream to use Common Lisp Controller locations
+  * Extend Craig's ilisp.system to support Lispworks and AllegroCL
+  * Set more default paths in ilisp.el, including cltl and hyperspec paths
+  * Add functions to ilisp.el to handle various CMUCL and AllegroCL flavors
+  * Rework rules file to use debhelper functions to dh_install, dh_installdirs
+  * Use dh_installinfo rather than manually installing, registering, and unregistering
+  * Remove *.el files from /usr/share/${flavor}/site-lisp/ilisp/extra directory
+  * Move .lisp and .system files to Common Lisp Controller locations
+  * Add missing options to postrm
+  * Added "changes compared to upstream" in copyright file to comply with Debian policy
+  * Change upstream sources to CVS tree, remove URL that does not exist
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Mon, 12 Aug 2002 09:44:52 -0600
+
 ilisp (5.11.1-7) unstable; urgency=low
 
   * well 125744 was fixed, but I put the files in the old place on
@@ -88,7 +149,3 @@ ilisp (5.9.4-1) unstable; urgency=low
   * Initial Release.
 
  -- Jesse L. Bouwman <jesse@onshore.com>  Wed,  2 Feb 2000 23:26:44 -0600
-
-Local variables:
-mode: debian-changelog
-End:

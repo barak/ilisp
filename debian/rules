@@ -1,66 +1,72 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses debhelper.
 # GNU copyright 1997 to 1999 by Joey Hess.
+# GNU copyright 2002 Kevin Rosenberg <kmr@debian.org>
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_COMPAT=4
 
-# This is the debhelper compatability version to use.
-export DH_COMPAT=1
-
-installbin = install -g root -o root -m 755
-installdoc = install -g root -o root -m 644
-
+pkg		:= ilisp
+pkg-doc		:= ilisp-doc
+emacs_dir	:= usr/share/emacs/site-lisp/$(pkg)
+ilisp_etc_dir	:= etc/ilisp
+clc_base	:= usr/share/common-lisp
+clc_systems	:= $(clc_base)/systems
+clc_source	:= $(clc_base)/source/ilisp
+ilisp_share	:= usr/share/ilisp
+info_dir	:= usr/share/info
+doc_dir		:= usr/share/doc/$(pkg-doc)
 
 build: build-stamp
 build-stamp:
 	dh_testdir
-
 	# Add here commands to compile the package.
-	#$(MAKE)
-
+	(cd docs; make info pdf html; cd ..)
 	touch build-stamp
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs -p $(pkg) $(info_dir) $(emacs_dir) $(emacs_dir)/extra $(clc_systems) $(clc_source) \
+			$(ilisp_etc_dir) $(ilisp_share) $(info_dir)
+	dh_installdirs -p $(pkg-doc) $(doc_dir)
+
+	dh_install -p $(pkg) $(wildcard *.el) $(emacs_dir)
+	dh_install -p $(pkg) $(wildcard extra/*.el) $(emacs_dir)/extra
+	dh_install -p $(pkg) $(wildcard *.lisp) $(clc_source)
+	dh_install -p $(pkg) $(wildcard *.scm) $(ilisp_share)
+	dh_install -p $(pkg) debian/ilisp.system $(clc_systems)
+	dh_install -p $(pkg) debian/ilisp.el $(ilisp_etc_dir)
+	dh_installinfo -p $(pkg) docs/ilisp.info docs/ilisp.info-1 docs/ilisp.info-2
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp
-
 	# Add here commands to clean up after the build process.
 	-$(MAKE) clean
-
 	dh_clean
 
-binary-indep: build
-# nothing to do
+binary-indep: build install
+
 
 # Build architecture-dependent files here.
-binary-arch: build
+binary-arch: build install
 	dh_testdir
 	dh_testroot
+	dh_installdocs debian/local-modifications
 	dh_installemacsen
-	(cd docs; make ilisp.info; cd ..)
-	$(installdoc) -d debian/tmp/usr/share/info
-	$(installdoc) docs/*.info* debian/tmp/usr/share/info
-	$(installbin) -d debian/tmp/usr/share/emacs/site-lisp/ilisp
-	$(installbin) -d debian/tmp/usr/share/ilisp
-	$(installdoc) *.el debian/tmp/usr/share/emacs/site-lisp/ilisp
-	$(installdoc) *.lisp debian/tmp/usr/share/ilisp
-	$(installdoc) *.scm debian/tmp/usr/share/ilisp
-	$(installdoc) debian/ilisp.system debian/tmp/usr/share/ilisp/ilisp.system
-	$(installbin) -d debian/tmp/usr/share/emacs/site-lisp/ilisp/extra
-	$(installdoc) extra/*.el debian/tmp/usr/share/emacs/site-lisp/ilisp/extra
-	$(installbin) -d debian/tmp/etc/ilisp
-	$(installdoc) debian/ilisp.el debian/tmp/etc/ilisp
-	dh_installdocs
 	dh_installchangelogs	
-	dh_installdeb
-	dh_gencontrol
+	dh_strip
 	dh_compress
+	dh_install -p $(pkg-doc) docs/ilisp.pdf docs/ilisp.html $(doc_dir)
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary
+.PHONY: build clean binary-indep binary-arch binary install configure
 
 
