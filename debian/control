@@ -1,5 +1,5 @@
 Source: ilisp
-Section: non-free/devel
+Section: devel
 Priority: optional
 Maintainer: Kevin M. Rosenberg <kmr@debian.org>
 Build-Depends-Indep: debhelper (>= 4.0.0), texinfo, tetex-bin, gs-common, texi2html
@@ -17,7 +17,7 @@ Description: Emacs interface to LISP implementations
 
 Package: ilisp-doc
 Architecture: all
-Section: non-free/devel
+Section: devel
 Recommends: ilisp
 Description: Documentation for ILISP package
  This package supplies PDF and HTML documentation for the ILISP

@@ -16,7 +16,7 @@ checkout the source with:
   cvs -d:pserver:anonymous@cvs.ilisp.sourceforge.net:/cvsroot/ilisp co ILISP
 
 Upstream Authors: Marco Antoniotti, Rick Campbell, Rick Busdiecker
-		  Ivan Vasquez, Chriss McConnell
+		  Ivan Vasquez, Chriss McConnell, and Many Contributors
 
 
 Original Upstream Copyright
