@@ -448,14 +448,21 @@ than 1, the first N buffers on the buffer list are rotated."
 (define-key emacs-lisp-mode-map "\M-q"    'reindent-lisp)
 (define-key emacs-lisp-mode-map "\M-\C-a" 'beginning-of-defun-lisp)
 (define-key emacs-lisp-mode-map "\M-\C-e" 'end-of-defun-lisp)
-(define-key emacs-lisp-mode-map "\C-\M-r" 'reposition-window-lisp)
+(unless ilisp-*use-fsf-compliant-keybindings*
+  ;; FSF Emacs 20 has `reposition-window' bound to C-M-l
+  ;; and `isearch-backward-regexp' bound to C-M-r
+  (define-key emacs-lisp-mode-map "\C-\M-r" 'reposition-window-lisp))
 (when ilisp-bindings-*bind-right-bracket-p*
   (define-key emacs-lisp-mode-map "]"       'close-all-lisp))
 
 (define-key lisp-mode-map       "\M-q"    'reindent-lisp)
-(define-key lisp-mode-map       "\C-\M-r" 'reposition-window-lisp)
-(define-key lisp-mode-map       "]"       'close-all-lisp)
-(define-key global-map          "\M-\C-l" 'previous-buffer-lisp)
+(when ilisp-bindings-*bind-right-bracket-p*
+  (define-key lisp-mode-map       "]"       'close-all-lisp))
+(unless ilisp-*use-fsf-compliant-keybindings*
+  ;; FSF Emacs 20 has `reposition-window' bound to C-M-l
+  ;; and `isearch-backward-regexp' bound to C-M-r
+  (define-key lisp-mode-map       "\C-\M-r" 'reposition-window-lisp)
+  (define-key global-map          "\M-\C-l" 'previous-buffer-lisp))
 
 ;;;
 (run-hooks 'ilisp-ext-load-hook)
