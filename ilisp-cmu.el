@@ -80,6 +80,9 @@
 	;; ilisp-arglist-command "(ILISP:arglist \"%s\" \"%s\")"
 	ilisp-arglist-command "(ILISP:ilisp-arglist \"%s\" \"%s\")"
 
+        ilisp-directory-command "(namestring (ext:default-directory))"
+        ilisp-set-directory-command "(setf (ext:default-directory) \"%s\")"
+
 	ilisp-find-source-command "(ILISP:source-file \"%s\" \"%s\" \"%s\")"
 
 	comint-fix-error ":pop"
