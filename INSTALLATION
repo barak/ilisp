@@ -21,10 +21,11 @@ the comment Various variables (you can safely ignore the variables for
 configuring packaging and distribution, which are intended for
 maintainers).
 
-First, set the EMACS variable to be the pathname of the Emacs you will be
-using ILISP with.  This is the Emacs that will be used to compile ILISP
-with.  Be sure to check that LN and HyperSpec have appropriate values for
-your system, ESPECIALLY IF YOU ARE A WINDOWS USER.
+First, set the EMACS variable to be the pathname of the Emacs you will
+be using ILISP with.  This is the Emacs that will be used to compile
+ILISP with.  Be sure to set `LN' to the name of your operating
+system's command for creating symbolic filesystem links, ESPECIALLY IF
+YOU ARE A WINDOWS USER.
 
 If your Emacs supports the `easymenu' package, it is possible to make ILISP
 add to Lisp mode buffers and buffers with inferior Lisp processes, or to
