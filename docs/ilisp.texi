@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: November 14, 2000
+\input texinfo    @c -*-texinfo-*-         Last modified: November 15, 2000
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -1933,9 +1933,14 @@ buffer.
 @kindex @key{C-z} l
 will load a file into the inferior Lisp.  You will be given the
 opportunity to save the buffer if it has changed and to compile the file
-if the compiled version is older than the current version.
+if the compiled version is older than the current version. For
+@file{<whatever>.system} files, which are used by DEFSYSTEM tools, no
+compilation or loading of possibly existing
+@file{<whatever>.binary-extension} is attempted.
 @pindex load-file-lisp
 @cindex Loading files
+@cindex DEFSYSTEM files
+@cindex System definition files
 
 @item @key{C-z} k   (compile-file-lisp)
 @kindex @key{C-z} k
