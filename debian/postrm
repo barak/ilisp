@@ -14,6 +14,7 @@
 
 case "$1" in
     remove|upgrade|abort-install|failed-upgrade|abort-install|abort-upgrade)
+	rm -f /usr/lib/ilisp/*
         ;;
     purge|disappear)
 	rm -rf /usr/lib/ilisp/ /etc/ilisp
