@@ -674,56 +674,50 @@ symbol after the symbol has been typed in followed by #\\Space."
 			       (buffer-substring old-point (point)))))
 
 	   (string
-	    (buffer-substring old-point
-			      (progn
-				(goto-char old-point)
-				(ignore-errors (backward-sexp))
-				(point))))
+             (buffer-substring old-point
+                               (progn
+                                 (goto-char old-point)
+                                 (ignore-errors (backward-sexp))
+                                 (point))))
 	   (prefix-char 
-	    (let ((save (ignore-errors
-			  (goto-char old-point)
-			  (backward-sexp)
-			  (backward-char)
-			  (point))))
-	      (when save
-		(buffer-substring save (1+ save)))))
+             (let ((save (ignore-errors
+                           (goto-char old-point)
+                           (backward-sexp)
+                           (backward-char)
+                           (point))))
+               (when save
+                 (buffer-substring save (1+ save)))))
 	   (double-quote-pos (and string (string-match "\"" string)))
 	   (paren-pos (and string
 			   (string-match "(" string)))
 	   (ilisp-symbol-avec-package
-	    (unless (eql paren-pos 0)
-	      (lisp-string-to-symbol
-	       (if (and double-quote-pos (eql double-quote-pos 0)
-                        string (ignore-errors (elt string 2)))
-		   (substring string 1 -1)
-		   string))))
-	   (symbol (third ilisp-symbol-avec-package))
-	   )
+             (unless (eql paren-pos 0)
+               (lisp-string-to-symbol
+                (if (and double-quote-pos (eql double-quote-pos 0)
+                         string (ignore-errors (elt string 2)))
+                  (substring string 1 -1)
+                  string))))
+	   (symbol (lisp-symbol-name ilisp-symbol-avec-package))
+           (package (lisp-symbol-package ilisp-symbol-avec-package)))
+      (flet ((no-arglist-output-p ()
+               (or (and last-char 
+                        (or;; don't do silly things after comment character
+                          (equal last-char " ;")
+                          ;; do something only if directly after a sexp.
+                          (equal last-char " ")))
+                   (string-equal package "#+") (string-equal package "#-")
+                   double-quote-pos;; there is no output  for strings only.
+                   (not (and symbol (stringp symbol) (> (length symbol) 0)))
+                   (string-match "^\. " symbol))))
 
-      (goto-char old-point)
-
-      ;; symbol must be a string, no 'bracketed exps' are supported.
-
-      ;; ILISP must be 'ready' for this task, or in the debugger 'error'!
-
-      (unless (or (and last-char 
-		       (or (equal last-char ";") ; don't do silly things 
-					; after comment character 
-			   (equal last-char " "))) ; do something
-					; only if directly after a
-					; sexp.
-		  double-quote-pos	; there is no output  for
-					; strings only.
-		  (not (and symbol (stringp symbol) (> (length symbol) 0)))
-		   (string-match "^\. " symbol))
-        ;; only output for functions within brackets; otherwise there
-        ;; is too much lisp-traffic!
-        ;; or ilisp-*arglist-message-lisp-space-p* has
-        ;; to be set to 'all        
-        (when (or (equal prefix-char "(")
-                  (eql ilisp-*arglist-message-lisp-space-p* 'all))
-          (ilisp-arglist-message-lisp ilisp-symbol-avec-package)))))
-  (self-insert-command 1))
+        (goto-char old-point)
+        (unless (no-arglist-output-p)
+          ;; only output for functions within brackets; too much lisp-traffic!
+          ;; or ilisp-*arglist-message-lisp-space-p* has to be set to 'all
+          (when (or (equal prefix-char "(")
+                    (eql ilisp-*arglist-message-lisp-space-p* 'all))
+            (ilisp-arglist-message-lisp ilisp-symbol-avec-package)))))
+    (self-insert-command 1)))
     
 
 ;;; ilisp-arglist-message-lisp --
@@ -753,7 +747,6 @@ the symbol will be prompted for."
 		function t)
 	     function))))
 
-  ;; (message "ilisp-arglist-message-lisp: symbol = %s\n" symbol)
   (if (null symbol)
       (error "ilisp-arglist-message-lisp: null symbol")
     (let* ((arglist
@@ -765,8 +758,6 @@ the symbol will be prompted for."
 	     'args
 	     nil))
 	   (output arglist))
-
-      ;; (message ">>> '%s'\n>>> '%s'\n" arglist output)
 
       ;; Insert just the stuff after the double-quotes
       ;; but display everything the inferior lisp prints.
