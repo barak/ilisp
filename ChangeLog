@@ -1,3 +1,17 @@
+2002-06-17  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (ACKNOWLEDGMENTS): added Alain Picard.
+	Updated modification date.
+
+	* ACKNOWLEDGMENTS: added Alain Picard.
+
+	* lispworks.lisp (munge-who-calls, ilisp-source-files): improved
+	support for `edit-definitions-lisp'.
+	(translate-source-type-to-dspec, *source-type-translations*):
+	removed.
+	(*ilisp->lispworks-type-mappings*, ilisp->lispworks-types): new.
+	Patch contributed by Alain Picard <Alain.Picard@memetrics.com>.
+
 2002-06-07  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ACKNOWLEDGMENTS: added Bill Clementson and Dave Fox.
