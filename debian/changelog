@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.05.27.1) unstable; urgency=low
+
+  * Add symlinks for .lisp and .scm files if they don't exist
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 27 May 2003 11:58:46 -0600
+
 ilisp (5.12.0+cvs.2003.05.27) unstable; urgency=low
 
   * new upstream

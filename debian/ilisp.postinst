@@ -40,6 +40,24 @@ set_keybindings()
     fi
 }
 
+ensure_symlinks()
+{
+    source=/usr/share/common-lisp/source/ilisp
+    dest=/usr/lib/ilisp
+    for i in $source/*.lisp ; do
+	b=`basename $i`
+	if [ ! -h "$dest/$b" ]; then
+	    ln -s $i $dest
+	fi
+    done
+    source=/usr/share/ilisp
+    for i in $source/*.scm ; do
+	b=`basename $i`
+	if [ ! -h "$dest/$b" ]; then
+	    ln -s $i $dest
+	fi
+    done
+}
 
 case "$1" in
     configure)
@@ -47,6 +65,7 @@ case "$1" in
 	chown -R cl-builder.cl-builder /usr/lib/ilisp
 	/usr/sbin/register-common-lisp-source ilisp
 	clc-autobuild-library ilisp yes
+	ensure_symlinks
 	;;
     abort-upgrade|abort-remove|abort-deconfigure)
 	;;
