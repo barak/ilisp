@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: April 5, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: June 6, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -77,8 +77,8 @@
 @ifinfo
 This file documents ILISP.
 
-This is edition 0.20 of the ILISP manual
-for ILISP Version: 5.11.
+This is edition 0.21 of the ILISP manual
+for ILISP Version: 5.11.1
 
 @example
 Copyright (C) 1991,1992,1993 Todd Kaufmann
@@ -109,8 +109,8 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.20, April 2001
-@subtitle For ILISP Version: 5.11
+@subtitle Edition 0.21, June 2001
+@subtitle For ILISP Version: 5.11.1
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
 @c which can be used to change all ilisp-*prefix* bindings to C-c (or
@@ -132,9 +132,9 @@ Copyright @copyright{} @itemize
 @end itemize
 
 @sp 2
-This is edition 0.20 of the @cite{ILISP User Manual}
-for ILISP Version: 5.11,
-April 2001.
+This is edition 0.21 of the @cite{ILISP User Manual}
+for ILISP Version: 5.11.1,
+June 2001.
 
 @sp 2
 
@@ -876,7 +876,7 @@ Scheme->C Scheme dialect definition.
 @cindex @file{ilisp-s2c.el}
 
 @item ilisp-sbcl.el
-SB Common Lisp dialect definition.
+Steel Bank Common Lisp dialect definition.
 @cindex @file{ilisp-sbcl.el}
 
 @item ilisp-sch.el
@@ -981,7 +981,7 @@ Support code for Scheme.  Each dialect will have one of these files.
 @cindex Scheme
 @pindex oaklisp
 @cindex Oaklisp
-@pindex sblisp
+@pindex sbcl
 @cindex SB Common Lisp
 @cindex SCM
 @pindex scm
@@ -1072,8 +1072,8 @@ MzScheme by Rice University's PLT.
 @item @code{oaklisp}
 Oaklisp scheme.
 
-@item @code{sblisp}
-SB Common Lisp
+@item @code{sbcl}
+Steel Bank Common Lisp
 
 @item @code{scheme}
 Generic Scheme.
@@ -1123,7 +1123,7 @@ dialects:
    lispworks
    lucid
      liquid
-   sblisp
+   sbcl
  scheme
    chez
    guile
@@ -2387,7 +2387,7 @@ to dialects in the nesting order below.
    lispworks
    lucid
      liquid
-   sblisp
+   sbcl
  scheme
    chez
    guile
