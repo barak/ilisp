@@ -67,13 +67,28 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 	  (format (ilisp-value 'ilisp-package-command)
 		  (format (ilisp-value 'ilisp-block-command) string)))
          (package
-          (ilisp-send
-           string "Finding Buffer package with hash-forms" 'pkg nil))
+             ;;; (string &optional message status and-go handler)
+           (let ((the-package
+                   (ilisp-send
+                    string "Finding Buffer package with hash-forms" 'pkg nil t)))
+             ;; there may have been an error: fix it.
+             (if (string-match (ilisp-value 'ilisp-error-regexp t) the-package)
+               (progn
+                 (comint-send (ilisp-process) (ilisp-value 'comint-fix-error) t t 'fix "Fixing erroneous package-situation in inferior-lisp." t nil)
+                 "nil")
+               (if the-package
+                 the-package
+                 "nil"))))
          (case-fold-search t)
          (npic-regexp (ilisp-value 'ilisp-no-package-in-core-regexp)))
     (if (and npic-regexp (string-match npic-regexp package))
-        (values (ilisp-value 'ilisp-fallback-package) t)
-      (values package nil))))
+      (progn
+        (message (format "Buffer package not found. Using fallback-package: %s"
+                         (ilisp-value 'ilisp-fallback-package)))
+        (values (ilisp-value 'ilisp-fallback-package) t))
+      (progn
+        (message "Buffer package: %s" package)
+        (values package nil)))))
 
 
 (defun lisp-find-hash-form ()		; Was: find-hash-form.
@@ -172,9 +187,9 @@ Common Lisp."
            (nreverse hash-defpackage-forms-list) 
            (nreverse hash-in-package-forms-list))
         (let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
-          (when (ilisp-value 'comint-errorp t)
-            (lisp-display-output package)
-            (error "No package"))
+          ;;; RED? (when (ilisp-value 'comint-errorp t)
+          ;;;  (lisp-display-output package)
+          ;;;  (error "No package"))
           
           (when (and package
                      ;; There was a bug here, used to have the second *
