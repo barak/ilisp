@@ -1,3 +1,25 @@
+2001-06-05  Paolo Amoroso  <amoroso@mclink.it>
+
+	* sbcl.lisp: initial release (file contributed by Daniel Barlow
+	<dan@telent.net>).
+
+	* ilisp-sbcl.el (sblisp): changed the name of the Steel Bank
+	Common Lisp dialect to "sbcl".
+	(sblisp-source-directory-regexp, sblisp-local-source-directory):
+	removed because SBCL sources are usually unreadable in a running
+	system, so it seems unlikely that they are used any more.
+	(ilisp-sbcl-init-file): renamed from "ilisp-sblisp-init-file" and
+	given appropriate default value.
+	(ilisp-directory-command, ilisp-set-directory-command): now use
+	the portable *default-pathname-defaults* code, which should work
+	in 0.6.12.20 or newer.
+	(comint-fix-error, ilisp-reset, comint-interrupt-regexp): updated
+	to commands that work.
+	Patches contributed by Daniel Barlow <dan@telent.net>.
+
+	* Makefile (SHELL): use sh instead of csh (fix contributed by
+	Daniel Barlow <dan@telent.net>).
+
 2001-05-22  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* Makefile: Include ChangeLog and ACKNOWLEDGMENTS in the
