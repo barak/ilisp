@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sch.el,v 1.15 2002/01/16 18:09:14 mkoeppe Exp $
+;;; $Id: ilisp-sch.el,v 1.16 2002/06/28 13:01:16 mkoeppe Exp $
 
 (require 'cl)				; Sorry. I couldn't resist
 					; 19990818 Marco Antoniotti
@@ -191,6 +191,7 @@
           ilisp-documentation-command "(ilisp-help '%s \"%s\")"
           ilisp-print-info-message-command "(ilisp-print-info-message '%s \"%s\")"
           ilisp-arglist-command "(ilisp-arglist '%s \"%s\")"
+	  ilisp-describe-command "(ilisp-describe '%s \"%s\")"
 	  ilisp-find-source-command "(ilisp-source-file \"%s\" \"%s\")"
           ilisp-macroexpand-command "(ilisp-macroexpand \"%s\" \"%s\")"
           ilisp-macroexpand-1-command "(ilisp-macroexpand-1 \"%s\" \"%s\")"
