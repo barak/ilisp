@@ -1,5 +1,5 @@
-#! /bin/sh -e
-# /usr/lib/emacsen-common/packages/install/ilisp
+#! /bin/sh 
+set -e
 
 # Written by Jim Van Zandt <jrv@vanzandt.mv.com>, borrowing heavily
 # from the install scripts for gettext by Santiago Vila
