@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-key.el,v 1.11 2003/09/03 16:57:13 bill_clementson Exp $
+;;; $Id: ilisp-key.el,v 1.12 2004/01/07 15:17:27 mkoeppe Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)
@@ -268,9 +268,11 @@ ilisp-*prefix* is set to the desired prefix."
   (when (fboundp 'lisp-mode-commands)
     (lisp-mode-commands ilisp-mode-map))
   (lisp-bindings ilisp-mode-map t)
-  (when (boundp 'lisp-mode-map)
+  (when (and (memq 'lisp-mode lisp-source-modes)
+	     (boundp 'lisp-mode-map))
     (lisp-bindings lisp-mode-map))
-  (when (boundp 'scheme-mode-map) 
+  (when (and (memq 'scheme-mode lisp-source-modes)
+	     (boundp 'scheme-mode-map)) 
     (lisp-bindings scheme-mode-map))
   (ilisp-bind-ilisp-key-for-map emacs-lisp-mode-map ";" 'comment-region-lisp "\C-v\C-\\")
 
