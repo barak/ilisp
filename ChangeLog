@@ -1,3 +1,8 @@
+2003-05-16  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ilisp.texi: Updated documentation to reflect changes to FSF
+	keybindings.
+
 2003-05-14  Kevin Rosenberg <kevin@rosenberg.net>
 
 	* cmulisp.lisp: Fixes for CMUCL 18e+ from Raymond Toy.

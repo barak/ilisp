@@ -966,9 +966,7 @@ system-wide @file{default.el} file:
 
 This will cause the ILISP prefix key to be @key{C-c}, and also change
 some of the bindings underneath that prefix.  After you do this, ILISP
-will be almost fully FSF-compliant; there are still a few bindings that
-technically violate the FSF policy, but we left them as they were
-because we judged that changing them would not have been an improvement.
+will be FSF-compliant.
 
 Because the rest of this document was originally written for the old,
 default ILISP bindings, you'll need to make some mental translations if
@@ -977,30 +975,60 @@ you choose FSF-compliance:
 @itemize @bullet
 
 @item
-Everywhere you see @key{C-z} given as a prefix key, substitute @key{C-c}.
+All key bindings are compliant with the FSF guidelines for major mode
+key bindings. In some cases, there is an overlap with a key binding
+that is defined in either standard Emacs or comint mode; however, in
+these cases, the overlap is consistent with the FSF guideline that "it
+is reasonable for a major mode to rebind a key sequence with a
+standard meaning, if it implements a command that does 'the same job'
+in a way that fits the major mode better".
 
 @item
-If the second part of the keybinding is a plain alphabetic character,
-the modern binding is (usually) the same character with the
-@kbd{Control} key held down.  Thus, the old keybinding (given in full)
-@kbd{@key{C-z} w} would be @kbd{@key{C-c} C-w} in the new system.
+Where possible, mnemonic key bindings have been made to facilitate
+ease of learning and frequently-used commands have been assigned to a
+key binding that is easy to reach.
 
 @item
-If the second part of the keybinding is @emph{already} a @kbd{Control}
-character, then translate it to the corresponding @kbd{Meta} character
-instead (because many of the former control characters were evicted by
-the change described in the previous item).  Thus, the old
-@kbd{@key{C-z} C-n} is now @kbd{@key{C-c} M-n}.
+All of the <query> related functions are set up on on @kbd{@key{C-c
+C-q} <letter>} key bindings. Rationale: The "q" binding is a mnemonic
+binding.
+
+@item
+All of the <eval> related functions are set up on on @kbd{@key{C-c
+C-j} <letter>} key bindings. Rationale: @kbd{C-c C-j} is an easy
+control key sequence to hit and the "eval" functions are used quite a
+lot.
+
+@item
+All of the <compile> related functions are set up on on @kbd{@key{C-c
+C-k} <letter>} key bindings. Rationale: @kbd{C-k} is mnemonic for
+"kompile".
+
+@item
+All of the <action>-and-go-lisp functions are of the form
+@kbd{@key{C-c C-<character>} C-<letter>}. The corresponding <action>
+functions are set up on the @kbd{@key{C-c C-<character>} <letter>}
+binding. Rationale: This is an easy sequence to remember - the
+"and-go-lisp" function is just the exact same sequence as the ordinary
+function but with the last character a control character rather than a
+regular character.
+
+@item
+All of the <buffer/edit> related functions are set up on on
+@kbd{@key{C-c C-g} <letter>} key bindings. Rationale: @kbd{C-c C-g} is
+an easy control key sequence to hit and the "buffer/edit" functions
+are used quite a lot.
+
+@item
+All of the <debug> related functions are set up on on @kbd{@key{C-c
+C-b} <letter>} key bindings. Rationale: These are de"b"ugging
+commands.
 
 @end itemize
 
-Where possible, the new bindings follow the above rules, but note that
-some exceptions were necessary.  Most notably, the old @kbd{@key{C-c} *}
-bindings are all under @kbd{@key{C-c} 8} now.  The remaining exceptions
-are probably best discovered through regular use, as they tend to occur
-on obscure keys anyway.  Remember that you can type @kbd{C-h m} at any
-time to see help on the current major mode, which will show (among other
-things) a list of all currently active keybindings.
+Remember that you can type @kbd{C-h m} at any time to see help on the
+current major mode, which will show (among other things) a list of all
+currently active keybindings.
 
 @c ==================================================================
 @node Buffers of ILISP, ILISP Commands, Keybindings, Top
