@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2003.07.04) unstable; urgency=low
+
+  * New upstream
+  * Fixed hang with spacebar (closes:186936)
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Fri,  4 Jul 2003 15:32:29 -0600
+
 ilisp (5.12.0+cvs.2003.06.05) unstable; urgency=low
 
   * New upstream
