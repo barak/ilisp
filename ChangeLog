@@ -1,6 +1,11 @@
+2000-11-30  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* docs/ilisp.texi: Removed comment about Guile support being
+	incomplete. (It has been completed.)
+
 2000-11-30  Paolo Amoroso  <amoroso@mclink.it>
 
-        * Welcome: added info about the SourceForge site and mailing
+	* Welcome: added info about the SourceForge site and mailing
         lists. Added Matthias Koeppe to the list of
         maintainers. Reformatted.
 
