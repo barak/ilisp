@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sch.el,v 1.14 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-sch.el,v 1.15 2002/01/16 18:09:14 mkoeppe Exp $
 
 (require 'cl)				; Sorry. I couldn't resist
 					; 19990818 Marco Antoniotti
@@ -17,7 +17,7 @@
 ;;; Scheme
 
 (defdialect scheme "Scheme" ilisp
-  (setq ilisp-block-command "(begin #f\n%s)") ; is #f a good idea or should it be
+  (setq ilisp-block-command "(begin #f\n%s\n)") ; is #f a good idea or should it be
                                               ; something more distinct such as
                                               ; '--ilisp-empty-block--?
   (setq ilisp-load-command "(load \"%s\")")
