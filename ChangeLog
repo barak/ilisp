@@ -1,3 +1,12 @@
+2002-09-03  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-def.el (ilisp-*process-connection-type*): New variable.
+
+	* ilisp-mod.el (ilisp): Use this variable here.
+
+	* ilisp-cmp.el (complete-lisp): Bail out early if
+	LISP-PREVIOUS-SYMBOL returns nil.
+
 2002-08-20  Will Deakin <anisotropy9@hotmail.com>
 
 	* cl-ilisp.lisp, HISTORY and docs/ilisp-refcard.tex: Picky change
