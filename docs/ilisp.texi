@@ -885,6 +885,10 @@ ILISP mode definition.
 Buffer-point movement code.
 @cindex @file{ilisp-mov.el}
 
+@item ilisp-openmcl.el
+OpenMCL dialect definition.
+@cindex @file{ilisp-openmcl.el}
+
 @item ilisp-out.el
 Output handling, include typeout window (a popper replacement).
 @cindex @file{ilisp-out.el}
@@ -1031,6 +1035,8 @@ Support code for Scheme.  Each dialect will have one of these files.
 @cindex XLisp
 @pindex xlispstat
 @cindex XLisp-Stat
+@pindex openmcl
+@cindex OpenMCL
 
 To start a Lisp use @kbd{M-x run-ilisp}, or a specific dialect like
 @kbd{M-x allegro}.  If called with a prefix you will be prompted for a
@@ -1102,6 +1108,9 @@ MzScheme by Rice University's PLT.
 @item @code{oaklisp}
 Oaklisp scheme.
 
+@item @code{openmcl}
+OpenMCL.
+
 @item @code{sbcl}
 Steel Bank Common Lisp
 
@@ -1153,6 +1162,7 @@ dialects:
    lispworks
    lucid
      liquid
+   openmcl
    sbcl
  scheme
    chez
@@ -2430,6 +2440,7 @@ to dialects in the nesting order below.
    lispworks
    lucid
      liquid
+   openmcl
    sbcl
  scheme
    chez

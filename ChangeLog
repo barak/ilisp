@@ -1,3 +1,12 @@
+2002-01-25  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	Added OpenMCL support contributed by Gary Byers <gb@clozure.com>.
+	
+	* openmcl.lisp, ilisp-openmcl.el: New files.
+	* Makefile, cl-ilisp.lisp, ilisp-dia.el, ilisp-mak.el, ilisp.el,
+	docs/ilisp.texi: Add OpenMCL support.
+	* ACKNOWLEDGMENTS: Mention Gary Byers.
+
 2002-01-21  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-def.el, ilisp-dia.el (ilisp-locals, setup-ilisp): Make the

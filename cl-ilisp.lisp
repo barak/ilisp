@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: cl-ilisp.lisp,v 1.9 2002/01/04 19:31:19 mna Exp $
+;;; $Id: cl-ilisp.lisp,v 1.10 2002/01/25 11:48:33 mkoeppe Exp $
 
 
 ;;; Old history log.
@@ -471,8 +471,11 @@ The trick is to try to handle print case issues intelligently."
 	   
 	   #+:sbcl
 	   (arglist symbol (symbol-package symbol))
+
+	   #+:openmcl
+	   (arglist symbol (symbol-package symbol))
 	   
-	   #-(or allegro lucid kcl ibcl ecl gcl lispworks clisp cmu :sbcl)
+	   #-(or allegro lucid kcl ibcl ecl gcl lispworks clisp cmu :sbcl :openmcl)
 	   (documentation symbol 'function)))))
 
 

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-mak.el,v 1.6 2001/12/28 18:31:49 craigly Exp $
+;;; $Id: ilisp-mak.el,v 1.7 2002/01/25 11:48:33 mkoeppe Exp $
 
 (require 'cl)
 
@@ -107,6 +107,7 @@
 		   "ilisp-hlw"
 		   "ilisp-luc"
 		   "ilisp-xls"
+		   "ilisp-openmcl"
 		   "ilisp-sch"
 		   "ilisp-cl-easy-menu"
 		   "ilisp-scheme-easy-menu"
