@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ild.el,v 1.3 2001/12/07 16:13:10 amoroso Exp $
+;;; $Id: ild.el,v 1.4 2003/02/17 02:02:43 rgrjr Exp $
 
 ;;; Keystroke c-u? What it does
 ;;; ---------------------------------------------------------
@@ -182,25 +182,6 @@
 	 (switch-to-buffer ilisp-buffer))
 	(t (lucid)			; put your favorite Lisp here
 	   (delete-other-windows))))
-
-(defun select-ilisp (arg)
-  "Select the current ILISP buffer."
-  (interactive "P")
-  (when (and (not arg)
-	     (member* (buffer-name (current-buffer)) ilisp-buffers
-		      :test (function (lambda (x y)
-					(equal x (format "*%s*" (car y)))))))
-    (setq ilisp-buffer (buffer-name (current-buffer)))
-    (let ((new (completing-read
-		(if ilisp-buffer
-		    (format "Buffer [%s]: "
-			    (substring ilisp-buffer
-				       1
-				       (1- (length ilisp-buffer))))
-		  "Buffer: ")
-		ilisp-buffers nil t)))
-      (unless (zerop (length new))
-	(setq ilisp-buffer (format "*%s*" new))))))
 
 ;;; This fixes a bug in ILISP 4.1
 ;;;
