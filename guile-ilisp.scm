@@ -82,10 +82,11 @@ WITH-PROCEDURE?, include the procedure symbol."
       ;;
       (if with-procedure?
 	  (first-line doc)
-	  (let ((index (string-index doc #\space)))
+	  (let* ((f-l (first-line doc))
+		 (index (string-index f-l #\space)))
 	    (if index
 		(string-append "("
-			       (substring (first-line doc)
+			       (substring f-l
 					  (+ index 1)))
 		"()"))))     
      (else (string-append "CAN'T PARSE THIS DOCUMENTATION:\n"
