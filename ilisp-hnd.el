@@ -45,7 +45,7 @@ let the user decide what to do."
     (if (and (not wait-p)
 	     (setq output (comint-remove-whitespace output))
 	     (or error-p (string-match "\n" output)))
-	(let* ((buffer (ilisp-output-buffer))
+	(let* ((buffer (ilisp-output-buffer ilisp-output t))
 	       (out (if error-p 
 			(funcall ilisp-error-filter output)
 		      output))
