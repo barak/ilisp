@@ -349,7 +349,7 @@ compile-file-lisp. Used by these commands to determine defaults.")
   "Non-nil if epoch is running.")
 
 (defvar ilisp-*version*
-  "5.10.1" ;; ILISP-VERSION marker
+  "5.11" ;; ILISP-VERSION marker
   "ILISP version.")
 
 (defvar ilisp-*directory* nil "The directory that ilisp is found in.")
