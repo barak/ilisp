@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-imenu.el,v 1.3.2.1 2001/05/07 23:49:55 marcoxa Exp $
+;;; $Id: ilisp-imenu.el,v 1.3.2.2 2001/05/12 21:53:12 marcoxa Exp $
 
 
 ;;; Old history log.
@@ -63,6 +63,113 @@ Returns t for rescan and otherwise a position number."
 	     choice)))))
 ;;;---
 
+;;;
+;;; Patch for ilisp-imenu
+;;; 
+
+;; Intent is to allow users to customize what forms can
+;; define types, variables, etc.  At the moment, this is
+;; hardcoded in ilisp-imenu-create-lisp-index.
+;; This file replaces and enhances that. function.
+
+(defvar ilisp-*defining-form-regexp* "^(def"
+  "Regular expression indicating that the form will define something.")
+
+(defvar ilisp-*type-defining-forms*
+  '(deftype defstruct defclass define-condition)
+  "Symbols that announce the definition of a new lisp type.
+Don't change this variable -- rather
+customize ilisp-*user-type-defining-forms*")
+
+(defvar ilisp-*user-type-defining-forms* nil
+  "*List of user defined symbols which define new lisp types.")
+
+(defvar ilisp-*variable-defining-forms*
+  '(defvar defconstant defparameter)
+  "Symbols that announce the definition of a lisp variable.
+Don't change this variable -- rather customize
+ilisp-*user-variable-defining-forms*")
+
+(defvar ilisp-*user-variable-defining-forms* nil
+  "*List of user defined symbols which define new lisp variables.")
+ 
+(defvar ilisp-*function-defining-forms* '(defun defmethod defmacro defgeneric)
+  "Symbols that announce the definition of a new new lisp function.
+Don't change this variable -- rather customize
+ilisp-*user-function-defining-forms*")
+
+
+(defvar ilisp-*user-function-defining-forms* nil
+  "*List of user defined symbols which define new lisp functions.")
+
+
+(defun ilisp-build-optimal-regexp (key)
+  "Build an optimal regular expression to match tokens used to define
+things of class KEY, which can be `:types' or `:variables'."
+  (regexp-opt (mapcar #'symbol-name
+		      (remove-duplicates
+		       (ecase key
+			 (:types (append ilisp-*type-defining-forms*
+					 ilisp-*user-type-defining-forms*))
+			 (:variables (append ilisp-*variable-defining-forms*
+					     ilisp-*user-variable-defining-forms*))
+			 (:functions (append ilisp-*function-defining-forms*
+					     ilisp-*user-function-defining-forms*)))))))
+
+
+(defun ilisp-imenu-create-lisp-index ()
+  ;; `imenu-create-index-function' is set to this.
+  ;; generates a nested index of definitions.
+  (let ((index-fun-alist '())
+	(index-var-alist '())
+        (index-const-alist '())
+	(index-type-alist '())
+	(index-unknown-alist '())
+	(prev-pos nil)
+	)
+    (goto-char (point-max))
+    (imenu-progress-message prev-pos 0)
+
+    ;; This will be a bit slower at runtime, but hey, we don't
+    ;; rebuild the index very often, and at least this way,
+    ;; we'll get it right.  [ap 13/5/2001]
+    (let ((type-defining-form-regexp (ilisp-build-optimal-regexp :types))
+	  (variable-defining-form-regexp (ilisp-build-optimal-regexp :variables))
+	  (function-defining-form-regexp (ilisp-build-optimal-regexp :functions)))
+      ;; Search for the function
+      (while (beginning-of-defun)
+	(imenu-progress-message prev-pos nil t)
+	(save-match-data
+	  (and (looking-at ilisp-*defining-form-regexp*)
+	       (save-excursion
+		 (down-list 1)
+		 (cond ((looking-at variable-defining-form-regexp)
+			(forward-sexp 2)
+			(push (ilisp-imenu-general--name-and-position)
+			      index-var-alist))
+		       ((looking-at type-defining-form-regexp)
+			(forward-sexp 2)
+			(push (ilisp-imenu-general--name-and-position)
+			      index-type-alist)) 
+		       ((looking-at function-defining-form-regexp)
+			(forward-sexp 2)
+			(push (ilisp-imenu-function--name-and-position)
+			      index-fun-alist)) 
+		       (t
+			(forward-sexp 2)
+			(push (ilisp-imenu-general--name-and-position)
+			      index-unknown-alist)))))))
+      (imenu-progress-message prev-pos 100)
+      (when index-var-alist
+	(push (cons "Variables" index-var-alist) index-fun-alist))
+      (when index-type-alist
+	(push (cons "Types" index-type-alist) index-fun-alist))
+      (when index-unknown-alist
+	(push (cons "Syntax-unknown" index-unknown-alist) index-fun-alist))
+
+      index-fun-alist)))
+
+
 ;; Return the previous+current sexp and the location of the sexp (its
 ;; beginning) without moving the point.
 (defun ilisp-imenu-function--name-and-position ()
@@ -71,12 +178,13 @@ Returns t for rescan and otherwise a position number."
     ;; [ydi] modified for imenu-use-markers
     (let* ((beg (if imenu-use-markers (point-marker) (point)))
            (end (progn (forward-sexp) (point)))
-           (name (buffer-substring beg end) )
-           (beg2 (progn (forward-sexp) (forward-sexp -1) (point) ) )
-           (end2 (progn (forward-sexp) (point) ) )
-           (args (buffer-substring beg2 end2) ) )
-      (cons (concat name args) 
+           (name (buffer-substring beg end))
+           (beg2 (progn (forward-sexp) (forward-sexp -1) (point)))
+           (end2 (progn (forward-sexp) (point)))
+           (args (buffer-substring beg2 end2)))
+      (cons (concat name " " args) 
 	    beg))))
+
 
 (defun ilisp-imenu-general--name-and-position ()
   (save-excursion
@@ -102,61 +210,62 @@ Returns t for rescan and otherwise a position number."
 		 (buffer-substring beg end)))
 	   (error nil)))))
 
-(defun ilisp-imenu-create-lisp-index ()
-  ;; `imenu-create-index-function' is set to this.
-  ;; generates a nested index of definitions.
-  (let ((index-fun-alist '())
-	(index-var-alist '())
-        (index-const-alist '())
-	(index-type-alist '())
-	(index-unknown-alist '())
-	prev-pos)
-    (goto-char (point-max))
-    (imenu-progress-message prev-pos 0)
-    ;; Search for the function
-    (while (beginning-of-defun)
-      (imenu-progress-message prev-pos nil t)
-	  (save-match-data
-	    (and (looking-at "(def")
-		 (save-excursion
-	       (down-list 1)
-		   (cond
-		((looking-at "def\\(var\\|constant\\|parameter\\)")
-		     (forward-sexp 2)
-		     (push (ilisp-imenu-general--name-and-position)
-			   index-var-alist))
-		((looking-at "def\\(un\\|macro\\|method\\|generic\\)")
-		     (forward-sexp 2)
-		     (push (ilisp-imenu-function--name-and-position)
-			   index-fun-alist))
-		((looking-at "def\\(type\\|struct\\|class\\|ine-condition\\)")
-		     (forward-sexp 2)
- 		 (if (= (char-after (1- (point))) ?\))
-			 (progn
- 		       (forward-sexp -1)
-			   (down-list 1)
- 		       (forward-sexp 1)))
-		     (push (ilisp-imenu-general--name-and-position)
-			   index-type-alist))
-                ((looking-at "def")
-                 (forward-sexp 2)
-		     (push (ilisp-imenu-function--name-and-position)
-			   index-fun-alist))
-		    (t
-		     (forward-sexp 2)
-		     (push (ilisp-imenu-general--name-and-position)
-		       index-unknown-alist)))))))
-    (imenu-progress-message prev-pos 100)
-    (and index-var-alist
-	 (push (cons "Variables" index-var-alist)
-	       index-fun-alist))
-    (and index-type-alist
- 	 (push (cons "Types" index-type-alist)
-  	       index-fun-alist))
-    (and index-unknown-alist
-	 (push (cons "Syntax-unknown" index-unknown-alist)
-	       index-fun-alist))
-    index-fun-alist))
+
+; (defun ilisp-imenu-create-lisp-index ()
+;   ;; `imenu-create-index-function' is set to this.
+;   ;; generates a nested index of definitions.
+;   (let ((index-fun-alist '())
+; 	(index-var-alist '())
+;         (index-const-alist '())
+; 	(index-type-alist '())
+; 	(index-unknown-alist '())
+; 	prev-pos)
+;     (goto-char (point-max))
+;     (imenu-progress-message prev-pos 0)
+;     ;; Search for the function
+;     (while (beginning-of-defun)
+;       (imenu-progress-message prev-pos nil t)
+; 	  (save-match-data
+; 	    (and (looking-at "(def")
+; 		 (save-excursion
+; 	       (down-list 1)
+; 		   (cond
+; 		((looking-at "def\\(var\\|constant\\|parameter\\)")
+; 		     (forward-sexp 2)
+; 		     (push (ilisp-imenu-general--name-and-position)
+; 			   index-var-alist))
+; 		((looking-at "def\\(un\\|macro\\|method\\|generic\\)")
+; 		     (forward-sexp 2)
+; 		     (push (ilisp-imenu-function--name-and-position)
+; 			   index-fun-alist))
+; 		((looking-at "def\\(type\\|struct\\|class\\|ine-condition\\)")
+; 		     (forward-sexp 2)
+;  		 (if (= (char-after (1- (point))) ?\))
+; 			 (progn
+;  		       (forward-sexp -1)
+; 			   (down-list 1)
+;  		       (forward-sexp 1)))
+; 		     (push (ilisp-imenu-general--name-and-position)
+; 			   index-type-alist))
+;                 ((looking-at "def")
+;                  (forward-sexp 2)
+; 		     (push (ilisp-imenu-function--name-and-position)
+; 			   index-fun-alist))
+; 		    (t
+; 		     (forward-sexp 2)
+; 		     (push (ilisp-imenu-general--name-and-position)
+; 		       index-unknown-alist)))))))
+;     (imenu-progress-message prev-pos 100)
+;     (and index-var-alist
+; 	 (push (cons "Variables" index-var-alist)
+; 	       index-fun-alist))
+;     (and index-type-alist
+;  	 (push (cons "Types" index-type-alist)
+;   	       index-fun-alist))
+;     (and index-unknown-alist
+; 	 (push (cons "Syntax-unknown" index-unknown-alist)
+; 	       index-fun-alist))
+;     index-fun-alist))
 
 
 
@@ -178,4 +287,6 @@ A trivial interface to `imenu-add-to-menubar' suitable for use in a hook."
                             'ilisp-imenu-extract-index-name)
                       (setq imenu-create-index-function
                             'ilisp-imenu-create-lisp-index)
-                      (ilisp-imenu-add-menubar-index) ) ) )
+                      (ilisp-imenu-add-menubar-index))))
+
+;;; end of file -- ilisp-imenu.el --
