@@ -1,3 +1,8 @@
+2002-03-03  Paolo Amoroso  <amoroso@mclink.it>
+
+	* INSTALLATION (CLISP): removed discussion of
+	`system::*source-file-types*'.
+
 2002-02-24  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-kcl.el (ecl): comint-prompt-regexp tuned slightly (patch
