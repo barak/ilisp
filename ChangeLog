@@ -1,3 +1,10 @@
+2001-10-05  Paolo Amoroso  <amoroso@mclink.it>
+
+	* sbcl.lisp (SB-EVAL, ilisp-compile, arglist, source-file,
+	fun-defined-from-pathname): make ILISP work with SBCL 0.pre7,
+	which does not have byte compiler and SB-EVAL package (patch
+	contributed by Alexey Dejneka <adejneka@comail.ru>).
+
 2001-09-05  Paolo Amoroso  <amoroso@mclink.it>
 
         * INSTALLATION: added coverage of CLtL2 lookup.
