@@ -1,3 +1,13 @@
+2001-04-02  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* ilisp-sch.el (mzscheme): Provide symbol completion for MzScheme. 
+
+	* mzscheme-ilisp.scm: New file, MzScheme support.
+	
+	* ilisp-hi.el (ilisp-arglist-message-lisp-space): Fixed last
+	change: always insert the space, even if no electric behaviour is
+	available. 
+
 2001-03-29  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-mod.el (ilisp): ilisp-init-hook replaced by
