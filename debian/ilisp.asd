@@ -7,7 +7,7 @@
 ;;;; Programmer:    Kevin M. Rosenberg
 ;;;; Date Started:  March 2003
 ;;;;
-;;;; $Id: ilisp.asd,v 1.5 2003/03/01 23:05:07 kevinrosenberg Exp $
+;;;; $Id: ilisp.asd,v 1.6 2003/03/05 04:59:40 kevinrosenberg Exp $
 ;;;;
 ;;;; UFFI users are granted the rights to distribute and use this software
 ;;;; as governed by the terms of the ILISP license.
@@ -37,7 +37,7 @@
 			:type (pathname-type fasl))))
 	  (when (probe-file symlink)
 	    (delete-file symlink))
-	(let ((cmd (format nil "ln -s ~A ~A"
+	(let ((cmd (format nil "ln -sf ~A ~A"
 			   (namestring fasl) (namestring symlink))))
 	  (asdf:run-shell-command cmd))
 	)))))

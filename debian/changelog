@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2003.03.04) unstable; urgency=low
+
+  * Add force option to creating symlinks with CLC compilation
+
+ -- Kevin M. Rosenberg <kmr@debian.org>  Tue,  4 Mar 2003 21:59:34 -0700
+
 ilisp (5.12.0+cvs.2003.03.03) unstable; urgency=low
 
   * Add support for SBCL aclrepl in version 0.7.13.
