@@ -1,3 +1,9 @@
+2000-11-06    <martin@atzmueller.net>
+
+	* ilisp-cl.el (common-lisp): changed ilisp-hash-form-regexp, so
+	that cl:in-package and cl:defpackage is understood as well as
+	their variants, with or without the explicit package-marker.
+
 2000-11-06  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-sbcl.el (sblisp-source-directory-regexp,
