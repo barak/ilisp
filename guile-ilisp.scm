@@ -178,16 +178,25 @@ This procedure is invoked by the electric space key."
 	(defined-procedure (car obj))
 	(undefined-procedure))))
 
+(define (strip-parens s)
+  (if (and (string=? (substring s 0 1) "(")
+	   (string=? (substring s (- (string-length s) 1)) ")"))
+      (substring s 1 (- (string-length s) 1))
+      s))      
+
 (define (symbol-not-present symbol package)
   (display "Symbol `")
   (display symbol)
   (display "' not present in ")
   (cond
    ((string=? "nil" package)
-    (display "the current module ")
-    (display (module-name (current-module))))
+    (display "the current module `")
+    (for-each display (module-name (current-module)))
+    (display "'"))
    (else
-    (display package)))
+    (display "module `")
+    (display (strip-parens package))
+    (display "'")))
   (display ".\n"))
 
 (define-public (ilisp-arglist symbol package)
