@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-snd.el,v 1.19 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: ilisp-snd.el,v 1.20 2003/05/12 02:17:22 rgrjr Exp $
 
 
 ;;;%% Package / Symbol support
@@ -128,9 +128,8 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
   "Returns the package of the buffer.
 If SEARCH-FROM-START is T then will search from the beginning of the
 buffer, otherwise will search backwards from current point.  This
-function also tries to correctly handle read-time
-conditionals and the relative order of DEFPACKAGE and IN-PACKAGE for
-Common Lisp."
+function also tries to correctly handle read-time conditionals and the
+relative order of DEFPACKAGE and IN-PACKAGE for Common Lisp."
   (interactive)
   (setq mode-line-process 'ilisp-status)
   (let* ((lisp-buffer-package t)
@@ -163,31 +162,27 @@ Common Lisp."
                          (push hash-expr hash-in-package-forms-list))
                        (when (and sub-expr (string-match defpackage-regexp sub-expr))
                          (push hash-expr hash-defpackage-forms-list))
-                        t)))))
-
-        (multiple-value-bind (package package-not-in-core-p)
-            (ilisp-check-package-advanced
-             (nreverse hash-defpackage-forms-list) 
-             (nreverse hash-in-package-forms-list))
-          (let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
-          ;;; RED? (when (ilisp-value 'comint-errorp t)
-          ;;;  (lisp-display-output package)
-          ;;;  (error "No package"))
-          
-            (when (and package
-                       ;; There was a bug here, used to have the second *
-                       ;; outside of the parens.
-                       ;; CMUCL needs just that WITHIN the double-quotes
-                       ;; the old regexp is (string-match "[ \n\t:\"]*\\([^
-                       ;; \n\t\"]*\\)" package))
-                       (string-match "\\([\"].[^\"]*[\"]\\)" package))
-	  
-              (setq package
-                    (substring package
-                               (1+ (match-beginning 1)) (1- (match-end 1)))))
-            ;; => without double-quotes
-
-            (values package should-not-cache-p)))))))
+                        t))))))
+      (multiple-value-bind (package package-not-in-core-p)
+	  (ilisp-check-package-advanced
+	    (nreverse hash-defpackage-forms-list) 
+	    (nreverse hash-in-package-forms-list))
+	(let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
+	  ;; RED? (when (ilisp-value 'comint-errorp t)
+	  ;;  (lisp-display-output package)
+	  ;;  (error "No package"))
+	  (when (and package
+		     ;; There was a bug here, used to have the second *
+		     ;; outside of the parens.
+		     ;; CMUCL needs just that WITHIN the double-quotes
+		     ;; the old regexp is (string-match "[ \n\t:\"]*\\([^
+		     ;; \n\t\"]*\\)" package))
+		     (string-match "\\([\"].[^\"]*[\"]\\)" package))
+	    (setq package
+		  (substring package
+			     (1+ (match-beginning 1)) (1- (match-end 1)))))
+	  ;; => without double-quotes
+	  (values package should-not-cache-p))))))
 
 ;;;
 ;;; Martin Atzmueller code ends here.
