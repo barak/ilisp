@@ -8,7 +8,7 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.20 2002/05/28 19:22:39 anisotropy9 Exp $
+# $Id: Makefile,v 1.21 2002/05/31 11:46:18 amoroso Exp $
 
 # Note: this makefile assumes GNU make
 
@@ -62,7 +62,7 @@ LoadFiles = ilisp-def.elc ilisp-sym.elc \
  ilisp-xfr.elc ilisp-hi.elc ilisp-aut.elc \
  ilisp-cl.elc ilisp-cmu.elc ilisp-sbcl.elc ilisp-cl-easy-menu.elc\
  ilisp-acl.elc ilisp-kcl.elc ilisp-luc.elc ilisp-sch.elc ilisp-hlw.elc \
- ilisp-xls.elc ilisp-chs.elc ilisp-openmcl.elc
+ ilisp-xls.elc ilisp-chs.elc ilisp-openmcl.elc ilisp-ccl.elc
 
 
 DocFiles = docs/Makefile \
