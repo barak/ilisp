@@ -88,15 +88,14 @@ Example site init:
         (setq allegro-program "/usr/local/acl5/lisp")
         (setq lucid-program "/usr/misc/.lucid/bin/lisp")))
 
-Kent Pitman and The Harlequin Group Ltd. have made publicly available on
-the Web the Common Lisp HyperSpec, an HTML version of the full text of the
-ANSI Common Lisp specification.  Daniel Barlow, Stephen Carney and Erik
-Naggum independently developed Emacs Lisp packages for looking up Lisp
-symbols in the HyperSpec and displaying the relevant sections with a Web
-browser.  ILISP includes all of them in the `extra' directory of the
-distribution tree. By default ILISP uses Naggum's package.  If you want to
-use one of the others, see the comments at the beginning of the
-corresponding files.
+Kent Pitman and Xanalys Inc. have made publicly available on the Web the
+Common Lisp HyperSpec, an HTML version of the full text of the ANSI Common
+Lisp specification.  Daniel Barlow, Stephen Carney and Erik Naggum
+independently developed Emacs Lisp packages for looking up Lisp symbols in
+the HyperSpec and displaying the relevant sections with a Web browser.
+ILISP includes all of them in the `extra' directory of the distribution
+tree. By default ILISP uses Naggum's package.  If you want to use one of
+the others, see the comments at the beginning of the corresponding files.
 
 The `ilisp.emacs' file provides sample instructions for making Naggum's
 package access a local copy of the HyperSpec. Since the package relies on
@@ -202,7 +201,7 @@ o CMUCL
 	of this setting.
 
 
-o Harlequin/Xanalys LispWorks
+o Xanalys LispWorks (formerly Harlequin LispWorks)
 
         On Windows and Linux, the LispWorks executable should be resaved
         without the GUI.  In addition, on Windows it MUST be resaved as a
@@ -211,24 +210,21 @@ o Harlequin/Xanalys LispWorks
         the following:
 
           (load-all-patches)
-          (save-image "lw41-console" :console t :environment nil)
+          (save-image "lw42-console" :console t :environment nil)
           (quit)
 
         and run it using:
 
-          <dir>/lispworks-4100 -init <dir>/console.lisp
+          <dir>/lispworks-4200 -init <dir>/console.lisp
 
-        When the `lw41-console' image has been created, it can be used as
+        When the `lw42-console' image has been created, it can be used as
         the value of the `lispworks-program' variable in ILISP.
 
-        If you are using LispWorks 4.1.19 with Emacs 20.4 or higher on
-        Windows, then you will need an additional patch
-        `emacs20-terminal-io', available from <lisp-support@xanalys.com>,
-        because Emacs has changed the coding-system used for comint
-        buffers.  The LispWorks for Windows 4.1.20 patch bundle includes
-        some more patches (LSC #7270, LSC #7727 and LSC #7291) that make it
-        work with ILISP.  For more information check the README file which
-        comes with the bundle.
+        If you are using LispWorks 4.1 with Emacs 20.4 or higher on
+        Windows, then ensure you're at patch level 4.1.20. This patch
+        bundle includes patches (LSC #7270, LSC #7727 and LSC #7291)
+        that make it work with ILISP.  For more information check the
+        README file which comes with the bundle.
 
 
 o Lucid
