@@ -1111,6 +1111,115 @@ variable `common-lisp-hyperspec-root' to point to that location."
             ("yes-or-no-p" "f_y_or_n.htm")
             ("zerop" "f_zerop.htm"))))
                 
+;;; FORMAT character lookup by Frode Vatvedt Fjeld <frodef@acm.org> 20030902
+;;;
+:;; adjusted for ILISP by Nikodemus Siivola 20030903
+
+(defvar common-lisp-hyperspec-format-history nil
+  "History of format characters looked up in the Common Lisp HyperSpec.")
+
+(defvar common-lisp-hyperspec-format-characters (make-vector 67 0))
+
+
+(defun common-lisp-hyperspec-section-6.0 (indices)
+  (let ((string (format "%sBody/%s_" 
+			common-lisp-hyperspec-root
+			(pop indices))))
+    (concat string 
+	    (mapconcat (lambda (n)
+			 (make-string 1 (+ ?a (- n 1))))
+		       indices
+		       "")
+	    ".htm")))
+
+(defun common-lisp-hyperpsec-section-4.0 (indices)
+  (let ((string (format "%sBody/sec%s_" 
+			common-lisp-hyperspec-root
+			(pop indices))))
+    (concat string
+	    (mapconcat (lambda (n)
+			 (format "%d" n))
+		       indices
+		       "-")	    
+	    ".html")))
+
+(defvar common-lisp-hyperspec-section-fun 'common-lisp-hyperspec-section-6.0)
+
+(defun common-lisp-hyperspec-section (indices)
+  (funcall common-lisp-hyperspec-section-fun indices))
+
+(defun common-lisp-hyperspec-format (character-name)
+   (interactive 
+    (list (let ((char-at-point (char-to-string (char-after (point)))))
+	    (if (and char-at-point
+		     (intern-soft (upcase char-at-point)
+				  common-lisp-hyperspec-format-characters))
+ 	       char-at-point
+ 	       (completing-read
+ 		"Look up format control character in Common Lisp HyperSpec: "
+ 		common-lisp-hyperspec-format-characters nil #'boundp
+ 		nil nil 'common-lisp-hyperspec-format-history)))))
+   (maplist (lambda (entry)
+	      (browse-url (common-lisp-hyperspec-section (car entry))))
+	    (let ((symbol (intern-soft character-name
+				       common-lisp-hyperspec-format-characters)))
+	      (if (and symbol (boundp symbol))
+		  (symbol-value symbol)
+		  (error "The symbol `%s' is not defined in Common Lisp"
+			 character-name)))))
+
+(eval-when (load eval)
+  (defalias 'hyperspec-lookup-format 'common-lisp-hyperspec-format))
+
+(mapcar (lambda (entry)
+	  (let ((symbol (intern (car entry)
+				common-lisp-hyperspec-format-characters)))
+	    (if (boundp symbol)
+		(pushnew (cadr entry) (symbol-value symbol) :test 'equal)
+		(set symbol (cdr entry))))
+	  (when (and (= 1 (length (car entry)))
+		     (not (string-equal (car entry) (upcase (car entry)))))
+	    (let ((symbol (intern (upcase (car entry)) 
+				  common-lisp-hyperspec-format-characters)))
+	      (if (boundp symbol)
+		  (pushnew (cadr entry) (symbol-value symbol) :test 'equal)
+		  (set symbol (cdr entry))))))
+	'(("c" (22 3 1 1)) ("C: Character" (22 3 1 1))
+	  ("r" (22 3 2 1)) ("R: Radix" (22 3 2 1))
+	  ("d" (22 3 2 2)) ("D: Decimal" (22 3 2-2))
+          ("b" (22 3 2 3)) ("B: Binary" (22 3 2 3))
+          ("o" (22 3 2 4)) ("O: Octal" (22 3 2 4))
+          ("x" (22 3 2 5)) ("X: Hexadecimal" (22 3 2 5))
+          ("f" (22 3 3 1)) ("F: Fixed-Format Floating-Point" (22 3 3 1))
+          ("e" (22 3 3 2)) ("E: Exponential Floating-Point" (22 3 3 2))
+          ("g" (22 3 3 3)) ("G: General Floating-Point" (22 3 3 3))
+          ("$" (22 3 3 4)) ("Dollarsign: Monetary Floating-Point" (22 3 3 4))
+          ("a" (22 3 4 1)) ("A: Aesthetic" (22 3 4 1))
+          ("s" (22 3 4 2)) ("S: Standard" (22 3 4 2))
+          ("w" (22 3 4 3)) ("W: Write" (22 3 4 3))
+          ("_" (22 3 5 1)) ("Underscore: Conditional Newline" (22 3 5 1))
+          ("<" (22 3 5 2)) ("Less-Than-Sign: Logical Block" (22 3 5 2))
+          ("i" (22 3 5 3)) ("I: Indent" (22 3 5 3))
+          ("/" (22 3 5 4)) ("Slash: Call Function" (22 3 5 4))
+          ("t" (22 3 6 1)) ("T: Tabulate" (22 3 6 1))
+          ("<" (22 3 6 2)) ("Less-Than-Sign: Justification" (22 3 6 2))
+          (">" (22 3 6 3)) ("Greater-Than-Sign: End of Justification" (22 3 6 3))
+          ("*" (22 3 7 1)) ("Asterisk: Go-To" (22 3 7 1))
+          ("[" (22 3 7 2)) ("Left-Bracket: Conditional Expression" (22 3 7 2))
+          ("]" (22 3 7 3)) ("Right-Bracket: End of Conditional Expression" (22 3 7 3))
+          ("{" (22 3 7 4)) ("Left-Brace: Iteration" (22 3 7 4))
+          ("}" (22 3 7 5)) ("Right-Brace: End of Iteration" (22 3 7 5))
+          ("?" (22 3 7 6)) ("Question-Mark: Recursive Processing" (22 3 7 6))
+          ("(" (22 3 8 1)) ("Left-Paren: Case Conversion" (22 3 8 1))
+          (")" (22 3 8 2)) ("Right-Paren: End of Case Conversion" (22 3 8 2))
+          ("p" (22 3 8 3)) ("P: Plural" (22 3 8-3))
+          (";" (22 3 9 1)) ("Semicolon: Clause Separator" (22 3 9 1))
+          ("^" (22 3 9 2)) ("Circumflex: Escape Upward" (22 3 9 2))
+          ("Newline: Ignored Newline" (22 3 9 3))
+          ("Nesting of FORMAT Operations" (22 3 10 1))
+          ("Missing and Additional FORMAT Arguments" (22 3 10 2))
+          ("Additional FORMAT Parameters" (22 3 10 3))))
+
 (provide 'hyperspec)
 
 ;;; hyperspec.el ends here

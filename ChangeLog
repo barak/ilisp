@@ -1,3 +1,9 @@
+2003-09-03  Bill Clementson  <bill_clementson@yahoo.com>
+
+	* ilisp-key.el, extra/hyperspec.el: Added hyperspec lookup
+	of format control characters. Sent in by Nikodemus Siivola 
+	and based on code written by Frode Fjeld.
+
 2003-08-04  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
 
 	* ilisp-utl.el (lisp-slashify): Bind print-escape-* variables.

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-key.el,v 1.10 2003/07/03 15:53:52 bill_clementson Exp $
+;;; $Id: ilisp-key.el,v 1.11 2003/09/03 16:57:13 bill_clementson Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)
@@ -214,7 +214,8 @@ ilisp-*prefix* is set to the desired prefix."
     (ilisp-bind-ilisp-key-for-map keymap "A" 'fi:clman-apropos)
     (ilisp-bind-ilisp-key-for-map keymap "D" 'fi:clman))
   (when ilisp-*use-hyperspec-interface-p*
-    (ilisp-bind-ilisp-key-for-map keymap "H" 'hyperspec-lookup "\C-q\C-h"))
+    (ilisp-bind-ilisp-key-for-map keymap "H" 'hyperspec-lookup "\C-q\C-h")
+    (ilisp-bind-ilisp-key-for-map keymap "F" 'hyperspec-lookup-format "\C-q\C-f"))
   (when ilisp-*use-cltl2-interface-p*
     (ilisp-bind-ilisp-key-for-map keymap "L" 'cltl2-lookup "\C-q\C-c")))
 
