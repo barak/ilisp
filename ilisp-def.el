@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.15 2001/08/27 15:55:27 amoroso Exp $
+;;; $Id: ilisp-def.el,v 1.16 2002/01/21 14:01:21 mkoeppe Exp $
 
 ;;;%Variables
 ;;;%%Deflocal
@@ -31,7 +31,8 @@
 		       comint-handler
 		       comint-update-status
 		       comint-prompt-status
-		       comint-abort-hook)
+		       comint-abort-hook
+		       comint-use-prompt-regexp-instead-of-fields)
   "List of ilisp local variables.")
 
 (defun lisp-deflocal (local)

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-dia.el,v 1.5 2001/06/06 12:17:38 mna Exp $
+;;; $Id: ilisp-dia.el,v 1.6 2002/01/21 14:01:21 mkoeppe Exp $
 
 
 ;;;%%CUSTOMIZING DIALECTS
@@ -169,7 +169,7 @@ inferior LISP.  PARENT is the name of the parent dialect."
   ;; Comint defaults
   (set-ilisp-input-ring-size 200)
   (setq comint-prompt-regexp "^[^<> ]*>+:? *"
-
+	comint-use-prompt-regexp-instead-of-fields t ; Emacs 21 fields don't seem to work with comint-ipc (?)
 	comint-get-old-input 'ilisp-get-old-input
 	comint-input-sentinel (function ignore)
 	comint-input-filter 'ilisp-input-filter
