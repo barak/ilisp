@@ -1,3 +1,21 @@
+2001-12-28  Craig Brozefsky <craig@red-bean.com>
+
+	* ilisp-mak.el: install files which were previously commented out
+	of the installation process, and minor emacs21 compat change.
+
+	* Makefile.el: added ilisp-cl-easy-menu to list of .elc files and
+	link a hyperspec interface implementation file to hyperspec.el.
+	The hyperspec and cltl2 files are no longer compiled seperately in
+	the Makefile, instead they are compiled by ilisp-mak.el
+
+	* docs/ilisp.texi: minor texinfo errors removed.
+
+	* debian/*: Improved package support under Debian, installing
+	files which were previously missed due to ilisp-mak.el issues.
+	Also installs info files appropriately.
+
+	* ACKNOWLEDGMENTS: added myself to end of list.
+	
 2001-12-10  Paolo Amoroso  <amoroso@mclink.it>
 
 	* extra/hyperspec-naggum.el (eval-when): replaced assignment to
