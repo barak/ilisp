@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list of
 ;;; present and past contributors.
 ;;;
-;;; $Id: find-src.lisp,v 1.2 2003/04/12 02:05:15 rgrjr Exp $
+;;; $Id: find-src.lisp,v 1.3 2003/11/27 03:21:44 rgrjr Exp $
 
 (in-package :ilisp)
 
@@ -45,7 +45,7 @@ obsolete.  -- rgr, 4-Sep-02.]")
 ;; [necessary in cmucl 18d, but not in 18f (we expect).  -- rgr, 19-Feb-03.]
 #+cmu
 (defmethod class-name ((class structure-class))
-  (kernel::structure-class-name class))
+  (slot-value class 'pcl::name))
 
 ;;; Definition specifications.
 
