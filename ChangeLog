@@ -1,3 +1,23 @@
+2000-06-29  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-sch.el (guile): sets `ilisp-package-separator-regexp' so
+	  that it never matches (patch contributed by Matthias
+	  Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
+
+	* ilisp-snd.el (lisp-string-to-symbol): uses
+	  `ilisp-package-separator-regexp' instead of its hardcoded
+	  value in order to work with Guile, and possibly other Schemes
+	  (patch contributed by Matthias Koeppe
+	  <mkoeppe@mail.math.uni-magdeburg.de>).
+
+	* ilisp-def.el (ilisp-package-separator-regexp): added (patch
+	  contributed by Matthias Koeppe
+	  <mkoeppe@mail.math.uni-magdeburg.de>). Matthias suggested
+	  `deflocal', I changed it to `defvar' as a temporary workaround
+	  because of a bug. After making each dialect set it to the
+	  appropriate value, the declaration can be changed to
+	  `deflocal'.
+	
 2000-06-27  Paolo Amoroso  <amoroso@mclink.it>
 
 	* guile-ilisp.scm: support functions for Guile, which also work
