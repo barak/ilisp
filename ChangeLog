@@ -1,3 +1,7 @@
+2001-10-20  Martin Atzmueller  <martin@atzmueller.net>
+
+	* sbcl.lisp: add some more comments.
+
 2001-10-19  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-sbcl.el (sbcl): removed hardcoded compiled-file

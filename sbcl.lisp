@@ -2,7 +2,8 @@
 
 ;;; sbcl.lisp --
 ;;;
-;;; This init file was last tested with SBCL 0.6.12.21
+;;; This init file was last tested with SBCL 0.6.13 and
+;;; SBCL 0.7pre.71
 
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
@@ -10,7 +11,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: sbcl.lisp,v 1.4 2001/10/19 19:00:43 mna Exp $
+;;; $Id: sbcl.lisp,v 1.5 2001/10/20 09:57:16 mna Exp $
 
 
 (in-package "ILISP")
@@ -19,7 +20,14 @@
 ;; e.g.(bytecode-)interpreter goes away, and lots of other 'renaming'-changes,
 ;; take care of that, by testing via the 'magic'-macros:
 ;; THE-SYMBOL-IF-DEFINED, and THE-FUNCTION-IF-DEFINED.
-
+;;
+;; MNA: 2001-10-20
+;; Some annotations:
+;; <1> - interpreter related changes (interpreter missing in sbcl-0.7.x)
+;; <2> - byte-compiler related changes (sbcl-0.7.x)
+;; <3> - renamings in sbcl-0.7.x., where in general this is accounted for
+;;       using THE-SYMBOL-IF-DEFINED and THE-FUNCTION-IF-DEFINED macros.
+;;       In general, the "new" symbol comes before the "old" symbol.
 
 ;;;% CMU CL does not define defun as a macro
 (defun ilisp-compile (form package filename)
@@ -65,14 +73,13 @@
 		 (and (fboundp sym) (symbol-function sym)))))
     (cond (fun
             (if (and (= (sb-impl::get-type fun)
-                        ;; sbcl-07 has closure-header-widetag, whereas
-                        ;; earlier sbcl has closure-header-type.
+                        ;; <3>
                         #.(the-symbol-if-defined
                            ((#:closure-header-widetag :sb-vm)
                             (#:closure-header-type :sb-vm) :eval-p t)))
                      (not (the-function-if-defined
                            ((#:interpreted-function-p :sb-eval) ()) fun)))
-              ;; sbcl-07: %closure-function -> closure-fun
+              ;; <3>
               (the-function-if-defined ((#:%closure-fun :sb-impl)
                                         (#:closure-function :sb-impl))
                                        fun)
@@ -111,6 +118,7 @@
 	   (extract-function-info-from-name x)
 	 (if (and func kind)
            (case (sb-impl::get-type func)
+             ;; <3>
              ((#.(the-symbol-if-defined ((#:closure-header-widetag :sb-vm)
                                          (#:closure-header-type :sb-vm)
                                          :eval-p t))
@@ -131,12 +139,14 @@
                   (#:funcallable-instance-header-type :sb-vm)
                   :eval-p t))
                (typecase func
+                 ;; <2>
                  (#.(the-symbol-if-defined ((#:byte-function :sb-kernel) ()))
                    "Byte compiled function or macro, no arglist available.")
                  (#.(the-symbol-if-defined ((#:byte-closure :sb-kernel) ()))
                    "Byte compiled closure, no arglist available.")
                  ((or generic-function sb-pcl::generic-function)
                    (sb-pcl::generic-function-pretty-arglist func))
+                 ;; <1>
                  (#.(the-symbol-if-defined ((#:interpreted-function :sb-eval) ()))
                    (the-function-if-defined
                     ((#:interpreted-function-arglist :sb-eval) ()
@@ -163,6 +173,7 @@
    (let* ((x (ilisp-find-symbol symbol package))
 	  (fun (get-correct-fn-object x)))
      (when (and fun
+                ;; <1>
                 (not (the-function-if-defined
                       ((#:interpreted-function-p :sb-eval) ()) fun)))
 	   ;; The hack above is necessary because CMUCL does not
@@ -205,6 +216,7 @@ returned."
 		       (sb-c::debug-source-name source)))))))))
     (typecase function
       (symbol (fun-defined-from-pathname (fdefinition function)))
+      ;; <2>
       (#.(the-symbol-if-defined ((#:byte-function :sb-kernel) ()))
         "Byte compiled function or macro, no arglist available.")
       (#.(the-symbol-if-defined ((#:byte-closure :sb-kernel) ()))
@@ -219,6 +231,7 @@ returned."
                                   :function-binding-p t)
                                  (frob (funcall the-function function))))
       (function
+        ;; <3>
         (frob (the-function-if-defined ((#:fun-code-header :sb-kernel)
                                         (#:function-code-header :sb-kernel))
                                        (the-function-if-defined
