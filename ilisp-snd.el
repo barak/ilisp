@@ -60,18 +60,20 @@
   "Advanced check for packages in buffer.
 It hanldes the special case of read-time conditionals - i.e. hash plus
 or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
-  (let ((string
-	 (apply #'concat (nconc hash-defpackage-forms-list
-				hash-in-package-forms-list))))
-    
-    (setq string
+  (let* ((string
+          (apply #'concat (nconc hash-defpackage-forms-list
+                                 hash-in-package-forms-list)))
+         (string
 	  (format (ilisp-value 'ilisp-package-command)
 		  (format (ilisp-value 'ilisp-block-command) string)))
-    ;; (message "ilisp-check-package-advanced: '%s'.\n" string)
-    (let ((package
-	   (ilisp-send
-	    string "Finding Buffer package with hash-forms" 'pkg nil)))
-      package)))
+         (package
+          (ilisp-send
+           string "Finding Buffer package with hash-forms" 'pkg nil))
+         (case-fold-search t)
+         (npic-regexp (ilisp-value 'ilisp-no-package-in-core-regexp)))
+    (if (and npic-regexp (string-match npic-regexp package))
+        (values (ilisp-value 'ilisp-fallback-package) t)
+      (values package nil))))
 
 
 (defun lisp-find-hash-form ()		; Was: find-hash-form.
@@ -117,12 +119,9 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 ;;; for Scheme yet.  After all the module system of Scheme is a system
 ;;; of very high  entropy.
 ;;;
-;;; The optional 'dummy' variable is there only for backward
-;;; compatibility.
-;;;
 ;;; 19990824 Marco Antoniotti
 
-(defun lisp-buffer-package-internal (&optional dummy)
+(defun lisp-buffer-package-internal ()
   "Returns the package of the buffer.
 If SEARCH-FROM-START is T then will search from the beginning of the
 buffer, otherwise will search backwards from current point.  This
@@ -139,13 +138,11 @@ Common Lisp."
 	 (hash-in-package-forms-list nil)
 	 (hash-defpackage-forms-list nil)
          (in-package-found-p nil)
-	 (package nil))
+	 (package nil)
+         (should-not-cache-p nil))
     (save-excursion
       (goto-char (point-min))
 
-      ;; This should be rewritten using LOOP.
-      ;;
-      ;; 19990824 Marco Antoniotti
       (while
 	  (let* ((hash-expr
 		  (ignore-errors (lisp-find-hash-form)))
@@ -154,43 +151,45 @@ Common Lisp."
 		       (string-match hash-form-regexp hash-expr)
 		       (substring hash-expr (match-beginning 0)))))
             
-            (when hash-expr
-	      (when (and sub-expr (string-match in-package-regexp sub-expr))
-                (setq in-package-found-p t)
-		(push hash-expr hash-in-package-forms-list))
-	      (when (and sub-expr (string-match defpackage-regexp sub-expr))
-		(push hash-expr hash-defpackage-forms-list))
-              (if (and in-package-found-p
-                       (null hash-defpackage-forms-list))
-                  ;; if we found one in-package before all defpackage's then we
-                  ;; are done this takes care of some bug cases.
-                  nil
-                  t))))
+            (cond ((string-match "(in-package\\s-*)" hash-expr)
+                   (setq should-not-cache-p t)
+                   nil)
+                  (hash-expr
+                   (when (and sub-expr (string-match in-package-regexp sub-expr))
+                     (setq in-package-found-p t)
+                     (push hash-expr hash-in-package-forms-list))
+                   (when (and sub-expr (string-match defpackage-regexp sub-expr))
+                     (push hash-expr hash-defpackage-forms-list))
+                   (if (and in-package-found-p
+                            (null hash-defpackage-forms-list))
+                       ;; if we found one in-package before all defpackage's then we
+                       ;; are done this takes care of some bug cases.
+                       nil
+                     t)))))
 
-      (setq package
-	    (ilisp-check-package-advanced
-	     (nreverse hash-defpackage-forms-list) 
-	     (nreverse hash-in-package-forms-list)))
-      
-      (when (ilisp-value 'comint-errorp t)
-	(lisp-display-output package)
-	(error "No package")
-	nil)
-
-      (if (and package
-	       ;; There was a bug here, used to have the second *
-	       ;; outside of the parens.
-	       ;; CMUCL needs just that WITHIN the double-quotes
-	       ;; the old regexp is (string-match "[ \n\t:\"]*\\([^
-	       ;; \n\t\"]*\\)" package))
-	       (string-match "\\([\"].[^\"]*[\"]\\)" package))
+      (multiple-value-bind (package package-not-in-core-p)
+          (ilisp-check-package-advanced
+           (nreverse hash-defpackage-forms-list) 
+           (nreverse hash-in-package-forms-list))
+        (let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
+          (when (ilisp-value 'comint-errorp t)
+            (lisp-display-output package)
+            (error "No package"))
+          
+          (when (and package
+                     ;; There was a bug here, used to have the second *
+                     ;; outside of the parens.
+                     ;; CMUCL needs just that WITHIN the double-quotes
+                     ;; the old regexp is (string-match "[ \n\t:\"]*\\([^
+                     ;; \n\t\"]*\\)" package))
+                     (string-match "\\([\"].[^\"]*[\"]\\)" package))
 	  
-	  (setq package
-		(substring package
-			   (1+ (match-beginning 1)) (1- (match-end 1)))))
-      ;; => without double-quotes
+            (setq package
+                  (substring package
+                             (1+ (match-beginning 1)) (1- (match-end 1)))))
+          ;; => without double-quotes
 
-      package)))
+          (values package should-not-cache-p))))))
 
 (defun set-package-lisp-always ()
   "Set inferior LISP to a named package.
@@ -269,21 +268,9 @@ The package name is a string. If there is none, return NIL.  This
 caches the package unless 'ILISP-DONT-CACHE-PACKAGE' is non-nil, so
 calling this more than once is cheap."
   (cond ((and (not (eq buffer-package 'not-yet-computed))
-	      (null lisp-dont-cache-package)) 
+	      (null lisp-dont-cache-package))
 	 buffer-package)
 	(ilisp-completion-package ilisp-completion-package)
-	(lisp-dont-cache-package
-	 ;; Refind the package each time.
-	 (let ((package (lisp-buffer-package-internal nil)))
-	   (message "")
-	   (setq buffer-package 'not-yet-computed)
-	   (when package
-	     (setq mode-name
-		   (concat 
-		    (or buffer-mode-name 
-			(setq buffer-mode-name mode-name))
-		    ":" package)))
-	   package))
 	((or lisp-buffer-package 
 	     (memq major-mode ilisp-modes)
 	     (not (memq major-mode lisp-source-modes)))
@@ -291,16 +278,17 @@ calling this more than once is cheap."
 	(t
 	 (make-local-variable 'buffer-package)
 	 (make-local-variable 'buffer-mode-name)
-	 (let ((package (lisp-buffer-package-internal t)))
-	   (message "")
-	   (setq buffer-package package)
+         (multiple-value-bind (package should-not-cache-p)
+             (lisp-buffer-package-internal)
+	   (setq buffer-package (if (or should-not-cache-p lisp-dont-cache-package)
+                                    'not-yet-computed package))
 	   ;; Display package in mode line
 	   (when package 
 	     (setq mode-name
 		   (concat (or buffer-mode-name
 			       (setq buffer-mode-name mode-name))
-			   ":" buffer-package)))
-	   buffer-package))))
+			   ":" package)))
+	   package))))
 
 
 ;;;
