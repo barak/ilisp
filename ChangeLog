@@ -1,11 +1,16 @@
+2001-04-04  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (symbol-not-present): Strip parens from the
+	module names; C-u M-x arglist-lisp would parse them as an arglist.
+
 2001-04-04  Paolo Amoroso  <amoroso@mclink.it>
 
-        * docs/ilisp.texi (How to run a Lisp process using ILISP, ILISP
-        Customization): added info on MzScheme and DrScheme-jr.
+	* docs/ilisp.texi (How to run a Lisp process using ILISP, ILISP
+	Customization): added info on MzScheme and DrScheme-jr.
 
 2001-04-03  Paolo Amoroso  <amoroso@mclink.it>
 
-        * docs/ilisp.texi: updated date and version info.
+	* docs/ilisp.texi: updated date and version info.
 
 2001-04-02  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
