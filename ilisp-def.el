@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-def.el,v 1.11.2.1 2001/05/07 23:49:55 marcoxa Exp $
+;;; $Id: ilisp-def.el,v 1.12 2001/05/12 22:10:53 marcoxa Exp $
 
 ;;;%Variables
 ;;;%%Deflocal

@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmp.el,v 1.4.2.1 2001/05/07 23:49:55 marcoxa Exp $
+;;; $Id: ilisp-cmp.el,v 1.5 2001/05/12 22:10:53 marcoxa Exp $
 
 (defun ilisp-display-choices (symbol choices)
   "Display the possible choices for SYMBOL in alist CHOICES."

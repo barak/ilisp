@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.12.2.2 2001/05/09 19:01:31 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.13 2001/05/12 22:10:53 marcoxa Exp $
 
 
 (define-module (guile-user)

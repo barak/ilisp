@@ -11,7 +11,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: custom-ilisp.el,v 1.1.1.1.2.1 2001/05/07 23:49:55 marcoxa Exp $
+;;; $Id: custom-ilisp.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
 
 (defgroup ILisp nil
   "The ILisp Inferior Lisp System."

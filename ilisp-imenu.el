@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-imenu.el,v 1.3.2.2 2001/05/12 21:53:12 marcoxa Exp $
+;;; $Id: ilisp-imenu.el,v 1.4 2001/05/12 22:10:53 marcoxa Exp $
 
 
 ;;; Old history log.

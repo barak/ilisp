@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-key.el,v 1.1.1.1.2.1 2001/05/07 23:49:55 marcoxa Exp $
+;;; $Id: ilisp-key.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)
