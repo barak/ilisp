@@ -51,6 +51,8 @@ cat << EOF > path.el
 (load "ilisp-mak.el")
 EOF
 ${FLAVOR} ${FLAGS}     >> $LOG  2>&1;
-rm -f *.el path.el extra/*.el
+
+# Don't remove .el files since ilisp-mak.el does not compile all files
+# rm -f *.el path.el extra/*.el
 
 exit 0
