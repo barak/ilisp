@@ -14,9 +14,6 @@ Description: Package for interacting with LISPs using EMACSes
  including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL,
  IBCL, and CMUCL.  Also some Scheme implementations are supported as
  well as a preliminary version of Xlisp/XlispStat.
- .
- This version of ILISP features compatibility with Common Lisp Controller.
- (see /usr/share/doc/ilisp/local-modifications)
 
 Package: ilisp-doc
 Architecture: all
