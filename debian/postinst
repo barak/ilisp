@@ -24,7 +24,11 @@ set -e
 
 case "$1" in
     configure)
-
+	cd /usr/share/info
+	install-info --quiet --section "Emacs" "Emacs" \
+	    --menuentry=ilisp \
+	    --description="The ILISP Inferior Lisp Interface." \
+	    /usr/share/info/ilisp.info.gz
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

@@ -12,12 +12,15 @@ if [ ${FLAVOR} = emacs ]; then exit 0; fi
 
 echo install/${PACKAGE}: Handling install for emacsen flavor ${FLAVOR}
 
+HYPERSPEC=hyperspec-naggum.el
+
 #FLAVORTEST=`echo $FLAVOR | cut -c-6`
 #if [ ${FLAVORTEST} = xemacs ] ; then
 #    SITEFLAG="-no-site-file"
 #else
 #    SITEFLAG="--no-site-file"
 #fi
+
 FLAGS="${SITEFLAG} -q -batch -l path.el"
 
 ELDIR=/usr/share/emacs/site-lisp/${PACKAGE}
@@ -36,14 +39,19 @@ cd ${ELDIR}
 cp `echo *.el` ${ELCDIR}
 cp `echo *.lisp` ${ELCDIR}
 cd ${ELDIR}/extra
-cp hyperspec-naggum.el ${ELCDIR}/extra/hyperspec.el
+cp ${HYPERSPEC} ${ELCDIR}/extra/hyperspec.el
+cp cltl2.el ${ELCDIR}/extra/cltl2.el
+
 cd ${ELCDIR}
+
+LOG=`tempfile`;
+trap "test -f $LOG && mv -f $LOG  $ELCDIR/install.log > /dev/null 2>&1" exit
 
 cat << EOF > path.el
 (setq load-path (cons "." load-path) byte-compile-warnings nil)
 (load "ilisp-mak.el")
 EOF
-${FLAVOR} ${FLAGS}
+${FLAVOR} ${FLAGS}     >> $LOG  2>&1;
 rm -f *.el path.el
 
 exit 0

@@ -16,7 +16,6 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	
 	# Add here commands to compile the package.
 	#$(MAKE)
 
@@ -40,17 +39,26 @@ binary-arch: build
 	dh_testdir
 	dh_testroot
 	dh_installemacsen
+	(cd docs; make ilisp.info; cd ..)
+	$(installdoc) -d debian/tmp/usr/share/info
+	$(installdoc) docs/*.info* debian/tmp/usr/share/info
 	$(installbin) -d debian/tmp/usr/share/emacs/site-lisp/ilisp
 	$(installdoc) *.el debian/tmp/usr/share/emacs/site-lisp/ilisp
 	$(installdoc) *.lisp debian/tmp/usr/share/emacs/site-lisp/ilisp
+	$(installdoc) *.scm debian/tmp/usr/share/emacs/site-lisp/ilisp
 	$(installbin) -d debian/tmp/usr/share/emacs/site-lisp/ilisp/extra
 	$(installdoc) extra/*.el debian/tmp/usr/share/emacs/site-lisp/ilisp/extra
 	$(installbin) -d debian/tmp/etc/ilisp
-	$(installbin) debian/ilisp.el debian/tmp/etc/ilisp
+	$(installdoc) debian/ilisp.el debian/tmp/etc/ilisp
+	dh_installdocs
+	dh_installchangelogs	
 	dh_installdeb
 	dh_gencontrol
+	dh_compress
 	dh_md5sums
 	dh_builddeb
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary
+
+

@@ -1,5 +1,5 @@
 Source: ilisp
-Section: non-free/development
+Section: non-free/devel
 Priority: optional
 Maintainer: Craig Brozefsky <craig@debian.org>
 Standards-Version: 3.0.1

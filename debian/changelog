@@ -1,3 +1,45 @@
+ilisp (5.11.1-5) unstable; urgency=low
+
+  * compile/install ilisp-imenu
+
+ -- Craig Brozefsky <craig@red-bean.com>  Mon, 26 Nov 2001 12:26:21 -0500
+
+ilisp (5.11.1-4) unstable; urgency=low
+
+  * closed bug 121266
+
+ -- Craig Brozefsky <craig@red-bean.com>  Mon, 26 Nov 2001 12:26:21 -0500
+
+ilisp (5.11.1-3) unstable; urgency=low
+
+  * closed bug 98130
+  * closed bug 87751
+
+ -- Craig Brozefsky <craig@red-bean.com>  Fri, 23 Nov 2001 12:26:21 -0500
+
+ilisp (5.11.1-2) unstable; urgency=low
+
+  * closed bug 120767, includes cltl2.elc
+  * fixed minor emacsen-install problem
+
+ -- Craig Brozefsky <craig@red-bean.com>  Fri, 23 Nov 2001 11:26:21 -0500
+
+ilisp (5.11.1-1) unstable; urgency=low
+
+  * New upstream minor version
+  * closed bug 85592, actually last version did.
+  * closed bug 119931 with upstream fix.
+  * closed bug 18825
+
+ -- Craig Brozefsky <craig@red-bean.com>  Thu, 22 Apr 2001 03:26:21 -0500
+
+ilisp (5.11-1) unstable; urgency=low
+
+  * New upstream version
+  * closed bug 87752
+
+ -- Craig Brozefsky <craig@red-bean.com>  Tue, 17 Apr 2001 03:26:21 -0500
+
 ilisp (5.10.1-1) unstable; urgency=low
 
   * New upstream version
