@@ -1,3 +1,9 @@
+2000-12-03  Paolo Amoroso  <amoroso@mclink.it>
+
+        * allegro.lisp (allegro-v5.0): added support for ACL 6.0 and
+	updated the comment (fix suggested by Larry Hunter
+	<Larry.Hunter@uchsc.edu>).
+
 2000-11-30  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* docs/ilisp.texi: Removed comment about Guile support being
