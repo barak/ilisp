@@ -44,7 +44,7 @@ cp cltl2.el ${ELCDIR}/extra/cltl2.el
 cd ${ELCDIR}
 
 LOG=`tempfile`;
-trap "test -f $LOG && mv -f $LOG  $ELCDIR/install.log > /dev/null 2>&1" exit
+trap "test -f $LOG && mv -f $LOG  $ELCDIR/install.log > /dev/null 2>&1 && chmod 644 $ELCDIR/install.log" exit
 
 cat << EOF > path.el
 (setq load-path (cons "." load-path) byte-compile-warnings nil)
