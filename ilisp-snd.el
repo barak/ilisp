@@ -150,22 +150,22 @@ Common Lisp."
 		  (and hash-expr
 		       (string-match hash-form-regexp hash-expr)
 		       (substring hash-expr (match-beginning 0)))))
-            
-            (cond ((string-match "(in-package\\s-*)" hash-expr)
-                   (setq should-not-cache-p t)
-                   nil)
-                  (hash-expr
-                   (when (and sub-expr (string-match in-package-regexp sub-expr))
-                     (setq in-package-found-p t)
-                     (push hash-expr hash-in-package-forms-list))
-                   (when (and sub-expr (string-match defpackage-regexp sub-expr))
-                     (push hash-expr hash-defpackage-forms-list))
-                   (if (and in-package-found-p
-                            (null hash-defpackage-forms-list))
-                       ;; if we found one in-package before all defpackage's then we
-                       ;; are done this takes care of some bug cases.
-                       nil
-                     t)))))
+            (when hash-expr
+              (cond ((string-match "(in-package\\s-*)" hash-expr)
+                     (setq should-not-cache-p t)
+                     nil)
+                    (t
+                     (when (and sub-expr (string-match in-package-regexp sub-expr))
+                       (setq in-package-found-p t)
+                       (push hash-expr hash-in-package-forms-list))
+                     (when (and sub-expr (string-match defpackage-regexp sub-expr))
+                       (push hash-expr hash-defpackage-forms-list))
+                     (if (and in-package-found-p
+                              (null hash-defpackage-forms-list))
+                         ;; if we found one in-package before all defpackage's then we
+                         ;; are done this takes care of some bug cases.
+                         nil
+                       t))))))
 
       (multiple-value-bind (package package-not-in-core-p)
           (ilisp-check-package-advanced
