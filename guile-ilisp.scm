@@ -1,7 +1,7 @@
 ;;;; guile-ilisp.scm --- ILISP support functions for GUILE
 ;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de> 
 ;;;
-;;; Copyright (C) 2000, 2001, 2002, 2003 Matthias Koeppe
+;;; Copyright (C) 2000, 2001, 2002, 2003, 2004 Matthias Koeppe
 ;;;
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
@@ -9,14 +9,39 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: guile-ilisp.scm,v 1.23 2003/10/13 21:43:13 mkoeppe Exp $
+;;; $Id: guile-ilisp.scm,v 1.24 2004/04/06 09:38:12 mkoeppe Exp $
 
 
 (define-module (guile-ilisp)
   :use-module (ice-9 debug)
   :use-module (ice-9 session)
   :use-module (ice-9 documentation)
-  :use-module (ice-9 regex))
+  :use-module (ice-9 regex)
+  :use-module (oop goops))
+
+;; This file tries hard to be compatible with Guile versions
+;; 1.3.4 through 1.8.x
+
+(define eval-in-package
+  ;; A two-argument version of `eval'
+  (if (= (car (procedure-property eval 'arity)) 2)
+      (lambda (expression environment)	; we have a R5RS eval
+	(save-module-excursion
+	 (lambda ()
+	   (eval expression environment))))
+      (lambda (expression environment)	; we have a one-arg eval (Guile <= 1.4)
+	(save-module-excursion
+	 (lambda ()
+	   (set-current-module environment)
+	   (eval expression))))))  
+
+(define is-a-generic?
+  (if (false-if-exception (eval-in-package '(use-modules (oop goops))
+					   (current-module)))
+      (lambda (object)
+	(is-a? object <generic>))
+      (lambda (object)
+	#f)))
 
 (define-module (guile-user)
   :use-module (guile-ilisp))
@@ -65,7 +90,9 @@ WITH-PROCEDURE?, include the procedure symbol."
 	    ;; Continuation lines of arglists have an indentation of
 	    ;; 10 chars.
 	    (lambda (pattern)
-	      (and (string=? (substring doc 0 (string-length pattern))
+	      (and (>= (string-length doc)
+		       (string-length pattern))
+		   (string=? (substring doc 0 (string-length pattern))
 			     pattern)
 		   (let ((start-index
 			  (if with-procedure?
@@ -145,6 +172,15 @@ truncation by an ellipsis."
 	     "w")))
        (write obj trunc-port)))))
 
+(define (list-length* l)
+  "Return two values: The length of the possibly improper list L,
+and a boolean that indicates whether the list is proper."
+  (let loop ((l l) (len 0))
+    (cond
+     ((null? l) (values len #t))
+     ((pair? l) (loop (cdr l) (1+ len)))
+     (else (values len #f)))))
+
 (define (info-message sym obj expensive? arglist-only?)
   "Return an informational message about OBJ, which is the value of SYM.
 For procedures, return procedure symbol and arglist, or
@@ -221,6 +257,49 @@ arglist only.  If EXPENSIVE?, take some more effort."
     ;; is in session.scm (help).
     => (lambda (doc)
 	 (doc->arglist doc (not arglist-only?))))
+   ((is-a-generic? obj)
+    (let ((methods (generic-function-methods obj)))
+      (cond
+       ((null? methods)
+	(string-append "`" (symbol->string sym) "'"
+		       " is a generic function with no methods."))
+       ((= 1 (length methods))
+	(info-message sym (method-procedure (car methods))
+		      expensive? arglist-only?))
+       (else
+	(let loop ((methods methods)
+		   (min-arity most-positive-fixnum)
+		   (max-arity 0)
+		   (rest-argument? #f))
+	  (cond
+	   ((null? methods)
+	    (with-output-to-string
+	      (lambda ()
+		(display sym) (display ": ")
+		(cond
+		 (rest-argument?
+		  (display min-arity)
+		  (display " or more arguments"))
+		 ((= min-arity max-arity)
+		  (display min-arity)
+		  (display " argument")
+		  (if (not (= min-arity 1))
+		      (display "s")))
+		 (else
+		  (display min-arity)
+		  (display " to ")
+		  (display max-arity)
+		  (display " arguments")))
+		(display "."))))
+	   (else
+	    (call-with-values
+		(lambda ()
+		  (list-length* (method-specializers (car methods))))
+	      (lambda (len proper?)
+		(loop (cdr methods)
+		      (min min-arity len)
+		      (max max-arity len)
+		      (or rest-argument? (not proper?))))))))))))
    ((procedure? obj)
     ;; Return a message about the arity of the procedure.
     (with-output-to-string
@@ -358,19 +437,6 @@ procedure. This procedure is invoked by `arglist-lisp'."
   (cond ((and (pair? l) (not (null? (cdr l))))
 	 (last (cdr l)))
 	(else (car l))))
-
-(define eval-in-package
-  ;; A two-argument version of `eval'
-  (if (= (car (procedure-property eval 'arity)) 2)
-      (lambda (expression environment)	; we have a R5RS eval
-	(save-module-excursion
-	 (lambda ()
-	   (eval expression environment))))
-      (lambda (expression environment)	; we have a one-arg eval (Guile <= 1.4)
-	(save-module-excursion
-	 (lambda ()
-	   (set-current-module environment)
-	   (eval expression))))))  
 
 (define-public (ilisp-get-package sequence-of-defines)
   "Get the last module name defined in the sequence of define-module forms."
