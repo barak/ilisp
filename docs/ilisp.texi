@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: February 18, 2002
+\input texinfo    @c -*-texinfo-*-         Last modified: February 20, 2002
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -547,9 +547,14 @@ and known problems for specific Lisp dialects.
 
 Run @code{make} or @code{make compile} to build ILISP from source.
 Ignore any compilation warnings unless they result in ILISP not
-compiling completely.
+compiling completely. If you are a Windows user, and you don't have GNU
+@code{make}, you can still compile ILISP by running the
+@file{icompile.bat} batch file (be sure to customize for your system the
+variables mentioned by the comment at the top).
 @pindex make
 @pindex make compile
+@cindex Windows, compiling under
+@cindex @file{icompile.bat}
 
 For reducing the Emacs startup time you may run @code{make
 loadfile}. This concatenates all @file{.elc} (the compiled Emacs Lisp
@@ -751,6 +756,11 @@ Directory containing the documentation.
 @item extra/
 Directory containing contributed packages.
 @cindex @file{extra}
+
+@item icompile.bat
+Windows batch file for compiling ILISP (useful if you don't have GNU
+@code{make}).
+@cindex @file{icompile.bat}
 
 @item ilcompat.el
 Compatibility code between FSF-18, FSF-19, FSF-20, LEmacs-19 and XEmacs.
