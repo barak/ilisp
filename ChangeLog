@@ -1,3 +1,10 @@
+2002-04-21  Paolo Amoroso  <amoroso@mclink.it>
+
+	* cmulisp.lisp (def-debug-command "POP"):
+	`restart-report-function' should be passed a stream, not
+	nil. Passing nil apparently stopped working in CMU CL 18d-pre
+	(patch contributed by Tim Moore <moore@bricoworks.com>).
+
 2002-04-11  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space): Commit another
