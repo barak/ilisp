@@ -181,15 +181,30 @@ o CMUCL
 	of this setting.
 
 
-o Harlequin/Xanalys
+o Harlequin/Xanalys LispWorks
 
-        On Windows and Linux you need to resave LispWorks as a console
-        application to make it work with ILISP.
+        On Windows and Linux, the LispWorks executable should be resaved
+        without the GUI.  In addition, on Windows it MUST be resaved as a
+        console application to ensure correct interaction with Emacs shell
+        buffers.  Create a script (let's call it `console.lisp') including
+        the following:
 
-        On Windows with later versions of Emacs 20 (20.4 or higher?), you
-	need the patch 'emacs20-terminal-io' available from
-	<lisp-support@xanalys.com> because Emacs has changed the
-	coding-system used for comint buffers.
+          (load-all-patches)
+          (save-image "lw41-console" :console t :environment nil)
+          (quit)
+
+        and run it using:
+
+          <dir>/lispworks-4100 -init <dir>/console.lisp
+
+        When the `lw41-console' image has been created, it can be used as
+        the value of the `lispworks-program' variable in ILISP.
+
+        If you are using LispWorks 4.1.19 with Emacs 20.4 or higher on
+        Windows, then you will need an additional patch
+        `emacs20-terminal-io', available from <lisp-support@xanalys.com>,
+        because Emacs has changed the coding-system used for comint
+        buffers.
 
 
 o Lucid
