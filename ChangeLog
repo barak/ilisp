@@ -1,3 +1,21 @@
+2000-11-14  Paolo Amoroso  <amoroso@mclink.it>
+
+	* docs/ilisp.texi (How to get the latest ILISP distribution):
+	  added information about the SourceForge site and mailing lists.
+	  (FTP and Web directions, Acknowledgements): added reference to
+	  the mailing lists.
+	  Updated version info.
+
+	* docs/README: removed redundant version number; minor formatting
+	  changes.
+
+	* GETTING-ILISP: added reference to the mailing lists; minor
+	  formatting changes.
+
+	* README: updated version number; changed Harlequin to
+	  Xanalys/Harlequin; added information about the
+	  SourceForge site and mailing lists; minor formatting changes.
+
 2000-11-12  Paolo Amoroso  <amoroso@mclink.it>
 
         * Welcome: removed Rick Campbell from the list of current
