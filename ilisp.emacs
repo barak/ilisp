@@ -14,7 +14,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp.emacs,v 1.3 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp.emacs,v 1.4 2001/09/05 14:36:31 amoroso Exp $
 
 
 ;;; If ilisp lives in some non-standard directory, you must tell
@@ -159,6 +159,13 @@
 ;; If you have a local copy of the HyperSpec, set its path here.
 ; (setq common-lisp-hyperspec-root
 ;       "file:/home/joe/HyperSpec/")
+
+
+;;; Configuration of Utz-Uwe Haus' CLtL2 access package.
+
+;; If you have a local copy of CLtL2, set its path here.
+; (setq cltl2-root-url
+;       "file:/home/joe/cltl2/")
 
 
 ;;; Sample load hook
