@@ -1,3 +1,19 @@
+2001-06-06  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-def.el (ilisp-*version*): set to 5.11.1.
+
+	* README: updated version info for 5.11.1.
+
+	* COPYING (Version, Date): update version infor for 5.11.1.
+
+	* Makefile (Version): set to 5.11.1.
+
+	* docs/Makefile (Version): set to 5.11.1.
+
+	* docs/ilisp.texi: updated version info for 5.11.1.
+	(Files of ILISP, How to run a Lisp process using ILISP, ILISP
+	Customization): the "sblisp" dialect is now called "sbcl".
+
 2001-06-06  Martin Atzmueller  <martin@atzmueller.net>
 
 	* sbcl.lisp: new (ILISP 5.11) boilerplate text (from sblisp.lisp).
