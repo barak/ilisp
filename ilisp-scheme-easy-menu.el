@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-scheme-easy-menu.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-scheme-easy-menu.el,v 1.3 2002/01/31 14:56:45 mna Exp $
 
 ;; Author: Holger Schauer <Holger.Schauer@gmd.de>
 ;; Maintainer: Holger.Schauer@gmd.de
@@ -200,7 +200,7 @@
 				"Scheme commands"
 				ilisp-scheme-easy-menu) 
 	      (when (boundp 'scheme-menu)
-		(easy-menu-remove scheme-menu 'scheme-mode-map))
+		(easy-menu-remove scheme-menu))
 	      (easy-menu-add ilisp-scheme-easy-menu 'scheme-mode-map)
 	      )))
 

@@ -1,3 +1,20 @@
+2002-01-31  Martin Atzmueller  <martin@atzmueller.net>
+
+	* ilisp-cl.el (common-lisp): removed ILISP-DEFPACKAGE-REGEXP,
+	since it was never used.
+
+	* ilisp-scheme-easy-menu.el (scheme-mode-hook): removed the unnessary
+	second parameter of EASY-MENU-REMOVE.
+
+	* ilisp-imenu.el (ilisp-imenu-create-lisp-index): removed previous
+	(commented out) version of this function.
+
+	* ilisp-cl-easy-menu.el (lisp-mode-hook): removed the unnessary
+	second parameter of EASY-MENU-REMOVE.
+
+	* ilisp-imenu.el (imenu): require 'imenu. This makes the
+	(INDEX-)imenu work, when ilisp-imenu is compiled!
+
 2002-01-25  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	Added OpenMCL support contributed by Gary Byers <gb@clozure.com>.

@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cl.el,v 1.7 2001/05/12 22:10:53 marcoxa Exp $
+;;; $Id: ilisp-cl.el,v 1.8 2002/01/31 14:56:45 mna Exp $
 
 (defvar ilisp-cl-ilisp-package-file "ilisp-pkg.lisp")
 
@@ -67,9 +67,6 @@
 	ilisp-in-package-command
 	"(in-package \"%s\")"
 
-         ilisp-defpackage-regexp
-         "^[ \t]*(defpackage[ \t\n]*"
- 
          ilisp-hash-form-regexp
          "\\(^[ \t]*#[+-].\\)\\|\\(^[ \t]*(\\(.*::?\\)?defpackage[ \t\n]\\)\\|\\(^[ \t]*(\\(.*::?\\)?in-package[ \t\n]*\\)"
 
