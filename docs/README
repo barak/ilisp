@@ -1,5 +1,5 @@
-ILISP 5.9 DOC
-=============
+ILISP DOCUMENTATION
+===================
 
 ILISP is a powerful GNU Emacs interface to many dialects of Lisp.
 
@@ -11,6 +11,7 @@ starting from the 'ilisp.texi' file.
 There is also the reference card 'ilisp-refcard.tex' which you may
 find useful (provided by Valentino Kyriakides).
 
-Enjoy
+Enjoy,
+
 
 The ILISP Maintainers
