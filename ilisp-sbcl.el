@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-sbcl.el,v 1.16 2003/03/04 03:02:27 kevinrosenberg Exp $
+;;; $Id: ilisp-sbcl.el,v 1.17 2003/03/04 03:05:51 kevinrosenberg Exp $
 
 ;;;%%%Steel Bank Common Lisp
     
@@ -110,7 +110,7 @@
                      ;; "^\\(\\) "
 		     ;; Patch by kpc 94/8/30: allow prompts that look like this:
 		     ;; USER(23): USER(23):
-		     "^\\([0-9]+\\]+\\|[0-9]+\\[[0-9]+\\]\\|\\* \\|\\(\\[[0-9]+i?c?\\] \\|\\[step\\] \\)?\\(<?[-A-Za-z]* ?[0-9]*?>\\|[-A-Za-z0-9]+([0-9]+):\\) \\)+")
+		     "^\\([0-9]+\\]+\\|[0-9]+\\[[0-9]+\\]\\|\\* \\|\\(\\[[0-9]+i?c?\\] \\|\\[step\\] \\)?\\(<?[-A-Za-z]* ?[0-9]*?>\\|[-A-Za-z0-9]+([0-9]+):\\) \\)+")))
 
 (defun sbcl-version-hook-fun ()
   (when (equal (process-name (ilisp-process)) "sbcl")
