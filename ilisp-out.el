@@ -247,10 +247,10 @@ sink."
          (frame (ilisp-output-sink-frame ilisp-output-sink)))
     (when buffer
       (bury-buffer buffer))
-    (when window
-      (ilisp-delete-window window))
-    (when frame
-      (ilisp-delete-message-frame ilisp-output-sink))))
+    (if frame
+        (ilisp-delete-message-frame ilisp-output-sink)
+        (when window
+          (ilisp-delete-window window)))))
 
 
 (defun ilisp-delete-window (window)
