@@ -243,7 +243,7 @@ seen in the \*ilisp-send* buffer.
 
 The first time an inferior Lisp mode command is executed in a Lisp
 Mode buffer, the package will be determined by using the regular
-expression `ilisp-package-regexp' to find a package sexp and then
+expression `ilisp-hash-form-regexp' to find a package sexp and then
 passing that sexp to the inferior Lisp through
 `ilisp-package-command'.  For the CLISP dialect, this will find the
 first \(in-package PACKAGE) form in the file.  A buffer's package will

@@ -47,13 +47,10 @@
 			(ilisp-value 'ilisp-status) " :ready")
 
 		   ;; and check the Package when in ILISP
-		   (lisp-buffer-package)
-		 ))))
+		   (lisp-buffer-package)))))
 
 ;;; ilisp-check-package-advanced --
 ;;; treat DEFPACKAGE before IN-PACKAGE.
-;;;
-;;; Was: check-package-advanced
 
 (defun ilisp-check-package-advanced (hash-defpackage-forms-list 
 				     hash-in-package-forms-list)
@@ -90,7 +87,7 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
         (message "Buffer package: %s" package)
         (values package nil)))))
 
-
+;;;
 (defun lisp-find-hash-form ()		; Was: find-hash-form.
   "Tries to find either an hash-form, e.g. #{+|-}-form, or a regular
  in-package or defpackage form."
@@ -147,7 +144,7 @@ Common Lisp."
   (setq mode-line-process 'ilisp-status)
   (let* ((lisp-buffer-package t)
 	 (case-fold-search t)
-	 (hash-form-regexp (ilisp-value 'ilisp-hash-form-regexp))
+	 (hash-form-regexp (ilisp-value 'ilisp-hash-form-regexp t))
 	 (in-package-regexp (ilisp-value 'ilisp-in-package-command-string t))
 	 (defpackage-regexp (ilisp-value 'ilisp-defpackage-command-string t))
 	 (hash-in-package-forms-list nil)
@@ -155,57 +152,60 @@ Common Lisp."
          (in-package-found-p nil)
 	 (package nil)
          (should-not-cache-p nil))
-    (save-excursion
-      (goto-char (point-min))
+    (if (not hash-form-regexp)
+        (values nil nil)
+      (save-excursion
+        (goto-char (point-min))
 
-      (while
-	  (let* ((hash-expr
-		  (ignore-errors (lisp-find-hash-form)))
-		 (sub-expr
-		  (and hash-expr
-		       (string-match hash-form-regexp hash-expr)
-		       (substring hash-expr (match-beginning 0)))))
-            (when hash-expr
-              (cond ((string-match "(in-package\\s-*)" hash-expr)
-                     (setq should-not-cache-p t)
-                     nil)
-                    (t
-                     (when (and sub-expr (string-match in-package-regexp sub-expr))
-                       (setq in-package-found-p t)
-                       (push hash-expr hash-in-package-forms-list))
-                     (when (and sub-expr (string-match defpackage-regexp sub-expr))
-                       (push hash-expr hash-defpackage-forms-list))
-                     (if (and in-package-found-p
-                              (null hash-defpackage-forms-list))
-                         ;; if we found one in-package before all defpackage's then we
-                         ;; are done this takes care of some bug cases.
-                         nil
-                       t))))))
+        (while
+            (let* ((hash-expr
+                    (ignore-errors (lisp-find-hash-form)))
+                   (sub-expr
+                    (and hash-expr
+                         (string-match hash-form-regexp hash-expr)
+                         (substring hash-expr (match-beginning 0)))))
+              (when hash-expr
+                (cond ((string-match "(in-package\\s-*)" hash-expr)
+                       (setq should-not-cache-p t)
+                       nil)
+                      (t
+                       (when (and sub-expr (string-match in-package-regexp sub-expr))
+                         (setq in-package-found-p t)
+                         (push hash-expr hash-in-package-forms-list))
+                       (when (and sub-expr (string-match defpackage-regexp sub-expr))
+                         (push hash-expr hash-defpackage-forms-list))
+                       (if (and in-package-found-p
+                                (null hash-defpackage-forms-list))
+                           ;; if we found one in-package before all defpackage's then we
+                           ;; are done this takes care of some bug cases.
+                           nil
+                         t))))))
 
-      (multiple-value-bind (package package-not-in-core-p)
-          (ilisp-check-package-advanced
-           (nreverse hash-defpackage-forms-list) 
-           (nreverse hash-in-package-forms-list))
-        (let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
+        (multiple-value-bind (package package-not-in-core-p)
+            (ilisp-check-package-advanced
+             (nreverse hash-defpackage-forms-list) 
+             (nreverse hash-in-package-forms-list))
+          (let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
           ;;; RED? (when (ilisp-value 'comint-errorp t)
           ;;;  (lisp-display-output package)
           ;;;  (error "No package"))
           
-          (when (and package
-                     ;; There was a bug here, used to have the second *
-                     ;; outside of the parens.
-                     ;; CMUCL needs just that WITHIN the double-quotes
-                     ;; the old regexp is (string-match "[ \n\t:\"]*\\([^
-                     ;; \n\t\"]*\\)" package))
-                     (string-match "\\([\"].[^\"]*[\"]\\)" package))
+            (when (and package
+                       ;; There was a bug here, used to have the second *
+                       ;; outside of the parens.
+                       ;; CMUCL needs just that WITHIN the double-quotes
+                       ;; the old regexp is (string-match "[ \n\t:\"]*\\([^
+                       ;; \n\t\"]*\\)" package))
+                       (string-match "\\([\"].[^\"]*[\"]\\)" package))
 	  
-            (setq package
-                  (substring package
-                             (1+ (match-beginning 1)) (1- (match-end 1)))))
-          ;; => without double-quotes
+              (setq package
+                    (substring package
+                               (1+ (match-beginning 1)) (1- (match-end 1)))))
+            ;; => without double-quotes
 
-          (values package should-not-cache-p))))))
+            (values package should-not-cache-p)))))))
 
+;;;
 (defun set-package-lisp-always ()
   "Set inferior LISP to a named package.
 The package is set whether the buffer has a package or not!"
@@ -227,56 +227,7 @@ The package is set whether the buffer has a package or not!"
 ;;; Martin Atzmueller code ends here.
 ;;; --------------------------------------------------------------------------
 
-;;; Original version without read-time conditional checks and package
-;;; hacks by Martin Atzmueller.  This piece of code is left here for
-;;; documentation purporses.
 ;;;
-;;; Since: 5.9
-;;;
-;;; 19990824 Marco Antoniotti
-
-;;; (defun lisp-buffer-package-internal (search-from-start)
-;;;   "Returns the package of the buffer.
-;;; If SEARCH-FROM-START is T then will search from the beginning of the
-;;; buffer, otherwise will search backwards from current point."
-;;;   (setq mode-line-process 'ilisp-status)
-;;;   (let* ((lisp-buffer-package t)
-;;;	  (case-fold-search t)
-;;;	  (regexp (ilisp-value 'ilisp-package-regexp t))
-;;;	  (spec
-;;;	   (and regexp
-;;;		(save-excursion
-;;;		  (when (or (and search-from-start
-;;;				 (goto-char (point-min))
-;;;				 (re-search-forward regexp nil t))
-;;;			    (re-search-backward regexp nil t))
-;;;		      (buffer-substring (match-beginning 0)
-;;;					(progn 
-;;;					  (goto-char (match-beginning 0))
-;;;					  (forward-sexp)
-;;;					  (point)))))))
-;;;	  (str (format (ilisp-value 'ilisp-package-command) spec))
-;;;	  (package (and spec
-;;;			(ilisp-send str "Finding buffer package" 'pkg)))
-;;;	  )
-;;;     ;; 19990806 Marco Antoniotti
-;;;     ;; Debugging
-;;;     ;;
-;;;     ;; (message "ILISP Package stuff: spec %s" spec)
-;;;     ;; (message "ILISP Package stuff: str %s" str)
-;;;     (cond ((ilisp-value 'comint-errorp t)
-;;;	    (lisp-display-output package)
-;;;	    (error "No package"))
-;;;	   ((and package 
-;;;		 ;; There was a bug here, used to have the second *
-;;;		 ;; outside of the parens.
-;;;		 (string-match "[ \n\t:\"]*\\([^ \n\t\"]*\\)" package))
-;;;	    (setq package
-;;;		  (substring package
-;;;			     (match-beginning 1) (match-end 1)))))
-;;;     package))
-
-
 (defun lisp-buffer-package ()
   "Return the package for this buffer.
 The package name is a string. If there is none, return NIL.  This
@@ -348,7 +299,6 @@ With prefix specify manually."
 	    mode-name (concat (or buffer-mode-name mode-name) ":" package))
     (setq buffer-package 'not-yet-computed)
     (lisp-buffer-package)))
-
 
 
 ;;;%Interface functions
@@ -440,7 +390,6 @@ is no current sexp, return NIL."
 				 (progn (forward-sexp 1) (point)))))
 	  (error nil))))))
 
-
 ;;;
 (defun lisp-defun-name ()
   "Return the name of the current defun."
@@ -496,8 +445,6 @@ If FILE is NIL, the entry will be removed."
       (comint-send-code (get-buffer-process (current-buffer))
 			'ilisp-done-init)
     (when ilisp-initializing
-      ;; 19990806 Unknown Author (blame Marco Antoniotti for this)
-      ;; (message "Finished initializing %s" (car ilisp-dialect)))
       (unless comint-errorp
 	(message "Finished initializing %s" (car ilisp-dialect)))
       (setq ilisp-initializing nil
@@ -505,6 +452,40 @@ If FILE is NIL, the entry will be removed."
 	    (cons (buffer-name (current-buffer)) ilisp-initialized)))))
 
 ;;;
+
+(defun comint-send-code-init-function ()
+  "Stuff that is executed for initialization in the ilisp process buffer."
+  (let ((files ilisp-load-inits)
+        (done nil))
+    (unwind-protect
+      (progn
+        (when (not ilisp-init-binary-extension)
+          (setq ilisp-init-binary-extension 
+                  ilisp-binary-extension))
+
+        (dolist (file files)
+          (let ((load-file 
+                  (let ((source
+                          (expand-file-name (cdr file)
+                                            ilisp-*directory*))
+                        (binary
+                          (expand-file-name
+                           (lisp-file-extension (cdr file)
+                                                ilisp-binary-extension)
+                           ilisp-*directory*)))
+                    (if (file-newer-than-file-p binary source)
+                      binary
+                      source))))
+            (ilisp-load-or-send
+             load-file)))
+                             
+        (comint-send-code (ilisp-process)
+                          'ilisp-done-init)
+        (setq done t))                         
+      (unless done
+        (setq ilisp-initializing nil)
+        (abort-commands-lisp)))))
+
 (defun ilisp-init-internal (&optional sync)
   "Send all of the stuff necessary to initialize."
   (unwind-protect
@@ -520,41 +501,7 @@ If FILE is NIL, the entry will be removed."
 	;; This gets executed in the process buffer
 	(comint-send-code
 	 (ilisp-process)
-	 (function (lambda ()
-		     (let ((files ilisp-load-inits)
-			   (done nil))
-		       (unwind-protect
-			   (progn
-			     (when (not ilisp-init-binary-extension)
-			       (setq ilisp-init-binary-extension 
-				     ilisp-binary-extension))
-
-			     (dolist (file files)
-                               (let ((load-file 
-                                      (let ((source
-                                             (expand-file-name (cdr file)
-                                                               ilisp-*directory*))
-                                            (binary
-                                             (expand-file-name
-                                              (lisp-file-extension (cdr file)
-                                                                   ilisp-binary-extension)
-                                              ilisp-*directory*)))
-                                        (if (file-newer-than-file-p binary source)
-                                            binary
-                                          source))))
-                                 (ilisp-load-or-send
-                                  load-file)))
-                             
-                             (comint-send-code (ilisp-process)
-                                               'ilisp-done-init)
-                             (setq done t))
-                         
-                         (unless done
-                           (setq ilisp-initializing nil)
-                           (abort-commands-lisp))
-                         
-                         )))))
-        
+         (function comint-send-code-init-function))
         (set-ilisp-value 'ilisp-initializing t)) ; progn
     
     (unless (ilisp-value 'ilisp-initializing t)
@@ -589,7 +536,6 @@ reinitialization.  With a prefix, get the binary extensions again."
 (defun ilisp-init-and-sync ()
   "Synchronize with the inferior LISP and then initialize."
   (ilisp-init nil nil t))
-
 
 ;;;
 (defun call-defun-lisp (arg)
@@ -637,7 +583,6 @@ the buffer."
       (comint-kill-input)
       (insert form))))
 
-
 ;;;
 (defun ilisp-send (string &optional message status and-go handler)
   "Send STRING to the ILISP buffer.
@@ -680,8 +625,6 @@ it will be handled by HANDLER."
 		;; Martin Atzmueller 2000-01-22
 		;; this was necessary to have it work in Emacs 20.3 smoothly
                 ;; old one: t nil 'restore "Restore" t t
-		;; previous *experimental* still is:
-		;; t t 'restore "Restore" t t))
 		;; mew experimental:
 		;; t (unless dispatch 'wait) 'restore "Restore" t t))
 		t (unless dispatch 'wait) 'restore "Restore" t t))	     

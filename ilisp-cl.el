@@ -59,10 +59,7 @@
   ;; 19990912 Marco Antoniotti
   ;; Changed the argument below from 'clisp to 'common-lisp.
   (ilisp-load-init 'common-lisp ilisp-cl-ilisp-init-file)
-  (setq ilisp-package-regexp
-	"^[ \t]*(in-package[ \t\n]*"
-
-	ilisp-package-separator-regexp
+  (setq ilisp-package-separator-regexp
 	":+"
 
 	ilisp-package-command

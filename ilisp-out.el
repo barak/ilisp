@@ -344,7 +344,7 @@ sink."
 	       (windowp
 		(ilisp-needed-window-height
                  (get-buffer-window
-		  (ilisp-output-sink-buffer ilisp-output-sink)))))))
+		  (ilisp-output-sink-buffer ilisp-output-sink) t))))))
     (max window-min-height
 	 (min (ilisp-output-sink-window-max-height ilisp-output-sink)
 	      (max (ilisp-output-sink-window-min-height ilisp-output-sink)
@@ -417,7 +417,6 @@ sink."
 	   (frame-desired-height
 	    (max (ilisp-output-sink-frame-min-height ilisp-output-sink)
 		 desired-height)))
-      (enlarge-window delta)
       (set-buffer buffer)
       (goto-char (point-min))
 
@@ -434,7 +433,7 @@ sink."
 	    (vertical-motion delta)
 	    (set-window-start lower-window (point))
 	    (goto-char old-point)
-	    (when (not (pos-visible-in-window-p old-point))
+	    (unless (pos-visible-in-window-p old-point)
 	      (recenter 0)))))
 
       ;; If there was no lower window, then we ought to preserve
@@ -634,31 +633,20 @@ This is probably the window from which enlarge-window would steal lines."
          (buffer (ilisp-output-sink-buffer ilisp-output-sink))
          (buffer-window (get-buffer-window buffer))
          (previous-output-window (selected-window)))
-    ;;     (message ">>> call %s %s %s."
-    ;; 	     output-frame
-    ;; 	     buffer-window
-    ;; 	     previous-output-window)
-
     (if (null buffer-window)
 	;; No window is associated to the buffer.
 	(unwind-protect
 	    (let* ((output-frame-window
 		    (ilisp-find-top-left-most-window output-frame))
 		   (desired-height
-		    (ilisp-desired-height ilisp-output-sink nil))
-		   )
-	      ;; (message ">>> out frame %s." output-frame-window)
+		    (ilisp-desired-height ilisp-output-sink nil)))
 	      (select-window output-frame-window)
 	      (set-window-buffer output-frame-window buffer)
-	      ;; 2000-01-30 Martin Atzmueller:
-	      ;; workaround for the sake of XEmacs! (at least in XEmacs 20.4!)
-	      (ignore-errors
-                (ilisp-shrink-wrap-window-and-frame output-frame-window
-						    ilisp-output-sink))
+	      (ilisp-shrink-wrap-window-and-frame output-frame-window
+                                                  ilisp-output-sink)
 	      (unless (frame-visible-p output-frame)
 		(make-frame-visible output-frame))
-              (raise-frame output-frame)
-	      )
+              (raise-frame output-frame))
 	  (progn
 	    (select-window previous-output-window)
 	    (select-frame (window-frame (selected-window)))))

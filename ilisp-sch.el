@@ -175,7 +175,6 @@
           "(begin \"%s\" (load \"%s\"))")
     (ilisp-load-init 'guile ilisp-guile-init-file)
     (setq ilisp-symbol-delimiters "^ \t\n\('\"#\)"
-          ilisp-package-regexp "^[ \t]*\\s(define-module \\((.*)\\))"
           ilisp-error-regexp "\\(ERROR\\|ABORT\\): "
           ilisp-package-command "(ilisp-get-package '%s)"
 

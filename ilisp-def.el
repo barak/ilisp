@@ -164,10 +164,16 @@ bol-ilisp skips them.")
   "Format string for loading BINARY if possible otherwise loading FILE.
 If you can't load either, return NIL.")
 
-(deflocal ilisp-package-regexp nil
+(deflocal ilisp-hash-form-regexp nil
   "Regular expression for finding a package specification in a buffer.
 The entire sexp starting with this pattern will be passed to
 ilisp-package-command to find the package.")
+
+(deflocal ilisp-in-package-command-string nil
+  "Regular expression for finding a command that makes some package active.")
+
+(deflocal ilisp-defpackage-command-string nil
+  "Regular expression for finding a command that defines a package.")
 
 (deflocal ilisp-package-separator-regexp nil
   "Regular expression that matches the package separator.")
