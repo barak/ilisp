@@ -315,7 +315,7 @@ internal and exported symbols is considered."
       (completer-undo)
       (let* ((filep (save-excursion
 		      (skip-chars-backward "^ \t\n")
-		      (= (char-after (point)) ?\")))
+		      (= (or (char-after (point)) ?\") ?\")))
 	     )
 	(if filep
 	    (comint-dynamic-complete)
