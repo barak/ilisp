@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-hi.el,v 1.12 2002/04/11 07:49:36 mna Exp $
+;;; $Id: ilisp-hi.el,v 1.13 2002/05/31 11:47:26 amoroso Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
@@ -216,6 +216,21 @@ an ILISP buffer."
 	 'call)
        t)))
 
+;;; 2002-05-20 09:38:07 rurban
+;;; Ivan's ange-ftp hack: "/user@server:~/xx.lisp" => "~/xx.lisp"  
+;;; Reini's cygwin hack: "/cygdrive/r/xx.lisp"     => "r:/xx.lisp"
+(defun file-name-hack (file-name)
+  "Strip ange-ftp and cygwin pathnames prefixes for the native local lisp"
+  (cond ((string-match "/.*?@.*:" file-name)
+	 (substring file-name (match-end 0)))
+	((not (eq system-type 'cygwin32)) file-name) ; verified on XEmacs
+	;; assume cygwin clisp on cygwin (X)Emacs
+	((eq ilisp-dialect 'clisp-hs) file-name)
+	;; => w32 path for non-cygwin lisps only.
+	((string-equal "/cygdrive/" (subseq file-name 0 10))
+	 (concat (subseq file-name 10 11) ":" (subseq file-name 11)))
+	(t file-name)))
+
 ;;;
 (defun compile-file-lisp (file-name &optional extension)
   "Compile a Lisp file in the current inferior LISP and go there."
@@ -226,11 +241,7 @@ an ILISP buffer."
   (setq lisp-prev-l/c-dir/file (cons (file-name-directory    file-name)
 				     (file-name-nondirectory file-name)))
   (ilisp-init t)
-  ;; Ivan's hack for ange-ftp pathnames...
-  (let ((file-name
-	 (if (string-match "/.*?@.*:" file-name)
-	     (substring file-name (match-end 0))
-	   file-name)))
+  (let ((file-name (file-name-hack file-name)))
     (ilisp-send
      (format (ilisp-value 'ilisp-compile-file-command) file-name
 	     (or extension (ilisp-value 'ilisp-binary-extension)))
@@ -570,16 +581,11 @@ current directory of the LISP."
         (when (file-readable-p binary)
           (setq file-name binary))))
     (switch-to-lisp t t)
-    ;; Ivan's hack for ange-ftp pathnames...
-    (let ((file-name
-           (if (string-match "/.*?@.*:" file-name)
-               (substring file-name (match-end 0))
-             file-name)))
+    (let ((file-name (file-name-hack file-name)))
       (comint-sender
        (ilisp-process)
        (format (ilisp-value 'ilisp-load-command) file-name))
       (message "Loading %s" file-name))))
-
 
 
 ;;;%Source
