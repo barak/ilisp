@@ -1,4 +1,4 @@
-\input texinfo    @c -*-texinfo-*-         Last modified: September 5, 2001
+\input texinfo    @c -*-texinfo-*-         Last modified: October 25, 2001
 @setfilename ilisp.info
 @settitle The ILISP Inferior Lisp Interface
 
@@ -109,7 +109,7 @@ by the Foundation.
 @titlepage
 @title ILISP User Manual
 @subtitle A GNU Emacs Interface for Interacting with Lisp
-@subtitle Edition 0.22, September 2001
+@subtitle Edition 0.22, October 2001
 @subtitle For ILISP Version: 5.11.1
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
@@ -134,7 +134,7 @@ Copyright @copyright{} @itemize
 @sp 2
 This is edition 0.22 of the @cite{ILISP User Manual}
 for ILISP Version: 5.11.1,
-September 2001.
+October 2001.
 
 @sp 2
 
@@ -614,15 +614,15 @@ Example site init:
         (setq lucid-program "/usr/misc/.lucid/bin/lisp")))
 @end example
 
-Kent Pitman and The Harlequin Group Ltd. have made publicly available on
-the Web the Common Lisp HyperSpec, an HTML version of the full text of
-the ANSI Common Lisp specification.  Daniel Barlow, Stephen Carney and
-Erik Naggum independently developed Emacs Lisp packages for looking up
-Lisp symbols in the HyperSpec and displaying the relevant sections with
-a Web browser. ILISP includes all of them in the @file{extra} directory
-of the distribution tree. By default ILISP uses Naggum's package.  If
-you want to use one of the others, see the comments at the beginning of
-the corresponding files.
+Kent Pitman and Xanalys Inc. have made publicly available on the Web the
+Common Lisp HyperSpec, an HTML version of the full text of the ANSI
+Common Lisp specification.  Daniel Barlow, Stephen Carney and Erik
+Naggum independently developed Emacs Lisp packages for looking up Lisp
+symbols in the HyperSpec and displaying the relevant sections with a Web
+browser. ILISP includes all of them in the @file{extra} directory of the
+distribution tree. By default ILISP uses Naggum's package.  If you want
+to use one of the others, see the comments at the beginning of the
+corresponding files.
 @cindex ANSI Common Lisp
 @cindex HyperSpec
 @cindex Common Lisp HyperSpec
