@@ -12,7 +12,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-cmp.el,v 1.9 2002/05/24 16:32:41 mkoeppe Exp $
+;;; $Id: ilisp-cmp.el,v 1.10 2002/09/03 16:27:44 mkoeppe Exp $
 
 (defun ilisp-display-choices (symbol choices)
   "Display the possible choices for SYMBOL in alist CHOICES."
@@ -306,17 +306,18 @@ internal and exported symbols is considered."
       (completer-undo)
       (let* ((filep (save-excursion
 		      (skip-chars-backward "^ \t\n")
-		      (= (or (char-after (point)) ?\") ?\")))
-	     )
+		      (= (or (char-after (point)) ?\") ?\"))))
 	(if filep
 	    (comint-dynamic-complete)
 	    ;; (ilisp-pathname-complete)
-	    (let* ((symbol-info (lisp-previous-symbol))
-		   (symbol (car symbol-info))
+	  (let ((symbol-info (lisp-previous-symbol)))
+	    (unless symbol-info
+	      (error "Nothing to complete"))
+	    (let* ((symbol (car symbol-info))
 		   (name (lisp-symbol-name symbol))
 		   (choice (ilisp-completer 
 			    symbol 
-			    (if (not mode) (car (cdr symbol-info)))))
+			   (if (not mode) (car (cdr symbol-info)))))
 		   (match (lisp-buffer-symbol (car choice)))
 		   (lcs (lisp-buffer-symbol (car (cdr choice))))
 		   (choices (car (cdr (cdr choice))))
@@ -324,7 +325,7 @@ internal and exported symbols is considered."
 	      (skip-chars-backward " \t\n")
 	      (completer-goto match lcs choices unique 
 			      (ilisp-value 'ilisp-symbol-delimiters)
-			      completer-words)))
+			      completer-words))))
 	(message "Completed"))))
 
 
