@@ -1,3 +1,10 @@
+2003-01-10  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
+	* guile-ilisp.scm (ilisp-print-info-message): Do nothing if SYM is
+	not a symbol. (This gets rid of the error messages that occured
+	when ilisp-arglist-message-lisp-space was invoked after a
+	non-symbol and ilisp-*arglist-message-lisp-space-p* is ALL.)
+
 2003-01-02  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space): changed argument
