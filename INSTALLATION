@@ -103,6 +103,24 @@ package access a local copy of the HyperSpec. Since the package relies on
 the `browse-url' Emacs package, make sure that the latter is properly
 configured.
 
+Digital Press has made publicly available online, as a service to the Lisp
+community, the full text of the book ``Common Lisp, The Language'' (by Guy
+L. Steele Jr., 2nd edition, Digital Press, 1990, ISBN 1-55558-041-6;
+a.k.a. ``CLtL2'') in a number of formats, including HTML.  ILISP provides
+support, contributed by Utz-Uwe Haus, for looking up Lisp symbols in the
+HTML version of the book and displaying the relevant sections with a Web
+browser.  See the file `extra/cltl2.el' for more information on configuring
+this feature.
+
+The `ilisp.emacs' file provides sample instructions for making ILISP's
+CLtL2 support access a local copy of the book.  What has been said above
+about `browse-url' configuration also applies to CLtL2 lookup.
+
+Note that, althouth Steele's book is a well written and useful resource,
+it covers the Common Lisp language in the state it was a few years
+before ANSI standardization.  If you need an accurate description of
+ANSI Common Lisp, see the above mentioned HyperSpec instead.
+
 Previous versions of ILISP provided commands for accessing the online
 Common Lisp documentation shipped with Franz Inc.'s Allegro CL product
 (`fi:clman' module). The public availability of the HyperSpec, and the
