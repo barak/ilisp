@@ -9,6 +9,7 @@ ilisp_etc_dir	:= etc/ilisp
 ilisp_share	:= usr/share/ilisp
 cl_dir		:= usr/share/common-lisp/source/ilisp
 clc_systems	:= usr/share/common-lisp/systems
+compiled_dir	:= usr/lib/ilisp
 info_dir	:= usr/share/info
 doc_dir		:= usr/share/doc/$(pkg-doc)
 
@@ -35,8 +36,14 @@ install: build
 	dh_install -p $(pkg) debian/ilisp.el $(ilisp_etc_dir)
 	dh_install -p $(pkg) debian/ilisp-keybindings.el $(ilisp_etc_dir)
 	dh_installinfo -p $(pkg) docs/ilisp.info docs/ilisp.info-1 docs/ilisp.info-2
-	dh_link -p $(pkg) usr/share/common-lisp/source/ilisp/*.lisp usr/lib/ilisp
-	dh_link -p $(pkg) usr/share/ilisp/*.scm usr/lib/ilisp
+	for i in debian/$(pkg)/$(cl_dir)/*.lisp; do \
+	  l=`echo $$i | sed -e "s|^debian/$(pkg)/$(cl_dir)/||;"` ;\
+          dh_link -p $(pkg) $(cl_dir)/$$l $(compiled_dir)/$$l ; \
+	done
+	for i in debian/$(pkg)/$(ilisp_share)/*.scm; do \
+	  l=`echo $$i | sed -e "s|^debian/$(pkg)/$(ilisp_share)/||;"` ;\
+          dh_link -p $(pkg) $(ilisp_share)/$$l $(compiled_dir)/$$l ; \
+	done
 
 clean:
 	dh_testdir

@@ -1,8 +1,10 @@
-ilisp (5.12.0+cvs.2003.05.20) unstable; urgency=low
+ilisp (5.12.0+cvs.2003.05.21) unstable; urgency=low
 
   * New upstream
   * move links to rules file (closes: 194095)
-
+  * new upstream key bindings (closes: 194097)
+  * use compat file rather than DH_COMPAT
+  
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 20 May 2003 10:48:25 -0600
 
 ilisp (5.12.0+cvs.2003.05.19) unstable; urgency=low
