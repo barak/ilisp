@@ -169,10 +169,8 @@ If you can't load either, return NIL.")
 The entire sexp starting with this pattern will be passed to
 ilisp-package-command to find the package.")
 
-;; This is a temporary workaround: it should be `deflocal', and each
-;; dialect should set it to the appropriate value
-
-(defvar ilisp-package-separator-regexp ":+")
+(deflocal ilisp-package-separator-regexp nil
+  "Regular expression that matches the package separator.")
 
 (deflocal ilisp-package-command nil
   "Format string to find the package given PACKAGE.")
