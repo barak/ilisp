@@ -40,6 +40,8 @@
 
 ;;; MzScheme & DrScheme-jr
 
+(defvar ilisp-mzscheme-init-file "mzscheme-ilisp.scm")
+
 (defdialect mzscheme "MzScheme"
   scheme
   (setq ilisp-program "mzscheme")
@@ -49,7 +51,13 @@
 	ilisp-trace-command " (begin (require-library \"trace.ss\") (trace %s))"
 	ilisp-untrace-command "(untrace %s) ;%s"
 	ilisp-directory-command  "(current-directory)"
-	ilisp-set-directory-command "(current-directory \"%s\")"))
+	ilisp-set-directory-command "(current-directory \"%s\")"
+	
+	comint-prompt-regexp "^> "
+	ilisp-error-regexp "ILISP:"
+	ilisp-load-or-send-command "(begin \"%s\" (load \"%s\"))"
+	ilisp-complete-command "(ilisp-matching-symbols \"%s\" \"%s\" '%s '%s '%s)")
+  (ilisp-load-init 'mzscheme ilisp-mzscheme-init-file))
 
 (defdialect drscheme-jr "DrScheme-jr"
   mzscheme
