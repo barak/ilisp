@@ -8,7 +8,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-src.el,v 1.8 2003/04/02 01:56:20 rgrjr Exp $
+;;; $Id: ilisp-src.el,v 1.9 2003/05/09 14:45:25 bill_clementson Exp $
 
 (require 'cl)
 
@@ -1156,7 +1156,13 @@ items."
 			  "any")
 			;; [specifying "any" uses the cache.  -- rgr, 4-Sep-02.]
 			;; (car possible-types)
-			"any"))))
+                      (if (ilisp-value 'ilisp-find-source-command t)
+                          ;; inferior lisp will tell us
+                          "any"
+                        (let ((types (ilisp-value 'ilisp-source-types t)))
+                          (ilisp-completing-read
+                           (format "Type [%s]: " (caar types))
+                           types (caar types))))))))
 	  ;; Non-interactive cases (reusing the last definition name).
 	  ((zerop numeric-arg)
 	    (list nil 'visit))
