@@ -1,3 +1,16 @@
+2001-12-10  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ACKNOWLEDGMENTS: added Edmund Weitz.
+
+	* docs/ilisp.texi (Acknowledgments): added Edmund Weitz.
+
+	* ilisp.emacs: added comments on customizing hyperspec-naggum.el
+	(patch contributed by Edmund Weitz <edi@agharta.de>).
+
+	* extra/hyperspec-naggum.el: added support for dynamic symbol
+	table and HyperSpec versions later than 3 (patch contributed by
+	Edmund Weitz <edi@agharta.de>).
+
 2001-12-07  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ild.el: added support for breakpoint stepping (patch contributed
