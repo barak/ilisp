@@ -1,6 +1,7 @@
 ilisp (5.12.0+cvs.2003.03.02) unstable; urgency=low
 
   * New upstream
+  * Move .scm files to /usr/share/ilisp
   * Use Common Lisp Controller to compile Common Lisp code (closes: 182963)
 
  -- Kevin M. Rosenberg <kmr@debian.org>  Sat,  1 Mar 2003 10:39:16 -0700

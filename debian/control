@@ -7,7 +7,8 @@ Standards-Version: 3.5.8.0
 
 Package: ilisp
 Architecture: all
-Depends: emacsen-common, debconf (>= 1.0), common-lisp-controller (>= 3.37)
+Depends: emacsen-common, debconf (>= 1.0)
+Predepends: common-lisp-controller (>= 3.37)
 Recommends: ilisp-doc
 Suggests: hyperspec, cltl
 Description: Emacs interface to LISP implementations

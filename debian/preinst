@@ -8,6 +8,8 @@
 
 case "$1" in
     install|upgrade)
+	mkdir -p /usr/lib/ilisp
+	chown -R cl-builder.cl-builder /usr/lib/ilisp
 	;;
     abort-upgrade)
 	;;
