@@ -193,6 +193,15 @@ ilisp-package-command to find the package.")
 (deflocal ilisp-block-command nil
   "Format string for grouping FORMS into one.")
 
+(deflocal ilisp-no-package-in-core-regexp nil
+  "Regexp that matches to ilisp-package-block-command's result in a
+case when the package was not found in core.  Remember to set
+`ilisp-fallback-package' too.")
+
+(deflocal ilisp-fallback-package nil
+  "Package name to be used when the buffer's real package cannot be found
+from the core.")
+
 (deflocal ilisp-eval-command nil
   "Format string for evaluating FORM in PACKAGE from FILE.")
 
