@@ -2,16 +2,16 @@ General notes:
 
    * Setting the lisp-find-definition-verbose-p switch to non-nil
 enables some extra debugging output.  There is no pause after each
-message, so the cost for enabling this is low, but it does mean that you
-have to switch to the *Messages* buffer to see what it said.
+such message, so the cost for enabling this is low, but it does mean
+that you have to switch to the *Messages* buffer to see what it said.
 
    * The *Edit-Definitions* buffer now has a rudimentary
 lisp-edit-definitions-mode of its own, which makes it easier to find
 multiple definitions via "random access."
 
-   * The lisp-fall-back-on-find-tags switch turns of the "Can't find;
-use tags?" query, which I find annoying.  If I had wanted find-tag, I
-would have invoked find-tag myself.
+   * The lisp-fall-back-on-find-tags switch turns off the "Can't find;
+use tags?" query, which I find annoying.  The way I see it, if I had
+wanted find-tag, I would have invoked find-tag directly.
 
    * I have tested ACL, CMUCL, and SBCL, all of which use the new
 protocol.  Other CL dialects should still work, though with some loss of
@@ -52,10 +52,21 @@ there may be more than one alternative, it would be best to define a
 response message that enumerates the alternatives, so the user can
 choose.
 
-   * Mouse interface.  I have the code, but I need to disentangle it
+   * Mouse interface.  I have the code to make M-left on a symbol (or
+reasonable facsimile) find the source, but I need to disentangle it
 from my other hacks first.
 
-   * When it finds the next definition, the ACL eli M-. command tells
-you how many known definitions are left; this would be nice to have, and
-probably not too tough.
+   * The way the code works now, it expects to find a definition
+exactly once in the given buffer.  It should look for more hits,
+notify the user if any were found, and permit stepping through them in
+source order.  (Ideally, it should be able to filter out "false hits"
+such as definitions with "#+ignore" in front of them, but that's more
+ambitious, and requires going back to the Lisp to ask it to "vet" each
+hit.)
 
+   * When it finds the next definition, the ACL eli M-. command tells
+you how many known definitions are left; this would be nice to have,
+and probably not too tough.  (When the previous enhancement is done,
+it should probably only do this for the last hit in a buffer.  The
+user would see either "N more definitions" or "N more occurrences of
+this definition", but not both.)
