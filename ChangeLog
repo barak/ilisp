@@ -1,5 +1,16 @@
 2002-05-24  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
+	* guile-ilisp.scm (ilisp-in-package): Fix process-use-modules call.
+
+	* ilisp-cmp.el (ilisp-complete): Report "Error completing SYMBOL"
+	when the value read from Lisp's output is not a list.
+
+	* ilisp-out.el (ilisp-make-output-frame):
+	Set frame parameter `tool-bar-lines' to nil
+	in ILISP output frames; this disables the Emacs 21 tool bar.
+
+2002-05-24  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
+
 	* ilisp-out.el (ilisp-make-output-frame): Set frame parameter
 	`tool-bar-lines' to nil in ILISP output frames; this disables the
 	Emacs 21 tool bar.
