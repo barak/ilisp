@@ -314,6 +314,17 @@ Scheme->C
 
 TIPS
 
+o Microsoft Windows
+
+        You may check the document "Setting up an IDE with Emacs on
+        Windows", by Bill Clementson, which is part of the Common Lisp
+        Cookbook Project:
+
+          http://cl-cookbook.sourceforge.net/windows.html
+
+        It is a tutorial on setting up ILISP with CLISP, Corman Lisp
+        and LispWorks under Windows.
+
 o Enlightment window manager under Gnome
 
         If ILISP popup windows unexpectedly keep the input focus, in the
