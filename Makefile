@@ -8,14 +8,14 @@
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
 #
-# $Id: Makefile,v 1.13 2001/06/05 15:57:07 amoroso Exp $
+# $Id: Makefile,v 1.14 2001/06/06 12:08:03 amoroso Exp $
 
 # Note: this makefile assumes GNU make
 
 #==============================================================================
 # Various Variables
 
-Version = 5.11
+Version = 5.11.1
 
 # Use whichever you like most
 #EMACS = xemacs
