@@ -27,6 +27,14 @@
 ;;;
 ;;;%%%SB Common Lisp
 
+(defvar sblisp-source-directory-regexp 
+  "\\/afs\\/cs\\.cmu\\.edu\\/usr\\/stuff\\/sbcl\\/src\\/[0-9]*\\/"
+  "*Regexp to match sblisp source code directory.")
+
+(defvar sblisp-local-source-directory
+  nil
+  "*Where the sblisp sources really are.")
+
 (defvar ilisp-sblisp-init-file
   ;; Note: The init file source extension (".lisp") needs to be
   ;; present in the filename, otherwise ILISP-LOAD-OR-SEND gets
