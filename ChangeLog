@@ -1,3 +1,8 @@
+2001-06-06  Paolo Amoroso  <amoroso@mclink.it>
+
+        * docs/ilisp.texi (Acknowledgements): added Daniel Barlow and
+        Matthias Hoelzl.
+
 2001-06-06  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-sbcl.el (sbcl): sb changed to sbcl in call to ilisp-load-inits.
