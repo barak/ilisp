@@ -1,3 +1,12 @@
+2000-10-03  Paolo Amoroso  <amoroso@mclink.it>
+
+	* ilisp-snd.el (lisp-buffer-package-internal): Doesn't try to find
+	  unfinished (in-package <nothing-here>) forms when there's
+	  nothing to search in. This fixes a bug that broke everything
+	  that uses lisp-buffer-package, e.g. set-buffer-package-lisp and
+	  evaluation commands (patch contributed by Hannu Koivisto
+	  <azure@iki.fi>).
+
 2000-10-01  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-cl.el:
