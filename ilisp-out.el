@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 ;;;
-;;; $Id: ilisp-out.el,v 1.10 2002/05/24 15:54:00 mkoeppe Exp $
+;;; $Id: ilisp-out.el,v 1.11 2002/06/02 22:50:28 marcoxa Exp $
 
 ;;; Old history log.
 ;;;
@@ -27,16 +27,24 @@
 
 (defun ilisp-make-output-frame (name)
   (when (and window-system ilisp-*use-frame-for-output*)
-    (make-frame `((name . ,name)
-		  (minibuffer . nil)
-		  (visibility . nil)
-		  (unsplittable . t)
-		  (tool-bar-lines . nil)
-		  (menu-bar-lines . 0)
-                  ;; Use of icon-type is currently disabled due to a bug
-                  ;; in at least Emacs 21.1 running on Windows.
-                  ;; (icon-type . ,(ilisp-find-ilisp-icon))
-                  ))))
+    (let ((new-frame
+	   (make-frame `((name . ,name)
+			 (minibuffer . nil)
+			 (visibility . nil)
+			 (unsplittable . t)
+			 (menu-bar-lines . 0)
+			 ;; Use of icon-type is currently disabled due to a bug
+			 ;; in at least Emacs 21.1 running on Windows.
+			 ;; (icon-type . ,(ilisp-find-ilisp-icon))
+			 )))
+	   )
+      (when (eq +ilisp-emacs-version-id+ 'xemacs)
+	(set-frame-properties new-frame '(default-toolbar-visible-p nil
+					  default-gutter-visible-p nil
+					  menubar-visible-p nil
+					  has-modeline-p t))
+	)
+      new-frame)))
 
 
 (defvar ilisp-display-output-function 'ilisp-display-output-default
