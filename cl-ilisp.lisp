@@ -734,9 +734,9 @@ original string."
 
 (eval-when (load eval)
   (when
-      #+(and :CMU :CMU17)
+      #+(and :CMU (or :CMU17 :CMU18))
       (eval:interpreted-function-p #'ilisp-matching-symbols)
-      #-(and :CMU :CMU17)
+      #-(and :CMU (or :CMU17 :CMU18))
       (not (compiled-function-p #'ilisp-matching-symbols))
       (ilisp-message *standard-output*
 		     "File is not compiled, use M-x ilisp-compile-inits")))

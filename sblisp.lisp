@@ -56,47 +56,10 @@
 
 ;;;% Debugger extensions
 
-;;;%% Implementation of a :pop command for CMU CL debugger
-
-;;;
 ;;; Normally, errors which occur while in the debugger are just ignored, unless
 ;;; the user issues the "flush" command, which toggles this behavior.
 ;;;
 (setq sb-debug:*flush-debug-errors* nil)  ; allow multiple error levels.
-
-;;; This implementation of "POP" simply looks for the first restart that says
-;;; "Reduce debugger level ..." and executes it.
-;;;
-(sb-debug::def-debug-command "POP" ()
-  ;; find the first "Reduce debugger level ..." restart
-  (if (not (boundp 'sb-debug::*debug-restarts*))
-      (error "You're not in the debugger; how can you call this!?")
-      (labels ((find-return-to (restart-list num)
-		 (let ((first
-			(member-if
-			 #'(lambda (restart)
-			     (search
-                              "Reduce debugger level"
-                              (funcall
-                               ;; this is a temporary portability hack for
-                               ;; versions < 0.6.9, that will go away,
-                               ;; eventually.
-                               (the-function-if-defined
-                                (#:restart-report-function :sb-conditions
-                                 #:restart-report-function :sb-kernel)
-                                restart)
-                               nil)))
-			 restart-list)))
-		   (cond ((zerop num) (car first))
-			 ((cdr first) (find-return-to (cdr first)
-						      (1- num)))))))
-	(let* ((level (sb-debug::read-if-available 1))
-	       (first-return-to (find-return-to 
-				 sb-debug::*debug-restarts* (1- level))))
-	  (if (null first-return-to)
-	      (format *debug-io* "pop: ~d is too far" level)
-	      (sb-debug::invoke-restart-interactively first-return-to))))))
-
 
 ;;;%% arglist/source-file utils.
 

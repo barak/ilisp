@@ -1,3 +1,15 @@
+2001-04-19  Martin Atzmueller  <martin@atzmueller.net>
+
+	* cl-ilisp.lisp: include patch - 2001 Apr 06 on ilisp-devel
+        (patch contributed by Craig Brozefsky <craig@red-bean.com>):
+        take care of new :CMU18 feature in the (debian) cmucl 18c version.
+
+	* ilisp-sbcl.el (sblisp): comint-fix-error expression becomes
+	":abort" instead of former ":pop".
+
+	* sblisp.lisp: removed the "POP"-debugger command, because it is
+	already handled by the abort-restart.
+
 2001-04-10  Paolo Amoroso  <amoroso@mclink.it>
 
         * ilisp-def.el (ilisp-*version*): set version marker to 5.11.
