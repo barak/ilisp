@@ -5,14 +5,19 @@ You can get the distribution file, `ilisp-x.y.z.tar.gz'
 (`ilisp-x.y.z.zip') via anonymous FTP or HTML at the following
 addresses:
 
-    ftp://ftp2.cons.org/pub/languages/lisp/ilisp/
+  ftp://ftp2.cons.org/pub/languages/lisp/ilisp/
+
 or
-    http://www2.cons.org:8000/ftp-area/ilisp/
+
+  http://www2.cons.org:8000/ftp-area/ilisp/
 
 If you use a tty ftp client, just log in as 'anonymous'.
 
-Please report any problems to the mailing list 'ilisp@cons.org'.
+Please report any problems to the ilisp-help mailing list (see the README
+file for more info on the ILISP lists).
 
-Enjoy
+Enjoy,
 
-The ILISP Maintainer
+
+The ILISP Maintainers
+
