@@ -1,5 +1,12 @@
 2000-08-17  Paolo Amoroso  <amoroso@mclink.it>
 
+	* lispworks.lisp (ilisp-source-files): fixed
+	  `edit-definitions-lisp' failure when using logical pathnames
+	  (patch contributed by Alain Picard
+	  <Alain.Picard@memetrics.com>).
+
+	* Makefile (FaslFiles, clean): added Lisp fasl files removal.
+
 	* ilisp.emacs: removed obsolete reference to TMC completion
 	  package FTP download (it is included with recent versions of
 	  Emacs).
