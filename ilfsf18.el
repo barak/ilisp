@@ -12,6 +12,9 @@
 ;;;============================================================================
 ;;; Prologue
 
+(unless (boundp 'comint-version) ;; be brutal
+  (defvar comint-version "2.03"))
+
 (if (string-match "2\.03" comint-version)
     (fset 'comint-mem 'member))
 
@@ -19,7 +22,16 @@
 ;;;============================================================================
 ;;; Functions
 
-(defun add-hook (hook function)
+;; cracauer addition for emacs-22 20081215
+(unless (fboundp 'full-copy-sparse-keymap)
+  (defun full-copy-sparse-keymap (km)
+    "Recursively copy the sparse keymap KM."
+    (cond ((consp km)
+	      (cons (full-copy-sparse-keymap (car km))
+		     (full-copy-sparse-keymap (cdr km))))
+	    (t km))))
+
+(defun add-hook (hook function &optional ignore ignoretoo)
   " Add FUNCTION to HOOK's list.
 Arguments are HOOK and FUNCTION. FUNCTION is not added if it's already
 on the list."
@@ -36,7 +48,7 @@ on the list."
 
 (defun ilisp-get-input-ring ()
   "Use instead of get-input-ring coming-input-ring or input-ring."
-  input-ring)
+  comint-input-ring)
 
 
 (defun ilisp-ring-insert (ring input)
@@ -61,22 +73,22 @@ on the list."
 
 (defun ilisp-input-ring-index ()
   "See 'input-ring-index'."
-  input-ring-index)
+  comint-input-ring-index)
 
 
 (defun set-ilisp-input-ring-index (n)
   "See 'input-ring-index' set function."
-  (setq input-ring-index n))
+  (setq comint-input-ring-index n))
 
 
 (defun ilisp-input-ring-size ()
   "See 'input-ring-size'."
-  input-ring-size)
+  comint-input-ring-size)
 
 
 (defun set-ilisp-input-ring-size (n)
   "See 'input-ring-size' set function."
-  (setq input-ring-size n))
+  (setq comint-input-ring-size n))
 
 
 ;;;============================================================================
