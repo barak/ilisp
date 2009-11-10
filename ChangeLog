@@ -1,3 +1,8 @@
+2009-11-10  Barak A. Pearlmutter  <barak@cs.nuim.ie>
+
+	* Patch from Pawel Ostrowski for eval-region-lisp end order
+	invariance, sourceforge artifact 864231
+
 2004-08-02  Kevin Rosenberg <kevin@rosenberg.net>
 
 	* guile-ilisp.scm: Apply patch from Daniel Skarda to

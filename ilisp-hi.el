@@ -68,6 +68,10 @@ a message to let the user know what is going on."
 (defun eval-region-lisp (start end &optional switch message status handler)
   "Evaluate the current region."
   (interactive "r")
+  (when (< end start)
+    (let ((tmp_start start))
+      (setq start end)
+      (setq end tmp_start)))
   (setq message (or message 
 		    (concat "Evaluate " (lisp-region-name start end))))
   (let ((defvar (ilisp-value 'ilisp-defvar-regexp t)))
