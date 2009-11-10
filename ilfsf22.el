@@ -1,15 +1,12 @@
 ;;; -*- Mode: Emacs-Lisp -*-
 
-;;; ilfsf21.el --
+;;; ilfsf22.el --
 ;;;
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilfsf21.el,v 1.1 2002/05/23 15:59:06 marcoxa Exp $
-
 
 ;;;============================================================================
 ;;; Functions
@@ -54,6 +51,6 @@
 ;;;============================================================================
 ;;; Epilogue
 
-(provide 'compat-fsf-21)
+(provide 'compat-fsf-22)
 
-;;; end of file -- ilfsf21.el --
+;;; end of file -- ilfsf22.el --
