@@ -7,3 +7,6 @@ the system-wide default file will not be read at all.
 Thus, a warning, if you have a .ilisp file in your homn directory, you
 are completely on your own to ensure that ilisp is properly
 configured.
+
+VCS mirror from CVS to git via:
+git cvsimport -v -C ilisp -s -k -u -a ILISP -d :pserver:anonymous@ilisp.cvs.sourceforge.net:/cvsroot/ilisp
