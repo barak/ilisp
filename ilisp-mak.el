@@ -48,6 +48,8 @@
            (byte-compile-file "illuc19.el"))
           ((eq +ilisp-emacs-version-id+ 'xemacs)
            (byte-compile-file "ilxemacs.el"))
+          ((eq +ilisp-emacs-version-id+ 'fsf-22)
+           (byte-compile-file "ilfsf22.el"))
           ((eq +ilisp-emacs-version-id+ 'fsf-21)
            (byte-compile-file "ilfsf21.el"))
           ((eq +ilisp-emacs-version-id+ 'fsf-20)
