@@ -2,11 +2,12 @@ ilisp (5.12.0+cvs.2004.12.26-1) unstable; urgency=low
 
   * Hi jack!  Swizzle maintainer.
   * Add cvs-to-git line to debian/README.Debian
-  * Apply patch from Jeff Siskind
+  * Apply patches from Jeff Siskind for GNU Emacs 22 & GNU Emacs 23
   * Rev deb std
   * VCS and homepage in debian/control
+  * Patch from Pawel Ostrowski for eval-region-lisp end order invariance
 
- -- Barak A. Pearlmutter <bap@debian.org>  Tue, 10 Nov 2009 01:09:14 -0500
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 10 Nov 2009 17:09:48 -0500
 
 ilisp (5.12.0+cvs.2004.12.23) unstable; urgency=low
 
