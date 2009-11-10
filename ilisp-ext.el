@@ -7,8 +7,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-ext.el,v 1.4 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 ;;; Lisp mode extensions from the ILISP package.
 ;;; Copyright (C) 1990, 1991, 1992 Chris McConnell, ccm@cs.cmu.edu.

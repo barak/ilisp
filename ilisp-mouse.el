@@ -6,8 +6,6 @@
 ;;; Please refer to the file COPYING for copyrights and licensing information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-mouse.el,v 1.3 2003/04/11 22:02:05 rgrjr Exp $
 
 ;;; Unlike most other ilisp source files, ilisp-mouse is meant to be loadable by
 ;;; itself, in case you want to click M-left on a C definition name or URL, for

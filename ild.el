@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ild.el,v 1.7 2003/05/21 15:12:08 bill_clementson Exp $
 
 ;;; Keystroke c-u? What it does
 ;;; ---------------------------------------------------------

@@ -9,8 +9,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-cmu.el,v 1.6 2003/04/02 01:56:20 rgrjr Exp $
 
 (defvar cmulisp-source-directory-regexp 
   "\\/afs\\/cs\\.cmu\\.edu\\/project\\/clisp\\/src\\/[0-9]*\\/"

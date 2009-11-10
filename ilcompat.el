@@ -7,8 +7,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilcompat.el,v 1.5 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 (require 'cl)
 

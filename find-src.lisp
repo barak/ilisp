@@ -11,8 +11,6 @@
 ;;; Please refer to the file COPYING for copyrights and licensing information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list of
 ;;; present and past contributors.
-;;;
-;;; $Id: find-src.lisp,v 1.4 2003/11/27 03:40:29 rgrjr Exp $
 
 (in-package :ilisp)
 

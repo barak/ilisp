@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: allegro.lisp,v 1.7 2003/05/19 18:15:41 kevinrosenberg Exp $
 
 ;;; Allegro initializations
 ;;; Author: Chris McConnell, ccm@cs.cmu.edu

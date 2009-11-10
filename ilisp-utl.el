@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-utl.el,v 1.4 2003/08/05 02:18:13 rgrjr Exp $
 
 (defun lisp-show-send (string)
   "Show STRING in the *ilisp-send* buffer."

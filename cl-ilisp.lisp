@@ -9,8 +9,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: cl-ilisp.lisp,v 1.22 2004/08/11 19:12:46 kevinrosenberg Exp $
 
 
 ;;; Old history log.

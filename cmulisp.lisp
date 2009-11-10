@@ -9,8 +9,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: cmulisp.lisp,v 1.15 2003/05/14 20:00:58 kevinrosenberg Exp $
 
 
 (in-package :ilisp)

@@ -12,8 +12,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-acl.el,v 1.4 2003/04/02 01:56:20 rgrjr Exp $
 
 
 ;;;%%%Allegro

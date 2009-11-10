@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-def.el,v 1.20 2002/09/21 03:00:07 rgrjr Exp $
 
 ;;;%Variables
 ;;;%%Deflocal

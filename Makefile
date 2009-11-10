@@ -7,8 +7,6 @@
 # information.
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
-#
-# $Id: Makefile,v 1.23 2003/12/13 23:43:44 rgrjr Exp $
 
 # Note: this makefile assumes GNU make
 

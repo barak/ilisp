@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: guile-ilisp.scm,v 1.25 2004/08/02 10:14:54 kevinrosenberg Exp $
 
 
 (define-module (guile-ilisp)

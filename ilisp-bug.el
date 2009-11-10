@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-bug.el,v 1.3 2002/10/25 12:13:49 kevinrosenberg Exp $
 
 
 (defun ilisp-bug ()

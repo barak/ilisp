@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-out.el,v 1.15 2003/03/26 03:22:47 rgrjr Exp $
 
 ;;; Old history log.
 ;;;

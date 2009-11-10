@@ -7,8 +7,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-src.el,v 1.13 2003/12/21 03:16:39 rgrjr Exp $
 
 (require 'cl)
 

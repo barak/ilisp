@@ -7,8 +7,6 @@
 ;;;; Programmer:    Kevin M. Rosenberg
 ;;;; Date Started:  March 2003
 ;;;;
-;;;; $Id: ilisp.asd,v 1.7 2003/05/27 17:42:31 kevinrosenberg Exp $
-;;;;
 ;;;; UFFI users are granted the rights to distribute and use this software
 ;;;; as governed by the terms of the ILISP license.
 ;;;; *************************************************************************

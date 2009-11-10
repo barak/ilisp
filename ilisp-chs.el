@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-chs.el,v 1.8 2003/05/30 16:39:47 bill_clementson Exp $
 
 (require 'cl)
 

@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: cl-chs-init.lisp,v 1.4 2003/05/09 23:29:59 bill_clementson Exp $
 
 ;;; Old history logs.
 ;;;

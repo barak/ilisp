@@ -7,8 +7,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilfsf21.el,v 1.1 2002/05/23 15:59:06 marcoxa Exp $
 
 
 ;;;============================================================================

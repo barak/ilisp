@@ -7,8 +7,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp.el,v 1.10 2003/12/13 23:43:44 rgrjr Exp $     
 
 ;;; Author: Chris McConnell <ccm@cs.cmu.edu>
 ;;; Maintainer: The Net <ilisp@cons.org>

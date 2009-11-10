@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-sbcl.el,v 1.20 2003/10/04 21:10:30 kevinrosenberg Exp $
 
 ;;;%%%Steel Bank Common Lisp
     

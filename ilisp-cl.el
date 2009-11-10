@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-cl.el,v 1.10 2002/09/24 21:39:53 anisotropy9 Exp $
 
 (defvar ilisp-cl-ilisp-package-file "ilisp-pkg.lisp")
 

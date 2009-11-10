@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-hi.el,v 1.20 2003/05/27 23:51:10 bill_clementson Exp $
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format

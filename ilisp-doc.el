@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-doc.el,v 1.5 2001/06/06 12:17:38 mna Exp $
 
 (defconst ilisp-documentation
   "Major mode for interacting with an inferior Lisp process.  Runs a

@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-kcl.el,v 1.5 2002/02/24 16:02:23 amoroso Exp $
 
 ;;;%%%KCL--these dialects by Tom Emerson
 ;;; kcl-check-prompt doesn't after the first break because the

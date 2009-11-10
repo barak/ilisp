@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-key.el,v 1.12 2004/01/07 15:17:27 mkoeppe Exp $
 
 ;;; ilisp-where-is --
 ;;; New version provided by yusuf@SPD-13.ils.nwu.edu (Yusuf Pisan)

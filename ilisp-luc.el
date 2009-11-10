@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-luc.el,v 1.3 2002/08/23 21:40:09 anisotropy9 Exp $
 
 ;;;%%%Lucid
 (defvar ilisp-lucid-init-file "lucid.lisp")

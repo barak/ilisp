@@ -13,8 +13,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp.emacs,v 1.8 2003/11/24 22:25:49 bill_clementson Exp $
 
 
 ;;; If ilisp lives in some non-standard directory, you must tell

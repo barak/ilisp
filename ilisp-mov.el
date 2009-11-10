@@ -7,8 +7,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-mov.el,v 1.3 2003/12/03 05:38:47 bill_clementson Exp $
 
 
 ;;;%%Movement

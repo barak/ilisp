@@ -15,8 +15,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: lispworks.lisp,v 1.10 2003/06/28 02:10:16 rgrjr Exp $
 
 (in-package :ilisp)
 

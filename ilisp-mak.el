@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-mak.el,v 1.11 2003/04/10 18:50:33 rgrjr Exp $
 
 (require 'cl)
 

@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-snd.el,v 1.20 2003/05/12 02:17:22 rgrjr Exp $
 
 
 ;;;%% Package / Symbol support

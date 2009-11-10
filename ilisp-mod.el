@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-mod.el,v 1.7 2002/09/23 02:35:11 rgrjr Exp $
 
 ;;;%ilisp-mode
 

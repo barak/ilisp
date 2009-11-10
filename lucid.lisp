@@ -9,8 +9,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: lucid.lisp,v 1.3 2002/03/26 09:41:04 anisotropy9 Exp $
 
 (in-package :ilisp)
 

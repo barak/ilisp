@@ -7,8 +7,6 @@
 # information.
 # Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 # of present and past contributors.
-#
-# $Id: Makefile,v 1.7 2002/08/17 16:20:15 kevinrosenberg Exp $
 
 # Note: this makefile assumes GNU make
 

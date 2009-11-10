@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-prc.el,v 1.4 2003/07/19 01:28:52 rgrjr Exp $
 
 
 (defun ilisp-process ()

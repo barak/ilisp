@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-sch.el,v 1.16 2002/06/28 13:01:16 mkoeppe Exp $
 
 (require 'cl)				; Sorry. I couldn't resist
 					; 19990818 Marco Antoniotti

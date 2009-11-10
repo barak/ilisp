@@ -8,8 +8,6 @@
 ;;; information.
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
-;;;
-;;; $Id: ilisp-kil.el,v 1.2 2001/05/12 22:10:53 marcoxa Exp $
 
 ;;;%% Panic/Reset/Status commands 
 ;;;
