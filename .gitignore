@@ -1,0 +1,9 @@
+*.elc
+*~
+/build-stamp
+/debian/*.debhelper
+/debian/*.log
+/debian/*.substvars
+/debian/files
+/debian/ilisp-doc/
+/debian/ilisp/
