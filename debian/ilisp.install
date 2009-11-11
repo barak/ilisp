@@ -1,0 +1,6 @@
+*.el                        usr/share/emacs/site-lisp/ilisp
+extra/*.el                  usr/share/emacs/site-lisp/ilisp/extra
+*.lisp debian/ilisp.asd     usr/share/common-lisp/source/ilisp
+*.scm                       usr/share/ilisp
+debian/ilisp.el             etc/ilisp
+debian/ilisp-keybindings.el etc/ilisp

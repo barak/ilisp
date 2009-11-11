@@ -2,7 +2,7 @@ Source: ilisp
 Section: devel
 Priority: optional
 Maintainer: Barak Pearlmutter <bap@debian.org>
-Build-Depends-Indep: debhelper (>= 7), texinfo, ghostscript, texi2html
+Build-Depends-Indep: debhelper (>= 7.2.5), texinfo, ghostscript, texi2html
 Standards-Version: 3.8.3
 Homepage: http://ilisp.sourceforge.net/
 Vcs-Git: git://git.debian.org/git/collab-maint/ilisp.git
@@ -10,10 +10,10 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/ilisp.git
 
 Package: ilisp
 Architecture: all
-Depends: emacsen-common, debconf (>= 1.2.0)
 Pre-Depends: common-lisp-controller (>= 3.42)
+Depends: emacsen-common, ${misc:Depends}
 Recommends: ilisp-doc
-Suggests: hyperspec, cltl
+Suggests: hyperspec, cltl, emacs23 | emacs22 | emacs21 | emacs | xemacs
 Description: Emacs interface to LISP implementations
  ILISP is a powerful GNU Emacs interface to many dialects of Lisp,
  including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL,
@@ -22,6 +22,7 @@ Description: Emacs interface to LISP implementations
 
 Package: ilisp-doc
 Architecture: all
+Depends: ${misc:Depends}
 Section: doc
 Recommends: ilisp
 Description: Documentation for ILISP package
