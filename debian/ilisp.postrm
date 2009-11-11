@@ -19,10 +19,10 @@ case "$1" in
     failed-upgrade|abort-upgrade)
 	;;
     remove|abort-install)
-	rm -rf /usr/lib/ilisp/
+	rm -rf /usr/lib/ilisp
         ;;
     purge|disappear)
-	rm -rf /usr/lib/ilisp/ /etc/ilisp
+	rm -rf /usr/lib/ilisp /etc/ilisp
 	;;
     *)
         echo "postrm called with unknown argument \`$1'" >&2

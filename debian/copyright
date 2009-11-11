@@ -7,6 +7,9 @@ This package was originally Debianized by Jesse Bouwman
 It was later updated by Craig Brozefsky <craig@debian.org> and Kevin
 M. Rosenberg <kmr@debian.org>.
 
+After being orphaned by Kevin M. Rosenberg in 2004, it was picked up
+by Barak A. Pearlmutter in 2009, who did some minor packaging updates.
+
 The home page for ILISP is http://www.sourceforge.net/projects/ilisp
 
 Upstream source was downloaded from the ILISP CVS tree. You can

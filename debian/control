@@ -2,7 +2,7 @@ Source: ilisp
 Section: devel
 Priority: optional
 Maintainer: Barak Pearlmutter <bap@debian.org>
-Build-Depends-Indep: debhelper (>= 4.1.16), texinfo, tetex-bin, gs-common, texi2html
+Build-Depends-Indep: debhelper (>= 7), texinfo, ghostscript, texi2html
 Standards-Version: 3.8.3
 Homepage: http://ilisp.sourceforge.net/
 Vcs-Git: git://git.debian.org/git/collab-maint/ilisp.git
@@ -22,10 +22,9 @@ Description: Emacs interface to LISP implementations
 
 Package: ilisp-doc
 Architecture: all
-Section: devel
+Section: doc
 Recommends: ilisp
 Description: Documentation for ILISP package
  This package supplies PDF and HTML documentation for the ILISP
  package. ILISP is a powerful GNU Emacs interface to many dialects of
  Lisp.
-
