@@ -43,7 +43,9 @@ If we have a complete sexp, send it.  Otherwise, indent appropriately."
 		;;       25/11/94 Marco Antoniotti
 		(when (or (eq +ilisp-emacs-version-id+ 'fsf-19)
 			  (eq +ilisp-emacs-version-id+ 'fsf-20)
-			  (eq +ilisp-emacs-version-id+ 'fsf-21))
+			  (eq +ilisp-emacs-version-id+ 'fsf-21)
+			  (eq +ilisp-emacs-version-id+ 'fsf-22)
+			  (eq +ilisp-emacs-version-id+ 'fsf-23))
 		  (setq comint-input-ring-index nil))
 		;; Nuke symbol table
 		(setq ilisp-original nil)

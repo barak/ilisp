@@ -78,7 +78,9 @@
 (load "comint-ipc")
 
 ;; This is optional -- used only by io-bridge-ilisp
-(unless (or (eq +ilisp-emacs-version-id+ 'fsf-21)
+(unless (or (eq +ilisp-emacs-version-id+ 'fsf-23)
+	    (eq +ilisp-emacs-version-id+ 'fsf-22)
+	    (eq +ilisp-emacs-version-id+ 'fsf-21)
 	    (eq +ilisp-emacs-version-id+ 'fsf-20)
 	    (and (eq +ilisp-emacs-version-id+ 'fsf-19)
 		 (>= +ilisp-emacs-minor-version-number+ 29)))
@@ -180,18 +182,18 @@
 	 ilisp-*enable-cl-easy-menu-p*)
 
 (unless (and (member +ilisp-emacs-version-id+
-		     '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21))
+		     '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21 fsf-22 fsf-23))
 	     (or ilisp-*enable-cl-easy-menu-p*
 		 ilisp-*enable-scheme-easy-menu-p*))
   (load "ilisp-mnb"))
 
 (when (and (member +ilisp-emacs-version-id+
-		   '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21))
+		   '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21 fsf-22 fsf-23))
 	   ilisp-*enable-cl-easy-menu-p*)
   (load "ilisp-cl-easy-menu"))
 
 (when (and (member +ilisp-emacs-version-id+
-		   '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21))
+		   '(xemacs lucid-19 lucid-19-new fsf-20 fsf-21 fsf-22 fsf-23))
 	   ilisp-*enable-scheme-easy-menu-p*)
   (load "ilisp-scheme-easy-menu"))
 
