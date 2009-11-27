@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2004.12.26-2) unstable; urgency=low
+
+  * Apply patch from Jeff Siskind for GNU Emacs 22 & 23
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 26 Nov 2009 21:42:44 -0500
+
 ilisp (5.12.0+cvs.2004.12.26-1) unstable; urgency=low
 
   * Hi jack!  Swizzle maintainer.
