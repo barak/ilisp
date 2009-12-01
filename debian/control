@@ -1,7 +1,7 @@
 Source: ilisp
 Section: devel
 Priority: optional
-Maintainer: Barak Pearlmutter <bap@debian.org>
+Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends-Indep: debhelper (>= 7.2.5), texinfo, ghostscript, texi2html, csh | c-shell
 Standards-Version: 3.8.3
 Homepage: http://ilisp.sourceforge.net/

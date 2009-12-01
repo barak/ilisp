@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2004.12.26-3) unstable; urgency=low
+
+  * Make debian/control maintainer and debian/changelog sig bitwise identical
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 01 Dec 2009 13:39:06 -0500
+
 ilisp (5.12.0+cvs.2004.12.26-2) unstable; urgency=low
 
   * Apply patch from Jeff Siskind for GNU Emacs 22 & 23
