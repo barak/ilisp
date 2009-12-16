@@ -11,7 +11,7 @@
 
 (require 'imenu)
 
-;;; modified for a better display of function+arglist! 
+;;; modified for a better display of function+arglist!
 ;;; let tokens contain spaces and test with string-equal.
 
 (defun imenu--completion-buffer (index-alist &optional prompt)
@@ -59,7 +59,7 @@ Returns t for rescan and otherwise a position number."
 
 ;;;
 ;;; Patch for ilisp-imenu
-;;; 
+;;;
 
 ;; Intent is to allow users to customize what forms can
 ;; define types, variables, etc.  At the moment, this is
@@ -86,7 +86,7 @@ ilisp-*user-variable-defining-forms*")
 
 (defvar ilisp-*user-variable-defining-forms* nil
   "*List of user defined symbols which define new lisp variables.")
- 
+
 (defvar ilisp-*function-defining-forms* '(defun defmethod defmacro defgeneric)
   "Symbols that announce the definition of a new new lisp function.
 Don't change this variable -- rather customize
@@ -144,11 +144,11 @@ things of class KEY, which can be `:types' or `:variables'."
 		       ((looking-at type-defining-form-regexp)
 			(forward-sexp 2)
 			(push (ilisp-imenu-general--name-and-position)
-			      index-type-alist)) 
+			      index-type-alist))
 		       ((looking-at function-defining-form-regexp)
 			(forward-sexp 2)
 			(push (ilisp-imenu-function--name-and-position)
-			      index-fun-alist)) 
+			      index-fun-alist))
 		       (t
 			(forward-sexp 2)
 			(push (ilisp-imenu-general--name-and-position)
@@ -176,7 +176,7 @@ things of class KEY, which can be `:types' or `:variables'."
            (beg2 (progn (forward-sexp) (forward-sexp -1) (point)))
            (end2 (progn (forward-sexp) (point)))
            (args (buffer-substring-no-properties beg2 end2)))
-      (cons (concat name " " args) 
+      (cons (concat name " " args)
 	    beg))))
 
 
@@ -216,7 +216,7 @@ A trivial interface to `imenu-add-to-menubar' suitable for use in a hook."
 
 
 (add-hook 'lisp-mode-hook
-          	  (lambda () 
+          	  (lambda ()
                     (when (featurep 'imenu)
                       (setq imenu-extract-index-name-function
                             'ilisp-imenu-extract-index-name)

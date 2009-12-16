@@ -40,8 +40,8 @@
     #+LispWorks4
     (dspec:at-location ((or (probe-file filename) (merge-pathnames filename)))
 		       (eval (read-from-string form)))))
- 
- 
+
+
 ;;; ilisp-trace --
 ;;;
 ;;; Notes:
@@ -55,7 +55,7 @@
    (let ((real-symbol (ilisp-find-symbol symbol package)))
      (when real-symbol (eval `(trace (,real-symbol :break ,breakp)))))))
 
- 
+
 (defun ilisp-callers (symbol package)
   "Print a list of all of the functions that call FUNCTION.
 Returns T if successful."

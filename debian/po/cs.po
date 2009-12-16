@@ -41,7 +41,7 @@ msgstr ""
 "FSF (zaèínají Control-C), nebo zda má pou¾ít star¹í konvenci (prefix je "
 "Control-Z)."
 
-# zaèíná 
+# zaèíná
 #. Type: boolean
 #. Description
 #: ../ilisp.templates:4

@@ -115,7 +115,7 @@ If you copy the HyperSpec to another location, customize the variable
 (if common-lisp-hyperspec-symbol-table
     (let ((index-buffer (find-file-noselect common-lisp-hyperspec-symbol-table)))
       (labels ((get-one-line ()
-                 (prog1 
+                 (prog1
                      (delete* ?\n (thing-at-point 'line))
                    (forward-line))))
         (save-excursion
@@ -1110,7 +1110,7 @@ If you copy the HyperSpec to another location, customize the variable
             ("y-or-n-p" "f_y_or_n.htm")
             ("yes-or-no-p" "f_y_or_n.htm")
             ("zerop" "f_zerop.htm"))))
-                
+
 ;;; FORMAT character lookup by Frode Vatvedt Fjeld <frodef@acm.org> 20030902
 ;;;
 :;; adjusted for ILISP by Nikodemus Siivola 20030903
@@ -1122,10 +1122,10 @@ If you copy the HyperSpec to another location, customize the variable
 
 
 (defun common-lisp-hyperspec-section-6.0 (indices)
-  (let ((string (format "%sBody/%s_" 
+  (let ((string (format "%sBody/%s_"
 			common-lisp-hyperspec-root
 			(pop indices))))
-    (concat string 
+    (concat string
 	    (mapconcat (lambda (n)
 			 (make-string 1 (+ ?a (- n 1))))
 		       indices
@@ -1133,14 +1133,14 @@ If you copy the HyperSpec to another location, customize the variable
 	    ".htm")))
 
 (defun common-lisp-hyperpsec-section-4.0 (indices)
-  (let ((string (format "%sBody/sec%s_" 
+  (let ((string (format "%sBody/sec%s_"
 			common-lisp-hyperspec-root
 			(pop indices))))
     (concat string
 	    (mapconcat (lambda (n)
 			 (format "%d" n))
 		       indices
-		       "-")	    
+		       "-")
 	    ".html")))
 
 (defvar common-lisp-hyperspec-section-fun 'common-lisp-hyperspec-section-6.0)
@@ -1149,7 +1149,7 @@ If you copy the HyperSpec to another location, customize the variable
   (funcall common-lisp-hyperspec-section-fun indices))
 
 (defun common-lisp-hyperspec-format (character-name)
-   (interactive 
+   (interactive
     (list (let ((char-at-point (char-to-string (char-after (point)))))
 	    (if (and char-at-point
 		     (intern-soft (upcase char-at-point)
@@ -1179,7 +1179,7 @@ If you copy the HyperSpec to another location, customize the variable
 		(set symbol (cdr entry))))
 	  (when (and (= 1 (length (car entry)))
 		     (not (string-equal (car entry) (upcase (car entry)))))
-	    (let ((symbol (intern (upcase (car entry)) 
+	    (let ((symbol (intern (upcase (car entry))
 				  common-lisp-hyperspec-format-characters)))
 	      (if (boundp symbol)
 		  (pushnew (cadr entry) (symbol-value symbol) :test 'equal)

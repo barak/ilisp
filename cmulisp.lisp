@@ -67,7 +67,7 @@
 			 ((cdr first)
 			  (find-return-to (cdr first) (1- num)))))))
 	(let* ((level (debug::read-if-available 1))
-	       (first-return-to (find-return-to 
+	       (first-return-to (find-return-to
 				 debug::*debug-restarts* (1- level))))
 	  (if (null first-return-to)
 	      (format *debug-io* "pop: ~d is too far" level)
@@ -132,7 +132,7 @@
 		   (generic-function-pretty-arglist func))
 		  (eval:interpreted-function
 		   (massage-arglist (eval::interpreted-function-arglist func)))
-		
+
 		  (t (print 99 *trace-output*) "No arglist available.")))
 	       (t "No arglist available."))
 	     "Unknown function - no arglist available." ; For the time

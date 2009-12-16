@@ -13,7 +13,7 @@
   "Return the index in RING of REGEXP starting at START."
   (let ((n 0)
 	(len (ring-length ring)))
-    (while (and (< n len) 
+    (while (and (< n len)
 		(not (string-match regexp (ring-ref ring n))))
       (setq n (1+ n)))
     (if (= n len)

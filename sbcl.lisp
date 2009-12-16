@@ -145,7 +145,7 @@
                                    (t (print 99 *trace-output*)
                                       "No arglist available.")))
                                 (t "No arglist available."))))))
-               (madness))               ; 
+               (madness))               ;
            "Unknown function - no arglist available." ; For the time
 					; being I just
 					; return this

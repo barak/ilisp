@@ -18,10 +18,10 @@
 	Users that want to use ILISP for Lisp but not for Scheme
 	can now use (setq lisp-source-modes '(lisp-mode)) to prevent
 	ILISP from changing the Scheme mode bindings.
-	
+
 	* ilisp-key.el (ilisp-bindings): Don't setup mode bindings if mode
-	isn't in `lisp-source-modes.'  
-	Patch by Mike Sperber <sperber@informatik.uni-tuebingen.de> 
+	isn't in `lisp-source-modes.'
+	Patch by Mike Sperber <sperber@informatik.uni-tuebingen.de>
 
 2003-12-20  Bob Rogers  <rogers@rgrjr.dyndns.org>
 
@@ -67,15 +67,15 @@
 	handle Guile 1.6.
 
 2003-09-14  Kevin Rosenberg  <kevin@rosenberg.net>
-	
+
 	* completer.el: Require ilcompat. Necessary when
 	loading completer.el, but have not yet loaded
 	ilisp. Suggested by Aaron Ucko.
-	
+
 2003-09-03  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp-key.el, extra/hyperspec.el: Added hyperspec lookup
-	of format control characters. Sent in by Nikodemus Siivola 
+	of format control characters. Sent in by Nikodemus Siivola
 	and based on code written by Frode Fjeld.
 
 2003-08-04  Bob Rogers (aka "rgr") <rogers@rgrjr.dyndns.org>
@@ -123,7 +123,7 @@
 
 	* allegro.lisp: Change reader conditional with
 	Larry Hunter's fix.
-	
+
 2003-05-16  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp.texi: Updated documentation to reflect changes to FSF
@@ -132,39 +132,39 @@
 2003-05-14  Kevin Rosenberg <kevin@rosenberg.net>
 
 	* cmulisp.lisp: Fixes for CMUCL 18e+ from Raymond Toy.
-	
+
 2003-05-11  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ilisp-src.el: Applied patch sent by Eduardo Muñoz that fixes
-	problem of point moving to beginning of the buffer when function 
+	problem of point moving to beginning of the buffer when function
 	lisp-locate-definition-in-file is trying to find a definition
-	in the current buffer. 
+	in the current buffer.
 
 2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* cl-chs-init.lisp: Applied patch sent by Eduardo Muñoz that
-	fixes problem of CLISP "barfing" when #P".lisp" (a pathname) 
-	is member of system::*source-file-types* (a list of strings). 
+	fixes problem of CLISP "barfing" when #P".lisp" (a pathname)
+	is member of system::*source-file-types* (a list of strings).
 
 2003-05-09  Bill Clementson  <bill_clementson@yahoo.com>
 
 	* ild.el, ilisp-key.el: Complete revision of the FSF key bindings.
 
-	* ilisp-hi.el: Added functions eval-last-sexp-lisp and 
+	* ilisp-hi.el: Added functions eval-last-sexp-lisp and
 	eval-last-sexp-and-go-lisp.
 
-	* ilisp-cl-easy-menu.el: Added functions eval-last-sexp-lisp 
+	* ilisp-cl-easy-menu.el: Added functions eval-last-sexp-lisp
 	and eval-last-sexp-and-go-lisp to the menu and removed the
 	non-existent function lisp-indent-for-comment.
 
-	* ilisp-src.el: Applied patch sent by Eduardo Muñoz that  
+	* ilisp-src.el: Applied patch sent by Eduardo Muñoz that
 	allows "unenhanced" Lisps to use the M-. functionality.
-	
+
 	* icompile.bat: Added additional parameter to make it optional
-	to produce the monolithic ilisp-all.elc file (this file loads a 
+	to produce the monolithic ilisp-all.elc file (this file loads a
 	bit faster but you lose visibility to the ilisp functions in
 	elisp).
-	
+
 2003-04-11  Bob Rogers  <rogers@rgrjr.dyndns.org>
 
 	* cmulisp.lisp (ilisp-callers): Interface to new CMUCL 18e
@@ -229,7 +229,7 @@
 		o  No fees or compensation are charged for use, copies, or
 	   access to this software. You may charge a nominal
 	   distribution fee for the physical act of transferring a
-	   copy, but you may not charge for the program itself. 
+	   copy, but you may not charge for the program itself.
 	was removed from the license.
 
 2002-12-12  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
@@ -266,10 +266,10 @@
 	* ilisp-snd.el, comint-ipc.el: conditionalize
 	sit-for when called with 2 or 3 parameters to be
 	compatible with xemacs and fsf emacs.
-	
+
 2002-11-11  Martin Atzmueller  <martin@atzmueller.net>
 
-	* cl-ilisp.lisp: apply patch by Bob Rogers, i.e. on	
+	* cl-ilisp.lisp: apply patch by Bob Rogers, i.e. on
         Ilisp-devel: 'ilisp::special-form-p undefined in "modern"
 	Allegro', on Fri, 20 Sep 2002, reader conditionalization is
 	lowercase, now. (This makes reader conditionalization uniform in
@@ -283,7 +283,7 @@
 
 2002-11-10  Martin Atzmueller  <martin@atzmueller.net>
 
-	* ilisp-snd.el (ilisp-send): Incorporated patch by 
+	* ilisp-snd.el (ilisp-send): Incorporated patch by
         Eduardo Munoz fixing Bugs 525424 and 565365 from the SF
 	bugtracking system.
 	(from "Ilisp-help Fw: Solution to bugs 525424 &
@@ -302,12 +302,12 @@
 2002-10-24 Kevin Rosenberg <kevin@rosenberg.net>
 	* ilcompat.el, *.el:
 	Change calls from buffer-substring to buffer-substring-no-properties to
-	fix problem with fsf emacs 21.2 which copies font information with the 
+	fix problem with fsf emacs 21.2 which copies font information with the
 	buffer-substring command. Added buffer-substring-no-properties function
 	to ilcompat.el for platforms that don't have it implmented.
 
 2002-09-25  Will Deakin <anisotropy9@hotmail.com>
-	Stuff to fix the package stuff I broke when trying to 
+	Stuff to fix the package stuff I broke when trying to
 	* ilisp-snd.el: `refactored' ilisp-check-package-advanced with call
 	to new functin ilisp-get-package-advanced.
 	Removed extraneous fallback stuff.
@@ -322,7 +322,7 @@
 
 2002-09-05  Bob Rogers <rogers@rgrjr.dyndns.org>
 
-	* cl-ilisp.lisp (ilisp-compile), 
+	* cl-ilisp.lisp (ilisp-compile),
 	cmulisp.lisp (fun-defined-from-pathname): Teach CMUCL not to
 	forget the source file of interactively compiled definitions.
 
@@ -332,10 +332,10 @@
 	instead of reading the file associated with the full pathname.
 	NO-NAME is now obsolete, so is lisp-buffer-file (in lisp-def.el),
 	and lisp-find-file is now much smaller.
-	
+
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space):  Don't lose on
 	#:foo.
-	
+
 2002-09-03  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* ilisp-def.el (ilisp-*process-connection-type*): New variable.
@@ -349,7 +349,7 @@
 
 	* cl-ilisp.lisp, HISTORY and docs/ilisp-refcard.tex: Picky change
 	  to capitalisation on XEmacs;
-	
+
 	* ilisp-chs.el: Clean up to comment above -ansi;
 
 2002-07-01  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
@@ -626,7 +626,7 @@
 2002-01-25  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	Added OpenMCL support contributed by Gary Byers <gb@clozure.com>.
-	
+
 	* openmcl.lisp, ilisp-openmcl.el: New files.
 	* Makefile, cl-ilisp.lisp, ilisp-dia.el, ilisp-mak.el, ilisp.el,
 	docs/ilisp.texi: Add OpenMCL support.
@@ -669,7 +669,7 @@
 	ending with a comment but no newline are handled properly.
 
 	* guile-ilisp.scm (info-message): Use the 'arglist procedure
-	property when available (Guile 1.5.4 and later). 
+	property when available (Guile 1.5.4 and later).
 
 2002-01-07  Martin Atzmueller  <martin@atzmueller.net>
 
@@ -713,7 +713,7 @@
 	Also installs info files appropriately.
 
 	* ACKNOWLEDGMENTS: added myself to end of list.
-	
+
 2001-12-10  Paolo Amoroso  <amoroso@mclink.it>
 
 	* extra/hyperspec-naggum.el (eval-when): replaced assignment to
@@ -936,7 +936,7 @@
 2001-05-22  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
 	* Makefile: Include ChangeLog and ACKNOWLEDGMENTS in the
-	distribution. 
+	distribution.
 
 	* guile-ilisp.scm: Define module (guile-ilisp) before using it in
 	module (guile-user); this is needed for Guile 1.5.
@@ -954,7 +954,7 @@
 	* guile-ilisp.scm (ilisp-get-package):  If the full module name is
 	available (as is in Guile >= 1.4), use it instead of parsing the
 	sequence of define-module forms.  This also works around an eval
-	memoizing bug in Guile 1.5.  
+	memoizing bug in Guile 1.5.
 
 	* guile-ilisp.scm:  Write all results using `write' and return no
 	value.  (When the (ice-9 history) module is in use, all return
@@ -1000,13 +1000,13 @@
 
 2001-04-02  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
-	* ilisp-sch.el (mzscheme): Provide symbol completion for MzScheme. 
+	* ilisp-sch.el (mzscheme): Provide symbol completion for MzScheme.
 
 	* mzscheme-ilisp.scm: New file, MzScheme support.
-	
+
 	* ilisp-hi.el (ilisp-arglist-message-lisp-space): Fixed last
 	change: always insert the space, even if no electric behaviour is
-	available. 
+	available.
 
 2001-03-29  Martin Atzmueller  <martin@atzmueller.net>
 
@@ -1243,7 +1243,7 @@
 	* ilisp-def.el (ilisp-print-info-message-command) New definition
 	    for an ilisp-local variable that was in use already.
 	    (patches contributed by Hannu Koivisto  <azure@iki.fi>).
-	
+
 	* ilcompat.el:
 	  - Now requires cl.
 	  - Now provides ilcompat instead of compat.
@@ -1336,12 +1336,12 @@
 	* ilisp-sch.el (scheme), ilisp-src.el
 	(ilisp-locate-scheme-definition, ilisp-locate-scheme-calls): New
 	Scheme source locators. The standard locators would fail on
-	"(define (thunk) ....)"  and report "(define (procedure ...) ...)" 
+	"(define (thunk) ....)"  and report "(define (procedure ...) ...)"
 	as a procedure call.
 
-	* ilisp-sch.el (guile), guile-ilisp.scm (ilisp-source-file): 
+	* ilisp-sch.el (guile), guile-ilisp.scm (ilisp-source-file):
 	Get the source file of a definition from the interpreter.
-	
+
 	* guile-ilisp.scm (ilisp-trace, ilisp-untrace): I broke these in
 	the last change, fixed.
 
@@ -1372,10 +1372,10 @@
 	compliant mode. Those are bound to `reposition-window' and
 	`isearch-backward-regexp', respectively, at least in GNU Emacs 20.
 
-	* ilisp-def.el (ilisp-eval-command, ilisp-defvar-command): 
-	Format strings now take an extra parameter, source LINE. 
+	* ilisp-def.el (ilisp-eval-command, ilisp-defvar-command):
+	Format strings now take an extra parameter, source LINE.
 	* ilisp-hi.el (lisp-send-region): Send source line to inferior
-	lisp. 
+	lisp.
 
 2000-11-29  Matthias Koeppe  <mkoeppe@mail.math.uni-magdeburg.de>
 
@@ -1439,20 +1439,20 @@
 	  removed because unsupported by SBCL.
 	  (patches contributed by William Harold Newman
 	  <william.newman@airmail.net>).
-	
+
 2000-10-08  Martin Atzmueller  <martin@atzmueller.net>
 
 	* ilisp-hnd.el (ilisp-handler): fix call to ilisp-output-buffer.
 
 2000-10-07  Martin Atzmueller  <martin@atzmueller.net>
-	
+
 	* ilisp-sbcl.el (sblisp): new ilisp-error-regexp.
-	
+
 	* ilisp-snd.el (ilisp-check-package-advanced): Due to the
 	'in-package behavior (see below) check for errors, and fix them.
 	If the package is not found, the fallback-package will be used.
-	Display status after a search for package. 
-	
+	Display status after a search for package.
+
 	* ilisp-cl.el (common-lisp): ignoring errors in
 	ilisp-package-command _does_ not help any ANSI-CL! It is basically
 	redundant. This is because of the complicated behavior of
@@ -1461,7 +1461,7 @@
 	and the error will be thrown, nevertheless of any 'ignore-error
 	handler! Modified 'ignore-error -form, because there were some
 	strange things happening testing it in CLISP and SBCL.
-		
+
 2000-10-03  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-snd.el (lisp-buffer-package-internal): Doesn't try to find
@@ -1529,7 +1529,7 @@
 2000-09-13  Atzmueller  <martin@atzmueller.net>
 
 	* sblisp.lisp (ilisp-compile): special case is not necessary
-	anymore. removed	
+	anymore. removed
 
 	* cl-ilisp.lisp (ilisp-compile): cleanup.
 
@@ -1555,9 +1555,9 @@
 	* ilisp-snd.el (lisp-string-to-symbol): symbol-completion in
 	source buffers was broken due to 'ilisp-package-seperator-regex as
 	a local variable. fixed.
-	
+
 	* Makefile (compile): add '--force' option when linking 'hyperspec.el'.
-	
+
 	* ilisp-out.el: (ilisp-make-output-frame)
 	incorporated patch by Will Deakin as of August 03.
 
@@ -1567,7 +1567,7 @@
 	case #\".
 
 	* ilisp-sbcl: (sblisp-program) invoke sbcl with --noinform, to
-	prevent printing of startup-message.	
+	prevent printing of startup-message.
 
 2000-08-18  Paolo Amoroso  <amoroso@mclink.it>
 
@@ -1639,7 +1639,7 @@
 2000-07-24  Paolo Amoroso  <amoroso@mclink.it>
 
 	* Makefile (DocFiles): added `docs/ilisp-refcard.tex'.
-	
+
 	* docs/ilisp.texi (Configuration and compilation): updated for the
 	  reference card.
 
@@ -1647,9 +1647,9 @@
 	  typos.
 
 	* docs/Makefile: added support for ilisp-refcard.tex compilation.
-	
+
 	* docs/ilisp-refcard.tex: initial revision.
-	
+
 	* docs/ilisp-refcard.tgz: removed for keeping only
 	  ilisp-refcard.tex.
 
@@ -1657,21 +1657,21 @@
 
 	* docs/ilisp.texi (Files of ILISP): clarified entry for *.lisp and
 	  added *.scm entry. Updated version info of the document.
-	
+
 	* Makefile (clean): added TAGS among the files to remove.
 
 	* ilisp-snd.el (lisp-string-to-symbol): test
 	  `ilisp-package-separator-regexp' (patch contributed by Matthias
 	  Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
-	
+
 	* ilisp-sch.el (guile): improved error handling for Guile (patch
 	  contributed by Matthias Koeppe
 	  <mkoeppe@mail.math.uni-magdeburg.de>).
-	
+
 	* ilisp-def.el (ilisp-package-separator-regexp): turned into a
 	  local variable (patch contributed by Matthias Koeppe
 	  <mkoeppe@mail.math.uni-magdeburg.de>).
-	
+
 	* ilisp-cl.el (common-lisp): added
 	  `ilisp-package-separator-regexp' (patch contributed by Matthias
 	  Koeppe <mkoeppe@mail.math.uni-magdeburg.de>).
@@ -1705,7 +1705,7 @@
 
 	* .ILISP.prcs-aux, ILISP.prj: removed PRCS auxiliary files no
 	  longer needed with CVS.
-	
+
 2000-06-30  Paolo Amoroso  <amoroso@mclink.it>
 
 	* ilisp-sch.el (guile): fixed malformed
@@ -1737,7 +1737,7 @@
 	  because of a bug. After making each dialect set it to the
 	  appropriate value, the declaration can be changed to
 	  `deflocal'.
-	
+
 2000-06-27  Paolo Amoroso  <amoroso@mclink.it>
 
 	* guile-ilisp.scm: support functions for Guile, which also work
@@ -1810,7 +1810,7 @@
 	numbers in file names--e.g. 5.9.4--with generic
 	ones--i.e. x.y.z). Renamed variable names to the ILISP-*VARNAME*
 	convention.
-	
+
 2000-04-19  Marco Antoniotti  <marcoxa@parades.rm.cnr.it>
 
 	* docs/ilisp.texi (Acknowledgements): Added Karl Fogel.
@@ -1848,18 +1848,18 @@
 	* ilisp-def.el: (ilisp-prefix): Set to C-c if above new defcustom
 	is non-nil, else set to C-z if above is nil or unbound.
 	(ilisp-use-fsf-compliant-keybindings): New defcustom.
-	(ilisp-use-fsf-compliant-keybindings): 
+	(ilisp-use-fsf-compliant-keybindings):
 
 	* ilisp-key.el: (ilisp-safe-define-key): New func, binds a key to
 	a command in keymap, using new optional arg FSF-KEY if
 	`ilisp-use-fsf-compliant-keybindings' is non-nil.
-	
+
 	(ilisp-define-ilisp-key-for-map): Replaces `ilisp-defkey'.  Use
 	ilisp-safe-define-key, passing new optional argument to it.
 	Changed name partly because this function does something new now,
 	and partly to avoid confusion with `defkey-ilisp', which has an
 	entirely different purpose.  All callers changed.
-	
+
 	(lisp-bindings): Use above new functions where appropriate.
 	Pass `no-fsf-key' where no worthwhile binding is possible under
 	the FSF-approved keyspace.

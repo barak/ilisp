@@ -20,4 +20,4 @@
 (if (file-readable-p "~/.ilisp")
     (load "~/.ilisp")
   (load "/etc/ilisp/ilisp.el"))
-  
+

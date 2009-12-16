@@ -100,7 +100,7 @@
 		   buffer))
   (funcall setup buffer)
   (setq ilisp-program
-	(or program 
+	(or program
 	    (if current-prefix-arg
 		(lisp-read-program "Program: " ilisp-program)
 		ilisp-program)))
@@ -134,8 +134,8 @@ inferior LISP.  PARENT is the name of the parent dialect."
 	 (, (format "Create an inferior %s.  With prefix, prompt for buffer and program."
 		   full-name))
 	 (interactive (list nil nil))
-	 (ilisp-start-dialect (or buffer (, dialects)) 
-			      program 
+	 (ilisp-start-dialect (or buffer (, dialects))
+			      program
 			      '(, setup))
 	 (setq (, program) ilisp-program))
        (lisp-add-dialect (, dialects))))))
@@ -195,7 +195,7 @@ inferior LISP.  PARENT is the name of the parent dialect."
 	ilisp-filter-regexp "\\`\\s *\\(:\\(\\w\\|\\s_\\)*\\)?\\s *\\'"
 	ilisp-filter-length 3
 	ilisp-error-filter 'ilisp-error-filter
-	ilisp-error-regexp ".*" 
+	ilisp-error-regexp ".*"
 
 	;; 20000216 Marco Antoniotti
 	;; Removed the 'dot' (.) from the set of symbol delimiters.

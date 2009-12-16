@@ -35,17 +35,17 @@
 
 ;;; Commentary:
 
-;; This file and it's extensions have been named ilisp-xemacs-menu before. 
+;; This file and it's extensions have been named ilisp-xemacs-menu before.
 ;; As it is ensured now to work with any Emacs with easymenu the file
-;; itself and all relevant names (of commands and variables) are renamed. 
+;; itself and all relevant names (of commands and variables) are renamed.
 
-;; Use this file as an extension to Ilisp 5.7/5.8 
+;; Use this file as an extension to Ilisp 5.7/5.8
 ;; (seee http://www.cs.cmu.edu/~campbell/ilisp/index.html)
 ;; Put it in a place where (X)Emacs can find it and augment your
 ;; .emacs like the following to use it.
 ;; (load-library "ilisp-easy-menu")
 ;; This needs to be loaded prior to Ilisp !
-;; This should give you the menu in any source code buffer and any inferior 
+;; This should give you the menu in any source code buffer and any inferior
 ;; ilisp buffer. Be careful: the menu is initialized with add-hook
 ;; on ilisp-mode-hook and lisp-mode-hook, so if you setq these two
 ;; hooks afterwards you won't get the menu.
@@ -65,7 +65,7 @@
 ;127c127,129
 ;<   (if (not (member +ilisp-emacs-version-id+ '(xemacs lucid-19 lucid-19-new)))
 ;---
-;>   (if (and (not 
+;>   (if (and (not
 ;> 	    (member +ilisp-emacs-version-id+ '(xemacs lucid-19 lucid-19-new)))
 ;> 	   (not (featurep 'ilisp-easy-menu)))
 
@@ -122,9 +122,9 @@
      ;; [ "Indent for comment" lisp-indent-for-comment t ]
      [ "Comment region" comment-region-lisp t ]
      "--"
-     [ "Search in Files" search-lisp t ] 
+     [ "Search in Files" search-lisp t ]
      "--"
-     [ "Kill sexp" kill-sexp t ] 
+     [ "Kill sexp" kill-sexp t ]
      [ "Kill last sexp" backward-kill-sexp t ]
      "--"
      [ "Macroexpand" macroexpand-lisp t ]
@@ -141,7 +141,7 @@
      "--"
      ;; With which var can I test if 'fi' is really loaded? Can I just
      ;; use FEATUREP?
-     [ "Clman-apropos" fi:clman-apropos nil ] 
+     [ "Clman-apropos" fi:clman-apropos nil ]
      [ "CLtL2"
        cltl2-lookup
       ,ilisp-*use-cltl2-interface-p* ]
@@ -162,7 +162,7 @@
      [ "Select Ilisp" select-ilisp t ]
      [ "Switch to lisp" switch-to-lisp t ]
      [ "Abort commands" abort-commands-lisp t ]
-     [ "Status of Lisp" status-lisp t ]  
+     [ "Status of Lisp" status-lisp t ]
      "--"
      [ "Mark change" mark-change-lisp t ]
      [ "List changes" list-changes-lisp t ]
@@ -214,9 +214,9 @@
 	    menu (append (butlast menu (- (length menu) i))
 			 (list what)
 			 (nthcdr i menu))))))
-  
+
 (if ilisp-*enable-ild-support-p*
-  (setq ilisp-cl-easy-menu 
+  (setq ilisp-cl-easy-menu
 	(ilisp-insert-menu ilisp-cl-easy-menu "Misc" ilisp-ild-easy-menu)))
 
 ;;; ilisp-update-menu
@@ -230,7 +230,7 @@
 
 (defun ilisp-redefine-menu ()
   (easy-menu-remove ilisp-cl-easy-menu)
-  (easy-menu-define menubar-ilisp ilisp-mode-map 
+  (easy-menu-define menubar-ilisp ilisp-mode-map
 		    "Ilisp commands"
 		    ilisp-cl-easy-menu)
   (easy-menu-add ilisp-cl-easy-menu 'ilisp-mode-map)
@@ -247,23 +247,23 @@
 ;;; this, but it should.
 
 (add-hook 'ilisp-mode-hook
-	  (lambda () 
-	    (when (featurep 'easymenu)       
+	  (lambda ()
+	    (when (featurep 'easymenu)
 	      (easy-menu-define menubar-ilisp
-				ilisp-mode-map 
+				ilisp-mode-map
 				"Ilisp commands"
-				ilisp-cl-easy-menu) 
+				ilisp-cl-easy-menu)
 	      (easy-menu-add ilisp-cl-easy-menu 'ilisp-mode-map)
 	      )))
-	 
+
 
 (add-hook 'lisp-mode-hook
-	  (lambda () 
-	    (when (featurep 'easymenu)       
+	  (lambda ()
+	    (when (featurep 'easymenu)
 	      (easy-menu-define menubar-lisp-ilisp
-				lisp-mode-map 
+				lisp-mode-map
 				"lisp commands"
-				ilisp-cl-easy-menu) 
+				ilisp-cl-easy-menu)
 	      (when (boundp 'lisp-menu)
 		(easy-menu-remove lisp-menu))
 	      (easy-menu-add ilisp-cl-easy-menu 'lisp-mode-map)

@@ -26,7 +26,7 @@
  			(string-to-int (substring new 1))
  			0)))
     (<= new-level old-level)))
- 
+
 ;;;
 (defdialect allegro "Allegro Common LISP"
   common-lisp
@@ -36,7 +36,7 @@
 	ilisp-reset ":reset"
 	comint-continue ":cont"
 	comint-interrupt-regexp  "Error: [^\n]* interrupt\)")
-  (setq comint-prompt-status 
+  (setq comint-prompt-status
 	(function (lambda (old line)
 		    (comint-prompt-status old line 'allegro-check-prompt))))
   ;; <cl> or package> at top-level
@@ -47,7 +47,7 @@
   ;; Patch by kpc 94/8/30: allow prompts that look like this:
   ;; USER(23): USER(23):
   (setq comint-prompt-regexp "^\\(\\(\\[[0-9]+i?c?\\] \\|\\[step\\] \\)?\\(<?[-A-Za-z]* ?[0-9]*?>\\|[-A-Za-z0-9]+([0-9]+):\\) \\)+")
-   
+
   (setq ilisp-error-regexp
 	"\\(ILISP:[^\"]*\\)\\|\\(Error:[^\n]*\\)\\|\\(Break:[^\n]*\\)")
 

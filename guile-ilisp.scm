@@ -1,5 +1,5 @@
 ;;;; guile-ilisp.scm --- ILISP support functions for GUILE
-;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de> 
+;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de>
 ;;;
 ;;; Copyright (C) 2000, 2001, 2002, 2003, 2004 Matthias Koeppe
 ;;;
@@ -31,7 +31,7 @@
 	(save-module-excursion
 	 (lambda ()
 	   (set-current-module environment)
-	   (eval expression))))))  
+	   (eval expression))))))
 
 (define is-a-generic?
   (if (false-if-exception (eval-in-package '(use-modules (oop goops))
@@ -98,11 +98,11 @@ WITH-PROCEDURE?, include the procedure symbol."
 				       (string-length pattern))))))
 		     (let ((eol-index (or (string-index doc #\newline start-index)
 					  (string-length doc))))
-		       (string-append 
+		       (string-append
 			"("
 			(let loop ((bol-index (+ 1 eol-index))
 				   (arglist (substring doc start-index eol-index)))
-			  (cond 
+			  (cond
 			   ((and bol-index (>= bol-index (string-length doc)))
 			    arglist)
 			   ((and (>= (string-length doc) (+ bol-index 10))
@@ -110,7 +110,7 @@ WITH-PROCEDURE?, include the procedure symbol."
 					   "          "))
 			    (let ((eol-index (string-index doc #\newline bol-index)))
 			      (loop (and eol-index (+ 1 eol-index))
-				    (string-append arglist " " 
+				    (string-append arglist " "
 						   (substring doc (+ bol-index 10)
 							      eol-index)))))
 			   (else
@@ -134,7 +134,7 @@ WITH-PROCEDURE?, include the procedure symbol."
 		(string-append "("
 			       (substring f-l
 					  (+ index 1)))
-		"()"))))     
+		"()"))))
      (else (string-append "CAN'T PARSE THIS DOCUMENTATION:\n"
 			  doc)))))
 
@@ -304,7 +304,7 @@ arglist only.  If EXPENSIVE?, take some more effort."
 		     (lambda ()
 		       (write-truncated obj (current-output-port) 800)))
 		   "."))))
-  
+
 
 (define-public (ilisp-print-info-message sym package)
   "Evaluate SYM in PACKAGE and print an informational message about
@@ -316,7 +316,7 @@ This procedure is invoked by the electric space key."
 			  (eval-in-package sym
 					   (string->module package)))
 			(lambda args #f))))
-		     
+
 	(cond
 	 ((and obj
 	       (info-message sym obj #f #f))
@@ -339,7 +339,7 @@ This procedure is invoked by the electric space key."
   (if (and (string=? (substring s 0 1) "(")
 	   (string=? (substring s (- (string-length s) 1)) ")"))
       (substring s 1 (- (string-length s) 1))
-      s))      
+      s))
 
 (define (symbol-not-present symbol package)
   (display "Symbol `")
@@ -412,7 +412,7 @@ procedure. This procedure is invoked by `arglist-lisp'."
 	       (map (lambda (word)
 		      (string-append (regexp-quote word) "[^-:/_]*"))
 		    (separate-fields-before-predicate word-separator?
-						      str list)))))	      
+						      str list)))))
 
 (define-public (ilisp-matching-symbols string package function? external? prefix?)
   (write (map (lambda (sym) (list (symbol->string sym)))
@@ -438,7 +438,7 @@ procedure. This procedure is invoked by `arglist-lisp'."
   ;; Otherwise `resolve-module' will give us a bad environment later,
   ;; which just makes trouble.
   (let ((name
-	 (eval-in-package 
+	 (eval-in-package
 	  (append sequence-of-defines
 		  '((module-name (current-module))))
 	  (string->module "(guile-user)"))))
@@ -447,7 +447,7 @@ procedure. This procedure is invoked by `arglist-lisp'."
       ;; This version of Guile has a module-name procedure that
       ;; returns the full module name.  Good.
       (write name))
-     (else 
+     (else
       ;; Now we have the name of the module -- but only the last
       ;; component.  We need to "parse" the sequence-of-defines
       ;; ourselves.

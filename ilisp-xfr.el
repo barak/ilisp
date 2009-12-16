@@ -25,7 +25,7 @@ If we have a complete sexp, send it.  Otherwise, indent appropriately."
 	(let* ((pmark (process-mark proc))
 	       (input (ilisp-get-old-input)))
 	  (if input
-	      (progn 
+	      (progn
 		(if (>= (point) pmark)
 		    (goto-char (point-max))
 		    (goto-char pmark)
@@ -100,7 +100,7 @@ If 'ilisp-raw-echo' is T then echo it."
     (insert last-input-char)
     (set-marker (process-mark (ilisp-process)) (point))
     (set-marker comint-last-input-end (point)))
-  (process-send-string (ilisp-process) 
+  (process-send-string (ilisp-process)
 		       (make-string 1 last-input-char))
   (message ilisp-raw-message))
 
@@ -127,7 +127,7 @@ sending ^[1^], and turn it off by sending ^[0^]."
 
 ;;;%%Debugger interface
 (defun delete-char-or-pop-ilisp (arg &optional killflag)
-  "Delete ARG characters, or pop break level if at end of buffer.  
+  "Delete ARG characters, or pop break level if at end of buffer.
 Optional second arg KILLFLAG non-nil means kill instead (save in kill ring).
 Interactively, ARG is the prefix arg, and KILLFLAG is set if
 ARG was explicitly specified."

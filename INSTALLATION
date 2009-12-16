@@ -230,11 +230,11 @@ o Xanalys LispWorks (formerly Harlequin LispWorks)
 
           (in-package "CL-USER")
           (load-all-patches)
-          (compile (defun my-restart () 
+          (compile (defun my-restart ()
                      #+Unix
                      (capi:ensure-motif-libraries)
                      (mp:initialize-multiprocessing)))
-          (save-image "lw-ilisp-capi" :restart-function 'my-restart 
+          (save-image "lw-ilisp-capi" :restart-function 'my-restart
                                       :environment nil
                                       #+Win32 :console #+Win32 t)
           (quit)

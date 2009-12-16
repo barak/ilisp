@@ -10,7 +10,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-(defvar cmulisp-source-directory-regexp 
+(defvar cmulisp-source-directory-regexp
   "\\/afs\\/cs\\.cmu\\.edu\\/project\\/clisp\\/src\\/[0-9]*\\/"
   "*Regexp to match cmulisp source code directory.")
 
@@ -43,13 +43,13 @@
   (ilisp-load-init 'new-edit-definitions "find-src")
   (if cmulisp-local-source-directory
       (setq ilisp-source-directory-fixup-alist
-	    (list 
+	    (list
 	     (cons cmulisp-source-directory-regexp
 		   cmulisp-local-source-directory)))
     (message "cmulisp-local-source-directory not set."))
   (setq comint-prompt-regexp "^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) "
 	ilisp-trace-command "(ilisp:cmulisp-trace \"%s\" \"%s\" \"%s\")"
-	comint-prompt-status 
+	comint-prompt-status
 	(function (lambda (old line)
 		    (comint-prompt-status old line 'cmulisp-check-prompt)))
 

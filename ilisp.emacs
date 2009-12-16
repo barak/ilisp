@@ -112,7 +112,7 @@
 
 ;(setq *cormanlisp-dir* "C:\\CORMAN~1\\CORMAN~1.5\\")
 ;(setq cormanlisp-program
-;      (concat *cormanlisp-dir* "clconsole.exe" 
+;      (concat *cormanlisp-dir* "clconsole.exe"
 ;	       " -image " *cormanlisp-dir* "CormanLisp.img"))
 
 ; (setq lispworks-program

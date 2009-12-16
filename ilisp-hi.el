@@ -38,16 +38,16 @@ a message to let the user know what is going on."
 		       string
 		       (format (ilisp-value 'ilisp-block-command) string)))
 		  (lisp-buffer-package)
-		  (buffer-file-name) 
+		  (buffer-file-name)
 		  (save-excursion	; start line
 		    (goto-char (min start end))
 		    (beginning-of-line)
 		    (1+ (count-lines 1 (min start end))))))
-    (let ((result 
+    (let ((result
 	   (ilisp-send
 	    string message status
 	    (cond ((memq switch '(t call)) switch)
-		  ((or (not (eq lisp-wait-p (lisp-minus-prefix))) 
+		  ((or (not (eq lisp-wait-p (lisp-minus-prefix)))
 		       current-prefix-arg
 		       (eq switch 'result)) nil)
 		  (t 'dispatch))
@@ -72,7 +72,7 @@ a message to let the user know what is going on."
     (let ((tmp_start start))
       (setq start end)
       (setq end tmp_start)))
-  (setq message (or message 
+  (setq message (or message
 		    (concat "Evaluate " (lisp-region-name start end))))
   (let ((defvar (ilisp-value 'ilisp-defvar-regexp t)))
     (if (and defvar
@@ -106,9 +106,9 @@ a message to let the user know what is going on."
   (let (start end)
     (save-excursion
       (backward-char 1)
-      (if (looking-at "\\s\)") 
+      (if (looking-at "\\s\)")
           (progn
-            (forward-char 1) 
+            (forward-char 1)
 	    (setq end (point))
             (backward-list 1)))
       (setq start (point)))
@@ -146,14 +146,14 @@ the eval defun/top-level commands."
 	    (backward-char 1)
 	    (looking-at "\\s\)")))
       (if (looking-at "\\s\)")
-	  (forward-char 1)) 
+	  (forward-char 1))
       (eval-last-sexp-lisp switch))
      ((or (looking-at "\\s\(")
 	  (save-excursion
 	    (forward-char 1)
 	    (looking-at "\\s\(")))
       (if (looking-at "\\s\(")
-	  (backward-char 1)) 
+	  (backward-char 1))
       (eval-next-sexp-lisp switch))
      (t (eval-defun-lisp switch)))))
 
@@ -177,7 +177,7 @@ the eval defun/top-level commands."
   "Evaluate the current defun and switch to the current ILISP buffer.
 With prefix, insert a call as well."
   (interactive)
-  (eval-defun-lisp (if current-prefix-arg 
+  (eval-defun-lisp (if current-prefix-arg
 		       (progn
 			 (setq current-prefix-arg nil)
 			 'call)
@@ -197,7 +197,7 @@ With prefix, insert a call as well."
    (or switch 'result)			; Default to return the result.
    (or message (concat "Compile " (lisp-region-name start end)))
    (or status 'compile)
-   'ilisp-compile-command 
+   'ilisp-compile-command
    handler))
 
 
@@ -234,7 +234,7 @@ With prefix, insert a call as well."
   (mark-whole-buffer)
   (eval-region-lisp (point) (mark)))
 
-    
+
 ;;;
 (defun compile-defun-lisp (&optional switch)
   "Compile the current defun.
@@ -246,7 +246,7 @@ an ILISP buffer."
 	 (end (car (cdr form))))
     (if (and (= start end) (memq major-mode ilisp-modes))
 	(save-excursion
-	  (let ((form (ring-ref (ilisp-get-input-ring) 
+	  (let ((form (ring-ref (ilisp-get-input-ring)
 				(ilisp-input-ring-index))))
 	    (set-buffer "*ilisp-send*")
 	    (delete-region (point-min) (point-max))
@@ -270,7 +270,7 @@ an ILISP buffer."
 (defun compile-defun-and-go-lisp ()
   "Compile the current defun and switch to the current ILISP buffer."
   (interactive)
-  (compile-defun-lisp 
+  (compile-defun-lisp
    (if current-prefix-arg
        (progn
 	 (setq current-prefix-arg nil)
@@ -278,7 +278,7 @@ an ILISP buffer."
        t)))
 
 ;;; 2002-05-20 09:38:07 rurban
-;;; Ivan's ange-ftp hack: "/user@server:~/xx.lisp" => "~/xx.lisp"  
+;;; Ivan's ange-ftp hack: "/user@server:~/xx.lisp" => "~/xx.lisp"
 ;;; Reini's cygwin hack: "/cygdrive/r/xx.lisp"     => "r:/xx.lisp"
 (defun file-name-hack (file-name)
   "Strip ange-ftp and cygwin pathnames prefixes for the native local lisp"
@@ -317,7 +317,7 @@ an ILISP buffer."
   (ilisp-init t)
   (let ((files (ilisp-value 'ilisp-load-inits t)))
     (dolist (f files)
-      (compile-file-lisp 
+      (compile-file-lisp
        (expand-file-name (cdr f) ilisp-*directory*)
        (ilisp-value 'ilisp-init-binary-extension t)))))
 
@@ -325,7 +325,7 @@ an ILISP buffer."
 ;;;
 (defun close-and-send-lisp ()
   "Close and indent the current sexp then send it to the inferior
-LISP." 
+LISP."
   (interactive)
   (reindent-lisp)
   (if (memq major-mode ilisp-modes)
@@ -350,7 +350,7 @@ buffer, and there is no current sexp, describe ilisp-last-command."
 	    (lisp-previous-sexp t)))))
   (let ((result
 	 (ilisp-send
-	  (format (ilisp-value 'ilisp-describe-command) 
+	  (format (ilisp-value 'ilisp-describe-command)
 		  (lisp-slashify sexp) (lisp-buffer-package))
 	  (concat "Describe " sexp)
 	  'describe)))
@@ -373,7 +373,7 @@ there is no current sexp, inspect ilisp-last-command."
 		(lisp-previous-sexp t))
 	    (lisp-previous-sexp t)))))
   (ilisp-send
-   (format (ilisp-value 'ilisp-inspect-command) 
+   (format (ilisp-value 'ilisp-inspect-command)
 	   (lisp-slashify sexp) (lisp-buffer-package))
    (concat "Inspect " sexp)
    'inspect t))
@@ -395,7 +395,7 @@ one, the symbol will be prompted for."
     (let* ((arglist
 	    (ilisp-send
 	     (format (ilisp-value 'ilisp-arglist-command)
-		     (lisp-symbol-name symbol) 
+		     (lisp-symbol-name symbol)
 		     (lisp-symbol-package symbol))
 	     nil
 	     'args))
@@ -424,8 +424,8 @@ function call documentation."
    (if (lisp-minus-prefix)
        (let* ((symbol-info (lisp-previous-symbol))
 	      (symbol (car symbol-info))
-	      (doc (ilisp-read-symbol 
-		    (format "Documentation [%s]: " 
+	      (doc (ilisp-read-symbol
+		    (format "Documentation [%s]: "
 			    (lisp-buffer-symbol symbol))
 		    symbol))
 	      (default (if (car (cdr symbol-info))
@@ -513,7 +513,7 @@ Trace with :break set."
    (let ((function (lisp-defun-name)))
      (if (lisp-minus-prefix)
 	 (list (ilisp-read-symbol
-		(format (if current-prefix-arg 
+		(format (if current-prefix-arg
 			    "Untrace [%s]: "
 			    "Trace [%s]: ")
 			(lisp-buffer-symbol function))
@@ -530,7 +530,7 @@ current defun."
    (let ((function (lisp-defun-name)))
      (if (lisp-minus-prefix)
 	 (list (ilisp-read-symbol
-		(format (if current-prefix-arg 
+		(format (if current-prefix-arg
 			    "Untrace [%s]: "
 			    "Trace [%s]: ")
 			(lisp-buffer-symbol function))
@@ -551,7 +551,7 @@ current defun."
 			      (lisp-symbol-name function)
 			      (lisp-symbol-package function)
 			      breakp))
-		    (format "%srace %s" (if current-prefix-arg "Unt" "T") 
+		    (format "%srace %s" (if current-prefix-arg "Unt" "T")
 			    (lisp-buffer-symbol function))
 		    (if current-prefix-arg 'untrace 'trace)
 		    ;; Change to always wait, so we can see the
@@ -592,7 +592,7 @@ current directory of the LISP."
 				 default-directory))))
 	(ilisp-send
 	 (format (ilisp-value 'ilisp-set-directory-command) directory)
-	 (format "Set %s's directory to %s" 
+	 (format "Set %s's directory to %s"
 		 (buffer-name (ilisp-buffer))
 		 directory)
 	 'dir
@@ -601,7 +601,7 @@ current directory of the LISP."
 	 ;; I just set the default to 'nil'. It shouldn't harm.
 	 ;; Marco Antoniotti: Jan 2 1995.
 	 ))))
-  
+
 
 ;;;
 (defun load-file-lisp (file-name)
@@ -700,7 +700,7 @@ symbol after the symbol has been typed in followed by #\\Space."
 	       (or (equal (ilisp-value 'ilisp-status) " :ready")
 		   (equal (ilisp-value 'ilisp-status) " :error")))
 	     (or (eql (current-buffer) (ilisp-buffer)) ; if in
-					; ILISP-Buffer, or else 
+					; ILISP-Buffer, or else
 		 (ignore-errors (lisp-buffer-package))))
     (let* ((old-point (point))
 	   (last-char (progn (ignore-errors (backward-char))
@@ -713,7 +713,7 @@ symbol after the symbol has been typed in followed by #\\Space."
                                  (goto-char old-point)
                                  (ignore-errors (backward-sexp))
                                  (point))))
-	   (prefix-char 
+	   (prefix-char
              (let ((save (ignore-errors
                            (goto-char old-point)
                            (backward-sexp)
@@ -734,7 +734,7 @@ symbol after the symbol has been typed in followed by #\\Space."
 	   (symbol (lisp-symbol-name ilisp-symbol-avec-package))
            (package (lisp-symbol-package ilisp-symbol-avec-package)))
       (flet ((no-arglist-output-p ()
-               (or (and last-char 
+               (or (and last-char
                         (or;; don't do silly things after comment character
                           (equal last-char ";")
                           ;; do something only if directly after a sexp.
@@ -756,7 +756,7 @@ symbol after the symbol has been typed in followed by #\\Space."
                     (eql ilisp-*arglist-message-lisp-space-p* 'all))
             (ilisp-arglist-message-lisp ilisp-symbol-avec-package))))))
   (self-insert-command (prefix-numeric-value current-prefix-arg)))
-    
+
 
 ;;; ilisp-arglist-message-lisp --
 ;;;
@@ -790,7 +790,7 @@ the symbol will be prompted for."
     (let* ((arglist
 	    (ilisp-send
 	     (format (ilisp-value 'ilisp-print-info-message-command)
-		     (lisp-symbol-name symbol) 
+		     (lisp-symbol-name symbol)
 		     (lisp-symbol-package symbol))
              ""
 	     'args
@@ -831,7 +831,7 @@ the symbol will be prompted for."
 ;;;     (let* ((arglist
 ;;; 	    (ilisp-send
 ;;; 	     (format (ilisp-value 'ilisp-print-info-message-command)
-;;; 		     (lisp-symbol-name symbol) 
+;;; 		     (lisp-symbol-name symbol)
 ;;; 		     (lisp-symbol-package symbol))
 ;;; 	     nil
 ;;; 	     'args))

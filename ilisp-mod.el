@@ -13,7 +13,7 @@
 
 (defun ilisp-byte-code-to-list (function)
   "Returns a list suitable for passing to make-byte-code from FUNCTION."
-  (let ((function-object 
+  (let ((function-object
 	 (if (symbolp function)
 	     (symbol-function function)
 	   function)))
@@ -53,7 +53,7 @@
 		 (setcar (nthcdr 4 new-code) string)
 	       (setcdr (nthcdr 3 new-code) (cons string nil)))
 	     (fset function (apply 'make-byte-code new-code)))))))
-    
+
 
 
 ;;;
@@ -103,7 +103,7 @@ Takes the program name from the variable ilisp-program.
 	(funcall setup name)
 	(setq major-mode 'ilisp-mode
 	      mode-name "ILISP")
-	(rplaca (car comint-send-queue) 
+	(rplaca (car comint-send-queue)
 		(function (lambda ()
 			    (run-hooks 'ilisp-init-hook-local))))
 	(setq ilisp-initialized (delete* ilisp-buffer ilisp-initialized
@@ -117,7 +117,7 @@ Takes the program name from the variable ilisp-program.
 	(insert (format "Starting %s ...\n" ilisp-program))
 	(set-marker (process-mark (ilisp-process)) (point))
 	(funcall comint-update-status 'start)
-	
+
 	(when ilisp-motd
 	  (lisp-display-output (format ilisp-motd ilisp-*version*))
 	  (sleep-for 3)
@@ -132,9 +132,9 @@ Takes the program name from the variable ilisp-program.
 
 
 ;;;%Manual
-(autoload 'fi:clman         "fi/clman" 
+(autoload 'fi:clman         "fi/clman"
 	  "Look up SYMBOL in the online manual with completion." t)
-(autoload 'fi:clman-apropos "fi/clman" 
+(autoload 'fi:clman-apropos "fi/clman"
 	  "Do an apropos search in online manual for STRING." t)
 
 ;;;%Bridges
@@ -144,8 +144,8 @@ Takes the program name from the variable ilisp-program.
 (set-default 'auto-mode-alist
 	     (append '(("\\.cl$" . lisp-mode) ("\\.lisp$" . lisp-mode))
 		     auto-mode-alist))
-(setq completion-ignored-extensions 
-      (append '(".68fasl" ".sfasl" ".ifasl" ".pfasl" 
-		".68fasl4" ".sfasl4" ".ifasl4" ".pfasl4" 
+(setq completion-ignored-extensions
+      (append '(".68fasl" ".sfasl" ".ifasl" ".pfasl"
+		".68fasl4" ".sfasl4" ".ifasl4" ".pfasl4"
 		".sbin")
 	      completion-ignored-extensions))

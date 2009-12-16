@@ -13,10 +13,10 @@
 
 @c  NOTE:  KEYBINDING DESCRIPTIONS IN THIS FILE
 @c
-@c  Texinfo doesn't support the functionality of  substitute-command-keys, 
+@c  Texinfo doesn't support the functionality of  substitute-command-keys,
 @c  which kind of makes things tough when the bindings change.
 @c
-@c  Note that all the keys here which use the ILISP prefix have 
+@c  Note that all the keys here which use the ILISP prefix have
 @c  @key{C-z} before them, so a global replace can be used to put in a
 @c  specific value for this (if wanted).  The whole string should be
 @c  rpelaced, as in (replace-string "@key{C-z}" "@key{C-c}").  Any occurrences
@@ -48,10 +48,10 @@
 @c end tex
 
 @comment   INDEX   USAGE:
-@c  
+@c
 @c	@cindex     concept
 @c	@findex     function
-@c	@vindex     variable        
+@c	@vindex     variable
 @c	@kindex     key
 @c	@pindex     command     (normally program)
 @c
@@ -114,7 +114,7 @@ by the Foundation.
 @c
 @c the following comment string is removed by the ctrl-c-doc.sh script,
 @c which can be used to change all ilisp-*prefix* bindings to C-c (or
-@c other). 
+@c other).
 @c
 @comment ctrl-C version: @subtitle This is the ``@key{C-z}'' version of the manual.
 
@@ -176,7 +176,7 @@ running in a buffer.
 
 * Keybindings::                 A word about the keys used by ILISP.
 * Buffers of ILISP::            Buffers used by ILISP, and their commands.
-* ILISP Commands::              
+* ILISP Commands::
 * Customization::               Description of ILISP variables and hooks.
 * Dialects::                    How ILISP knows how to communicate with Lisp,
                                     and how to define new dialects.
@@ -320,11 +320,11 @@ or
 
 ILISP replaces the standard inferior Lisp mode.  ILISP is based on
 comint mode and derived from a number of different interfaces including
-Symbolics, CMU Common Lisp, and Thinking Machines.  
+Symbolics, CMU Common Lisp, and Thinking Machines.
 
 There are many people that have taken the time to report bugs, make
 suggestions and even better send code to fix bugs or implement new
-features.  
+features.
 
 Thanks to
 Paolo Amoroso,
@@ -448,7 +448,7 @@ Completion of filename components and Lisp symbols including partial matches.
 
 @item
 Find source both with and without help from the inferior Lisp,
-including CLOS methods, multiple definitions and multiple files.  
+including CLOS methods, multiple definitions and multiple files.
 
 
 @item
@@ -507,7 +507,7 @@ perform these operations.
 
 
 @menu
-* Configuration and compilation::      
+* Configuration and compilation::
 @end menu
 
 @node  Configuration and compilation,  ,  , Installation
@@ -526,10 +526,10 @@ ILISP with. Be sure to set @code{LN} to the name of your operating
 system's command for creating symbolic filesystem links,
 @strong{especially if you are a Windows user}.
 
-@cindex Compiling ILISP files 
+@cindex Compiling ILISP files
 @cindex Byte-compiling ILISP files
 @cindex @file{Makefile}
-@findex ilisp-compile-inits 
+@findex ilisp-compile-inits
 @vindex EMACS
 @vindex LN
 @vindex HyperSpec
@@ -797,7 +797,7 @@ buffer.
 Entry into ILISP mode runs the hooks on @code{comint-mode-hook} and
 @code{ilisp-mode-hook} and then DIALECT-hooks specific to Lisp
 dialects in the nesting order above.  Many dialects call
-@code{ilisp-load-init} in their dialect setup.  
+@code{ilisp-load-init} in their dialect setup.
 
 These are the currently supported dialects.
 
@@ -1090,7 +1090,7 @@ A buffer for showing arglist messages.
 @section Typeout windows
 @cindex  Typeout windows
 
-All ILISP output is funneled through the function which is bound to 
+All ILISP output is funneled through the function which is bound to
 the hook @code{ilisp-display-output-function}.  The function gets
 a single argument, a string, and should make that output visible to
 the user somehow.
@@ -1106,7 +1106,7 @@ Unlike the old popper facility, the ilisp typeout window facility
 does not trounce on any existing Emacs functions or on any common
 key bindings, like @kbd{C-x o}.
 
-Other built-in functions which might be useful as values for 
+Other built-in functions which might be useful as values for
 @code{ilisp-display-output-function} include
 @code{ilisp-display-output-default},
 @code{ilisp-display-output-adaptively},
@@ -1117,7 +1117,7 @@ Other built-in functions which might be useful as values for
 The default display function is @code{ilisp-display-output-default},
 which obeys the @code{lisp-no-popper} variable.
 
-Users are encouraged to write their own output display functions 
+Users are encouraged to write their own output display functions
 to get the exact desired behavior, displaying on a private Emacs
 screen, in a pop-up dialog box, or whetever.
 
@@ -1197,19 +1197,19 @@ There are a few additional and-go bindings found in Lisp Mode.
 
 
 @menu
-* Eval and compile functions::  
-* Documentation functions::     
-* Macroexpansion::              
-* Tracing functions::           
-* Package Commands::            
+* Eval and compile functions::
+* Documentation functions::
+* Macroexpansion::
+* Tracing functions::
+* Package Commands::
 * Source code commands::        Working on several files
 * Batch commands::              Grouping changes for eval/compile
-* Files and directories::       
+* Files and directories::
 * Keyboard modes::              Interactive and raw keyboard modes
 * Interrupts::                  Interrupts, aborts, and errors
 * Debuggers::                   Interface to Lisp debuggers
-* Command history::             
-* Completion::                  
+* Command history::
+* Completion::
 * Miscellany::                  Indentation, parenthesis balancing,
 				  and comment commands.
 @end menu
@@ -1561,7 +1561,7 @@ Buffer package caching can be turned off by setting the variable
 @code{lisp-dont-cache-package} to @code{T}.  This will force ILISP to
 search for the closest previous "in-package" form corresponding to
 @code{ilisp-hash-form-regexp} in the buffer each time an inferior Lisp
-mode command is executed. 
+mode command is executed.
 @cindex Buffer package
 @cindex Buffer package caching
 @vindex lisp-dont-cache-package
@@ -2139,9 +2139,9 @@ on the point of ambiguity.
 If you try to complete again, you can see the possible completions.
 If you are in a string, then filename completion will be done instead.
 And if you try to complete a filename twice, you will see a list of
-possible completions. 
+possible completions.
 Filename components are completed individually, so @samp{/u/mi/} could
-expand to @samp{/usr/misc/}. 
+expand to @samp{/usr/misc/}.
 If you complete with a negative
 prefix, the most recent completion (symbol or filename) will be undone.@refill
 
@@ -2275,7 +2275,7 @@ creating a new dialect or variables to set in hooks, see @file{ilisp.el}.
 
 @c ->  ->  ->  ->  ->  ->  ->  ->  ->  ->  ->  plenty of indexing here
 @c         put these in a table for later expandment
-@c 
+@c
 
 ILISP Mode Hooks:
 @cindex ILISP Mode Hooks
@@ -2347,7 +2347,7 @@ Set to @code{nil} to stop showing process status
 Set to @code{t} if you do not want partial completion
 @item ilisp-filter-regexp
 @vindex ilisp-filter-regexp
-Input history filter 
+Input history filter
 @item ilisp-filter-length
 @vindex ilisp-filter-length
 Input history minimum length
@@ -2371,8 +2371,8 @@ but still offer the same behavior with the same interface.
 
 
 @menu
-* Defining new dialects::       
-* Writing new commands::        
+* Defining new dialects::
+* Writing new commands::
 @end menu
 
 @node Defining new dialects, Writing new commands,  , Dialects
@@ -2427,7 +2427,7 @@ Convert symbol to string
 Convert symbol to string qualified for buffer
 @item lisp-previous-symbol
 @findex lisp-previous-symbol
-Return previous symbol 
+Return previous symbol
 @item lisp-previous-sexp
 @findex lisp-previous-sexp
 Return previous sexp

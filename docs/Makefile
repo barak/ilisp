@@ -77,7 +77,7 @@ updatehtml: $(HTML_Targets)
 	-(cd $(HTML_Target_Dir); $(RM) $(HTML_Targets))
 	-$(LN) $(HTML_Targets) $(HTML_Target_Dir)
 
-clean: 
+clean:
 	-$(RM) $(DVIDebris) \
                ilisp.dvi \
                ilisp.ps \

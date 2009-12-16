@@ -64,7 +64,7 @@ it.  With a prefix, unmark."
 ;;;
 (defun lisp-change-handler (&rest args)
   "Handle an error during a batch process by keeping the change on the
-list and passing it on to the normal error handler." 
+list and passing it on to the normal error handler."
   (let ((change (car ilisp-pending-changes)))
     (when (and comint-errorp
 	       (not (member* change lisp-changes
@@ -86,7 +86,7 @@ the change list will not be changed."
 	  (lisp-wait-p nil))
       (setq ilisp-pending-changes (nconc ilisp-pending-changes changes)
 	    current-prefix-arg nil)	;Prevent buffer insertion
-      (if comint-queue-emptied 
+      (if comint-queue-emptied
 	  (save-excursion
 	    (setq comint-queue-emptied nil)
 	    (set-buffer (get-buffer-create "*Errors*"))

@@ -22,7 +22,7 @@
 ;;; COPYING.
 
 ;;;
-;;; Dialect definition for Corman Common Lisp by Roger Corman 
+;;; Dialect definition for Corman Common Lisp by Roger Corman
 ;;; Since 1.4 (fixed with 1.41) there is a debugger with corman.
 
 (require 'cl)
@@ -32,14 +32,14 @@
 ;;; Notes:
 ;;; 2000-09-08 16:01:20 rurban
 ;;;   created, based on chs and acl
-;;; Problems: 
+;;; Problems:
 ;;;  * win32 pathdelims get lost on C-c l, but a manual load works.
-;;;  * subsequent invocations load the next lisp (clisp in my case) 
+;;;  * subsequent invocations load the next lisp (clisp in my case)
 ;;;    instead of corman.
 
 ; Hint:
-; Best is to load cl-ilisp.lisp, ilisp-pkg.lisp and cormanlisp.lisp 
-; with all required corman patches into cormanlisp at first and save 
+; Best is to load cl-ilisp.lisp, ilisp-pkg.lisp and cormanlisp.lisp
+; with all required corman patches into cormanlisp at first and save
 ; the image.
 ;
 ; On cygwin (X)Emacs we have to convert the filenames passed to the lisp.
@@ -54,7 +54,7 @@
 ;   http://xarch.tu-graz.ac.at/autocad/lisp/cormanlisp/ccl-1.5-patches.zip
 
 ; Todo: custom vars for these.
-; We really should query the registry. The dll is registered there, 
+; We really should query the registry. The dll is registered there,
 ; so we would also know the version.
 ; A XEmacs dynamic w32reg emodule is almost ready:
 ;   http://xarch.tu-graz.ac.at/autocad/lsp_tools/ntemacs/emodules/w32reg/w32reg.c
@@ -66,7 +66,7 @@
 
 (unless (boundp 'cormanlisp-program)
   (setq cormanlisp-program
-	(concatenate 'string *cormanlisp-dir* "clconsole.exe" 
+	(concatenate 'string *cormanlisp-dir* "clconsole.exe"
 		     " -image " *cormanlisp-dir* "CormanLisp.img")))
 
 ;(defvar ilisp-cormanlisp-init-file

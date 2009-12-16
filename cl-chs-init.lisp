@@ -21,7 +21,7 @@
 ;;; 1999-06-15: M. Atzmueller
 ;;; removed command to load inspect1.fas
 ;;; load any INSPECTOR yourself if there is no other inspect!
-;;; 
+;;;
 ;;; 1999-05-31: M. Atzmueller
 ;;; ilisp-arglist => #+clisp arglist (...) modified definition
 ;;; another option might be sys::arglist ...
@@ -34,7 +34,7 @@
   "Inspect SEXP in PACKAGE."
   (when (not (ignore-errors (functionp #'inspect)))
     (cerror
-     "~% Try loading it yourself, or proceed without inspecting ... :-( !" 
+     "~% Try loading it yourself, or proceed without inspecting ... :-( !"
      "~% There seems to be no INSPECTOR present!"))
 
   (ilisp-errors

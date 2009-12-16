@@ -14,7 +14,7 @@
 ;;; Keywords: minibuffer, completion
 
 ;;; Thanks to Bjorn Victor for suggestions, testing, and patches for
-;;; file completion. 
+;;; file completion.
 
 ;;; This file should be part of GNU Emacs and XEmacs.
 
@@ -38,12 +38,12 @@
 ;;; completion rules are:
 ;;;
 ;;; 1) If what has been typed matches any possibility, do normal
-;;; completion. 
+;;; completion.
 ;;;
 ;;; 2) Otherwise, generate a regular expression such that
 ;;; completer-words delimit words and generate all possible matches.
 ;;; The variable completer-any-delimiter can be set to a character
-;;; that matches any delimiter.  If it were " ", then "by  d" would be 
+;;; that matches any delimiter.  If it were " ", then "by  d" would be
 ;;; byte-recompile-directory.  If completer-use-words is T, a match is
 ;;; unique if it is the only one with the same number of words.  If
 ;;; completer-use-words is NIL, a match is unique if it is the only
@@ -82,7 +82,7 @@
 (require 'cl)
 
 ;; Necessary when loading completer.el, but have not yet loaded ilisp
-(require 'ilcompat) 
+(require 'ilcompat)
 
 
 ;;;%Globals
@@ -102,7 +102,7 @@ otherwise just the final component will be completed.")
   "*If T, then prefer completions with the same number of words as the
 pattern.")
 
-(defvar completer-words "---. <" 
+(defvar completer-words "---. <"
   "*Delimiters used in partial completions.  It should be a set of
 characters suitable for inclusion in a [] regular expression.")
 
@@ -179,7 +179,7 @@ Return (point-min) if current buffer is not a mini-buffer."
 	(inhibit-quit t))
     (sit-for 2)
     (delete-region point end)
-    (if (and quit-flag 
+    (if (and quit-flag
 	     ;; (not (eq 'lucid-19 ilisp-emacs-version-id))
 	     ;; (not (string-match "Lucid" emacs-version))
 	     (not (memq +ilisp-emacs-version-id+
@@ -226,15 +226,15 @@ Any delimiter in STRING that is the same as ANY will match any delimiter."
 	     (end (match-end 0))
 	     (delimiter (substring string begin end))
 	     (anyp (eq (elt string begin) any)))
-	(setq regexp 
-	      (format "%s%s[^%s]*%s" 
+	(setq regexp
+	      (format "%s%s[^%s]*%s"
 		      regexp
 		      (regexp-quote (substring string pos begin))
 		      (if anyp delimiters delimiter)
 		      (if anyp delimiter-reg (regexp-quote delimiter)))
 	      pos end)))
     (if (<= pos limit)
-	(setq regexp (concat regexp 
+	(setq regexp (concat regexp
 			     (regexp-quote (substring string pos limit)))))))
 
 ;;;
@@ -274,7 +274,7 @@ DELIMITERS and the wildcard ANY are used  to segment the strings."
       (setq regexp (concat "[" delimiters "]"))
       (while choices
 	(setq choice (car choices)
-	      word pattern 
+	      word pattern
 	      from 0)
 	(while (and word from
 		    (let* (begin end)
@@ -285,10 +285,10 @@ DELIMITERS and the wildcard ANY are used  to segment the strings."
 				end (+ begin wordlen)))
 		      (and (<= end (length choice))
 			   (or (zerop wordlen)
-			       (string-equal 
+			       (string-equal
 				(car pat)
 				(substring choice begin end))))))
-	  (setq from (string-match regexp choice 
+	  (setq from (string-match regexp choice
 				   (if (and (zerop from) (zerop wordlen))
 				       from
 				       (1+ from)))
@@ -322,7 +322,7 @@ the best match."
 		      (if (< length match-len)
 			  (setq match current
 				match-len length))))
-		(if (and use-words 
+		(if (and use-words
 			 (= (completer-words regexp current words) words))
 		    (setq match current
 			  match-len length
@@ -343,7 +343,7 @@ The search is for the current buffer assuming that point is in it."
                         (point))
 	(save-excursion (skip-chars-forward delimiters)
                         (point))))
-	 
+
 ;;;
 (defun completer-last-component (string)
   "Return the start of the last filename component in STRING."
@@ -399,7 +399,7 @@ DELIMITERS or ANY wildcards and DIR if a filename when in MODE."
   "Check to see if PATH is in path cache with PRED, WORDS, ANY and MODE."
   (let* ((last nil)
 	 (ptr completer-path-cache)
-	 (size 0) 
+	 (size 0)
 	 (result nil))
     (if completer-use-cache
 	(while ptr
@@ -417,16 +417,16 @@ DELIMITERS or ANY wildcards and DIR if a filename when in MODE."
 	      (setq size (1+ size)
 		    ptr (cdr ptr))))))
     (or result
-	(let* ((choices 
+	(let* ((choices
 		(completer path 'read-file-name-internal pred words any
 			   mode t)))
 	  (if (and (or (car (cdr (cdr (cdr choices))))
 		       (string= path (car choices)))
 		   (memq (elt (car choices) (1- (length (car choices))))
 			 completer-path-delimiter-list))
-	      (progn 
+	      (progn
 		(if (>= size completer-cache-size) (rplacd last nil))
-		(setq completer-path-cache 
+		(setq completer-path-cache
 		      (cons (cons path choices) completer-path-cache))))
 	  choices))))
 
@@ -492,7 +492,7 @@ matches will always be returned."
 	      choices
 	      ;; Ends with a /, so check files in directory
 	      (if (and (memq mode '(nil help)) (= position len))
-		  (completer-match-record 
+		  (completer-match-record
 		   ""
 		   ;; This assumes that .. and . come at the end
 		   (let* ((choices
@@ -515,7 +515,7 @@ matches will always be returned."
 		    (if (and end
 			     (string-match completer-file-skip component))
 			;; Assume component is complete
-			(list (concat new component) 
+			(list (concat new component)
 			      (concat new component)
 			      nil t)
 		      (completer-cache
@@ -535,10 +535,10 @@ matches will always be returned."
 			       (string-match
 				(concat completer-path-separator-regexp "$")
 				lcs))))
- 
+
 		    (list nil
 			  (if slash (substring lcs 0 slash) lcs)
-			  (if (and (cdr matches) 
+			  (if (and (cdr matches)
 				   (or (eq mode 'help) (not exact-p)))
 			      matches)
 			  nil))
@@ -575,7 +575,7 @@ matches will always be returned."
 	      (setq choicep (cdr choicep))))
 	  (if (and isext noext)
 	      (setq choices
-		    (completer-match-record 
+		    (completer-match-record
 		     (if end (substring string end) "")
 		     choiceb words any
 		     (file-name-directory (car (cdr choices)))
@@ -601,7 +601,7 @@ flag 'COMPLETER-COMPLETE-FILENAMES' is T and the table is
 expanded.  Optional ANY is a delimiter that can match any delimiter in
 WORDS.  Optional MODE is nil for complete, 'help for help and 'exit
 for exit."
-  (if (and (stringp completer-string) 
+  (if (and (stringp completer-string)
 	   (string= string completer-string)
 	   (eq table completer-table)
 	   (eq pred completer-pred)
@@ -610,7 +610,7 @@ for exit."
 	       (not (memq table '(read-file-name-internal
 				  read-directory-name-internal)))))
       completer-result
-      (setq 
+      (setq
        completer-string ""
        completer-table table
        completer-pred pred
@@ -635,7 +635,7 @@ for exit."
 	     (if (and file-p (string-match "^\\$" string))
 		 ;; Handle environment variables
 		 (let ((match
-			(getenv (substring string 1 
+			(getenv (substring string 1
 					   ;; (string-match "/" string)))) ; old
 					   (string-match
 					    completer-path-separator-regexp
@@ -646,17 +646,17 @@ for exit."
 		     (setq match
 			   (concat match
 				   completer-path-separator-string)))
- 
+
 		   (list match match (list match) match))
 		 (let* ((choices
-			 (all-completions 
+			 (all-completions
 			  (concat dir (substring string 0 has-words))
 			  table pred))
 			(regexp (completer-regexp string words any)))
 		   (if choices
-		       (completer-match-record 
-			string 
-			(completer-deleter regexp choices t) 
+		       (completer-match-record
+			string
+			(completer-deleter regexp choices t)
 			words any dir mode)
 		       (list nil nil nil nil))))))
        completer-string string)
@@ -674,7 +674,7 @@ and should return a string."
 
   (if choices
       (with-output-to-temp-buffer "*Completions*"
-	(if (cdr choices) 
+	(if (cdr choices)
 	    (funcall completion-display-completion-list-function
 	     (sort
 	      (if display
@@ -698,7 +698,7 @@ and should return a string."
       (completer-message (or message " (No completions)") end)))
 
 ;;;%%Goto
-(defun completer-goto (match lcs choices unique delimiters words 
+(defun completer-goto (match lcs choices unique delimiters words
 			     &optional mode display)
   "Go to the part of the string that disambiguates CHOICES.
 MATCH is the best match, LCS is the longest common substring of all
@@ -731,13 +731,13 @@ return a string."
 	      (goto-char end)
 	      (completer-display-choices choices match nil end display))
 	    (if (string= string match)
-		(if (not file-p) 
+		(if (not file-p)
 		    (progn (goto-char end)
 			   (completer-message " (Sole completion)" end)))
 		(completer-insert match delimiters)))
 	;;Not unique
 	(if lcs
-	    (let* ((regexp 
+	    (let* ((regexp
 		    ;; (concat "[" words (if file-p "/") "]")
 		    (concat "["
 			    words
@@ -750,7 +750,7 @@ return a string."
 	      (goto-char start)
 	      (unless no-insert
 		(insert lcs)
-		(setq completer-last-pattern 
+		(setq completer-last-pattern
 		      (list string delimiters (current-buffer) start)
 		      start (point)
 		      end (+ end (length lcs))))
@@ -779,14 +779,14 @@ return a string."
 		(goto-char end)))
 	    (when message
 	      (beep)
-	      (completer-message (if no-insert 
+	      (completer-message (if no-insert
 				     " (No completions)"
 				   " (No match)")
 				 end))))))
 
 ;;;%Exported buffer interface
 ;;;%%Complete and go
-(defun completer-complete-goto (delimiters words table pred 
+(defun completer-complete-goto (delimiters words table pred
 					   &optional no-insert display)
   "Complete the string bound by DELIMITERS using WORDS to bound words
 for partial matches in TABLE with PRED and then insert the longest
@@ -794,7 +794,7 @@ common substring unless optional NO-INSERT and go to the point of
 ambiguity.  If optional DISPLAY, it will be called on each match when
 possible completions are shown and should return a string."
   (let* ((region (completer-region delimiters)))
-    (apply 'completer-goto 
+    (apply 'completer-goto
 	   (append (completer (buffer-substring (car region) (cdr region))
 			      table pred words completer-any-delimiter
 			      no-insert)
@@ -807,10 +807,10 @@ Then save it so that it can be restored by completer-undo."
   (let* ((region (completer-region delimiters))
 	 (start (car region))
 	 (end (cdr region)))
-    (if (and undo (or (not (= start undo)) 
+    (if (and undo (or (not (= start undo))
 		      (not (eq (current-buffer) buffer))))
 	(error "No previous pattern")
-	(setq completer-last-pattern (list (buffer-substring start end) 
+	(setq completer-last-pattern (list (buffer-substring start end)
 					   delimiters
 					   (current-buffer)
 					   start))
@@ -922,7 +922,7 @@ by  d   *byte-recompile-directory if completer-any-delimiter is \" \"
   "Turn partial completion on or off."
   (interactive)
   (setq completer-disable (not completer-disable))
-  (message (if completer-disable 
+  (message (if completer-disable
 	       "Partial completion OFF"
 	       "Partial completion ON")))
 
@@ -931,7 +931,7 @@ by  d   *byte-recompile-directory if completer-any-delimiter is \" \"
   (lookup-key minibuffer-local-must-match-map "?")
   "Old binding of ? in minibuffer completion map.")
 (defun completer-help ()
-  "Partial completion minibuffer-completion-help.  
+  "Partial completion minibuffer-completion-help.
 See completer-minibuf for more information."
   (interactive)
   (if (completer-new-cmd completer-old-help)
@@ -962,7 +962,7 @@ See completer-minibuf for more information."
       (if (completer-new-cmd completer-old-word)
 	  (apply 'completer-goto (completer-minibuf)))))
 
-;;; 
+;;;
 (defvar completer-old-exit
   (lookup-key minibuffer-local-must-match-map "\n")
   "Old binding of RET in minibuffer completion map.")
@@ -990,7 +990,7 @@ See completer-minibuf for more information."
   (interactive)
   (let* ((completions (completer-minibuf 'exit))
 	 (guess (car completions)))
-    (if (not guess) 
+    (if (not guess)
 	;; OK if last filename component doesn't match
 	(setq completions (completer-minibuf 'exit-ok)
 	      guess (car completions)))
@@ -1023,7 +1023,7 @@ See completer-minibuf for more information."
 (define-key minibuffer-local-must-match-map "\M-\n" 'completer-match-exit)
 (define-key minibuffer-local-must-match-map "\M-\r" 'completer-match-exit)
 
-;;;%comint 
+;;;%comint
 (defun completer-comint-dynamic-list-completions (completions)
   "List in help buffer sorted COMPLETIONS.
 Typing SPC flushes the help buffer."
@@ -1056,17 +1056,17 @@ twice in a row.  If called with a prefix, undo the last completion."
 ;(fset 'comint-dynamic-complete 'completer-comint-dynamic-complete)
 (fset 'comint-dynamic-complete-filename
       'completer-comint-dynamic-complete-filename)
-(fset 'comint-dynamic-list-completions 
+(fset 'comint-dynamic-list-completions
       'completer-comint-dynamic-list-completions)
 
 ;;; Set the functions again if comint is loaded.
-(setq comint-load-hook 
+(setq comint-load-hook
       (cons (function (lambda ()
-			;; (fset 'comint-dynamic-complete 
+			;; (fset 'comint-dynamic-complete
 			;;       'completer-comint-dynamic-complete)
 			(fset 'comint-dynamic-complete-filename
 			      'completer-comint-dynamic-complete-filename)
-			(fset 'comint-dynamic-list-completions 
+			(fset 'comint-dynamic-list-completions
 			      'completer-comint-dynamic-list-completions)))
 	    (when (and (boundp 'comint-load-hook) comint-load-hook)
 	      (if (consp comint-load-hook)
@@ -1105,7 +1105,7 @@ negative prefix, the last completion will be undone."
 	      ((null completion)
 	       (completer-complete-goto
 		"^ \t\n\(\)[]{}'`" completer-words
-		obarray predicate 
+		obarray predicate
 		nil
 		(if (not (eq predicate 'fboundp))
 		    (function (lambda (choice)

@@ -28,14 +28,14 @@
 % printed copy in most cases.  It of course reflects my (the author's)
 % biases about what was likely to be interesting or used often.
 %
-% To view, do 'tex ilisp-refcard.tex'. 
+% To view, do 'tex ilisp-refcard.tex'.
 % To print if you use columnsperpage=3, you must use have a dvips-like
 % program that prints in landscape format!
 
 % This file is distributed in the hope that it will be useful, but WITHOUT
 % ANY WARRANTY.  No author or distributor accepts responsibility to anyone
 % for the consequences of using it or for whether it serves any particular
-% purpose or describes any piece of software unless they say so in writing.  
+% purpose or describes any piece of software unless they say so in writing.
 %
 % Permission is granted to copy, modify and redistribute this source
 % file provided the permission notices are preserved on all copies.
@@ -86,7 +86,7 @@
 
 \def\ncolumns{\the\columnsperpage}
 
-\message{[\ncolumns\space 
+\message{[\ncolumns\space
   column\if 1\ncolumns\else s\fi\space per page]}
 
 \def\scaledmag#1{ scaled \magstep #1}
@@ -163,7 +163,7 @@
   \def\bye{\par\vfill\supereject
     \if a\abc \else\null\vfill\eject\fi
     \if a\abc \else\null\vfill\eject\fi
-    \end}  
+    \end}
 \fi
 
 % we won't be using math mode much, so redefine some of the characters
@@ -266,16 +266,16 @@ substitute for the ilisp online manual.
 
 \section{The ilisp/Emacs Interface }
 
-You can use the ilisp interface from either GNU Emacs or XEmacs.  
+You can use the ilisp interface from either GNU Emacs or XEmacs.
 Put these lines in your {\tt .emacs} file for clisp and allegro:
 
 \kbd{(setq load-path (cons (expand-file-name }
 
 \hskip 25pt \kbd{"/usr/local/lib/ilisp-5.8/") load-path))}
-	 
+
 \kbd{(require 'completer)}
 
-\kbd{(autoload 'clisp "ilisp" } 
+\kbd{(autoload 'clisp "ilisp" }
 
 \hskip 25pt \kbd{"Inferior generic Common LISP." t)}
 
@@ -287,10 +287,10 @@ Put these lines in your {\tt .emacs} file for clisp and allegro:
 
 \kbd{(setq allegro-program "/usr/local/bin/cl")}
 
-Then invoke lisp with either \kbd{M-x clisp}, 
+Then invoke lisp with either \kbd{M-x clisp},
 or with \kbd{M-x allegro}.
 
-`C-z' is the prefix-key for most ILISP commands. This can be changed by 
+`C-z' is the prefix-key for most ILISP commands. This can be changed by
 setting the variable `ilisp-prefix'.
 
 For online help with emacs, use \kbd{C-h f}, \kbd{describe-function}.
@@ -336,16 +336,16 @@ Indentation, parenthesis balancing, and comment commands.
 
 \subsection{Eval and compile functions}
 
-Functions for eval/compile in code buffers.  
+Functions for eval/compile in code buffers.
 
-\key{ilisp-prefix}{C-z} 
+\key{ilisp-prefix}{C-z}
 \key{close-and-send-lisp}{C-]}
 \key{newline-and-indent-lisp}{LFD}
 \key{eval-defun-lisp}{C-z e}
 \key{eval-defun-lisp}{M-C-x}
-\key{eval-defun-and-go-lisp}{C-z C-e} 
+\key{eval-defun-and-go-lisp}{C-z C-e}
 \key{eval-region-lisp}{C-z r}
-\key{eval-region-and-go-lisp}{C-z C-r} 
+\key{eval-region-and-go-lisp}{C-z C-r}
 \key{eval-next-sexp-lisp}{C-z n}
 \key{eval-next-sexp-and-go-lisp}{C-z C-n}
 \key{compile-defun-lisp}{C-z c}
@@ -375,7 +375,7 @@ the start of the current list.
 
 \subsection{The Franz Online Manual}
 
-Invoke with \kbd{M-x fi:clman} or \kbd{C-z D}, these are used to view the 
+Invoke with \kbd{M-x fi:clman} or \kbd{C-z D}, these are used to view the
 Franz online manual if available.  Packages
 nicknames limit search: cltl1, comp, composer, defsys, excl, ff, inspect,
 ipc, lisp, mp, prof, stream, sys, tpl, xcw, xref.  Note the useful about-*
@@ -390,7 +390,7 @@ man pages (e.g. about-top-level).
 
 \shortsubsection{Tracing functions}
 
-Function which traces the current defun. When called with a numeric prefix the 
+Function which traces the current defun. When called with a numeric prefix the
 function will be untraced. When called with negative prefix, prompts for function to be traced.
 
 \key{trace-defun-lisp}{C-z t}
@@ -431,7 +431,7 @@ inferior LISP mode command is executed.
 
 File commands in lisp-source-mode buffers keep track of the last used
 directory and file. If the point is on a string, that will be the
-default if the file exists. If the buffer is one of 
+default if the file exists. If the buffer is one of
 `lisp-source-modes', the buffer file will be the default. Otherwise,
 the last file used in a lisp-source-mode will be used.
 
@@ -452,13 +452,13 @@ Commands to reduce number of keystrokes.
 
 \subsection{Command history}
 
-ILISP mode is built on top of `comint-mode', the general command  
-interpreter buffer mode. As such, it inherits many 
+ILISP mode is built on top of `comint-mode', the general command
+interpreter buffer mode. As such, it inherits many
 commands and features from this, including a command history mechanism.
 
-Each ILISP buffer has a command history associated with it. Commands 
-that do not match `ilisp-filter-regexp' and that are longer than 
-`ilisp-filter-length' and that do not match the immediately prior 
+Each ILISP buffer has a command history associated with it. Commands
+that do not match `ilisp-filter-regexp' and that are longer than
+`ilisp-filter-length' and that do not match the immediately prior
 command will be added to this history.
 
 \key{comint-next-input}{M-n}
@@ -553,9 +553,9 @@ one of `lisp-source-modes'.
 
 \subsection{Batch commands}
 
-The following commands all deal with making a number of changes all 
-at once. The first time one of these commands is used, there may be 
-some delay as the module is loaded. The eval/compile versions of these 
+The following commands all deal with making a number of changes all
+at once. The first time one of these commands is used, there may be
+some delay as the module is loaded. The eval/compile versions of these
 commands are always executed asynchronously.
 
  `mark-change-lisp' (`C-z SPC') marks the current defun as being

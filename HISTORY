@@ -59,7 +59,7 @@ Many.
 
 -- Changed vars in ilisp-out:
    changed all sink's to ilisp-output-sink's
-   ilisp-*icon-file*   
+   ilisp-*icon-file*
    ilisp-*last-ilisp-output-sink*
 
 -- doc/ilisp.texi: replaced found vars of above with their replacements.
@@ -332,8 +332,8 @@ Mon, 11 Jul 94 10:48:24 EDT  Version 5.6 Released
 
 -- The popper facility has been completely replaced by a much less
    intrusive facility which has most of the original functionality.
-   All ilisp output is funneled through the function which is the value 
-   of the variable ilisp-display-output-function.  Several sample display 
+   All ilisp output is funneled through the function which is the value
+   of the variable ilisp-display-output-function.  Several sample display
    functions are provided.  Do c-H m in an ilisp buffer for more info.
 
 -- The common lisp arglist printer has been prettified somewhat.
@@ -387,7 +387,7 @@ in your .emacs, and make them autoload "ilisp".)  See ilisp.emacs
 -- Put the run-hooks calls at the end of ilisp.el where they should
    be.
 
-	"Fixes" in version 5.2 of ILISP.  
+	"Fixes" in version 5.2 of ILISP.
 
 Cause more problems with autoloads and fixes a missing definition in the
 Makefile-ilisp in 5.1
@@ -414,7 +414,7 @@ most recent IN-PACKAGE on each eval/compile in a lisp buffer.
 --Added 'message feature for lisp-no-popper, allows output from ILISP
 to be sent to the message window (instead of via the popper or the
 inferior lisp buffer) if it is one line long.  Useful for small
-arg-lists, etc. Now the default.  
+arg-lists, etc. Now the default.
 
 --Made the popper be off by default.  To have the popper on, set
 popper-pop-buffers and popper-buffers-to-skip to t in a
@@ -615,7 +615,7 @@ now takes the binary and source paths explicitly.  The ilisp- prefix
 was removed from dialect file names.  ilisp-definition-regexp has gone
 away.  ilisp-prompt, ilisp-fix-error and ilisp-continue have gone away
 in favor of the actual comint- variables.  ilisp-expand-symlinks has
-gone away. 
+gone away.
 
 DETAILS: Finally fixed up how many newlines are inserted.  Made it so
 that the source file stuff would use a resident buffer with the same
@@ -671,7 +671,7 @@ handling for clisp.  popper v2.00, completer v2.00.
 completion, package handling, compilation and initialization.
 Changed default binding prefix.  Added trace/untrace and
 evaluation of defvars.
-  
+
 ======================================================================
  8/22/90 Version 2.0 released. Fixed bugs and changed initialization.
 

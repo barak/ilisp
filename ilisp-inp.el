@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-;;;%%Input 
+;;;%%Input
 (defun lisp-at-start ()
   "Return `point' when at start of an input expression in an inferior Lisp."
   (save-excursion
@@ -25,7 +25,7 @@
   (let* ((pmark (process-mark (get-buffer-process (current-buffer)))))
     (if (>= (point) pmark)
 	(goto-char pmark)
-	(progn 
+	(progn
 	  (end-of-line)
 	  (if (re-search-backward comint-prompt-regexp (point-min) 'stay)
 	      (comint-skip-prompt)

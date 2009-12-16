@@ -10,28 +10,28 @@
 ;;; of present and past contributors.
 
 
-(autoload 'lisp-directory "ilisp-src" 
+(autoload 'lisp-directory "ilisp-src"
 	  "Select directories to search." t)
 (autoload 'next-definition-lisp "ilisp-src"
 	  "Edit the next definition." t)
-(autoload 'edit-definitions-lisp "ilisp-src" 
+(autoload 'edit-definitions-lisp "ilisp-src"
 	  "Edit definitions." t)
-(autoload 'search-lisp "ilisp-src" 
+(autoload 'search-lisp "ilisp-src"
 	  "Search for pattern in source files." t)
-(autoload 'replace-lisp "ilisp-src" 
+(autoload 'replace-lisp "ilisp-src"
 	  "Relace pattern in source files." t)
 (autoload 'who-calls-lisp "ilisp-src"
 	  "Show callers of a function." t)
-(autoload 'next-caller-lisp "ilisp-src" 
+(autoload 'next-caller-lisp "ilisp-src"
 	  "Edit the next caller of a function." t)
-(autoload 'edit-callers-lisp "ilisp-src" 
+(autoload 'edit-callers-lisp "ilisp-src"
 	  "Edit the callers of a function." t)
 
 (autoload 'ilisp-bug "ilisp-bug"
 	  "Send a mail message about a bug." t)
 
 ;;;%%Changed definitions
-(autoload 'mark-change-lisp "ilisp-bat" 
+(autoload 'mark-change-lisp "ilisp-bat"
 	  "Mark the current defun as changed." t)
 (autoload 'list-changes-lisp "ilisp-bat"
 	  "List the current LISP changes." t)

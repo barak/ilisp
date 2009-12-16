@@ -46,7 +46,7 @@ The extensions are those of files that enter one of
 	(extensions nil))
     (dolist (entry entries)
       (when (memq (cdr entry) lisp-source-modes)
-	(setq extensions 
+	(setq extensions
 	      (concat "\\|" (car entry) extensions))))
     (substring extensions 2)))
 
@@ -57,7 +57,7 @@ The files must have an 'auto-mode' alist entry in 'lisp-source-modes'.
 With a positive prefix, add the files on to the already existing
 files.  With a negative prefix, clear the list.  In either case set
 tags-file-name to nil so that tags are not used."
-  (interactive 
+  (interactive
    (list (if (not (eq current-prefix-arg '-))
 	     (read-file-name "Lisp Directory: "
 			     nil
@@ -691,11 +691,11 @@ back-p is non-nil."
 	 (progn
 	   (set-buffer (or (get-buffer "*Edit-Definitions*")
 			   (error "Bug:  No *Edit-Definitions* buffer.")))
-	   (if back-p 
+	   (if back-p
 	       (forward-line -1))
 	   (while (not (or result
 			   (if back-p (bobp) (eobp))))
-	     (if back-p 
+	     (if back-p
 		 (forward-line -1))
 	     (cond ((looking-at "\n"))
 		   ((looking-at "^;+ *\\(.*\\)")
@@ -1036,9 +1036,9 @@ items."
 	(let ((buffers (buffer-list)))
 	  (setq edit-files nil)
 	  (setq files-origin "all Lisp buffers")
-	  (save-excursion 
+	  (save-excursion
 	    (while buffers
-	      (set-buffer (car buffers)) 
+	      (set-buffer (car buffers))
 	      (if (and (memq major-mode lisp-source-modes)
 		       (buffer-file-name))
 		  (setq edit-files (cons (buffer-file-name) edit-files)))
@@ -1173,7 +1173,7 @@ items."
 	    (list nil 'visit))
 	  ((minusp numeric-arg)
 	    ;; continue looking backward
-	    (list nil 'back)) 
+	    (list nil 'back))
 	  (t
 	    ;; continue looking forward
 	    (list nil nil)))))
@@ -1229,13 +1229,13 @@ lisp-fall-back-on-find-tags variable \(q.v.), which defaults to :ask."
       (setq type "any"))
   (and (stringp definition-name)
        (setq definition-name (lisp-string-to-symbol definition-name)))
-  (cond (search 
+  (cond (search
 	  ;; Search through all files listed in tags table.  [really, this is a
 	  ;; different protocol; should be handled by another command.  -- rgr,
 	  ;; 31-Jul-02.]
 	  (let ((case-fold-search t))
 	    (setq tags-loop-scan (list locator
-				       (list 'quote definition-name) 
+				       (list 'quote definition-name)
 				       type t nil))
 	    (setq tags-loop-operate nil)
 	    (setq lisp-using-tags t)
@@ -1278,8 +1278,8 @@ string put that in the buffer."
 	    (let ((buffers (buffer-list)))
 	      (while buffers
 		(let ((buffer (car buffers)))
-		  (if (save-excursion 
-			(set-buffer buffer) 
+		  (if (save-excursion
+			(set-buffer buffer)
 			(and (memq major-mode lisp-source-modes)
 			     (buffer-file-name buffer)))
 		      (progn (insert ?\") (insert (buffer-file-name buffer))
@@ -1299,20 +1299,20 @@ string put that in the buffer."
 	(goto-char (point-min))
 	(forward-line 2)
 	(set-buffer-modified-p nil))
-      (error 
+      (error
        (substitute-command-keys
 	"Use \\[lisp-directory] to define source files."))))
-	  
+
 ;;;
 (defun lisp-next-file (back)
   "Return the next filename in *Edit-Definitions*, or nil if none."
-  (let ((file t) 
+  (let ((file t)
 	result)
     (set-buffer (get-buffer-create "*Edit-Definitions*"))
-    (if back 
+    (if back
 	(progn (forward-line -1)
 	       (if (looking-at "\n")
-		   (progn 
+		   (progn
 		     (forward-line 1)
 		     (end-of-line)
 		     (setq file nil)))))
@@ -1323,7 +1323,7 @@ string put that in the buffer."
 	    (progn (bury-buffer (current-buffer))
 		   (setq result nil))
 	    (let* ((start (progn (forward-char 1) (point))))
-	      (skip-chars-forward "^\"") 
+	      (skip-chars-forward "^\"")
 	      (setq file
 		    (prog1 (buffer-substring-no-properties start (point))
 		      (end-of-line)))
@@ -1356,7 +1356,7 @@ lisp-edit-files is nil, no search will be done.  If called with a
 prefix, search for regexp.  If there is a tags file, call 'tags-search'
 instead."
   (interactive
-   (list (read-string (if current-prefix-arg 
+   (list (read-string (if current-prefix-arg
 			  "Search for regexp: "
 			  "Search for: ") lisp-last-pattern)
 	 current-prefix-arg))
@@ -1369,7 +1369,7 @@ instead."
 	    lisp-last-locator (if regexp
 				  'lisp-locate-regexp
 				  'lisp-locate-search))
-      (lisp-setup-edit-definitions (format "Searching for %s:" pattern) 
+      (lisp-setup-edit-definitions (format "Searching for %s:" pattern)
 				   lisp-edit-files)
       (next-definition-lisp nil nil)))
 
@@ -1400,7 +1400,7 @@ instead."
 	(t
 	 (setq lisp-last-pattern old
 	       lisp-last-replace new)
-	 (lisp-setup-edit-definitions 
+	 (lisp-setup-edit-definitions
 	  (format "Replacing %s by %s:\n\n" old new)
 	  lisp-edit-files)
 	 (let ((file nil))
@@ -1408,7 +1408,7 @@ instead."
 	     (lisp-find-file file)
 	     (let ((point (point)))
 	       (goto-char (point-min))
-	       (if (if regexp 
+	       (if (if regexp
 		       (re-search-forward old nil t)
 		       (search-forward old nil t))
 		   (progn (beginning-of-line)
@@ -1418,19 +1418,19 @@ instead."
 		   (goto-char point))))))))
 
 ;;;%%Edit-callers
-(defvar lisp-callers nil 
+(defvar lisp-callers nil
   "T if we found callers through inferior LISP.")
 
 ;;;
 (defun who-calls-lisp (function &optional no-show)
   "Put the functions that call FUNCTION into the buffer *All-Callers*.
 Show the buffer *All-Callers* unless NO-SHOW is T.  Return T if successful."
-  (interactive 
+  (interactive
    (let* ((function (lisp-defun-name))
 	  (symbol (lisp-buffer-symbol function)))
      (if (lisp-minus-prefix)
 	 (list function)
-	 (list (ilisp-read-symbol 
+	 (list (ilisp-read-symbol
 		(format "Who Calls [%s]: " symbol)
 		function
 		t t)))))
@@ -1459,7 +1459,7 @@ Show the buffer *All-Callers* unless NO-SHOW is T.  Return T if successful."
 	    (replace-regexp "^;[^\n]*\n" "")
 	    (goto-char (point-min))
 	    (forward-line 2)
-	    (if (not no-show) 
+	    (if (not no-show)
 		(if (ilisp-temp-buffer-show-function)
 		    (funcall (ilisp-temp-buffer-show-function)
 			     (get-buffer "*All-Callers*"))
@@ -1491,7 +1491,7 @@ source files.  See lisp-directory."
 		    (skip-chars-forward "^ \t\n")
 		    (buffer-substring-no-properties start (point)))))
 	    (bury-buffer (current-buffer))
-	    (edit-definitions-lisp (lisp-string-to-symbol caller-function) 
+	    (edit-definitions-lisp (lisp-string-to-symbol caller-function)
 				  (car (car (ilisp-value 'ilisp-source-types)))
 				  (not pop))))))
 
@@ -1503,16 +1503,16 @@ With a minus prefix use the symbol at the start of the current defun."
    (let* ((function (lisp-defun-name)))
      (if (lisp-minus-prefix)
 	 (list function)
-	 (list (ilisp-read-symbol 
+	 (list (ilisp-read-symbol
 		(format "Edit callers of [%s]: "
 			(lisp-buffer-symbol function))
 		function
 		t)))))
   (if (save-excursion (setq lisp-callers (who-calls-lisp function t)))
-      (progn 
+      (progn
 	(setq lisp-last-locator (ilisp-value 'ilisp-calls-locator))
 	(next-caller-lisp nil t))
-      (edit-definitions-lisp function "calls" nil t 
+      (edit-definitions-lisp function "calls" nil t
 			    (ilisp-value 'ilisp-calls-locator))))
 
 ;;;%Locators
@@ -1533,7 +1533,7 @@ A definition is of the form
 This is used as the default value of ilisp-locator; the specific dialect
 will usually override this with something more clever."
   (lisp-re back
-	   "^[ \t\n]*(def[^ \t\n]*[ \t\n]+(?%s[ \t\n(]+" 
+	   "^[ \t\n]*(def[^ \t\n]*[ \t\n]+(?%s[ \t\n(]+"
 	   (regexp-quote (lisp-symbol-name symbol))))
 
 ;;;
@@ -1560,16 +1560,16 @@ This is the Scheme counterpart of `lisp-locate-clisp'."
 (defun ilisp-locate-scheme-calls (symbol type first back)
   "Locate calls to SYMBOL.
 This is the Scheme counterpart of `lisp-locate-calls'."
-  (let ((call-regexp 
+  (let ((call-regexp
 	 (format "[( \t\n]+%s[ \t\n()]+"
-		 (regexp-quote 
+		 (regexp-quote
 		  ;; Scheme has no package prefixes, so we use
 		  ;; lisp-symbol-name instead of lisp-buffer-symbol.
 		  (lisp-symbol-name symbol))))
 	(def-regexp "[ \t\n]*(def[^ \t\n]*[ \t\n]+(*")
 	(result 'unknown))
     (while (eq result 'unknown)
-      (cond 
+      (cond
        ((if back
 	    (re-search-backward call-regexp nil t)
 	  (re-search-forward call-regexp nil t))
@@ -1579,7 +1579,7 @@ This is the Scheme counterpart of `lisp-locate-calls'."
 		   (looking-at def-regexp)))
 	    (setq result t)))
        (t (setq result nil))))
-    result))	    
+    result))
 
 
 ;;; end of file -- ilisp-src.el --

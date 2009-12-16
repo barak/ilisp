@@ -48,7 +48,7 @@ that attempts to determine the package symbol string name."
 	  the-package
 	"nil"))))
 
-(defun ilisp-check-package-advanced (hash-defpackage-forms-list 
+(defun ilisp-check-package-advanced (hash-defpackage-forms-list
 				     hash-in-package-forms-list)
   "Advanced check for packages in buffer.
 It handles the special case of read-time conditionals - i.e. hash plus
@@ -63,10 +63,10 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 	 (case-fold-search t)
          (npic-regexp (ilisp-value 'ilisp-no-package-in-core-regexp t)))
     (if (and npic-regexp (string-match npic-regexp package))
-;; wbd180902 Kludge round modern mode stuff to set default package 
+;; wbd180902 Kludge round modern mode stuff to set default package
       (progn
-	(setq package 
-	      (ilisp-get-package-advanced 
+	(setq package
+	      (ilisp-get-package-advanced
 	       (format (ilisp-value 'ilisp-block-command)
 		       (format (ilisp-value 'ilisp-package-command)
 			       (format (ilisp-value 'ilisp-in-package-command)
@@ -94,7 +94,7 @@ or minus forms - as well as normal IN-PACKAGE or DEFPACKAGE forms."
 			 (backward-sexp) ; now we are in front of the exp
 			 (point))
 		       (match-end 0))))
-	   
+
 	   (cond ((or (string-match in-package-regexp found)
 		      (string-match defpackage-regexp found))
 		  (backward-char)
@@ -163,7 +163,7 @@ relative order of DEFPACKAGE and IN-PACKAGE for Common Lisp."
                         t))))))
       (multiple-value-bind (package package-not-in-core-p)
 	  (ilisp-check-package-advanced
-	    (nreverse hash-defpackage-forms-list) 
+	    (nreverse hash-defpackage-forms-list)
 	    (nreverse hash-in-package-forms-list))
 	(let ((should-not-cache-p (or should-not-cache-p package-not-in-core-p)))
 	  ;; RED? (when (ilisp-value 'comint-errorp t)
@@ -196,7 +196,7 @@ calling this more than once is cheap."
 	      (null lisp-dont-cache-package))
 	 buffer-package)
 	(ilisp-completion-package ilisp-completion-package)
-	((or lisp-buffer-package 
+	((or lisp-buffer-package
 	     (memq major-mode ilisp-modes)
 	     (not (memq major-mode lisp-source-modes)))
 	 nil)
@@ -208,7 +208,7 @@ calling this more than once is cheap."
 	   (setq buffer-package (if (or should-not-cache-p lisp-dont-cache-package)
                                     'not-yet-computed package))
 	   ;; Display package in mode line
-	   (when package 
+	   (when package
 	     (setq mode-name
 		   (concat (or buffer-mode-name
 			       (setq buffer-mode-name mode-name))
@@ -230,7 +230,7 @@ calling this more than once is cheap."
 ;;; 19990824 Marco Antoniotti
 (defun set-package-lisp (package)
   "Set inferior LISP to package of buffer or a named package with prefix."
-  (interactive 
+  (interactive
    (let ((default (lisp-buffer-package)))
      (if (or current-prefix-arg (null default))
 	 (let ((name
@@ -240,7 +240,7 @@ calling this more than once is cheap."
        (list default))))
   (if package
       (ilisp-send (format (ilisp-value 'ilisp-in-package-command) package)
-		  (format "Set %s's package to %s" 
+		  (format "Set %s's package to %s"
 			  (buffer-name (ilisp-buffer))
 			  package)
 		  'pkg 'dispatch)
@@ -366,13 +366,13 @@ is no current sexp, return NIL."
 	(condition-case ()
 	    (if (and (memq major-mode ilisp-modes)
 		     (= (point)
-			(process-mark 
+			(process-mark
 			 (get-buffer-process (current-buffer)))))
 		nil
 	      (backward-up-list 1)
 	      (down-list 1)
 	      (lisp-string-to-symbol
-	       (buffer-substring-no-properties (point) 
+	       (buffer-substring-no-properties (point)
 				 (progn (forward-sexp 1) (point)))))
 	  (error nil))))))
 
@@ -399,7 +399,7 @@ If FILE is NIL, the entry will be removed."
     (if file
         (if old
             (rplacd old file)
-          (setq ilisp-load-inits (nconc ilisp-load-inits 
+          (setq ilisp-load-inits (nconc ilisp-load-inits
                                         (list (cons dialect file)))))
       (when old
         (setq ilisp-load-inits (delq old ilisp-load-inits))))))
@@ -410,9 +410,9 @@ If FILE is NIL, the entry will be removed."
   (if (not (ilisp-value var t))
       (let ((binary (ilisp-value init t)))
 	(if binary
-	    (comint-send 
+	    (comint-send
 	     (ilisp-process) binary
-	     t nil 'binary nil 
+	     t nil 'binary nil
 	     (` (lambda (error wait message output last)
 		  (if (or error
 			  (not (string-match "\"[^\"]*\"" output)))
@@ -446,11 +446,11 @@ If FILE is NIL, the entry will be removed."
     (unwind-protect
       (progn
         (when (not ilisp-init-binary-extension)
-          (setq ilisp-init-binary-extension 
+          (setq ilisp-init-binary-extension
                   ilisp-binary-extension))
 
         (dolist (file files)
-          (let ((load-file 
+          (let ((load-file
                   (let ((source
                           (expand-file-name (cdr file)
                                             ilisp-*directory*))
@@ -465,7 +465,7 @@ If FILE is NIL, the entry will be removed."
             (ilisp-load-or-send (file-name-hack load-file))))
         (comint-send-code (ilisp-process)
                           'ilisp-done-init)
-        (setq done t))                         
+        (setq done t))
       (unless done
         (setq ilisp-initializing nil)
         (abort-commands-lisp)))))
@@ -479,7 +479,7 @@ If FILE is NIL, the entry will be removed."
 		       "\"Start sync\""  "[ \t\n]*\"Start sync\""
 		       "\"End sync\""    "\"End sync\""))
 	(ilisp-binary 'ilisp-binary-command 'ilisp-binary-extension)
-	(ilisp-binary 'ilisp-init-binary-command 
+	(ilisp-binary 'ilisp-init-binary-command
 		      'ilisp-init-binary-extension)
 
 	;; This gets executed in the process buffer
@@ -487,7 +487,7 @@ If FILE is NIL, the entry will be removed."
 	 (ilisp-process)
          (function comint-send-code-init-function))
         (set-ilisp-value 'ilisp-initializing t)) ; progn
-    
+
     (unless (ilisp-value 'ilisp-initializing t)
       (abort-commands-lisp))))
 
@@ -497,7 +497,7 @@ If FILE is NIL, the entry will be removed."
 If necessary load the files in 'ilisp-load-inits'.  Optional WAITP
 waits for initialization to finish.  When called interactively, force
 reinitialization.  With a prefix, get the binary extensions again."
-  (interactive 
+  (interactive
    (list (if current-prefix-arg
 	     (progn
 	       (set-ilisp-value 'ilisp-init-binary-extension nil)
@@ -539,29 +539,29 @@ the buffer."
 	     (setfp (string-match "(setf \\([^\)]+\\)" name))
 	     )
 	(switch-to-lisp t t)
-	(cond (setfp 
-	       (setq name 
+	(cond (setfp
+	       (setq name
 		     (substring name (match-beginning 1) (match-end 1)))
 	       (lisp-match-ring (if (not arg)
-				    (concat "(setf[ \t\n]*(" 
+				    (concat "(setf[ \t\n]*("
 					    package name "[ \t\n]"))
 				(concat "(setf (" name)))
-	      (variablep (lisp-match-ring (if (not arg) 
+	      (variablep (lisp-match-ring (if (not arg)
 					      (concat package name))
 					  name))
 	      (t
 	       (let ((fun (concat "(" name)))
 		 (setq name (regexp-quote name))
-		 (or (lisp-match-ring 
+		 (or (lisp-match-ring
 		      (if (not arg) (concat "(" package name "[ \t\n\)]"))
-		      fun 
+		      fun
 		      (not arg))
 		     (lisp-match-ring (concat "(" package
 					      "[^ \t\n]*-*" name)
 				      fun))))))
-    (let ((form 
+    (let ((form
 	   (save-excursion
-	     (buffer-substring-no-properties (lisp-defun-begin) 
+	     (buffer-substring-no-properties (lisp-defun-begin)
 			       (lisp-end-defun-text t)))))
       (switch-to-lisp t t)
       (comint-kill-input)
@@ -597,7 +597,7 @@ it will be handled by HANDLER."
 	  (t
 	   (let* ((save (ilisp-value 'ilisp-save-command t))
 		  (result
-		   (comint-send 
+		   (comint-send
 		    process
 		    (if save (format save string) string)
 		    ;; Interrupt without waiting
@@ -611,7 +611,7 @@ it will be handled by HANDLER."
                 ;; old one: t nil 'restore "Restore" t t
 		;; mew experimental:
 		;; t (unless dispatch 'wait) 'restore "Restore" t t))
-		t (unless dispatch 'wait) 'restore "Restore" t t))	     
+		t (unless dispatch 'wait) 'restore "Restore" t t))
 	     (unless dispatch
 	       (while (not (cdr result))
 		 (if (eq +ilisp-emacs-version-id+ 'xemacs)
@@ -629,12 +629,12 @@ ilisp-load-or-send-command, then visit the file and send the file over
 the process interface."
 
   (let* ((command
-	  (format (ilisp-value 'ilisp-load-or-send-command) 
+	  (format (ilisp-value 'ilisp-load-or-send-command)
 		  (lisp-file-extension
-		   file 
+		   file
 		   (ilisp-value 'ilisp-init-binary-extension t))
 		  file)))
-    (set-ilisp-value 'ilisp-load-files 
+    (set-ilisp-value 'ilisp-load-files
 		     (nconc (ilisp-value 'ilisp-load-files t) (list file)))
     (comint-send
      (ilisp-process) command t nil 'load
@@ -644,7 +644,7 @@ the process interface."
 	(let* ((file (first (last ilisp-load-files)))
 	       (process (get-buffer-process (current-buffer)))
 	       (case-fold-search t))
-	  (if (and output 
+	  (if (and output
 		   (string-match "nil" (car (lisp-last-line output))))
 	      (let* ((old-buffer (get-file-buffer file))
 		     (buffer (find-file-noselect file))
@@ -660,7 +660,7 @@ the process interface."
 		   t nil 'send (format "Sending %s" file)
 		   (function (lambda (error wait message output last)
 			       (if error
-				   (progn 
+				   (progn
 				     (comint-display-error output)
 				     (abort-commands-lisp
 				      (format "Error sending %s"

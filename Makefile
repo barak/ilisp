@@ -81,7 +81,7 @@ tags:
 docs: FORCE
 	cd docs; $(MAKE)
 
-clean: 
+clean:
 	-$(RM) *.elc *~ extra/*.elc extra/*~ TAGS \
 	$(FaslFiles)
 	(cd docs; $(MAKE) clean)

@@ -30,7 +30,7 @@ let the user decide what to do."
 	     (setq output (comint-remove-whitespace output))
 	     (or error-p (string-match "\n" output)))
 	(let* ((buffer (ilisp-output-buffer ilisp-output t))
-	       (out (if error-p 
+	       (out (if error-p
 			(funcall ilisp-error-filter output)
 		      output))
 	       (key
@@ -39,15 +39,15 @@ let the user decide what to do."
 		     out
      "SPC-scroll, I-ignore, K-keep, A-abort sends and keep or B-break: "
 		     '(?i ?k ?a ?b))
-		  (comint-handle-error 
-		   out 
+		  (comint-handle-error
+		   out
 	   "SPC-scroll, I-ignore, K-keep or A-abort sends and keep: "
 		   '(?i ?k ?a))))
 	       (clear comint-queue-emptied))
 	  (if (= key ?i)
 	      (progn
 		(message "Ignore message")
-		(if buffer 
+		(if buffer
 		    (funcall
 		     (ilisp-temp-buffer-show-function)
 		     buffer)
@@ -59,16 +59,16 @@ let the user decide what to do."
 	      (goto-char (point-max))
 	      (insert message)
 	      (insert ?\n)
-	      (insert out) 
+	      (insert out)
 	      (insert "\n\n"))
 	    (if clear (setq comint-queue-emptied nil))
 	    (if (= key ?a)
-		(progn 
+		(progn
 		  (message "Abort pending commands and keep in *Errors*")
 		  (comint-abort-sends)
 		  t)
 	      (if (= key ?b)
-		  (progn 
+		  (progn
 		    (comint-insert
 		     (concat comment-start comment-start comment-start
 			     message "\n"

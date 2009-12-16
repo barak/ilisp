@@ -45,8 +45,8 @@ symbol will be returned.  Optional NAMEP will return only the name without the d
 	 "\\(\\((\\(def[^ \t\n]*\\)[ \t\n]+\\(\\((\\(setf\\)[ \t\n]+\\)\\|(*\\)\\)\\|(?\\)\\([^ \t\n)]*\\)")
 	(let ((symbol (buffer-substring-no-properties (match-beginning 7) (match-end 7))))
 	  (if (match-end 6)
-	      (concat (if (not namep) 
-			  (concat 
+	      (concat (if (not namep)
+			  (concat
 			   (buffer-substring-no-properties (match-beginning 3) (match-end 3))
 			   " "))
 		      "("
@@ -54,8 +54,8 @@ symbol will be returned.  Optional NAMEP will return only the name without the d
 		      " " symbol ")")
 	      (if (match-end 3)
 		  (concat (if (not namep)
-			      (concat 
-			       (buffer-substring-no-properties (match-beginning 3) 
+			      (concat
+			       (buffer-substring-no-properties (match-beginning 3)
 						 (match-end 3))
 			       " "))
 			  symbol)
@@ -72,7 +72,7 @@ T if it is a negative."
 	  (if (< (setq current-prefix-arg
 		       (prefix-numeric-value current-prefix-arg))
 		 0)
-	      (progn 
+	      (progn
 		(setq current-prefix-arg (- current-prefix-arg)) t)))))
 
 
@@ -84,7 +84,7 @@ T if it is a negative."
     (let ((end (lisp-defun-end))
 	  (begin (lisp-defun-begin)))
       (list begin end (lisp-def-name)))))
-  
+
 ;;;
 (defun lisp-region-name (start end)
   "Return a name for the region from START to END."
@@ -102,7 +102,7 @@ T if it is a negative."
     (let ((from
 	   (if (= (char-after (point)) ?\()
 	       (lisp-def-name)
-	       (buffer-substring-no-properties (point) 
+	       (buffer-substring-no-properties (point)
 				 (progn (forward-sexp) (point))))))
       (goto-char end)
       (if (= (char-after (1- (point))) ?\))
@@ -111,8 +111,8 @@ T if it is a negative."
 	    (if (= (point) start)
 		from
 		(concat "from " from " to " (lisp-def-name))))
-	  (concat "from " from " to " 
+	  (concat "from " from " to "
 		  (buffer-substring-no-properties (save-excursion
 				      (backward-sexp)
-				      (point)) 
+				      (point))
 				    (1- (point))))))))

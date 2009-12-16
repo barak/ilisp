@@ -38,9 +38,9 @@
 (require 'thingatpt)
 
 ;; maybe this should be a (defcustom cltl2-root-url ...) ?
-(defvar cltl2-root-url 
+(defvar cltl2-root-url
   "http://www.uuhaus.de/cltl2/"
-  "*The base URL of the default online edition of CLtL2. If you keep a 
+  "*The base URL of the default online edition of CLtL2. If you keep a
 copy of it on your local system, change the URL to something like
 \"file:/usr/share/doc/cltl2/\".")
 
@@ -62,7 +62,7 @@ made available courtesy of the publisher Universal Press free of
 charge.  Visit http://www.uuhaus.de/cltl2/README.from.cltl_ht for more
 information and details on obtaining a paper-bound version.
 
-If you keep a local copy of the book, customize the variable 
+If you keep a local copy of the book, customize the variable
 `cltl2-root-url' to point to the correct location."
   (interactive
    (list (let ((symbol-at-point (thing-at-point 'symbol)))

@@ -1,7 +1,7 @@
 ;;; -*- Mode: Lisp -*-
 
 ;;; lucid.lisp --
-;;; Lucid initializations 
+;;; Lucid initializations
 ;;; Author: Chris McConnell, ccm@cs.cmu.edu
 ;;;
 ;;; This file is part of ILISP.

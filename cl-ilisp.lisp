@@ -106,7 +106,7 @@
       (if eval-p
         `,(eval tmp-symbol)
         `',tmp-symbol))))
-                   
+
 (defmacro the-function-if-defined (((if-function if-package)
                                     (&optional else-function else-package)
                                     &key function-binding-p)
@@ -122,11 +122,11 @@
                     (find-symbol (symbol-name else-function)
                                  (find-package else-package)))))))
     (when (or fun-if fun-else)
-      (if function-binding-p        
+      (if function-binding-p
         `(let ((the-function (symbol-function ',(or fun-if fun-else))))
           ,@body)
         `(,(or fun-if fun-else) ,@body)))))
-      
+
 
 ;;; Martin Atzmueller 2000-01-15
 ;;; ilisp-message was mostly set up because Clisp expects an
@@ -205,7 +205,7 @@ messages, i.e. \"ILISP: ... \" in an uniform way."
      #+allegro (setq tpl::*this-command-number*
 		     (max 0 (- tpl::*this-command-number* 2)))
      (ilisp-handler-case
-      ,form	
+      ,form
       (error (error)
              (ilisp-message nil "~A" error)))))
 
@@ -235,7 +235,7 @@ messages, i.e. \"ILISP: ... \" in an uniform way."
 		new/)
 	  nil
 	(values-list new/))))
-  
+
 ;;; ilisp-symbol-name --
 ;;;
 ;;; ':capitalize' case added under suggestion by Rich Mallory.
@@ -472,7 +472,7 @@ This will only work on Microsoft NT, not on a Win95 based OS."
 	 (funcall generic-p symbol))))
 
 
-  
+
 (defun ilisp-function-short-description (symbol)
   (cond ((macro-function symbol)
 	 " (Macro)")
@@ -499,10 +499,10 @@ This will only work on Microsoft NT, not on a Win95 based OS."
 
            #+:ecl
             (si::help symbol)
-            
+
 	   #+lucid
 	   (lucid::arglist symbol)
-	   
+
 	   #+lispworks
 	   (system::function-lambda-list symbol)
 
@@ -511,13 +511,13 @@ This will only work on Microsoft NT, not on a Win95 based OS."
 
 	   #+cmu
 	   (arglist symbol (symbol-package symbol))
-	   
+
 	   #+:sbcl
 	   (arglist symbol (symbol-package symbol))
 
 	   #+:openmcl
 	   (arglist symbol (symbol-package symbol))
-	   
+
 	   #-(or allegro lucid kcl ibcl ecl gcl lispworks clisp cmu :sbcl :openmcl)
 	   (documentation symbol 'function)))))
 
@@ -591,7 +591,7 @@ If TYPE is \(qualifiers* (class ...)), the appropriate method will be found."
 
 ;;;
 (defun ilisp-macroexpand (expression package)
-  "Macroexpand EXPRESSION as long as the top level function is still a macro." 
+  "Macroexpand EXPRESSION as long as the top level function is still a macro."
   (ilisp-errors
    (let ((*print-length* nil)
 	 (*print-level* nil)
@@ -631,13 +631,13 @@ If TYPE is \(qualifiers* (class ...)), the appropriate method will be found."
 (defun ilisp-compile-file-extension ()
   (pathname-type (compile-file-pathname "ilisp-foo")))
 
-   
+
 ;;;
 (defun ilisp-compile-file (file extension)
   "Compile FILE putting the result in FILE+EXTENSION."
   (ilisp-errors
    (compile-file file
-		 :output-file 
+		 :output-file
 		 (merge-pathnames (make-pathname :type extension) file))))
 
 ;;;
@@ -733,7 +733,7 @@ original string."
 				name
 				(ilisp-casify pattern name lower-p upper-p)))
 		      results))))
-	  ;; Check SYMBOL against PATTERN using WORDS 
+	  ;; Check SYMBOL against PATTERN using WORDS
 	  (check-symbol2 (symbol pattern words)
 	    (let ((name (symbol-name symbol)))
 	      (when (and (or (not function-p) (fboundp symbol))

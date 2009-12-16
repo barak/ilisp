@@ -63,7 +63,7 @@ return T if successful."
 ;;; CLtL2: "If an implementation supports additional keyword arguments to
 ;;; compile-file, compile-file-pathname must accept the same arguments."
 ;;;
-(defun compile-file-pathname (input-file &key 
+(defun compile-file-pathname (input-file &key
                                          (output-file nil)
                                          (verbose *compile-verbose*)
                                          (print *compile-print*)
@@ -75,7 +75,7 @@ return T if successful."
 					  :print       print
 					  :external-format external-format)))
 
-(defun compile-file-name (input-file &key 
+(defun compile-file-name (input-file &key
 									 (output-file nil)
 									 (verbose *compile-verbose*)
 									 (print *compile-print*)
@@ -84,12 +84,12 @@ return T if successful."
   (declare (ignore verbose external-format print))
   (if (null output-file)
       (if (string-equal
-           (subseq input-file 
+           (subseq input-file
                    (- (length input-file)(length lisp-file-extension))
                    (length input-file))
            lisp-file-extension)
-          (concatenate 'string 
-                       (subseq input-file 
+          (concatenate 'string
+                       (subseq input-file
                                0
                                (- (length input-file)
 								  (length lisp-file-extension)))
@@ -100,7 +100,7 @@ return T if successful."
 ) ; eof compile-file-pathname patch
 
 (unless (fboundp 'readtable-case)
-  
+
 ;;;
 ;;; Common Lisp READTABLE-CASE accessor
 ;;;
@@ -122,11 +122,11 @@ return T if successful."
 		(progn
 		  (check-type readtbl readtable)
 		  (check-type value symbol)))
-	(cond 
+	(cond
 	 ((member value valid-case)
 	  (setf (uref readtbl readtable-case-offset) value))
 	 ((member value ignored-case)
-	  (error "SET-READTABLE-CASE: only :UPCASE supported: ~A" 
+	  (error "SET-READTABLE-CASE: only :UPCASE supported: ~A"
 			value))
 	 (T
 	  (error "Argument is no valid readtable-case: ~A, expected ~A"

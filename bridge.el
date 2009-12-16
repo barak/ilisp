@@ -1,7 +1,7 @@
 ;;; -*-Emacs-Lisp-*-
 ;;;%Header
 ;;; Bridge process filter, V1.0
-;;; Copyright (C) 1991 Chris McConnell, ccm@cs.cmu.edu  
+;;; Copyright (C) 1991 Chris McConnell, ccm@cs.cmu.edu
 ;;;
 ;;; Send mail to ilisp@cons.org if you have problems.
 ;;;
@@ -50,7 +50,7 @@
 ;;; ;;; Set up load path to include bridge
 ;;; (setq load-path (cons "/bridge-directory/" load-path))
 ;;; (autoload 'install-bridge "bridge" "Install a process bridge." t)
-;;; (setq bridge-hook 
+;;; (setq bridge-hook
 ;;;       '(lambda ()
 ;;;         ;; Example options
 ;;;         (setq bridge-source-insert nil) ;Don't insert in source buffer
@@ -105,7 +105,7 @@ value.")
 (defvar bridge-old-filter nil
   "Old filter for a bridged process buffer.")
 
-(defvar bridge-string nil 
+(defvar bridge-string nil
   "The current output in the process bridge.")
 
 (defvar bridge-in-progress nil
@@ -138,7 +138,7 @@ to help handler-writers in their debugging.")
 	  (goto-char mark)
 	  (insert output)
 	  (set-marker mark (point)))
-	(if window 
+	(if window
 	    (progn
 	      (if at-end (goto-char mark))
 	      (if (not (pos-visible-in-window-p (point) window))
@@ -213,7 +213,7 @@ will be inserted at the end of the buffer."
 		  (unwind-protect
 		       (progn
 			 (set-buffer dest)
-			 (if to 
+			 (if to
 			     (bridge-insert input)
 			     (goto-char (point-max))
 			     (insert input)))
@@ -259,7 +259,7 @@ encountered before the bridge-end-regexp, the bridge will be cancelled."
      ;;1    setq b-end (or end-pattern end)
      ;;4    process string
      ;;5    remove handler if end found
-     
+
      ;;  no bridge in progress
      ;;0    setq b-start if see start-pattern
      ;;1    setq b-end if bstart to (or end-pattern end)
@@ -352,7 +352,7 @@ encountered before the bridge-end-regexp, the bridge will be cancelled."
 			    bridge-in-progress nil)
 		      ))
 		))
-     
+
 	     ;; continue looping, in case there's more string
 	     (setq start end)
 	     ))
@@ -388,11 +388,11 @@ encountered before the bridge-end-regexp, the bridge will be cancelled."
 		(progn
 		  (setq bridge-old-filter (process-filter process))
 		  (set-process-filter process 'bridge-filter)))
-	    (error "%s does not have a process" 
+	    (error "%s does not have a process"
 		   (buffer-name (current-buffer)))))
       (run-hooks 'bridge-hook)
       (message "Process bridge is installed")))
-	      
+
 ;;;
 (defun reset-bridge ()
   "Must be called from the process's buffer.  Removes any active bridge."
@@ -430,7 +430,7 @@ bridge-end to bridge-filter.  With prefix, use current region to send."
 	(p1 (if current-prefix-arg (max start end)
 		(if (re-search-forward bridge-end-regexp nil t)
 		    (point) (error "Didn't see bridge-end-regexp")))))
-    
+
     (bridge-filter (get-buffer-process (current-buffer))
 		   (buffer-substring-no-properties p0 p1))
     ))

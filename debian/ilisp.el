@@ -43,7 +43,7 @@
   (interactive)
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-normal.core")
   (cmulisp))
-(defun cmucl-small () 
+(defun cmucl-small ()
   "Inferior CMU Common LISP -- small core."
   (interactive)
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-small.core")
@@ -69,7 +69,7 @@
 (setq ilisp-site-hook
       '(lambda ()
 	 ;; delete any keybindings that start with this sequence, such
-	 ;; as oo-browser's  bindings 
+	 ;; as oo-browser's  bindings
 	 (global-unset-key [(control c) (control v)])
 
 	 (setq clisp-hs-progam "clisp -a -I")
@@ -103,7 +103,7 @@
 	     (when ilisp-*use-fsf-compliant-keybindings*
 	       (setq ilisp-*prefix* "\C-c"))
 	     (setq lisp-no-popper t)
-	     
+
 	     ;; Make sure that you don't keep popping up the 'inferior
              ;; Lisp' buffer window when this is already visible in
              ;; another frame. Actually this variable has more impact

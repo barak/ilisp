@@ -57,7 +57,7 @@ ilisp (5.12.0+cvs.2004.08.02.2) unstable; urgency=low
 
   * Add German translation (closes:263028)
   * More common-lisp-controller v4 changes
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Mon,  2 Aug 2004 13:38:45 -0600
 
 ilisp (5.12.0+cvs.2004.08.02.1) unstable; urgency=low
@@ -92,7 +92,7 @@ ilisp (5.12.0+cvs.2003.12.04) unstable; urgency=low
 
 ilisp (5.12.0+cvs.2003.10.24) unstable; urgency=low
 
-  * Use : as separator between user and group names (closes:217397) 
+  * Use : as separator between user and group names (closes:217397)
 
  -- Kevin M. Rosenberg <kmr@debian.org>  Fri, 24 Oct 2003 09:03:27 -0600
 
@@ -150,7 +150,7 @@ ilisp (5.12.0+cvs.2003.05.27) unstable; urgency=low
   * new upstream
   * Remove bashism from maintainer scripts
   * avoid deleting symlinks (closes: 194919)
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 27 May 2003 11:42:13 -0600
 
 ilisp (5.12.0+cvs.2003.05.26) unstable; urgency=low
@@ -165,7 +165,7 @@ ilisp (5.12.0+cvs.2003.05.21) unstable; urgency=low
   * move links to rules file (closes: 194095)
   * new upstream key bindings (closes: 194097)
   * use compat file rather than DH_COMPAT
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 20 May 2003 10:48:25 -0600
 
 ilisp (5.12.0+cvs.2003.05.19) unstable; urgency=low
@@ -271,7 +271,7 @@ ilisp (5.12.0+cvs.2003.03.04) unstable; urgency=low
 ilisp (5.12.0+cvs.2003.03.03) unstable; urgency=low
 
   * Add support for SBCL aclrepl in version 0.7.13.
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Mon,  3 Mar 2003 18:40:19 -0700
 
 ilisp (5.12.0+cvs.2003.03.02c) unstable; urgency=low
@@ -427,7 +427,7 @@ ilisp (5.12.0+cvs.2002.10.25) unstable; urgency=low
   * change buffer-substring to buffer-substring-no-properties
   (closes: 166232)
   * Make FSF-compliant keybindings user selectable
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Thu, 24 Oct 2002 20:51:16 -0600
 
 ilisp (5.12.0+cvs.2002.09.27) unstable; urgency=low
@@ -490,7 +490,7 @@ ilisp (5.12.0+cvs.2002.08.23-1) unstable; urgency=low
 ilisp (5.12.0-6) unstable; urgency=low
 
   * Move ilisp keybinding setting to toplevel of ilisp.el
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 20 Aug 2002 15:20:57 -0600
 
 ilisp (5.12.0-5) unstable; urgency=low
@@ -511,7 +511,7 @@ ilisp (5.12.0-3) unstable; urgency=low
     documentation.
   * Add to Build-Depends-Indep to support ilisp-docs
   * Fix name of file referenced in control file description
-  
+
  -- Kevin M. Rosenberg <kevin@rosenberg.net>  Tue, 13 Aug 2002 12:23:32 -0600
 
 ilisp (5.12.0-2) unstable; urgency=low
@@ -524,7 +524,7 @@ ilisp (5.12.0-2) unstable; urgency=low
   * Change "make ilisp.info" to "make info" in rules file
   * Change from setting prefix to C-c to setting
   ilisp-*use-fsf-compliant-keybindings* to t
-  
+
  -- Kevin M. Rosenberg <kmr@debian.org>  Tue, 13 Aug 2002 10:47:03 -0600
 
 ilisp (5.12.0-1) unstable; urgency=low

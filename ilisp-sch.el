@@ -41,7 +41,7 @@
 	ilisp-untrace-command "(untrace %s) ;%s"
 	ilisp-directory-command  "(current-directory)"
 	ilisp-set-directory-command "(current-directory \"%s\")"
-	
+
 	comint-prompt-regexp "^> "
 	ilisp-error-regexp "ILISP:"
 	ilisp-load-or-send-command "(begin \"%s\" (load \"%s\"))"
@@ -167,7 +167,7 @@
     ;; debugger, which `quit' exits from, or we are at the top level,
     ;; where `quit' evaluates to the quit procedure, which is
     ;; harmless.
-    (setq comint-fix-error "quit")		
+    (setq comint-fix-error "quit")
     (setq ilisp-load-or-send-command
           "(begin \"%s\" (load \"%s\"))")
     (ilisp-load-init 'guile ilisp-guile-init-file)
@@ -182,7 +182,7 @@
           ilisp-in-package-command-string "in-package" ;;; FIXME
           ilisp-defpackage-command-string "define-module"
           ilisp-package-name-command "(module-name (current-module))"
-          ilisp-eval-command "(ilisp-eval \"%s\" \"%s\" \"%s\" %d)" 
+          ilisp-eval-command "(ilisp-eval \"%s\" \"%s\" \"%s\" %d)"
           ilisp-directory-command "(getcwd)"
           ilisp-set-directory-command "(chdir \"%s\")"
           ilisp-complete-command "(ilisp-matching-symbols \"%s\" \"%s\" '%s '%s '%s)"

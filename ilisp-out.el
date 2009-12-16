@@ -51,7 +51,7 @@ The function gets a single argument, a string.")
 
 
 ;;; ilisp-output-sink --
-;;; Datastructure for a output sink that points to its 
+;;; Datastructure for a output sink that points to its
 ;;; output-{buffers|frames|windows}
 
 (defstruct ilisp-output-sink
@@ -139,9 +139,9 @@ The function gets a single argument, a string.")
              ))
       (defvar ilisp-arglist-output-mode nil
         "If T, then we are in the ilisp-arglist-output minor mode.")
-      
+
       (make-variable-buffer-local 'ilisp-arglist-output-mode)
-      
+
       (or (assq 'ilisp-arglist-output-mode minor-mode-alist)
           (setq minor-mode-alist
                 (cons '(ilisp-arglist-output-mode
@@ -194,7 +194,7 @@ after popping any inactive ones."
 
 (defun* ilisp-set-sink-for-command (command output-sink)
   (setf ilisp-*command-to-ilisp-output-sink-table*
-	(acons command output-sink 
+	(acons command output-sink
 	       ilisp-*command-to-ilisp-output-sink-table*)))
 
 
@@ -229,11 +229,11 @@ sink."
     (unless (and (boundp modeline) (symbol-value modeline))
       (when set-modeline-p
 	(setf (symbol-value modeline)
-	      (list (format " %s bury, %s scroll" 
+	      (list (format " %s bury, %s scroll"
 			    (ilisp-where-is 'ilisp-bury-output)
 			    (ilisp-where-is 'ilisp-scroll-output))))))
     buffer))
-  
+
 (defun ilisp-output-window (ilisp-output-sink)
   "Gets the Output-Window for sink's buffer."
   (let ((buffer (get-buffer (ilisp-output-sink-buffer ilisp-output-sink))))
@@ -252,7 +252,7 @@ sink."
   ;; given an active output sink, make it go away.
   (let* ((buffer (ilisp-output-sink-buffer ilisp-output-sink))
 	 (window (and buffer (get-buffer-window buffer t)))
-	 (frame (ilisp-output-sink-frame ilisp-output-sink)))    
+	 (frame (ilisp-output-sink-frame ilisp-output-sink)))
     (with-current-buffer buffer
       (erase-buffer))
     (bury-buffer buffer)
@@ -389,7 +389,7 @@ If given a numeric argument, deletes all typeout windows."
       (set-buffer (window-buffer))
       ;; 19990806 Marti Atzmueller
       ;; Changed 2 to 3 just below.
-      (+ 3 (save-excursion 
+      (+ 3 (save-excursion
 	     (goto-char (point-min))
 	     ;; Any upper bound on the height of an emacs window will
 	     ;; do here.  How about 1000.
@@ -399,7 +399,7 @@ If given a numeric argument, deletes all typeout windows."
 (defun ilisp-shrink-wrap-window (window ilisp-output-sink)
   (let ((previously-selected-window (selected-window))
 	(buffer (window-buffer window)))
-    
+
     (select-window window)
     (let* ((current-height (window-height window))
 	   (desired-height (ilisp-desired-height ilisp-output-sink t))
@@ -474,8 +474,8 @@ If given a numeric argument, deletes all typeout windows."
 (defun ilisp-window-live-p (window)
   (window-live-p window))
 
-;;; This old implementation ignores windows in other frames, 
-;;; which makes a lot of trouble if the ILISP buffer is shown in 
+;;; This old implementation ignores windows in other frames,
+;;; which makes a lot of trouble if the ILISP buffer is shown in
 ;;; a single dedicated window in a frame.
 
 ;;(defun ilisp-window-live-p (window)
@@ -534,7 +534,7 @@ This is probably the window from which enlarge-window would steal lines."
   (if (or (not (string-match "XEmacs" emacs-version))
 	  (and (= emacs-major-version 19)
 	       (< emacs-minor-version 12)))
-	  
+
       (frame-first-window frame)
       (frame-highest-window frame 0)))
 
@@ -544,7 +544,7 @@ This is probably the window from which enlarge-window would steal lines."
 ;   (if (or (not (string-match "XEmacs" emacs-version))
 ; 	  (and (= emacs-major-version 19)
 ; 	       (< emacs-minor-version 12)))
-	  
+
 ;       (let* ((window* (frame-selected-window frame))
 ; 	     ;; (window* (selected-window))
 ; 	     (edges* (window-edges window*))
@@ -695,7 +695,7 @@ order to do the real work."
     ;; Bugcheck
     (unless (stringp output)
       (error "ILISP: not a string in lisp-display-output"))
-    
+
     (when (ilisp-value 'comint-errorp t)
       (setq output (funcall (ilisp-value 'ilisp-error-filter) output)))
     (let ((ilisp-output-sink
@@ -730,8 +730,8 @@ order to do the real work."
 	      (lisp-pop-to-buffer (ilisp-buffer) ilisp-output-sink)
 	      (if (not (eq (current-buffer) buffer))
 		  (setq ilisp-last-buffer buffer))
-	      (comint-insert 
-	       (concat 
+	      (comint-insert
+	       (concat
 		(if ilisp-last-message
 		    (concat ";;; " ilisp-last-message "\n"))
 		"\n"
@@ -757,7 +757,7 @@ Dispatch on the value of 'lisp-no-popper':
 
 	(t
 	 (ilisp-display-output-adaptively output ilisp-output-sink)))
-  
+
   (when (or (ilisp-value 'comint-errorp t)
 	    (string-match (ilisp-value 'ilisp-error-regexp t) output))
 
@@ -790,7 +790,7 @@ Dispatch on the value of 'lisp-no-popper':
 	(buffer (ilisp-output-buffer ilisp-output-sink t)))
     (ilisp-write-string-to-buffer ilisp-output-sink output)
     (ilisp-display-buffer-in-typeout-area ilisp-output-sink)
-    
+
     ;; Martin Atzmueller 2000-01-27
     ;; this-command trick:
     ;; if this-command is ilisp-message-lisp-space, switch back!
@@ -810,7 +810,7 @@ Dispatch on the value of 'lisp-no-popper':
 		 (not (eq (selected-window)
 			  (get-buffer-window buffer t))))
 	    (ilisp-bury-output-internal ilisp-output-sink))))
-  
+
   ;; v5.7: Patch suggested by hunter@work.nlm.nih.gov (Larry Hunter)
   ;; If output contains '%', 'message' loses.
   ;; (message (ilisp-quote-%s output))
@@ -849,8 +849,8 @@ Dispatch on the value of 'lisp-no-popper':
 	  (lisp-pop-to-buffer (ilisp-buffer) ilisp-output-sink)
 	  (unless (eq (current-buffer) buffer)
 	    (setq ilisp-last-buffer buffer))
-	  (comint-insert 
-	   (concat 
+	  (comint-insert
+	   (concat
 	    (when ilisp-last-message
               (concat ";;; " ilisp-last-message "\n"))
 	    (comint-remove-whitespace output)
@@ -902,7 +902,7 @@ Otherwise, switch to the current ILISP buffer.  With argument,
 positions cursor at end of buffer.  If you don't want to split
 windows, set pop-up-windows to NIL."
   (interactive "P")
-  (if (and (not ilisp-only) ilisp-last-buffer 
+  (if (and (not ilisp-only) ilisp-last-buffer
 	   (memq major-mode ilisp-modes))
       (lisp-pop-to-buffer ilisp-last-buffer nil t)
     (unless (memq major-mode ilisp-modes)

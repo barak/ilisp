@@ -34,7 +34,7 @@
 
   (setq comint-prompt-regexp "^\\([0-9]+ >\\|\\?\\|Step>\\|Inspect.*>\\) "
 	ilisp-trace-command "(ilisp::openmcl-trace \"%s\" \"%s\" \"%s\")"
-	comint-prompt-status 
+	comint-prompt-status
 	(function (lambda (old line)
 	  (comint-prompt-status old line 'openmcl-check-prompt)))
 

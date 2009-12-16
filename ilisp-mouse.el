@@ -276,7 +276,7 @@ pathnames, which generally works, though only for Unix syntax."
 ;;    ftp://huxley.bu.edu/~rogers/queue
 ;;    ./ilisp-mouse.el
 ;;    /etc/passwd
-;;    file:///etc/passwd [but ffap doesn't rewrite this as a local pathname] 
+;;    file:///etc/passwd [but ffap doesn't rewrite this as a local pathname]
 ;;    file://localhost/etc/passwd
 
 ;;; end of file -- ilisp-mouse.el --

@@ -11,7 +11,7 @@
 
 
 ;;;%Process interface
-;;;%%Comint 
+;;;%%Comint
 (defun ilisp-get-old-input ()
   "Snarf the sexp starting at the nearest previous prompt, or NIL if none."
   (save-excursion
@@ -56,7 +56,7 @@ for more information."
   (if ilisp-complete
       (exit-minibuffer)
       (let (input)
-	(if (and (= (point) (point-max)) 
+	(if (and (= (point) (point-max))
 		 (memq major-mode ilisp-modes)
 		 (setq input (ilisp-get-old-input)))
 	    (let ((process (ilisp-process))

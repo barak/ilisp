@@ -4,7 +4,7 @@
 ;;; ILISP completion
 ;;; The basic idea behind the completion stuff is to use as much of
 ;;; the standard Emacs stuff as possible.  The extensions here go out
-;;; to the inferior LISP to complete symbols if necessary.  
+;;; to the inferior LISP to complete symbols if necessary.
 ;;;
 ;;; This file is part of ILISP.
 ;;; Please refer to the file COPYING for copyrights and licensing
@@ -16,15 +16,15 @@
   "Display the possible choices for SYMBOL in alist CHOICES."
   (with-output-to-temp-buffer "*Completions*"
     (display-completion-list
-     (sort 
+     (sort
       (all-completions (lisp-symbol-name symbol) choices)
       'string-lessp))))
 
 ;;;%%ilisp-can-complete
 (defun ilisp-can-complete (symbol function-p)
   "Return T if ilisp completion can complete SYMBOL from the current table."
-  (and ilisp-original 
-       (string= (lisp-symbol-package ilisp-original) 
+  (and ilisp-original
+       (string= (lisp-symbol-package ilisp-original)
 		(lisp-symbol-package symbol))
        (string= (lisp-symbol-delimiter ilisp-original)
 		(lisp-symbol-delimiter symbol))
@@ -39,14 +39,14 @@ The type of the result is a list.  If FUNCTION-P is T, only symbols
 with function bindings will be considered.  If no package is specified
 the buffer package will be used."
   (let* ((choices-string
-	  (ilisp-send 
-	   (format  (ilisp-value 'ilisp-complete-command) 
+	  (ilisp-send
+	   (format  (ilisp-value 'ilisp-complete-command)
 		    (lisp-symbol-name symbol) (lisp-symbol-package symbol)
 		    function-p
 		    (string= (lisp-symbol-delimiter symbol) ":")
 		    ilisp-*prefix-match*)
 	   (if (not ilisp-complete)
-	       (concat "Complete " 
+	       (concat "Complete "
 		       (if function-p "function ")
 		       (lisp-buffer-symbol symbol)))
 	   'complete))
@@ -67,7 +67,7 @@ the buffer package will be used."
 (defun ilisp-completion-table (symbol function-p)
   "Return the completion table for SYMBOL trying to use the current one.
 If FUNCTION-P is T, only symbols with function cells will be returned."
-  (if (ilisp-can-complete symbol function-p) 
+  (if (ilisp-can-complete symbol function-p)
       ilisp-original-table
       (ilisp-complete symbol function-p)))
 
@@ -84,7 +84,7 @@ If FUNCTION-P is T, only symbols with function cells will be returned."
 (defun ilisp-minibuffer-prompt-end ()
   (if (fboundp 'minibuffer-prompt-end)
       (minibuffer-prompt-end)
-    (point-min)))	       
+    (point-min)))
 
 ;;;
 (defun ilisp-current-choice ()
@@ -96,9 +96,9 @@ be the ilisp-table."
       (progn
 	(let* ((symbol-info (lisp-previous-symbol))
 	       (symbol (car symbol-info)))
-	  (setq minibuffer-completion-table 
+	  (setq minibuffer-completion-table
 		(ilisp-completion-table symbol ilisp-completion-function-p)))
-	(save-excursion 
+	(save-excursion
 	  (skip-chars-backward "^: \(")
 	  (setq ilisp-mini-prefix (buffer-substring-no-properties (ilisp-minibuffer-prompt-end) (point)))
 	  (delete-region (ilisp-minibuffer-prompt-end) (point)))
@@ -114,7 +114,7 @@ be the ilisp-table."
 (defun ilisp-completion-help ()
   "Inferior LISP minibuffer completion help."
   (interactive)
-  (ilisp-current-choice) 
+  (ilisp-current-choice)
   (funcall ilisp-completion-help)
   (ilisp-restore-prefix))
 
@@ -144,14 +144,14 @@ be the ilisp-table."
 (defun ilisp-completion-paren ()
   "Only allow a paren if ilisp-paren is T."
   (interactive)
-  (if ilisp-paren 
+  (if ilisp-paren
       (if (or (eq last-input-char ?\() (eq (char-after (ilisp-minibuffer-prompt-end)) ?\())
 	  (insert last-input-char)
 	  (beep))
       (beep)))
-      
-;;; 
-(defvar ilisp-completion-exit 
+
+;;;
+(defvar ilisp-completion-exit
   (lookup-key minibuffer-local-must-match-map "\n"))
 (defun ilisp-completion-exit ()
   "Inferior LISP completion complete and exit."
@@ -181,7 +181,7 @@ Return (SYMBOL LCS-SYMBOL CHOICES UNIQUEP)."
 	   (list symbol symbol (all-completions name table) nil))
 	  (choice			; New LCS
 	   (let ((symbol
-		  (lisp-symbol (lisp-symbol-package symbol) 
+		  (lisp-symbol (lisp-symbol-package symbol)
 			       (lisp-symbol-delimiter symbol)
 			       choice)))
 	     (list symbol symbol (all-completions choice table) nil)))
@@ -313,15 +313,15 @@ internal and exported symbols is considered."
 	      (error "Nothing to complete"))
 	    (let* ((symbol (car symbol-info))
 		   (name (lisp-symbol-name symbol))
-		   (choice (ilisp-completer 
-			    symbol 
+		   (choice (ilisp-completer
+			    symbol
 			   (if (not mode) (car (cdr symbol-info)))))
 		   (match (lisp-buffer-symbol (car choice)))
 		   (lcs (lisp-buffer-symbol (car (cdr choice))))
 		   (choices (car (cdr (cdr choice))))
 		   (unique (car (cdr (cdr (cdr choice))))))
 	      (skip-chars-backward " \t\n")
-	      (completer-goto match lcs choices unique 
+	      (completer-goto match lcs choices unique
 			      (ilisp-value 'ilisp-symbol-delimiters)
 			      completer-words))))
 	(message "Completed"))))

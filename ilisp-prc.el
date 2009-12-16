@@ -31,15 +31,15 @@ This is the buffer to whose process requests are sent."
 
 
 (defun ilisp-recent-buffer ()
-  "Return the most-recently selected ilisp buffer." 
-  (if ilisp-buffer 
+  "Return the most-recently selected ilisp buffer."
+  (if ilisp-buffer
       (or (get-buffer ilisp-buffer)
 	  (get-buffer
 	   (setq ilisp-buffers
 		 (delete* (substring ilisp-buffer
-				     1 
+				     1
 				     (1- (length ilisp-buffer)))
-			  ilisp-buffers 
+			  ilisp-buffers
 			  :test (function (lambda (s1 s2)
 					    (string= s1 (car s2)))))
 		 ilisp-buffer

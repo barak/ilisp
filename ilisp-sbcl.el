@@ -10,7 +10,7 @@
 ;;; of present and past contributors.
 
 ;;;%%%Steel Bank Common Lisp
-    
+
 (defvar ilisp-sbcl-init-file
   ;; Note: The init file source extension (".lisp") needs to be
   ;; present in the filename, otherwise ILISP-LOAD-OR-SEND gets
@@ -59,11 +59,11 @@
               ;; level 2 or greater,
               ;; e.g. x[y] prompt
               (string-to-int
-               (subseq prompt (1+ (match-beginning 0)) 
+               (subseq prompt (1+ (match-beginning 0))
                        (1- (match-end 0)))))
             (t
               no-level)))))
-    
+
 (defun sbcl-check-prompt-sbcl>=07 (old new)
   "Compare the break level printed at the beginning of the prompt."
   ;; SBCL has the new break prompt sequence such as
@@ -81,7 +81,7 @@
 (defvar ilisp-*sbcl<07-version* nil)
 ;; Distinguish SBCL-0.6.x (or earlier) vs. SBCL-0.7.x (and probably later).
 
-(defvar ilisp-*determine-version-lisp-string* 
+(defvar ilisp-*determine-version-lisp-string*
   "(find-package :sb-eval)") ; in SBCL-0.7.x an Interpreter didn't exist in the
                              ; SB-EVAL package any more.
 
@@ -97,7 +97,7 @@
         (if ilisp-*sbcl<07-version*
           (function sbcl-check-prompt-sbcl<07)
           (function sbcl-check-prompt-sbcl>=07)))
-  
+
   (set-ilisp-value 'comint-prompt-regexp
 		   (if ilisp-*sbcl<07-version*
 		       ;; old comint-prompt-regexp (sbcl-0.6 or earlier).
@@ -130,13 +130,13 @@
    'ilisp-init-hook-local
    'sbcl-version-hook-fun
    nil)
-                        
-  (setq	comint-prompt-regexp "^\\([0-9]+\\]+\\|\\* \\|[-A-Za-z0-9]+([0-9]+):\\)" 
+
+  (setq	comint-prompt-regexp "^\\([0-9]+\\]+\\|\\* \\|[-A-Za-z0-9]+([0-9]+):\\)"
         ;; we have to set comint-prompt-regexp to something sensible here, before
         ;; we can set it finally to its right value in our ILISP-INIT-HOOK-LOCAL
         ;; hook (above).
         ilisp-trace-command "(ilisp:sbcl-trace \"%s\" \"%s\" \"%s\")"
-	comint-prompt-status 
+	comint-prompt-status
 	(function (lambda (old line)
 		    (comint-prompt-status old line 'sbcl-check-prompt)))
 
@@ -145,7 +145,7 @@
 	;; hunter@work.nlm.nih.gov (Larry Hunter), for CMUCL.  It's
 	;; probably wrong for SBCL, but I'd have to know what it was
 	;; for before commenting.
-        
+
 	ilisp-arglist-command "(ilisp:ilisp-arglist \"%s\" \"%s\")"
 	ilisp-find-source-command "(ilisp:source-file \"%s\" \"%s\" \"%s\")"
 

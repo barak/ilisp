@@ -11,7 +11,7 @@
 
 ;;;%Variables
 ;;;%%Deflocal
-(defvar ilisp-locals '(comint-prompt-regexp 
+(defvar ilisp-locals '(comint-prompt-regexp
 		       input-ring-size
 		       comint-get-old-input
 		       comint-input-sentinel
@@ -61,7 +61,7 @@ a common file system, the interface files will be sent down the pipe
 instead.  The value of this variable is set from DIALECT-program, or
 inherited from a less specific dialect if DIALECT-program is nil.")
 
-(defvar ilisp-motd 
+(defvar ilisp-motd
   "ILISP V%s  Use M-x ilisp-bug for problems and suggestions."
   "*Message of the day format string for ILISP given VERSION. To
 prevent any message from being printed, set this to nil.")
@@ -99,7 +99,7 @@ way more appropriate for ilisp."
   ;; ready for the future by specifying a group above.
   )
 
-(defvar lisp-show-status t 
+(defvar lisp-show-status t
   "*Set to nil to stop showing process status in lisp-mode buffers.")
 
 (defvar ilisp-*prefix-match* nil
@@ -366,7 +366,7 @@ compile-file-lisp. Used by these commands to determine defaults.")
 By default the file will be loaded from the ilisp-directory.")
 
 ;;; This is useful to have a clause in ilisp code like:
-;;; (if (memq 'allegro (ilisp-value 'ilisp-dialect)) 
+;;; (if (memq 'allegro (ilisp-value 'ilisp-dialect))
 ;;;     allegro-code
 ;;;     normal-code)
 (deflocal ilisp-dialect nil
@@ -397,7 +397,7 @@ By default the file will be loaded from the ilisp-directory.")
 
 (defvar ilisp-paren nil "T if paren is allowed in ilisp readers.")
 
-(defvar ilisp-completion-package nil 
+(defvar ilisp-completion-package nil
   "Package of buffer requesting completion.")
 
 (defvar ilisp-completion-function-p nil
@@ -422,7 +422,7 @@ By default the file will be loaded from the ilisp-directory.")
 
 (defvar lisp-buffer-package nil "T if in lisp-buffer-package.")
 
-(defvar lisp-dont-cache-package nil 
+(defvar lisp-dont-cache-package nil
   "If Non-Nil then refind the most recent in-package each time.")
 
 ;;;%Globals from ilisp-ext.el

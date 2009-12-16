@@ -11,15 +11,15 @@
 ;;; This file defines a general command-interpreter-in-a-buffer package
 ;;; (comint mode). The idea is that you can build specific process-in-a-buffer
 ;;; modes on top of comint mode -- e.g., lisp, shell, scheme, T, soar, ....
-;;; This way, all these specific packages share a common base functionality, 
+;;; This way, all these specific packages share a common base functionality,
 ;;; and a common set of bindings, which makes them easier to use (and
 ;;; saves code, implementation time, etc., etc.).
-;;; 
+;;;
 ;;; Several packages are already defined using comint mode:
 ;;; - The file cmushell.el defines cmushell and cmulisp mode.
 ;;; Cmushell and cmulisp mode are similar to, and intended to replace,
-;;; their counterparts in the standard gnu emacs release (in shell.el). 
-;;; These replacements are more featureful, robust, and uniform than the 
+;;; their counterparts in the standard gnu emacs release (in shell.el).
+;;; These replacements are more featureful, robust, and uniform than the
 ;;; released versions. The key bindings in lisp mode are also more compatible
 ;;; with the bindings of Hemlock and Zwei (the Lisp Machine emacs).
 ;;;
@@ -29,7 +29,7 @@
 
 ;;; For documentation on the functionality provided by comint mode, and
 ;;; the hooks available for customising it, see the comments below.
-;;; For further information on the standard derived modes (shell, 
+;;; For further information on the standard derived modes (shell,
 ;;; inferior-lisp, inferior-scheme, ...), see the relevant source files.
 
 ;;; Please send me bug reports, bug fixes, and extensions, so that I can
@@ -91,7 +91,7 @@
 ;;;     input-ring              - ring             mechanism
 ;;;     input-ring-index        - marker           ...
 ;;;     comint-last-input-match - string           ...
-;;;     comint-get-old-input    - function     Hooks for specific 
+;;;     comint-get-old-input    - function     Hooks for specific
 ;;;     comint-input-sentinel   - function         process-in-a-buffer
 ;;;     comint-input-filter     - function         modes.
 (defvar comint-prompt-regexp "^"
@@ -152,9 +152,9 @@ appropriate functions, and the variable comint-prompt-regexp to
 the appropriate regular expression.
 
 An input history is maintained of size input-ring-size, and
-can be accessed with the commands comint-next-input [\\[comint-next-input]] and 
+can be accessed with the commands comint-next-input [\\[comint-next-input]] and
 comint-previous-input [\\[comint-previous-input]]. Commands not keybound by
-default are send-invisible, comint-dynamic-complete, and 
+default are send-invisible, comint-dynamic-complete, and
 comint-list-dynamic-completions.
 \\{comint-mode-map}
 If you accidentally suspend your process, use \\[comint-continue-subjob]
@@ -181,7 +181,7 @@ Entry to this mode runs the hooks on comint-mode-hook"
     (setq input-ring-index 0)
     (make-variable-buffer-local 'comint-get-old-input)
     (make-variable-buffer-local 'comint-input-sentinel)
-    (make-variable-buffer-local 'comint-input-filter)  
+    (make-variable-buffer-local 'comint-input-filter)
     (run-hooks 'comint-mode-hook)
     ;Do this after the hook so the user can mung INPUT-RING-SIZE w/his hook.
     ;The test is so we don't lose history if we run comint-mode twice in
@@ -272,13 +272,13 @@ buffer."
       (goto-char (point-max))
       (set-marker (process-mark proc) (point)))
     buffer))
-      
+
 
 
 ;;; Ring Code
 ;;;============================================================================
-;;; This code defines a ring data structure. A ring is a 
-;;;     (hd-index tl-index . vector) 
+;;; This code defines a ring data structure. A ring is a
+;;;     (hd-index tl-index . vector)
 ;;; list. You can insert to, remove from, and rotate a ring. When the ring
 ;;; fills up, insertions cause the oldest elts to be quietly dropped.
 ;;;
@@ -288,7 +288,7 @@ buffer."
 ;;; These functions are used by the input history mechanism, but they can
 ;;; be used for other purposes as well.
 
-(defun ring-p (x) 
+(defun ring-p (x)
   "T if X is a ring; NIL otherwise."
   (and (consp x) (integerp (car x))
        (consp (cdr x)) (integerp (car (cdr x)))
@@ -317,7 +317,7 @@ buffer."
 
 (defun ring-insert (ring item)
   "Insert a new item onto the ring. If the ring is full, dump the oldest
-item to make room."       
+item to make room."
   (let* ((vec (cdr (cdr ring)))  (len (length vec))
 	 (new-hd (ring-minus1 (car ring) len)))
       (setcar ring new-hd)
@@ -358,7 +358,7 @@ item to make room."
 	    (set-car (cdr ring) tl)))))
 
 (defun comint-mod (n m)
-  "Returns N mod M. M is positive. Answer is guaranteed to be non-negative, 
+  "Returns N mod M. M is positive. Answer is guaranteed to be non-negative,
 and less than m."
   (let ((n (% n m)))
     (if (>= n 0) n
@@ -370,7 +370,7 @@ and less than m."
     (if (= numelts 0) (error "indexed empty ring")
 	(let* ((hd (car ring))  (tl (car (cdr ring)))  (vec (cdr (cdr ring)))
 	       (index (comint-mod index numelts))
-	       (vec-index (comint-mod (+ index hd) 
+	       (vec-index (comint-mod (+ index hd)
 				      (length vec))))
 	  (aref vec vec-index)))))
 
@@ -394,7 +394,7 @@ and less than m."
 	   (cond ((eq last-command 'comint-previous-input)
 		  (delete-region (mark) (point))
 		  (set-mark (point)))
-		 (t                          
+		 (t
 		  (setq input-ring-index
 			(if (> arg 0) -1
 			    (if (< arg 0) 1 0)))
@@ -404,7 +404,7 @@ and less than m."
 	   (insert (ring-ref input-ring input-ring-index))
 	   (setq this-command 'comint-previous-input))
 	  (t (ding)))))
-	 
+
 (defun comint-next-input (arg)
   "Cycle forwards through input history."
   (interactive "*p")
@@ -412,11 +412,11 @@ and less than m."
 
 (defvar comint-last-input-match ""
   "Last string searched for by comint input history search, for defaulting.
-Buffer local variable.") 
+Buffer local variable.")
 
 (defun comint-previous-input-matching (str)
   "Searches backwards through input history for substring match"
-  (interactive (let ((s (read-from-minibuffer 
+  (interactive (let ((s (read-from-minibuffer
 			 (format "Command substring (default %s): "
 				 comint-last-input-match))))
 		 (list (if (string= s "") comint-last-input-match s))))
@@ -431,7 +431,7 @@ Buffer local variable.")
 	  (t (error "Not found.")))))
 
 ;;; These next three commands are alternatives to the input history commands --
-;;; comint-next-input, comint-previous-input and 
+;;; comint-next-input, comint-previous-input and
 ;;; comint-previous-input-matching. They search through the process buffer
 ;;; text looking for occurrences of the prompt. RMS likes them better;
 ;;; I don't. Bound to M-P, M-N, and C-c R (uppercase P, N, and R) for
@@ -466,7 +466,7 @@ Search starts from beginning of current line."
 (defun comint-msearch-input-matching (str)
   "Search backwards for occurrence of prompt followed by STRING.
 STRING is prompted for, and is NOT a regular expression."
-  (interactive (let ((s (read-from-minibuffer 
+  (interactive (let ((s (read-from-minibuffer
 			 (format "Command (default %s): "
 				 comint-last-input-match))))
 		 (list (if (string= s "") comint-last-input-match s))))
@@ -482,7 +482,7 @@ STRING is prompted for, and is NOT a regular expression."
     (if p (goto-char p)
 	(error "No match"))))
 
-(defun comint-send-input () 
+(defun comint-send-input ()
   "Send input to process.  After the process output mark, sends all text
 from the process mark to point as input to the process.  Before the
 process output mark, calls value of variable comint-get-old-input to retrieve
@@ -497,12 +497,12 @@ according to the command interpreter running in the buffer. E.g.,
 If the interpreter is the csh,
     comint-get-old-input is the default: take the current line, discard any
         initial string matching regexp comint-prompt-regexp.
-    comint-input-sentinel monitors input for \"cd\", \"pushd\", and \"popd\" 
+    comint-input-sentinel monitors input for \"cd\", \"pushd\", and \"popd\"
         commands. When it sees one, it cd's the buffer.
     comint-input-filter is the default: returns T if the input isn't all white
 	space.
 
-If the comint is Lucid Common Lisp, 
+If the comint is Lucid Common Lisp,
     comint-get-old-input snarfs the sexp ending at point.
     comint-input-sentinel does nothing.
     comint-input-filter returns NIL if the input matches input-filter-regexp,
@@ -540,7 +540,7 @@ any initial text matching comint-prompt-regexp."
       (buffer-substring beg (point)))))
 
 (defun comint-skip-prompt ()
-  "Skip past the text matching regexp comint-prompt-regexp. 
+  "Skip past the text matching regexp comint-prompt-regexp.
 If this takes us past the end of the current line, don't skip at all."
   (let ((eol (save-excursion (end-of-line) (point))))
     (if (and (looking-at comint-prompt-regexp)
@@ -551,7 +551,7 @@ If this takes us past the end of the current line, don't skip at all."
 (defun comint-after-pmark-p ()
   "Is point after the process output marker?"
   ;; Since output could come into the buffer after we looked at the point
-  ;; but before we looked at the process marker's value, we explicitly 
+  ;; but before we looked at the process marker's value, we explicitly
   ;; serialise. This is just because I don't know whether or not emacs
   ;; services input during execution of lisp commands.
   (let ((proc-pos (marker-position
@@ -560,13 +560,13 @@ If this takes us past the end of the current line, don't skip at all."
 
 (defun comint-bol (arg)
   "Goes to the beginning of line, then skips past the prompt, if any.
-If a prefix argument is given (\\[universal-argument]), then no prompt skip 
+If a prefix argument is given (\\[universal-argument]), then no prompt skip
 -- go straight to column 0.
 
 The prompt skip is done by skipping text matching the regular expression
 comint-prompt-regexp, a buffer local variable.
 
-If you don't like this command, reset c-a to beginning-of-line 
+If you don't like this command, reset c-a to beginning-of-line
 in your hook, comint-mode-hook."
   (interactive "P")
   (beginning-of-line)
@@ -594,7 +594,7 @@ may be a security bug for some applications."
 
 (defun send-invisible (str)
   "Read a string without echoing, and send it to the process running
-in the current buffer. A new-line is additionally sent. String is not 
+in the current buffer. A new-line is additionally sent. String is not
 saved on comint input history list.
 Security bug: your string can still be temporarily recovered with
 \\[view-lossage]."
@@ -614,7 +614,7 @@ Security bug: your string can still be temporarily recovered with
   (interactive)
   (let ((pmark (process-mark (get-buffer-process (current-buffer)))))
     (kill-region comint-last-input-end pmark)
-    (goto-char pmark)    
+    (goto-char pmark)
     (insert "*** output flushed ***\n")
     (set-marker pmark (point))))
 
@@ -709,28 +709,28 @@ Useful if you accidentally suspend the top-level process."
 ;;; (COMINT-SOURCE-DEFAULT previous-dir/file source-modes)
 ;;;============================================================================
 ;;; This function computes the defaults for the load-file and compile-file
-;;; commands for tea, soar, cmulisp, and cmuscheme modes. 
-;;; 
-;;; - PREVIOUS-DIR/FILE is a pair (directory . filename) from the last 
+;;; commands for tea, soar, cmulisp, and cmuscheme modes.
+;;;
+;;; - PREVIOUS-DIR/FILE is a pair (directory . filename) from the last
 ;;; source-file processing command. NIL if there hasn't been one yet.
 ;;; - SOURCE-MODES is a list used to determine what buffers contain source
 ;;; files: if the major mode of the buffer is in SOURCE-MODES, it's source.
 ;;; Typically, (lisp-mode) or (scheme-mode).
-;;; 
+;;;
 ;;; If the command is given in a file buffer whose major modes is in
 ;;; SOURCE-MODES, then the the filename is the default file, and the
 ;;; file's directory is the default directory.
-;;; 
+;;;
 ;;; If the buffer isn't a source file buffer (e.g., it's the process buffer),
 ;;; then the default directory & file are what was used in the last source-file
 ;;; processing command (i.e., PREVIOUS-DIR/FILE).  If this is the first time
 ;;; the command has been run (PREVIOUS-DIR/FILE is nil), the default directory
 ;;; is the cwd, with no default file. (\"no default file\" = nil)
-;;; 
+;;;
 ;;; SOURCE-REGEXP is typically going to be something like (tea-mode)
 ;;; for T programs, (lisp-mode) for Lisp programs, (soar-mode lisp-mode)
 ;;; for Soar programs, etc.
-;;; 
+;;;
 ;;; The function returns a pair: (default-directory . default-file).
 
 (defun comint-source-default (previous-dir/file source-modes)
@@ -769,15 +769,15 @@ Useful if you accidentally suspend the top-level process."
 ;;; commands that process source files (like loading or compiling a file).
 ;;; It prompts for the filename, provides a default, if there is one,
 ;;; and returns the result filename.
-;;; 
+;;;
 ;;; See COMINT-SOURCE-DEFAULT for more on determining defaults.
-;;; 
+;;;
 ;;; PROMPT is the prompt string. PREV-DIR/FILE is the (directory . file) pair
 ;;; from the last source processing command.  SOURCE-MODES is a list of major
 ;;; modes used to determine what file buffers contain source files.  (These
 ;;; two arguments are used for determining defaults). If MUSTMATCH-P is true,
 ;;; then the filename reader will only accept a file that exists.
-;;; 
+;;;
 ;;; A typical use:
 ;;; (interactive (comint-get-source "Compile file: " prev-lisp-dir/file
 ;;;                                 "\\.lisp\\'" t))
@@ -817,7 +817,7 @@ Useful if you accidentally suspend the top-level process."
 ;;; (setq cmushell-load-hook
 ;;;       '((lambda () (define-key lisp-mode-map "\M-\t"
 ;;;				   'comint-replace-by-expanded-filename))))
-;;;          
+;;;
 
 
 (defun comint-match-partial-pathname ()
@@ -826,7 +826,7 @@ Useful if you accidentally suspend the top-level process."
       (save-excursion
 	(re-search-backward "[^~/A-Za-z0-9---_.$#,]+")
 	(re-search-forward "[~/A-Za-z0-9---_.$#,]+")
-	(substitute-in-file-name 
+	(substitute-in-file-name
 	  (buffer-substring (match-beginning 0) (match-end 0))))))
 
 (defun comint-replace-by-expanded-filename ()
@@ -882,8 +882,8 @@ Useful if you accidentally suspend the top-level process."
 ; (global-set-key "\M-?" 'comint-dynamic-list-completions)
 ; (define-key shell-mode-map "\M-\t" 'comint-dynamic-complete)
 
-;;; Log the user, so I know who's using the package during the beta test 
-;;; period. This just inserts the user's name and current time into a 
+;;; Log the user, so I know who's using the package during the beta test
+;;; period. This just inserts the user's name and current time into a
 ;;; central file.
 (defun comint-log-user ()
   (interactive)
@@ -905,13 +905,13 @@ Useful if you accidentally suspend the top-level process."
 
 ;;; Converting process modes to use comint mode
 ;;; ===========================================================================
-;;; Several gnu packages (tex-mode, background, dbx, gdb, kermit, prolog, 
+;;; Several gnu packages (tex-mode, background, dbx, gdb, kermit, prolog,
 ;;; telnet are some) use the shell package as clients. Most of them would
-;;; be better off using the comint package, but they predate it. 
+;;; be better off using the comint package, but they predate it.
 ;;;
 ;;; Altering these packages to use comint mode should greatly
 ;;; improve their functionality, and is fairly easy.
-;;; 
+;;;
 ;;; Renaming variables
 ;;; Most of the work is renaming variables and functions. These are the common
 ;;; ones:
@@ -938,9 +938,9 @@ Useful if you accidentally suspend the top-level process."
 ;;; LAST-INPUT-START is no longer necessary because inputs are stored on the
 ;;; input history ring. SHELL-SET-DIRECTORY is gone, its functionality taken
 ;;; over by SHELL-DIRECTORY-TRACKER, the shell mode's comint-input-sentinel.
-;;; Comint mode does not provide functionality equivalent to 
+;;; Comint mode does not provide functionality equivalent to
 ;;; shell-set-directory-error-hook; it is gone.
-;;; 
+;;;
 ;;; If you are implementing some process-in-a-buffer mode, called foo-mode, do
 ;;; *not* create the comint-mode local variables in your foo-mode function.
 ;;; This is not modular.  Instead, call comint-mode, and let *it* create the
@@ -952,7 +952,7 @@ Useful if you accidentally suspend the top-level process."
 ;;; foo-mode-hook, and you're done. Don't run the comint-mode hook yourself;
 ;;; comint-mode will take care of it. The following example, from cmushell.el,
 ;;; is typical:
-;;; 
+;;;
 ;;; (defun shell-mode ()
 ;;;   (interactive)
 ;;;   (comint-mode)
@@ -983,5 +983,5 @@ Useful if you accidentally suspend the top-level process."
 (defvar comint-load-hook nil
   "This hook is run when comint is loaded in.
 This is a good place to put keybindings.")
-	
+
 (run-hooks 'comint-load-hook)

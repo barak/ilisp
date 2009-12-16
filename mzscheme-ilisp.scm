@@ -1,5 +1,5 @@
 ;;;; mzscheme-ilisp.scm --- ILISP support functions for MzScheme
-;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de> 
+;;;; Matthias Koeppe <mkoeppe@mail.math.uni-magdeburg.de>
 ;;;
 ;;; Copyright (C) 2000 Matthias Koeppe
 ;;;

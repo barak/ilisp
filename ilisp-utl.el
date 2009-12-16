@@ -47,7 +47,7 @@ It considers all non alphanumerics as word delimiters."
   (let ((len1 (length s1)))
     (and (<= len1 (length s2))
 	 (let ((start 0)
-	       (start2 0) 
+	       (start2 0)
 	       end
 	       (match t))
 	   (while
@@ -62,7 +62,7 @@ It considers all non alphanumerics as word delimiters."
 				   s2 start2)
 				  (setq start2 (match-end 0)) ;OK
 				(setq match nil))) ;Can't find delimiter
-		     (setq match nil))	;Words don't match 
+		     (setq match nil))	;Words don't match
 		 nil))			;Ran out of delimiters in s1
 	   (and match
 		(string= (substring s1 start len1)

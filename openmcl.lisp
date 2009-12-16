@@ -31,7 +31,7 @@
 
 ;;; source-file symbol package type --
 
-    
+
 (defun source-file (name package type)
   (ilisp-errors
    (flet ((print-source (path) (when path (print (namestring (truename path))) t)))

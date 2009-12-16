@@ -12,14 +12,14 @@
 ;;;%%Movement
 (defun bol-ilisp (arg)
   "Goes to the beginning of line, then skips past the prompt, if any.
-If a prefix argument is given (\\[universal-argument]), then no prompt skip 
+If a prefix argument is given (\\[universal-argument]), then no prompt skip
 -- go straight to column 0.
 
 The prompt skip is done by skipping text matching the regular expression
 comint-prompt-regexp or ilisp-other-prompt, both buffer local variables."
   (interactive "P")
   (beginning-of-line)
-  (if (null arg) 
+  (if (null arg)
       (or (comint-skip-prompt)
 	  (if ilisp-other-prompt
 	      (let ((comint-prompt-regexp ilisp-other-prompt))
@@ -109,10 +109,10 @@ a left paren or ;;; at the left margin unless it is in a string."
 		     (progn (forward-sexp) (point))
 		   (error (point-max))))))
     ;; Find the next line starting at the left margin and then check
-    ;; to see if it is in a string. 
+    ;; to see if it is in a string.
     (while (progn
 	     (skip-chars-forward "^\"" boundary) ;To the next string
-	     (if (= (point) boundary)	
+	     (if (= (point) boundary)
 		 nil			;No quote found and at limit
 		 (let ((string-boundary ;Start of next defun
 			(save-excursion

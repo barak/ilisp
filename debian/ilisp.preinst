@@ -1,4 +1,4 @@
-#! /bin/sh 
+#! /bin/sh
 set -e
 
 # summary of how this script can be called:
@@ -13,7 +13,7 @@ case "$1" in
     upgrade)
 	set +e
 	rm -f '/usr/lib/ilisp/*.scm' # remove bogus symlink
-	for i in /usr/lib/ilisp/*; do 
+	for i in /usr/lib/ilisp/*; do
 	    b=`basename $i`
 	    # Don't delete symlinks with .lisp or .scm extension
 	    if [ `basename $b .lisp` = $b -a `basename $b .scm` = $b ]; then

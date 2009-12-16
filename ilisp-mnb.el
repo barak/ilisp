@@ -42,7 +42,7 @@
 
 (defkey-ilisp [menu-bar lisp set-buffer-package]
   '("Set Buffer Package" . set-buffer-package-lisp))
-   
+
 (defkey-ilisp [menu-bar lisp arglist]
   '("Arglist" . arglist-lisp))
 
@@ -119,7 +119,7 @@
 ;;;    "Lisp"
 ;;;  "These ILISP commands are available on the menu:"
 ;;;  '(
-;;;    ("Break        Interupt current lisp."  
+;;;    ("Break        Interupt current lisp."
 ;;;     (progn (switch-to-lisp t)
 ;;;	    (interrupt-subjob-ilisp)))
 ;;;    ("Doc          Menu of commands to get help on variables, etc."

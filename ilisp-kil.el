@@ -9,11 +9,11 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-;;;%% Panic/Reset/Status commands 
+;;;%% Panic/Reset/Status commands
 ;;;
 (defun status-lisp (showp)
   "Show the message of the current command being executed in the
-inferior LISP.  With a prefix show pending sends as well."  
+inferior LISP.  With a prefix show pending sends as well."
   (interactive "P")
   (save-excursion
     (set-buffer (ilisp-buffer))

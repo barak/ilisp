@@ -35,17 +35,17 @@
 
 ;;; Commentary:
 
-;; This file and it's extensions have been named ilisp-xemacs-menu before. 
+;; This file and it's extensions have been named ilisp-xemacs-menu before.
 ;; As it is ensured now to work with any Emacs with easymenu the file
-;; itself and all relevant names (of commands and variables) are renamed. 
+;; itself and all relevant names (of commands and variables) are renamed.
 
-;; Use this file as an extension to Ilisp 5.7/5.8 
+;; Use this file as an extension to Ilisp 5.7/5.8
 ;; (seee http://www.cs.cmu.edu/~campbell/ilisp/index.html)
 ;; Put it in a place where (X)Emacs can find it and augment your
 ;; .emacs like the following to use it.
 ;; (load-library "ilisp-easy-menu")
 ;; This needs to be loaderd prior to Ilisp !
-;; This should give you the menu in any source code buffer and any inferior 
+;; This should give you the menu in any source code buffer and any inferior
 ;; ilisp buffer. Be careful: the menu is initialized with add-hook
 ;; on ilisp-mode-hook and lisp-mode-hook, so if you setq these two
 ;; hooks afterwards you won't get the menu.
@@ -65,7 +65,7 @@
 ;127c127,129
 ;<   (if (not (member +ilisp-emacs-version-id+ '(xemacs lucid-19 lucid-19-new)))
 ;---
-;>   (if (and (not 
+;>   (if (and (not
 ;> 	    (member +ilisp-emacs-version-id+ '(xemacs lucid-19 lucid-19-new)))
 ;> 	   (not (featurep 'ilisp-easy-menu)))
 
@@ -114,9 +114,9 @@
      [ "Indent for comment" lisp-indent-for-comment t ]
      [ "Comment region" comment-region-lisp t ]
      "--"
-     [ "Search in Files" search-lisp t ] 
+     [ "Search in Files" search-lisp t ]
      "--"
-     [ "Kill sexp" kill-sexp t ] 
+     [ "Kill sexp" kill-sexp t ]
      [ "Kill last sexp" backward-kill-sexp t ]
      "--"
      [ "Macroexpand" macroexpand-lisp t ]
@@ -146,7 +146,7 @@
      [ "Select Ilisp" select-ilisp t ]
      [ "Switch to lisp" switch-to-lisp t ]
      [ "Abort commands" abort-commands-lisp t ]
-     [ "Status of Lisp" status-lisp t ]  
+     [ "Status of Lisp" status-lisp t ]
      "--"
      [ "Mark change" mark-change-lisp t ]
      [ "List changes" list-changes-lisp t ]
@@ -180,23 +180,23 @@
 ;;; this, but it should.
 
 (add-hook 'ilisp-mode-hook
-	  (lambda () 
-	    (when (featurep 'easymenu)       
+	  (lambda ()
+	    (when (featurep 'easymenu)
 	      (easy-menu-define menubar-ilisp
-				ilisp-mode-map 
+				ilisp-mode-map
 				"Ilisp commands"
-				ilisp-scheme-easy-menu) 
+				ilisp-scheme-easy-menu)
 	      (easy-menu-add ilisp-scheme-easy-menu 'ilisp-mode-map)
 	      )))
-	 
+
 
 (add-hook 'scheme-mode-hook
-	  (lambda () 
-	    (when (featurep 'easymenu)       
+	  (lambda ()
+	    (when (featurep 'easymenu)
 	      (easy-menu-define menubar-scheme-ilisp
-				scheme-mode-map 
+				scheme-mode-map
 				"Scheme commands"
-				ilisp-scheme-easy-menu) 
+				ilisp-scheme-easy-menu)
 	      (when (boundp 'scheme-menu)
 		(easy-menu-remove scheme-menu))
 	      (easy-menu-add ilisp-scheme-easy-menu 'scheme-mode-map)

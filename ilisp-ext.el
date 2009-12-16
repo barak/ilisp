@@ -29,12 +29,12 @@
 ;;; and this notice must be preserved on all copies.
 
 ;;; When loaded this file adds new functionality to emacs lisp mode
-;;; and lisp mode. 
-;;; 
+;;; and lisp mode.
+;;;
 ;;; Default bindings:
 ;;;
 ;;; M-x find-unbalanced-lisp find unbalanced parens in the current
-;;; buffer.  With a prefix in the current region. 
+;;; buffer.  With a prefix in the current region.
 ;;;
 ;;; ] Close all open parentheses back to the start of the containing
 ;;; sexp, or to a previous left bracket which will be converted to a
@@ -55,7 +55,7 @@
 ;;;
 ;;; EXAMPLE .emacs:
 ;;;
-;;; (setq ilisp-ext-load-hook 
+;;; (setq ilisp-ext-load-hook
 ;;;   '(lambda () (define-key global-map "\C-\M-l" 'previous-buffer-lisp)))
 ;;; (require 'ilisp-ext)
 
@@ -95,7 +95,7 @@ brackets will be replaced with left parentheses."
 	    (error "No sexp to close.")
 	    (save-restriction
 	      (narrow-to-region begin end)
-	      (if (< point begin) 
+	      (if (< point begin)
 		  (setq point begin)
 		  (if (> point end)
 		      (setq point end)))
@@ -105,9 +105,9 @@ brackets will be replaced with left parentheses."
 	      (insert ?\))		;So we have an sexp
 	      (while (progn
 		       (setq inserted (point))
-		       (condition-case () 
+		       (condition-case ()
 			   (progn (backward-sexp)
-				  (or arg 
+				  (or arg
 				      (not (eq (char-after (point)) ?\[))))
 			 (error (setq closed t) nil)))
 		;; With an arg replace all left brackets
@@ -143,7 +143,7 @@ brackets will be replaced with left parentheses."
 			     "There is text after the last right parentheses.")))
 		      ;; Insert parens at end changing any left brackets
 		      (goto-char end)
-		      (while 
+		      (while
 			  (progn
 			    (insert ?\))
 			    (save-excursion
@@ -331,10 +331,10 @@ in a comment)."
 		  (backward-char 1)
 		  (point))
 		here)))
-	 (defun-height 
+	 (defun-height
 	     (count-screen-lines-signed-lisp
 	      (save-excursion
-	       (end-of-defun-lisp)	;associate comment with next defun 
+	       (end-of-defun-lisp)	;associate comment with next defun
 	       (beginning-of-defun-lisp)
 	       (point))
 	      here))
@@ -371,7 +371,7 @@ in a comment)."
 	   ;; we care more about getting the comment onscreen.
 	   (cond ((= line ht)
 		  ;; cursor on last screen line (and so in a comment)
-		  (if arg (progn (end-of-defun-lisp) 
+		  (if arg (progn (end-of-defun-lisp)
 				 (beginning-of-defun-lisp)))
 		  (recenter 0))
 		 ;; This condition, copied from case 4, may not be quite right

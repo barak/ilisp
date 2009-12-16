@@ -91,8 +91,8 @@ With optional argument N, returns Nth-to-last link (default 1)."
        ;; hope that buffer-substring works okay on this platform ;-)
        (defun buffer-substring-no-properties (start end)
 	 (buffer-substring start end))))
-      
-  
+
+
 ;;; Epilogue
 
 (provide 'ilcompat)

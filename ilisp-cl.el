@@ -25,7 +25,7 @@
 
 (defdialect common-lisp "Common LISP"
   ilisp
-  (setq ilisp-load-or-send-command 
+  (setq ilisp-load-or-send-command
 	"(or (and (load \"%s\" :if-does-not-exist nil) t)
              (and (load \"%s\" :if-does-not-exist nil) t))")
 
@@ -55,7 +55,7 @@
 
 	ilisp-in-package-command-string
 	"in-package"
-         
+
 	ilisp-defpackage-command-string
 	"defpackage"
 
@@ -86,7 +86,7 @@
 	ilisp-defvar-regexp
 	"(defvar[ \t\n]")
 
-  (setq ilisp-defvar-command 
+  (setq ilisp-defvar-command
 	"(ilisp:ilisp-eval \"(let ((form '%s)) (progn (makunbound (second form)) (eval form)))\" \"%s\" \"%s\")")
 
   (setq ilisp-compile-command
@@ -110,18 +110,18 @@
   (setq ilisp-documentation-command
 	"(ilisp:ilisp-documentation \"%s\" \"%s\" \"%s\")")
 
-  (setq ilisp-macroexpand-1-command 
+  (setq ilisp-macroexpand-1-command
 	"(ilisp:ilisp-macroexpand-1 \"%s\" \"%s\")")
 
   (setq ilisp-macroexpand-command
 	"(ilisp:ilisp-macroexpand \"%s\" \"%s\")")
 
-  (setq ilisp-complete-command 
+  (setq ilisp-complete-command
 	"(ilisp:ilisp-matching-symbols \"%s\" \"%s\" %s %s %s)")
 
   (setq ilisp-locator 'lisp-locate-clisp)
 
-  (setq ilisp-source-types 
+  (setq ilisp-source-types
 	'(("function") ("macro") ("variable")
 	  ("structure") ("type")
 	  ("setf") ("class")
@@ -155,7 +155,7 @@
   (setq ilisp-load-command
 	"(load \"%s\")")
 
-  (setq ilisp-compile-file-command 
+  (setq ilisp-compile-file-command
 	"(ilisp:ilisp-compile-file \"%s\" \"%s\")")
 
   (setq ilisp-print-info-message-command

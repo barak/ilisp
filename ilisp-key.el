@@ -83,7 +83,7 @@ ilisp-*prefix* is set to the desired prefix."
   ;; 20000401 Martin Atzmueller
   ;; Reinstated the ilisp-arglist-message-lisp-space by adding
   ;; a customization. C-c C-SPACE is _not_ the intended behavior.
-  
+
   ;; 19991214 Martin Atzmueller
 
   ;; 20000203 Karl Fogel: C-c C-SPACE in the FSF-universe, I guess.
@@ -138,7 +138,7 @@ ilisp-*prefix* is set to the desired prefix."
   (ilisp-bind-ilisp-key-for-map keymap "^" 'edit-callers-lisp "\C-v\C-e")
   (ilisp-safe-define-key keymap "\M-`" 'next-caller-lisp "\C-c\C-v\C-n")
   (define-key keymap "\M-\t" 'complete-lisp)
-  
+
   ;; note: another technical fsf keybinding policy violation.  But
   ;; M-return is unbound in the FSF Emacs 20.5 distribution, and I
   ;; think a lot of people might like this binding.  I don't know,
@@ -152,7 +152,7 @@ ilisp-*prefix* is set to the desired prefix."
   (ilisp-bind-ilisp-key-for-map keymap "o"       'eval-last-sexp-lisp "\C-j\C-l")
   (ilisp-bind-ilisp-key-for-map keymap "j"       'eval-dwim-lisp "\C-j\C-j")
   (define-key keymap "\C-x\C-e" 'eval-last-sexp-lisp)
-  
+
   ;; Changed as per Martin Atzmueller suggestions.
   ;; Original version
   ;; (ilisp-bind-ilisp-key-for-map keymap "p"        'package-lisp)
@@ -256,7 +256,7 @@ ilisp-*prefix* is set to the desired prefix."
 ;;;
 (defun ilisp-bindings ()
   "Set up the key bindings for LISP and ILISP buffers."
-  (cond ((fboundp 'set-keymap-parent) 
+  (cond ((fboundp 'set-keymap-parent)
 	 (setq ilisp-mode-map (make-sparse-keymap))
 	 (set-keymap-parent ilisp-mode-map comint-mode-map))
 	(t (setq ilisp-mode-map (copy-keymap comint-mode-map))))
@@ -272,7 +272,7 @@ ilisp-*prefix* is set to the desired prefix."
 	     (boundp 'lisp-mode-map))
     (lisp-bindings lisp-mode-map))
   (when (and (memq 'scheme-mode lisp-source-modes)
-	     (boundp 'scheme-mode-map)) 
+	     (boundp 'scheme-mode-map))
     (lisp-bindings scheme-mode-map))
   (ilisp-bind-ilisp-key-for-map emacs-lisp-mode-map ";" 'comment-region-lisp "\C-v\C-\\")
 

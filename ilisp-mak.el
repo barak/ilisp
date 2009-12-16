@@ -40,7 +40,7 @@
 
 
     ;; Compile compatibility files
-    
+
     (cond ((or (eq +ilisp-emacs-version-id+ 'lucid-19)
                (eq +ilisp-emacs-version-id+ 'lucid-19-new))
            (byte-compile-file "illuc19.el"))

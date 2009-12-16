@@ -364,7 +364,7 @@ obsolete.  -- rgr, 4-Sep-02.]")
 ;; returns a pathname for the file the function was defined in.  if it was
 ;; not defined in some file, then nil is returned.
 ;;
-;; add-defined-functions is from hemlock/rompsite.lisp (cmucl17f), 
+;; add-defined-functions is from hemlock/rompsite.lisp (cmucl17f),
 ;; with added read-time conditionalization to work in older versions
 ;; of cmucl.  it may need a little bit more conditionalization for
 ;; some older versions of cmucl.

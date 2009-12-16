@@ -51,13 +51,13 @@
 	ilisp-reset ":a :t" ; LW 4 (In LW 3.2 this only anorts one level)
 	comint-continue ":c"
 	comint-interrupt-regexp  "Break\\.\n.*")
-  (setq comint-prompt-status 
+  (setq comint-prompt-status
 	(function (lambda (old line)
 	  (comint-prompt-status old line 'lispworks-check-prompt))))
   ;; <cl> or package> at top-level
   ;; [0-9c] <cl> or package> in error
   ;; (setq comint-prompt-regexp "^\\(\\[[0-9]*c*\\] \\|\\)\\(<\\|\\)[^>]*> ")
-  (setq comint-prompt-regexp "^[A-Z=][-a-z0-9A-Z:= ]*[$%#>]+ *") 
+  (setq comint-prompt-regexp "^[A-Z=][-a-z0-9A-Z:= ]*[$%#>]+ *")
 
   ;; 19990806 Marco Antoniotti
   ;; You may want to use the commented one instead.
@@ -67,7 +67,7 @@
   (setq ilisp-source-types (append ilisp-source-types '(("any"))))
   (setq ilisp-directory-command "(lw:current-pathname)")
   (setq ilisp-set-directory-command "(hcl:change-directory \"%s\")")
-  (setq ilisp-find-source-command 
+  (setq ilisp-find-source-command
 	"(ilisp:ilisp-source-files \"%s\" \"%s\" \"%s\")")
 
   ;;; 19990806 Unknown Author (blame Marco Antoniotti for this)
@@ -92,7 +92,7 @@
   ;; proper extension.  See file 'ilisp-cl.el'.
   ;; (setq ilisp-binary-command "system::*binary-file-type*")
   ;; (setq ilisp-init-binary-command "system::*binary-file-type*")
-  
+
   )
 
 

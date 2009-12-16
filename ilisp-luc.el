@@ -32,20 +32,20 @@
 	ilisp-reset ":a :t"
 	comint-continue ":c"
 	comint-interrupt-regexp ">>Break: Keyboard interrupt"
-	comint-prompt-status 
+	comint-prompt-status
 	(function (lambda (old line)
 	  (comint-prompt-status old line 'lucid-check-prompt))))
   (setq ilisp-error-regexp "ILISP:[^\"]*\\|>>[^\n]*")
   (setq ilisp-source-types (append ilisp-source-types '(("any"))))
-  (setq ilisp-find-source-command 
+  (setq ilisp-find-source-command
 	"(ilisp:ilisp-source-files \"%s\" \"%s\" \"%s\")")
 
   ;; Note:
   ;; 19990920
   ;; The global definition should now take care to find out the
   ;; proper extension.  See file 'ilisp-cl.el'.
-  
-  ;;(setq ilisp-binary-command 
+
+  ;;(setq ilisp-binary-command
   ;;	"(first (last lucid::*load-binary-pathname-types*))")
 
   ;; ILD Support
