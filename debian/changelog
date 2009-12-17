@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2004.12.26-4) unstable; urgency=low
+
+  * Disable (require 'completer) in emacsen startup (closes: #561054)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 17 Dec 2009 15:54:52 -0500
+
 ilisp (5.12.0+cvs.2004.12.26-3) unstable; urgency=low
 
   * Make debian/control maintainer and debian/changelog sig bitwise identical
