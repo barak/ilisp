@@ -4,7 +4,9 @@
 
 (defvar ilisp-*directory* "/usr/lib/ilisp/")
 
-(require 'completer)
+(when (and (boundp 'emacs-major-version)
+	   (< emacs-major-version 23))
+  (require 'completer))
 
 (setq ilisp-*use-fsf-compliant-keybindings* t)
 (when (file-exists-p "/etc/ilisp/ilisp-keybindings.el")
