@@ -54,13 +54,13 @@
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-small.core")
   (cmulisp))
 (defun cmucl-safe ()
- "Inferior CMU Common LISP -- safe core."
+  "Inferior CMU Common LISP -- safe core."
   (interactive)
   (setq cmulisp-program "/usr/bin/lisp -core /usr/lib/cmucl/lisp-safe.core")
   (cmulisp))
 
 (defun sbcl-mt ()
- "SBCL multithreading."
+  "SBCL multithreading."
   (interactive)
   (setq sbcl-program "/usr/bin/sbcl-mt --noinform")
   (sbcl))
@@ -113,11 +113,11 @@
              ;; Lisp' buffer window when this is already visible in
              ;; another frame. Actually this variable has more impact
              ;; than that. Watch out.
-             ; (setq pop-up-frames t)
+	     ;;(setq pop-up-frames t)
 
              ;;(message "Running ilisp-load-hook")
              ;; Define LispMachine-like key bindings, too.
-             ; (ilisp-lispm-bindings) Sample initialization hook.
+	     ;;(ilisp-lispm-bindings) Sample initialization hook.
 
              ;; Set the inferior Lisp directory to the directory of
              ;; the buffer that spawned it on the first prompt.
@@ -126,5 +126,3 @@
                           (default-directory-lisp ilisp-last-buffer)))
 
              ))
-
-
