@@ -4,6 +4,9 @@
 
 (defvar ilisp-*directory* "/usr/lib/ilisp/")
 
+;; Loading of completer is prevented on GNU Emacs 23+ because it
+;; modified the minibuffer keymap in a way that radically changes the
+;; behaviour of M-x find-file on a nonexistant file
 (when (and (boundp 'emacs-major-version)
 	   (< emacs-major-version 23))
   (require 'completer))

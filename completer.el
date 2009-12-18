@@ -1002,6 +1002,9 @@ See completer-minibuf for more information."
 	  (exit-minibuffer))
 	(apply 'completer-goto completions))))
 
+;; WARNING: Due to these key redefinitions, loading into GNU Emacs 23
+;;   messes up M-x find-file on a non-existant file.
+
 ;;;%%Keymaps
 ;this interferes with normal undo.
 ;(define-key minibuffer-local-completion-map "\C-_"  'completer-undo)
