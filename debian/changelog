@@ -1,3 +1,11 @@
+ilisp (5.12.0+cvs.2004.12.24) unstable; urgency=low
+
+  * QA Upload.
+  * Bug fix: "INTL:vi", thanks to Clytie Siddall (Closes: #311931).
+  * Bug fix: "typo in ilisp.templates", thanks to Clytie Siddall (Closes: #311932). Also unfuzzy translations
+
+ -- Frank Lichtenheld <djpig@debian.org>  Sat, 11 Jun 2005 06:01:32 +0200
+
 ilisp (5.12.0+cvs.2004.12.23) unstable; urgency=low
 
   * Orphan -- as described in bug #284376
