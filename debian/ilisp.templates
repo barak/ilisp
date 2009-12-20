@@ -10,5 +10,5 @@ _Description: Use FSF-compliant keybindings?
  manual in the Debian package ilisp-doc uses the non-FSF compliant
  keybindings and these keybindings often use fewer keystrokes.
  .
- If you change you mind later, you can run dpkg-reconfigure ilisp and
+ If you change your mind later, you can run dpkg-reconfigure ilisp and
  change your keybinding selection.

@@ -1,0 +1,52 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ilisp 5.12.0+cvs.2004.12.25\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-06-11 06:01+0200\n"
+"PO-Revision-Date: 2005-10-16 09:41+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:4
+msgid "Use FSF-compliant keybindings?"
+msgstr "Använda FSF-standardiserade tangentmappningar?"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:4
+msgid "ILISP allows the choice of using FSF-compliant keybindings which start with a Control-C character. The older ILISP keybindings use a Control-Z character as the prefix."
+msgstr "ILISP ger valet att använda en FSF-standardiserade tangentmappning som startar med ett Control-C tecken. Den äldre ILISP-tangentmappning anväde ett Control-Z tecken som prefix."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:4
+msgid "In general, the non-FSF compliant keybindings are easier to use: the ILISP manual in the Debian package ilisp-doc uses the non-FSF compliant keybindings and these keybindings often use fewer keystrokes."
+msgstr "Generellt sett är icke-FSF-standardiserade tangentmappningar lättare att använda: ILISP-manualen i Debian-paketet ilisp-doc använder icke-FSF-standardiserade tangentmappningar och dessa tangentmappningar använder oftast färre tangenttryckningar."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:4
+msgid "If you change your mind later, you can run dpkg-reconfigure ilisp and change your keybinding selection."
+msgstr "Om du ändrar dig senare kan du köra 'dpkg-reconfigure ilisp' och ändra ditt val av tangentmappning."
+

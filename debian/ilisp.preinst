@@ -16,7 +16,7 @@ case "$1" in
 	for i in /usr/lib/ilisp/*; do
 	    b=`basename $i`
 	    # Don't delete symlinks with .lisp or .scm extension
-	    if [ `basename $b .lisp` = $b -a `basename $b .scm` = $b ]; then
+	    if [ `basename $b .lisp` = $b ] && [ `basename $b .scm` = $b ]; then
 		#echo "Removing $i"
 		rm $i
 	    fi
