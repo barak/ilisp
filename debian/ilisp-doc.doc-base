@@ -3,7 +3,7 @@ Title: ILISP
 Author: ILISP Project
 Abstract: This manual describes the use of ILISP, an Emacs interface
  to Lisp environments.
-Section: programming
+Section: Apps/Programming
 
 Format: PDF
 Files: /usr/share/doc/ilisp-doc/ilisp.pdf

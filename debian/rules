@@ -17,8 +17,16 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 	# Add here commands to compile the package.
-	(cd docs; make info pdf ilisp.html; cd ..)
+	$(MAKE) -C docs info pdf ilisp.html
 	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	# Add here commands to clean up after the build process.
+	$(MAKE) clean
+	dh_clean
 
 install: build
 	dh_testdir
@@ -46,36 +54,24 @@ install: build
           dh_link -p $(pkg) $(ilisp_share)/$$l $(compiled_dir)/$$l ; \
 	done
 
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp
-	# Add here commands to clean up after the build process.
-	-$(MAKE) clean
-	dh_clean
+	dh_install -p $(pkg-doc) docs/ilisp.pdf docs/ilisp.html $(doc_dir)
 
 binary-indep: build install
-
-
-# Build architecture-dependent files here.
-binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installdocs
+	dh_installchangelogs ChangeLog
+	dh_installdocs README
 	dh_installemacsen
-	dh_installchangelogs	
 	dh_installdebconf
-	dh_strip
 	dh_compress
-	dh_install -p $(pkg-doc) docs/ilisp.pdf docs/ilisp.html $(doc_dir)
 	dh_fixperms
 	dh_installdeb
-	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
 
+# Build architecture-dependent files here.
+binary-arch: build install
+
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
-
-
+.PHONY: build clean binary-indep binary-arch binary install

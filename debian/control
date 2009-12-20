@@ -2,12 +2,12 @@ Source: ilisp
 Section: devel
 Priority: optional
 Maintainer: Debian QA Group <packages@qa.debian.org>
-Build-Depends-Indep: debhelper (>= 4.1.16), texinfo, tetex-bin, gs-common, texi2html
-Standards-Version: 3.6.1.1
+Build-Depends-Indep: debhelper (>= 4.1.16), csh, texinfo, tetex-bin, gs-common, texi2html
+Standards-Version: 3.6.2
 
 Package: ilisp
 Architecture: all
-Depends: emacsen-common, debconf (>= 1.2.0)
+Depends: emacsen-common, ${misc:Depends}
 Pre-Depends: common-lisp-controller (>= 3.42)
 Recommends: ilisp-doc
 Suggests: hyperspec, cltl
@@ -19,7 +19,6 @@ Description: Emacs interface to LISP implementations
 
 Package: ilisp-doc
 Architecture: all
-Section: devel
 Recommends: ilisp
 Description: Documentation for ILISP package
  This package supplies PDF and HTML documentation for the ILISP
