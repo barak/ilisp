@@ -1,3 +1,12 @@
+ilisp (5.12.0+cvs.2004.12.26-5) unstable; urgency=low
+
+  * Merge changes made by Debian QA in Summer/Fall 2005 outside upstream CVS
+    - typo fix
+    - translations for Vietnamese, Swedish
+    - fancier/shorter debconf
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 20 Dec 2009 17:12:36 -0500
+
 ilisp (5.12.0+cvs.2004.12.26-4) unstable; urgency=low
 
   * Disable (require 'completer) in emacsen startup (closes: #561054)
