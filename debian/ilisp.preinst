@@ -14,9 +14,9 @@ case "$1" in
 	set +e
 	rm -f '/usr/lib/ilisp/*.scm' # remove bogus symlink
 	for i in /usr/lib/ilisp/*; do
-	    b=`basename $i`
+	    b=$(basename $i)
 	    # Don't delete symlinks with .lisp or .scm extension
-	    if [ `basename $b .lisp` = $b ] && [ `basename $b .scm` = $b ]; then
+	    if [ $(basename $b .lisp) = $b ] && [ $(basename $b .scm) = $b ]; then
 		#echo "Removing $i"
 		rm $i
 	    fi
@@ -25,13 +25,11 @@ case "$1" in
     abort-upgrade)
 	;;
     *)
-        echo "preinst called with unknown argument \`$1'" >&2
+        echo "preinst called with unknown argument: $1" >&2
         exit 0
-    ;;
+	;;
 esac
 
 #DEBHELPER#
 
 exit 0
-
-

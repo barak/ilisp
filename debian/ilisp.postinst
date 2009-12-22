@@ -48,14 +48,14 @@ ensure_symlinks()
     source=/usr/share/common-lisp/source/ilisp
     dest=/usr/lib/ilisp
     for i in $source/*.lisp ; do
-	b=`basename $i`
+	b=$(basename $i)
 	if [ ! -h "$dest/$b" ]; then
 	    ln -s $i $dest
 	fi
     done
     source=/usr/share/ilisp
     for i in $source/*.scm ; do
-	b=`basename $i`
+	b=$(basename $i)
 	if [ ! -h "$dest/$b" ]; then
 	    ln -s $i $dest
 	fi
@@ -72,13 +72,11 @@ case "$1" in
     abort-upgrade|abort-remove|abort-deconfigure)
 	;;
     *)
-        echo "postinst called with unknown argument \`$1'" >&2
+        echo "postinst called with unknown argument: $1" >&2
         exit 0
-    ;;
+	;;
 esac
 
 #DEBHELPER#
 
 exit 0
-
-

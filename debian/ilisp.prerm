@@ -19,7 +19,7 @@ case "$1" in
     failed-upgrade)
         ;;
     *)
-        echo "prerm called with unknown argument \`$1'" >&2
+        echo "prerm called with unknown argument: $1" >&2
         exit 0
     ;;
 esac

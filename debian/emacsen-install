@@ -14,7 +14,7 @@ echo install/${PACKAGE}: Handling install for emacsen flavor ${FLAVOR}
 
 HYPERSPEC=hyperspec.el
 
-#FLAVORTEST=`echo $FLAVOR | cut -c-6`
+#FLAVORTEST=$(echo $FLAVOR | cut -c-6)
 #if [ ${FLAVORTEST} = xemacs ] ; then
 #    SITEFLAG="-no-site-file"
 #else
@@ -36,14 +36,14 @@ fi
 install -m 755 -d ${ELCDIR}
 install -m 755 -d ${ELCDIR}/extra
 cd ${ELDIR}
-cp `echo *.el` ${ELCDIR}
+cp *.el ${ELCDIR}
 cd ${ELDIR}/extra
 cp ${HYPERSPEC} ${ELCDIR}/extra/hyperspec.el
 cp cltl2.el ${ELCDIR}/extra/cltl2.el
 
 cd ${ELCDIR}
 
-LOG=`tempfile`;
+LOG=$(tempfile);
 trap "test -f $LOG && mv -f $LOG  $ELCDIR/install.log > /dev/null 2>&1 && chmod 644 $ELCDIR/install.log" exit
 
 cat << EOF > path.el
