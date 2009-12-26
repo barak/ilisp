@@ -3,8 +3,9 @@ ilisp (5.12.0+cvs.2004.12.26-6) unstable; urgency=low
   * Sign stanzas of debian/README.Debian
   * Replace `...` with $(...) in shell scripts
   * Russian debconf templates thanks to Yuri Kozlov (closes: #562632)
+  * Build dependency for /usr/bin/tex (closes: #562445)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Sat, 26 Dec 2009 17:01:04 -0500
+ -- Barak A. Pearlmutter <bap@debian.org>  Sat, 26 Dec 2009 17:25:29 -0500
 
 ilisp (5.12.0+cvs.2004.12.26-5) unstable; urgency=low
 
