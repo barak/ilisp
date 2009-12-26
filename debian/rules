@@ -22,11 +22,11 @@ override_dh_auto_build:
 override_dh_install:
 	dh_install
 	for i in debian/$(pkg)/$(cl_dir)/*.lisp; do \
-	  l=$(echo $$i | sed -e "s|^debian/$(pkg)/$(cl_dir)/||;") ;\
+	  l=$$(echo $$i | sed -e "s|^debian/$(pkg)/$(cl_dir)/||;") ; \
           dh_link -p $(pkg) $(cl_dir)/$$l $(compiled_dir)/$$l ; \
 	done
 	for i in debian/$(pkg)/$(ilisp_share)/*.scm; do \
-	  l=$(echo $$i | sed -e "s|^debian/$(pkg)/$(ilisp_share)/||;") ;\
+	  l=$$(echo $$i | sed -e "s|^debian/$(pkg)/$(ilisp_share)/||;") ; \
           dh_link -p $(pkg) $(ilisp_share)/$$l $(compiled_dir)/$$l ; \
 	done
 
