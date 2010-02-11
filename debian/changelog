@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2004.12.26-8) unstable; urgency=low
+
+  * build depend on texlive-latex-base not texlive-base (closes: #567930)
+  * reb deb std
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 11 Feb 2010 23:31:41 +0000
+
 ilisp (5.12.0+cvs.2004.12.26-7) unstable; urgency=low
 
   * Portuguese debconf templates thanks to Américo Monteiro (closes: #563016)
