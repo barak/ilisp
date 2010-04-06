@@ -1,6 +1,6 @@
 ilisp (5.12.0+cvs.2004.12.26-9) unstable; urgency=low
 
-  * Switch to dpkg-source 3.0 (git) format
+  * Switch to dpkg-source 3.0 (quilt) format
 
  -- Barak A. Pearlmutter <bap@debian.org>  Thu, 25 Mar 2010 19:11:24 +0000
 
