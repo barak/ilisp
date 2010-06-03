@@ -1,0 +1,65 @@
+# ilisp po-debconf translation to Spanish
+# Copyright (C) 2010 Software in the Public Interest
+# This file is distributed under the same license as the ilisp package.
+#
+# Changes:
+# - Initial translation
+# Camaleón <noelamac@gmail.com>, 2010
+#
+# - Updates
+#
+#
+# Traductores, si no conocen el formato PO, merece la pena leer la
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+# info -n '(gettext)PO Files'
+# info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+#
+# - El proyecto de traducción de Debian al español
+# http://www.debian.org/intl/spanish/
+# especialmente las notas y normas de traducción en
+# http://www.debian.org/intl/spanish/notas
+#
+# - La guía de traducción de po's de debconf:
+# /usr/share/doc/po-debconf/README-trans
+# o http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ilisp 5.12.0+cvs.2004.12.26-9\n"
+"Report-Msgid-Bugs-To: Barak A. Pearlmutter <bap@debian.org>\n"
+"POT-Creation-Date: 2010-04-07 10:29+0200\n"
+"PO-Revision-Date: 2010-05-20 13:51+0100\n"
+"Last-Translator: Camaleón <noelamac@gmail.com>\n"
+"Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "Use FSF-compliant keybindings?"
+msgstr "¿Desea utilizar los atajos de teclado conformes a la FSF?"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "ILISP allows the choice of using FSF-compliant keybindings which start with a Control-C character. The older ILISP keybindings use a Control-Z character as the prefix."
+msgstr "ILISP permite seleccionar el uso de atajos de teclado conformes a la FSF que empiezan con el carácter Control-C. Los atajos de teclado de ILISP antiguos utilizan como prefijo el carácter Control-Z."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "In general, the non-FSF compliant keybindings are easier to use: the ILISP manual in the Debian package ilisp-doc uses the non-FSF compliant keybindings and these keybindings often use fewer keystrokes."
+msgstr "Por lo general, los atajos de teclado que no son conformes a la FSF son más sencillos de utilizar: el manual de ILISP, disponible en el paquete de Debian ilisp-doc, utiliza atajos de teclado que no son conformes a la FSF y suelen utilizar menos pulsaciones de tecla."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "If you change your mind later, you can run dpkg-reconfigure ilisp and change your keybinding selection."
+msgstr "Si cambia de opinión más adelante, puede ejecutar «dpkg-reconfigure ilisp» y cambiar la configuración de los atajos de teclado."
+
