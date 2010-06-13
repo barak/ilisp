@@ -56,10 +56,10 @@ dvi: ilisp.dvi ilisp-refcard.dvi
 
 info: ilisp.info
 
-html: ilisp.texi
-	-texi2html $<
+html: ilisp.html
 
-ilisp_toc.html ilisp.html: html
+ilisp_toc.html ilisp.html: ilisp.texi
+	-texi2html $<
 
 pdf: ilisp.pdf
 
