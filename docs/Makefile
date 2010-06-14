@@ -61,15 +61,18 @@ html: ilisp.html
 ilisp_toc.html ilisp.html: ilisp.texi
 	-texi2html $<
 
-pdf: ilisp.pdf
+pdf: ilisp.pdf ilisp-refcard.pdf
 
-ilisp.pdf: ilisp.ps
-	-ps2pdf ilisp.ps ilisp.pdf
+ilisp.pdf: ilisp.texi
+	texi2pdf $<
 
 ilisp.dvi: ilisp.texi
 
 ilisp-refcard.dvi: ilisp-refcard.tex
 	tex $<
+
+ilisp-refcard.pdf: ilisp-refcard.tex
+	pdftex $<
 
 # Administrative targets.
 
