@@ -1,8 +1,10 @@
 ilisp (5.12.0+cvs.2004.12.26-12) UNRELEASED; urgency=low
 
   * bump standards version (debian/control)
-
- -- Barak A. Pearlmutter <bap@debian.org>  Mon, 02 Aug 2010 14:32:58 +0200
+  * debconf Japanese translation (closes: #603652)
+    thanks to Nobuhiro Iwamatsu
+  
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 16 Nov 2010 10:17:21 +0000
 
 ilisp (5.12.0+cvs.2004.12.26-11) unstable; urgency=low
 
