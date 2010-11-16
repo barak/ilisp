@@ -1,4 +1,4 @@
-ilisp (5.12.0+cvs.2004.12.26-12) UNRELEASED; urgency=low
+ilisp (5.12.0+cvs.2004.12.26-12) unstable; urgency=low
 
   * bump standards version (debian/control)
   * debconf Japanese translation (closes: #603652)
