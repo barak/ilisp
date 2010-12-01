@@ -78,13 +78,12 @@ compile:
 tags:
 	etags *.el
 
-docs: FORCE
-	cd docs; $(MAKE)
+docs:
+	$(MAKE) -C docs
 
 clean:
-	-$(RM) *.elc *~ extra/*.elc extra/*~ TAGS \
-	$(FaslFiles)
-	(cd docs; $(MAKE) clean)
+	-$(RM) *.elc *~ extra/*.elc extra/*~ TAGS $(FaslFiles)
+	$(MAKE) -C docs clean
 
 loadfile:
 	@echo 'The "loadfile" target is no longer supported.'
@@ -92,8 +91,6 @@ loadfile:
 
 compress:
 	gzip *.el $(OtherFiles)
-
-FORCE:
 
 #==============================================================================
 # The following targets are used only to create a distribution file.
@@ -104,10 +101,10 @@ tarring:
 	@echo "ILISP dist: preparing tar file."
 	@echo "            source directory: " $(Ilisp_src_dir)
 	@echo "            tar directory:    " $(Ilisp_tar_dir)
-	(cd $(Ilisp_src_dir)/..;                                        \
+	(cd $(Ilisp_src_dir)/.. &&                                      \
          if ( $(notdir $(Ilisp_src_dir)) != $(Ilisp_tar_dir) )          \
-            ln -s $(notdir $(Ilisp_src_dir)) $(Ilisp_tar_dir) ;         \
-         tar cvf $(Ilisp_tar_dir).tar                                   \
+            ln -s $(notdir $(Ilisp_src_dir)) $(Ilisp_tar_dir) &&        \
+         tar -cvf $(Ilisp_tar_dir).tar                                  \
             $(patsubst %,$(Ilisp_tar_dir)/%,$(OtherFiles))              \
             $(Ilisp_tar_dir)/*.el                                       \
             $(Ilisp_tar_dir)/*.lisp                                     \
@@ -120,11 +117,13 @@ tarring:
         )
 
 dist_compressing:
-	(cd $(Ilisp_src_dir)/.. ; gzip $(Ilisp_tar_dir).tar)
+	cd $(Ilisp_src_dir)/.. && gzip $(Ilisp_tar_dir).tar
 
 uuencoding: ../$(Ilisp_tar_dir).tar.gz
-	(cd $(Ilisp_src_dir)/.. ;                                           \
-         uuencode $(Ilisp_tar_dir).tar.gz $(Ilisp_tar_dir).tar.gz > il.uue)
+	cd $(Ilisp_src_dir)/.. &&                                      \
+         uuencode $(Ilisp_tar_dir).tar.gz $(Ilisp_tar_dir).tar.gz > il.uue
 
+PHONY: compile tags docs clean loadfile compress
+PHONY: dist tarring dist_compressing uuencoding
 
 # end of file -- Makefile --
