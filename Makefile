@@ -24,9 +24,6 @@ EMACS = emacs
 # change this to an ordinary copy command
 LN = ln -s
 
-# The SHELL variable is used only for making the distribution.
-SHELL = /bin/csh
-
 # The 'rm' command used (we redefine it mostly because it may be
 # aliased
 RM = /bin/rm -f
@@ -101,10 +98,11 @@ tarring:
 	@echo "ILISP dist: preparing tar file."
 	@echo "            source directory: " $(Ilisp_src_dir)
 	@echo "            tar directory:    " $(Ilisp_tar_dir)
-	(cd $(Ilisp_src_dir)/.. &&                                      \
-         if ( $(notdir $(Ilisp_src_dir)) != $(Ilisp_tar_dir) )          \
-            ln -s $(notdir $(Ilisp_src_dir)) $(Ilisp_tar_dir) &&        \
-         tar -cvf $(Ilisp_tar_dir).tar                                  \
+	cd $(Ilisp_src_dir)/.. &&                                       \
+        if [ $(notdir $(Ilisp_src_dir)) != $(Ilisp_tar_dir) ]; then     \
+            ln -s $(notdir $(Ilisp_src_dir)) $(Ilisp_tar_dir);          \
+	fi &&                                                           \
+        tar -cvf $(Ilisp_tar_dir).tar                                   \
             $(patsubst %,$(Ilisp_tar_dir)/%,$(OtherFiles))              \
             $(Ilisp_tar_dir)/*.el                                       \
             $(Ilisp_tar_dir)/*.lisp                                     \
@@ -113,8 +111,7 @@ tarring:
             $(Ilisp_tar_dir)/extra/README                               \
             $(Ilisp_tar_dir)/extra/hyperspec.el                         \
 	    $(Ilisp_tar_dir)/extra/cltl2.el				\
-            $(Ilisp_tar_dir)/pictures/ilisp-icon.*                      \
-        )
+            $(Ilisp_tar_dir)/pictures/ilisp-icon.*
 
 dist_compressing:
 	cd $(Ilisp_src_dir)/.. && gzip $(Ilisp_tar_dir).tar
