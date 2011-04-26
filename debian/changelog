@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2004.12.26-13) unstable; urgency=low
+
+  * dh --parallel
+  * upstream: tweaks to Makefile
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 26 Apr 2011 19:11:27 +0100
+
 ilisp (5.12.0+cvs.2004.12.26-12) unstable; urgency=low
 
   * bump standards version (debian/control)
