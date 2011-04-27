@@ -63,10 +63,14 @@ ilisp_toc.html ilisp.html: ilisp.texi
 
 pdf: ilisp.pdf ilisp-refcard.pdf
 
+# The "env LC_ALL=C" works around an issue in /usr/bin/texi2dvi,
+# see http://bugs.debian.org/624245
+
 ilisp.pdf: ilisp.texi
-	texi2pdf $<
+	env LC_ALL=C texi2pdf $<
 
 ilisp.dvi: ilisp.texi
+	env LC_ALL=C texi2dvi $<
 
 ilisp-refcard.dvi: ilisp-refcard.tex
 	tex $<
