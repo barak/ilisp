@@ -1027,7 +1027,7 @@ See completer-minibuf for more information."
 (define-key minibuffer-local-must-match-map "\M-\r" 'completer-match-exit)
 
 ;;;%comint
-(defun completer-comint-dynamic-list-completions (completions)
+(defun completer-comint-dynamic-list-completions (completions &optional common-substring)
   "List in help buffer sorted COMPLETIONS.
 Typing SPC flushes the help buffer."
   (completer-comint-dynamic-complete-1 nil 'help))
@@ -1053,7 +1053,7 @@ twice in a row.  If called with a prefix, undo the last completion."
 			       default-directory
 			       mode)
       ;; lemacs change
-      (when (eq mode 'help) (comint-restore-window-config conf))
+      (when (eq mode 'help) (set-window-configuration conf))
       )))
 
 ;(fset 'comint-dynamic-complete 'completer-comint-dynamic-complete)
