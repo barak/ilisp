@@ -1053,8 +1053,10 @@ twice in a row.  If called with a prefix, undo the last completion."
 			       default-directory
 			       mode)
       ;; lemacs change
-      (when (eq mode 'help) (set-window-configuration conf))
-      )))
+      (when (eq mode 'help)
+	(if (fboundp 'set-window-configuration)	    ; use new API if available
+	    (set-window-configuration conf)
+	  (comint-restore-window-config conf)))))
 
 ;(fset 'comint-dynamic-complete 'completer-comint-dynamic-complete)
 (fset 'comint-dynamic-complete-filename
