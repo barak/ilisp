@@ -4,7 +4,7 @@
 # GNU copyright 2002 to 2003 Kevin Rosenberg <kmr@debian.org>
 # nearly complete rewrite Copyright 2009 Barak A. Pearlmutter <bap@debian.org>
 
-build clean install binary-arch binary-indep binary:
+%:
 	dh $@ --parallel
 
 pkg		:= ilisp
@@ -32,5 +32,3 @@ override_dh_install:
 
 override_dh_compress:
 	dh_compress --exclude=.pdf
-
-.PHONY: build clean binary-indep binary-arch binary install
