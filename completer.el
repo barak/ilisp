@@ -1046,7 +1046,7 @@ twice in a row.  If called with a prefix, undo the last completion."
       (completer-undo)
     ;; added by jwz: don't cache completions in shell buffer!
     (setq completer-string nil)
-    (let ((conf (current-window-configuration)));; lemacs change
+    (let ((conf (current-window-configuration))) ;; lemacs change
       (completer-complete-goto "^ \t\n\""
 			       completer-words
 			       'read-file-name-internal
@@ -1054,9 +1054,9 @@ twice in a row.  If called with a prefix, undo the last completion."
 			       mode)
       ;; lemacs change
       (when (eq mode 'help)
-	(if (fboundp 'set-window-configuration)	    ; use new API if available
+	(if (fboundp 'set-window-configuration)	; use new API if available
 	    (set-window-configuration conf)
-	  (comint-restore-window-config conf)))))
+	  (comint-restore-window-config conf))))))
 
 ;(fset 'comint-dynamic-complete 'completer-comint-dynamic-complete)
 (fset 'comint-dynamic-complete-filename
