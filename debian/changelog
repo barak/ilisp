@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2004.12.26-16) unstable; urgency=low
+
+  * silence lintian concerning debian/rules targets
+  * single-debian-patch source option (closes: #643165)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Wed, 05 Oct 2011 09:48:52 +0100
+
 ilisp (5.12.0+cvs.2004.12.26-15) unstable; urgency=low
 
   * add missing right paren to completion bug fix (closes: #635094)
