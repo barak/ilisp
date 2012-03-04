@@ -1,0 +1,58 @@
+# Danish translation ilisp.
+# Copyright (C) 2012 ilisp & nedenstående oversættere.
+# This file is distributed under the same license as the ilisp package.
+# Joe Hansen (joedalton2@yahoo.dk), 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ilisp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-06 10:36+0200\n"
+"PO-Revision-Date: 2012-03-02 12:42+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "Use FSF-compliant keybindings?"
+msgstr "Brug FSF-overholdende genvejstaster?"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"ILISP allows the choice of using FSF-compliant keybindings which start with "
+"a Control-C character. The older ILISP keybindings use a Control-Z character "
+"as the prefix."
+msgstr ""
+"ILISP tillader at der bruges FSF-overholdende genvejstaster, som starter "
+"med et tegn af typen Control-C. De ældre ILISP-genvejstaster bruger et tegn "
+"af typen Control-Z som præfiks."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"In general, the non-FSF compliant keybindings are easier to use: the ILISP "
+"manual in the Debian package ilisp-doc uses the non-FSF compliant "
+"keybindings and these keybindings often use fewer keystrokes."
+msgstr ""
+"Generelt er de ikke-FSF-overholdende genvejstaster nemmere at bruge: ILISP-"
+"manualen i Debianpakken ilisp-doc bruger de ikke-FSF-overholdende "
+"genvejstaster og disse genvejstaster bruger ofte færre tastaturtryk."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"If you change your mind later, you can run dpkg-reconfigure ilisp and change "
+"your keybinding selection."
+msgstr ""
+"Hvis du senere ændrer din mening, kan du køre dpkg-reconfigure ilisp og "
+"ændre dit valg for genvejstaster."
+
