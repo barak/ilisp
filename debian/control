@@ -2,8 +2,9 @@ Source: ilisp
 Section: devel
 Priority: optional
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
-Build-Depends-Indep: debhelper (>= 8), texinfo, ghostscript, texi2html, texlive-latex-base
-Standards-Version: 3.9.2
+Build-Depends-Indep: debhelper (>= 9),
+	texinfo, ghostscript, texi2html, texlive-latex-base
+Standards-Version: 3.9.3
 Homepage: https://sourceforge.net/projects/ilisp/
 Vcs-Git: git://git.debian.org/git/collab-maint/ilisp.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/ilisp.git
