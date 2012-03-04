@@ -1,3 +1,11 @@
+ilisp (5.12.0+cvs.2004.12.26-17) unstable; urgency=low
+
+  * debconf Danish translation (closes: #661952)
+  * dh 9
+  * bump policy version
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 04 Mar 2012 23:21:25 +0000
+
 ilisp (5.12.0+cvs.2004.12.26-16) unstable; urgency=low
 
   * silence lintian concerning debian/rules targets
