@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64px"
+   height="64px"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="ilisp.svg">
+  <defs
+     id="defs2987">
+    <linearGradient
+       id="linearGradient3779">
+      <stop
+         style="stop-color:#20d9ce;stop-opacity:0.94244605;"
+         offset="0"
+         id="stop3781" />
+      <stop
+         style="stop-color:#fa0fd2;stop-opacity:0.9856115;"
+         offset="1"
+         id="stop3783" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3779"
+       id="linearGradient3789"
+       x1="6"
+       y1="33.090908"
+       x2="58.363636"
+       y2="33.090908"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3779"
+       id="linearGradient3809"
+       gradientUnits="userSpaceOnUse"
+       x1="6"
+       y1="33.090908"
+       x2="58.363636"
+       y2="33.090908" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.5"
+     inkscape:cx="50.943384"
+     inkscape:cy="40.128906"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:window-width="1137"
+     inkscape:window-height="707"
+     inkscape:window-x="199"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       id="g3799"
+       transform="matrix(1.2291666,0,0,1.2256945,-7.3749998,-8.468435)">
+      <rect
+         style="opacity:0.87654323;fill:url(#linearGradient3809);fill-opacity:1"
+         y="6.909091"
+         x="6"
+         height="52.363636"
+         width="52.363636"
+         id="rect3009" />
+      <g
+         transform="translate(-0.54545454,1.0909091)"
+         id="g3793">
+        <text
+           xml:space="preserve"
+           style="font-size:27.62876511px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Symbol;-inkscape-font-specification:Symbol"
+           x="37.721207"
+           y="30.62615"
+           id="text2993"
+           sodipodi:linespacing="125%"
+           transform="scale(1.0026417,0.99736527)"><tspan
+             sodipodi:role="line"
+             x="37.721207"
+             y="30.62615"
+             id="tspan2997">λ</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:30.3431015px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:condensed;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L Italic Condensed"
+           x="7.6185341"
+           y="52.024132"
+           id="text3001"
+           sodipodi:linespacing="125%"
+           transform="scale(1.049253,0.95305898)"><tspan
+             sodipodi:role="line"
+             id="tspan3003"
+             x="7.6185341"
+             y="52.024132">Ilisp</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
