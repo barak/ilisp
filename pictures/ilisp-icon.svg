@@ -15,17 +15,17 @@
    id="svg2985"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="ilisp.svg">
+   sodipodi:docname="ilisp-icon.svg">
   <defs
      id="defs2987">
     <linearGradient
        id="linearGradient3779">
       <stop
-         style="stop-color:#20d9ce;stop-opacity:0.94244605;"
+         style="stop-color:#eac4ea;stop-opacity:0.94244605;"
          offset="0"
          id="stop3781" />
       <stop
-         style="stop-color:#fa0fd2;stop-opacity:0.9856115;"
+         style="stop-color:#9bdfe4;stop-opacity:0.9856115;"
          offset="1"
          id="stop3783" />
     </linearGradient>
@@ -56,17 +56,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.5"
-     inkscape:cx="50.943384"
-     inkscape:cy="40.128906"
-     inkscape:current-layer="layer1"
+     inkscape:cx="18.397929"
+     inkscape:cy="25.870321"
+     inkscape:current-layer="g3799"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
-     inkscape:window-width="1137"
-     inkscape:window-height="707"
-     inkscape:window-x="199"
-     inkscape:window-y="27"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1258"
+     inkscape:window-height="872"
+     inkscape:window-x="330"
+     inkscape:window-y="247"
+     inkscape:window-maximized="0"
+     inkscape:snap-global="false" />
   <metadata
      id="metadata2990">
     <rdf:RDF>
@@ -87,7 +88,7 @@
        id="g3799"
        transform="matrix(1.2291666,0,0,1.2256945,-7.3749998,-8.468435)">
       <rect
-         style="opacity:0.87654323;fill:url(#linearGradient3809);fill-opacity:1"
+         style="opacity:0.69958848;fill:url(#linearGradient3809);fill-opacity:1"
          y="6.909091"
          x="6"
          height="52.363636"
