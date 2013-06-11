@@ -9,6 +9,7 @@
 ;;; of present and past contributors.
 
 
+(require 'cl)
 (require 'imenu)
 
 ;;; modified for a better display of function+arglist!
@@ -38,8 +39,7 @@ Returns t for rescan and otherwise a position number."
 	       (function
 		(lambda ()
 		  (let ((buffer (current-buffer)))
-		    (save-excursion
-		      (set-buffer "*Completions*")
+		    (with-current-buffer "*Completions*"
 		      (setq completion-reference-buffer buffer)))))))
 	  ;; Make a completion question
 	  (setq name (completing-read prompt

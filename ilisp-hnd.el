@@ -53,8 +53,7 @@ let the user decide what to do."
 		     buffer)
 		  (ilisp-bury-output))
 		t)
-	    (save-excursion
-	      (set-buffer (get-buffer-create "*Errors*"))
+	    (with-current-buffer (get-buffer-create "*Errors*")
 	      (if clear (delete-region (point-min) (point-max)))
 	      (goto-char (point-max))
 	      (insert message)

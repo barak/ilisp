@@ -11,6 +11,8 @@
 
 ;;;%%%Steel Bank Common Lisp
 
+(require 'cl)
+
 (defvar ilisp-sbcl-init-file
   ;; Note: The init file source extension (".lisp") needs to be
   ;; present in the filename, otherwise ILISP-LOAD-OR-SEND gets
@@ -58,7 +60,7 @@
             (level-2-p
               ;; level 2 or greater,
               ;; e.g. x[y] prompt
-              (string-to-int
+              (string-to-number
                (subseq prompt (1+ (match-beginning 0))
                        (1- (match-end 0)))))
             (t

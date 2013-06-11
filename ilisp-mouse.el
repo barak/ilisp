@@ -64,20 +64,20 @@ arbitrary buffers."
   ;; environment.  -- rgr, 27-Sep-94.
   (let ((tmst (if (string-match emacs-version "^18\\.")
 		  'TeX-mode-syntax-table
-		  'tex-mode-syntax-table)))
-    (` (let ((old-syntax-table (syntax-table)))
-	 (unwind-protect
-	      (progn
-		(if (not (and (boundp (quote (, tmst)))
-			      (eq old-syntax-table
-				  (symbol-value (quote (, tmst))))))
-		    ;; (not (memq major-mode '(TeX-mode LaTeX-mode)))
-		    (set-syntax-table
-		     (or lisp-mode-syntax-table
-			 ;; lmst not defined until lisp-mode executed
-			 emacs-lisp-mode-syntax-table)))
-		(,@ body))
-	   (set-syntax-table old-syntax-table))))))
+		'tex-mode-syntax-table)))
+    ` (let ((old-syntax-table (syntax-table)))
+	(unwind-protect
+	    (progn
+	      (if (not (and (boundp (quote ,tmst))
+			    (eq old-syntax-table
+				(symbol-value (quote ,tmst)))))
+		  ;; (not (memq major-mode '(TeX-mode LaTeX-mode)))
+		  (set-syntax-table
+		   (or lisp-mode-syntax-table
+		       ;; lmst not defined until lisp-mode executed
+		       emacs-lisp-mode-syntax-table)))
+	      ,@body)
+	  (set-syntax-table old-syntax-table)))))
 
 ;;;; Code.
 

@@ -413,16 +413,16 @@ If FILE is NIL, the entry will be removed."
 	    (comint-send
 	     (ilisp-process) binary
 	     t nil 'binary nil
-	     (` (lambda (error wait message output last)
-		  (if (or error
-			  (not (string-match "\"[^\"]*\"" output)))
-		      (progn
-			(lisp-display-output output)
-			(abort-commands-lisp "No binary"))
-		    (setq (, var)
-			  (substring output
-				     (1+ (match-beginning 0))
-				     (1- (match-end 0))))))))))))
+	     `(lambda (error wait message output last)
+		(if (or error
+			(not (string-match "\"[^\"]*\"" output)))
+		    (progn
+		      (lisp-display-output output)
+		      (abort-commands-lisp "No binary"))
+		  (setq ,var
+			(substring output
+				   (1+ (match-beginning 0))
+				   (1- (match-end 0)))))))))))
 
 ;;;
 (defun ilisp-done-init ()
@@ -648,8 +648,7 @@ the process interface."
 		   (string-match "nil" (car (lisp-last-line output))))
 	      (let* ((old-buffer (get-file-buffer file))
 		     (buffer (find-file-noselect file))
-		     (string (save-excursion
-			       (set-buffer buffer)
+		     (string (with-current-buffer buffer
 			       (buffer-string))))
 		(unless old-buffer (kill-buffer buffer))
 		(if (string= "" string)

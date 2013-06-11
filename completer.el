@@ -689,8 +689,7 @@ and should return a string."
 			  (string-lessp (or (car-safe x) x)
 					(or (car-safe y) y)))))))
 	(if match
-	    (save-excursion
-	      (set-buffer "*Completions*")
+	    (with-current-buffer "*Completions*"
 	      (goto-char (point-min))
 	      (let ((buffer-read-only nil))
 		(insert "Guess = " match (if (cdr choices) ", " "") "\n")))))

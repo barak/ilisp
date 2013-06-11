@@ -343,8 +343,7 @@ If given a numeric argument, deletes all typeout windows."
 
 (defun ilisp-write-string-to-buffer (ilisp-output-sink string)
   (let ((buffer (ilisp-output-buffer ilisp-output-sink t)))
-    (save-excursion
-      (set-buffer buffer)
+    (with-current-buffer buffer
       (let ((buffer-read-only nil))
       ;; Maybe an option to keep the old output?
         (erase-buffer))
@@ -376,8 +375,7 @@ If given a numeric argument, deletes all typeout windows."
 
 ;; A first guess at the height needed to display this buffer.
 (defun ilisp-needed-buffer-height (buffer)
-  (save-excursion
-    (set-buffer buffer)
+  (with-current-buffer buffer
     (1+ (count-lines (point-min) (point-max)))))
 
 
@@ -385,8 +383,7 @@ If given a numeric argument, deletes all typeout windows."
 (defun ilisp-needed-window-height (window)
   (save-window-excursion
     (select-window window)
-    (save-excursion
-      (set-buffer (window-buffer))
+    (with-current-buffer (window-buffer)
       ;; 19990806 Marti Atzmueller
       ;; Changed 2 to 3 just below.
       (+ 3 (save-excursion
@@ -828,10 +825,10 @@ Dispatch on the value of 'lisp-no-popper':
 
 (defun ilisp-quote-%s (string)
   "Quote all the occurences of ?% in STRING in an ELisp fashion."
-  (mapconcat '(lambda (char)
-		(if (char-equal char ?%)
-		    "%%"
-		  (char-to-string char)))
+  (mapconcat #'(lambda (char)
+		 (if (char-equal char ?%)
+		     "%%"
+		   (char-to-string char)))
 	     string ""))
 
 

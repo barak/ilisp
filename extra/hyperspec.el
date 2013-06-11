@@ -118,8 +118,7 @@ If you copy the HyperSpec to another location, customize the variable
                  (prog1
                      (delete* ?\n (thing-at-point 'line))
                    (forward-line))))
-        (save-excursion
-          (set-buffer index-buffer)
+        (with-current-buffer index-buffer
           (goto-char (point-min))
           (while (< (point) (point-max))
             (let* ((symbol (intern (downcase (get-one-line))
@@ -127,8 +126,8 @@ If you copy the HyperSpec to another location, customize the variable
                    (relative-url (get-one-line)))
               (set symbol (list (subseq relative-url
                                         (1+ (position ?\/ relative-url :from-end t))))))))))
-  (mapcar (lambda (entry)
-            (let ((symbol (intern (car entry) common-lisp-hyperspec-symbols)))
+  (mapc #'(lambda (entry)
+	    (let ((symbol (intern (car entry) common-lisp-hyperspec-symbols)))
               (if (boundp symbol)
                   (push (cadr entry) (symbol-value symbol))
                 (set symbol (cdr entry)))))
@@ -1171,7 +1170,7 @@ If you copy the HyperSpec to another location, customize the variable
 (eval-when (load eval)
   (defalias 'hyperspec-lookup-format 'common-lisp-hyperspec-format))
 
-(mapcar (lambda (entry)
+(mapc #'(lambda (entry)
 	  (let ((symbol (intern (car entry)
 				common-lisp-hyperspec-format-characters)))
 	    (if (boundp symbol)

@@ -9,6 +9,8 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
+(require 'cl)
+
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format
 			       &optional handler)
@@ -587,8 +589,7 @@ current directory of the LISP."
 		  lisp-prev-l/c-dir/file (cons default-directory nil))
 	    (message "Default directory is %s" default-directory)))
       (let ((directory
-	     (expand-file-name (save-excursion
-				 (set-buffer (or buffer (current-buffer)))
+	     (expand-file-name (with-current-buffer (or buffer (current-buffer))
 				 default-directory))))
 	(ilisp-send
 	 (format (ilisp-value 'ilisp-set-directory-command) directory)
@@ -614,8 +615,7 @@ current directory of the LISP."
   (ilisp-init t)
   (let* ((extension (ilisp-value 'ilisp-binary-extension t))
 	 (binary (lisp-file-extension file-name extension)))
-    (save-excursion
-      (set-buffer (ilisp-buffer))
+    (with-current-buffer (ilisp-buffer)
       (unless (eq comint-send-queue comint-end-queue)
         (if (y-or-n-p "Abort commands before loading? ")
             (abort-commands-lisp)

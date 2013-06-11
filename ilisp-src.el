@@ -139,8 +139,7 @@ optional package prefix.")
   ;; them into emacs lisp.  [Unfortunately, the quoting we have to do here will
   ;; be duplicated by %S on re-output, so this doesn't win by itself.  -- rgr,
   ;; 14-Sep-02.]
-  (save-excursion
-    (set-buffer (get-buffer-create " *ilisp-cl-result*"))
+  (with-current-buffer (get-buffer-create " *ilisp-cl-result*")
     (erase-buffer)
     (insert string)
     (goto-char (point-min))
@@ -928,8 +927,7 @@ items."
   ;; responsibility.  -- rgr, 4-Sep-02.]
   (setq lisp-using-tags nil)
   (setq lisp-last-file nil)
-  (save-excursion
-    (set-buffer (get-buffer-create (or buffer-name "*Edit-Definitions*")))
+  (with-current-buffer (get-buffer-create (or buffer-name "*Edit-Definitions*"))
     (erase-buffer)
     (lisp-edit-definitions-mode)
     (and initial-message
@@ -1278,8 +1276,7 @@ string put that in the buffer."
 	    (let ((buffers (buffer-list)))
 	      (while buffers
 		(let ((buffer (car buffers)))
-		  (if (save-excursion
-			(set-buffer buffer)
+		  (if (with-current-buffer buffer
 			(and (memq major-mode lisp-source-modes)
 			     (buffer-file-name buffer)))
 		      (progn (insert ?\") (insert (buffer-file-name buffer))

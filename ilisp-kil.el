@@ -15,8 +15,7 @@
   "Show the message of the current command being executed in the
 inferior LISP.  With a prefix show pending sends as well."
   (interactive "P")
-  (save-excursion
-    (set-buffer (ilisp-buffer))
+  (with-current-buffer (ilisp-buffer)
     (comint-current-send showp)))
 
 
@@ -43,8 +42,7 @@ inferior LISP.  With a prefix show pending sends as well."
   (interactive)
   (save-excursion
     (if (y-or-n-p "Panic reset LISP? ")
-	(save-excursion
-	  (set-buffer (ilisp-buffer))
+	(with-current-buffer (ilisp-buffer)
 	  (comint-setup-ipc t)
 	  (message "LISP is reset, state is unknown"))
 	(message ""))))

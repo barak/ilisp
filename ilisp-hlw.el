@@ -25,7 +25,7 @@
 (defun lispworks-break-level (prompt)
   (let ((position nil))
     (if (and prompt (setq position (string-match ": [0-9]+" prompt)))
-	(string-to-int (substring prompt (+ 2 position)))
+	(string-to-number (substring prompt (+ 2 position)))
       0)))
 
 
