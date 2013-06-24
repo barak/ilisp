@@ -1,9 +1,11 @@
 ilisp (5.12.0+cvs.2004.12.26-18) unstable; urgency=low
 
-  * add emacs24 support
+  * add emacs24 support (closes: #680646)
   * update some constructs that annoy the elisp compiler
+  * stop making /etc/ilisp/ilisp-keybindings.el a conf file (closes: #688888)
+  * restrict writes in global .fasl directory to group ilisp (closes: #682826)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Tue, 11 Jun 2013 07:37:31 -0400
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 01 Jul 2013 09:48:08 +0100
 
 ilisp (5.12.0+cvs.2004.12.26-17) unstable; urgency=low
 
