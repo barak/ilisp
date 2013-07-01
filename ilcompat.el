@@ -62,6 +62,7 @@ Set in ilcompat.el.")
       ((eq +ilisp-emacs-version-id+ 'fsf-21) (load "ilfsf21"))
       ((eq +ilisp-emacs-version-id+ 'fsf-22) (load "ilfsf22"))
       ((eq +ilisp-emacs-version-id+ 'fsf-23) (load "ilfsf23"))
+      ((eq +ilisp-emacs-version-id+ 'fsf-24) (load "ilfsf24"))
       )
 
 
