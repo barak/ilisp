@@ -13,16 +13,21 @@ set -e
 #        * <disappearer's-postrm> `disappear' <r>overwrit>r> <new-version>
 # for details, see /usr/doc/packaging-manual/
 
+group=ilisp
+
 case "$1" in
     upgrade)
 	;;
     failed-upgrade|abort-upgrade)
 	;;
     remove|abort-install)
+	dpkg-statoverride --remove /usr/lib/ilisp || true
 	rm -rf /usr/lib/ilisp
         ;;
     purge|disappear)
+	dpkg-statoverride --remove /usr/lib/ilisp || true
 	rm -rf /usr/lib/ilisp /etc/ilisp
+	delgroup --quiet --system ${group} > /dev/null || true
 	;;
     *)
         echo "postrm called with unknown argument: $1" >&2
