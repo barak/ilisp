@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends-Indep: debhelper (>= 9),
 	texinfo, ghostscript, texi2html, texlive-latex-base
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: https://sourceforge.net/projects/ilisp/
 Vcs-Git: git://anonscm.debian.org/collab-maint/ilisp.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/ilisp.git
