@@ -25,6 +25,7 @@ FLAGS="${SITEFLAG} -q -batch -l path.el"
 
 ELDIR=/usr/share/emacs/site-lisp/${PACKAGE}
 ELCDIR=/usr/share/${FLAVOR}/site-lisp/${PACKAGE}
+ELRELDIR=../../../emacs/site-lisp/${PACKAGE}
 
 # Install-info-altdir does not actually exist.
 # Maybe somebody will write it.
@@ -36,12 +37,12 @@ fi
 install -m 755 -d ${ELCDIR}
 install -m 755 -d ${ELCDIR}/extra
 cd ${ELDIR}
-cp *.el ${ELCDIR}
-cd ${ELDIR}/extra
-cp ${HYPERSPEC} ${ELCDIR}/extra/hyperspec.el
-cp cltl2.el ${ELCDIR}/extra/cltl2.el
-
+ELFILES=*.el
 cd ${ELCDIR}
+ln -s ${ELRELDIR}/*.el ./
+cd extra
+ln -s ../${ELRELDIR}/extra/*.el ./
+cd ..
 
 LOG=$(tempfile);
 trap "test -f $LOG && mv -f $LOG  $ELCDIR/install.log > /dev/null 2>&1 && chmod 644 $ELCDIR/install.log" exit
@@ -51,8 +52,5 @@ cat << EOF > path.el
 (load "ilisp-mak.el")
 EOF
 ${FLAVOR} ${FLAGS}     >> $LOG  2>&1;
-
-# Don't remove .el files since ilisp-mak.el does not compile all files
-# rm -f *.el path.el extra/*.el
 
 exit 0
