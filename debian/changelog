@@ -1,3 +1,9 @@
+ilisp (5.12.0+cvs.2004.12.26-20) unstable; urgency=medium
+
+  * Italian debconf translation (closes: #764087)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 14 Oct 2014 17:50:18 +0100
+
 ilisp (5.12.0+cvs.2004.12.26-19) unstable; urgency=medium
 
   * track emacsen API
