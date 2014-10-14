@@ -1,0 +1,59 @@
+# Italian translation of ilisp debconf messages.
+# Copyright (C) 2014, ilisp package's copyright holder.
+# This file is distributed under the same license as the ilisp package.
+# Beatrice Torracca <beatricet@libero.it>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: ilisp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-17 14:30+0000\n"
+"PO-Revision-Date: 2014-09-16 16:19+0200\n"
+"Last-Translator: Beatrice Torracca <beatricet@libero.it>\n"
+"Language-Team: Italian <debian-l10n-italian@lists.debian.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "Use FSF-compliant keybindings?"
+msgstr "Usare associazioni di tasti conformi con la FSF?"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"ILISP allows the choice of using FSF-compliant keybindings which start with "
+"a Control-C character. The older ILISP keybindings use a Control-Z character "
+"as the prefix."
+msgstr ""
+"ILISP permette di scegliere di usare associazioni di tasti conformi con la "
+"FSF che iniziano con un carattere Control-C. Le associazioni di tasti ILISP "
+"più vecchie usano un carattere Control-Z come prefisso."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"In general, the non-FSF compliant keybindings are easier to use: the ILISP "
+"manual in the Debian package ilisp-doc uses the non-FSF compliant "
+"keybindings and these keybindings often use fewer keystrokes."
+msgstr ""
+"In generale le associazioni di tasti non conformi con la FSF sono più facili "
+"da usare: il manuale ILISP nel pacchetto Debian ilisp-doc usa le "
+"associazioni di tasti non conformi con la FSF e queste richiedono "
+"solitamente l'uso di meno tasti."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"If you change your mind later, you can run dpkg-reconfigure ilisp and change "
+"your keybinding selection."
+msgstr ""
+"Se si cambia idea in futuro si può eseguire «dpkg-reconfigure ilisp» e "
+"cambiare la propria scelta per le associazioni dei tasti."
