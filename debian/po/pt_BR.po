@@ -1,0 +1,59 @@
+# Debconf translations for ilisp.
+# Copyright (C) 2016 THE ilisp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the ilisp package.
+# Adriano Rafael Gomes <adrianorg@arg.eti.br>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ilisp 5.12.0+cvs.2004.12.26-21\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-31 02:57+0000\n"
+"PO-Revision-Date: 2016-01-31 21:45-0200\n"
+"Last-Translator: Adriano Rafael Gomes <adrianorg@arg.eti.br>\n"
+"Language-Team: Brazilian Portuguese <debian-l10n-portuguese@lists.debian."
+"org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid "Use FSF-compliant keybindings?"
+msgstr "Usar atalhos de teclado no estilo da FSF?"
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"ILISP allows the choice of using FSF-compliant keybindings which start with "
+"a Control-C character. The older ILISP keybindings use a Control-Z character "
+"as the prefix."
+msgstr ""
+"O ILISP permite a escolha de usar atalhos de teclado que seguem o estilo da "
+"FSF, os quais iniciam com um caractere Control-C. Os antigos atalhos de "
+"teclado do ILISP usam um caractere Control-Z como prefixo."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"In general, the non-FSF compliant keybindings are easier to use: the ILISP "
+"manual in the Debian package ilisp-doc uses the non-FSF compliant "
+"keybindings and these keybindings often use fewer keystrokes."
+msgstr ""
+"Em geral, os atalhos de teclado que não seguem o estilo da FSF são mais "
+"fáceis de usar: o manual do ILISP no pacote Debian ilisp-doc usa os atalhos "
+"de teclado fora do estilo da FSF, e esses atalhos de teclado muitas vezes "
+"usam menos toques no teclado."
+
+#. Type: boolean
+#. Description
+#: ../ilisp.templates:1001
+msgid ""
+"If you change your mind later, you can run dpkg-reconfigure ilisp and change "
+"your keybinding selection."
+msgstr ""
+"Se você mudar de ideia mais tarde, você pode executar \"dpkg-reconfigure "
+"ilisp\" e mudar a sua seleção de atalhos de teclado."
