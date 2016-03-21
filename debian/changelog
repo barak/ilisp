@@ -1,3 +1,10 @@
+ilisp (5.12.0+cvs.2004.12.26-22) unstable; urgency=medium
+
+  * Brazilian Portuguese debconf translation (closes: #816934)
+  * bump policy version
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 21 Mar 2016 16:39:19 +0000
+
 ilisp (5.12.0+cvs.2004.12.26-21) unstable; urgency=medium
 
   * Dutch debconf translation (closes: #766522)
