@@ -31,10 +31,12 @@
 	 'fsf-23)
 	((string-match "^24" emacs-version)
 	 'fsf-24)
+	((string-match "^25" emacs-version)
+	 'fsf-25)
 	(t 'fsf-18))
   "The major version of (X)Emacs ILISP is running in.
 Declared as '(member fsf-19 fsf-19 fsf-20 fsf-21 fsf-22 fsf-23 fsf-24
-lucid-19 lucid-19-new xemacs).
+fsf-25 lucid-19 lucid-19-new xemacs).
 Set in ilcompat.el.")
 
 
@@ -63,6 +65,7 @@ Set in ilcompat.el.")
       ((eq +ilisp-emacs-version-id+ 'fsf-22) (load "ilfsf22"))
       ((eq +ilisp-emacs-version-id+ 'fsf-23) (load "ilfsf23"))
       ((eq +ilisp-emacs-version-id+ 'fsf-24) (load "ilfsf24"))
+      ((eq +ilisp-emacs-version-id+ 'fsf-25) (load "ilfsf25"))
       )
 
 
