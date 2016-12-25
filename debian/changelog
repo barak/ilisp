@@ -1,3 +1,12 @@
+ilisp (5.12.0+cvs.2004.12.26-23) unstable; urgency=medium
+
+  * bump policy version
+  * dh10
+  * use debian-emacs-flavor and guard its use
+  * add emacs25 support
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 25 Dec 2016 16:38:08 +0000
+
 ilisp (5.12.0+cvs.2004.12.26-22) unstable; urgency=medium
 
   * Brazilian Portuguese debconf translation (closes: #816934)
