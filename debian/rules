@@ -5,7 +5,7 @@
 # nearly complete rewrite Copyright 2009 Barak A. Pearlmutter <bap@debian.org>
 
 %:
-	dh $@ --parallel
+	dh $@
 
 pkg		:= ilisp
 pkg-doc		:= ilisp-doc
