@@ -1,7 +1,8 @@
 Source: ilisp
 Section: devel
 Priority: optional
-Maintainer: Barak A. Pearlmutter <bap@debian.org>
+Maintainer: Debian Emacs addons team <pkg-emacsen-addons@lists.alioth.debian.org>
+Uploaders: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends-Indep: debhelper (>= 10),
 	texinfo, ghostscript, texi2html, texlive-latex-base
 Standards-Version: 3.9.8
