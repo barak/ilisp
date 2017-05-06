@@ -1,4 +1,4 @@
-ilisp (5.12.0+cvs.2004.12.26-24) UNRELEASED; urgency=medium
+ilisp (5.12.0+cvs.2004.12.26-24) UNRELEASED; urgency=high
 
   * Team upload.
   * Patch ilisp-mak.el to bytecompile ilfsf25.el (Closes: #850072).
