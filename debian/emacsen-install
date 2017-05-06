@@ -39,9 +39,9 @@ install -m 755 -d ${ELCDIR}/extra
 cd ${ELDIR}
 ELFILES=*.el
 cd ${ELCDIR}
-ln -s ${ELRELDIR}/*.el ./
+ln -sf ${ELRELDIR}/*.el ./
 cd extra
-ln -s ../${ELRELDIR}/extra/*.el ./
+ln -sf ../${ELRELDIR}/extra/*.el ./
 cd ..
 
 LOG=$(tempfile);
