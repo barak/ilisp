@@ -1,4 +1,4 @@
-ilisp (5.12.0+cvs.2004.12.26-24) UNRELEASED; urgency=high
+ilisp (5.12.0+cvs.2004.12.26-24) unstable; urgency=high
 
   * Team upload.
   * Patch ilisp-mak.el to bytecompile ilfsf25.el (Closes: #850072).
@@ -8,7 +8,7 @@ ilisp (5.12.0+cvs.2004.12.26-24) UNRELEASED; urgency=high
     This ensures the script is idempotent (Closes: #861868).
     Thanks Adam Di Carlo for the patch.
 
- -- Sean Whitton <spwhitton@spwhitton.name>  Sat, 06 May 2017 12:10:18 -0700
+ -- Sean Whitton <spwhitton@spwhitton.name>  Sat, 06 May 2017 12:26:14 -0700
 
 ilisp (5.12.0+cvs.2004.12.26-23) unstable; urgency=medium
 
