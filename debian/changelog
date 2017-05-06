@@ -1,11 +1,11 @@
 ilisp (5.12.0+cvs.2004.12.26-24) UNRELEASED; urgency=medium
 
   * Team upload.
-  * Patch ilisp-mak.el to compile ilfsf25.el (Closes: #850072).
+  * Patch ilisp-mak.el to bytecompile ilfsf25.el (Closes: #850072).
     Thanks Oleksandr Gavenko for reporting the problem, and Adam Di Carlo
     for the patch.
-  * Pass -f to calls to ln in emacsen-install script (Closes: #861868).
-    This ensures the script is idempotent.
+  * Pass `-f` to calls to `ln` in emacsen-install script.
+    This ensures the script is idempotent (Closes: #861868).
     Thanks Adam Di Carlo for the patch.
 
  -- Sean Whitton <spwhitton@spwhitton.name>  Sat, 06 May 2017 12:10:18 -0700
