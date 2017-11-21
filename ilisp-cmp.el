@@ -250,7 +250,7 @@ TAB or Esc-TAB will complete filenames."
 	  (set-keymap-parent lisp-program-map minibuffer-local-map))
       (setq lisp-program-map (copy-keymap minibuffer-local-map)))
     (define-key lisp-program-map "\M-\t" 'completion-at-point)
-    (define-key lisp-program-map "\t" ')
+    (define-key lisp-program-map "\t" 'completion-at-point)
     (define-key lisp-program-map "?" 'comint-dynamic-list-completions))
   (read-from-minibuffer prompt initial lisp-program-map))
 
