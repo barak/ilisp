@@ -26,7 +26,7 @@ Returns t for rescan and otherwise a position number."
 	  ((and name (imenu--in-alist name index-alist))
 	   (setq prompt (format "Index item (default %s): " name)))
 	  (t (setq prompt "Index item: ")))
-    (if (eq imenu-always-use-completion-buffer-p 'never)
+    (if (eq imenu-use-popup-menu 'never)
   	(setq name (completing-read prompt
   				    index-alist
  				    nil t nil 'imenu--history-list name))

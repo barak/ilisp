@@ -733,7 +733,7 @@ symbol after the symbol has been typed in followed by #\\Space."
                   string))))
 	   (symbol (lisp-symbol-name ilisp-symbol-avec-package))
            (package (lisp-symbol-package ilisp-symbol-avec-package)))
-      (flet ((no-arglist-output-p ()
+      (cl-flet ((no-arglist-output-p ()
                (or (and last-char
                         (or;; don't do silly things after comment character
                           (equal last-char ";")

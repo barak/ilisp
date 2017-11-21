@@ -114,7 +114,7 @@ If you copy the HyperSpec to another location, customize the variable
 
 (if common-lisp-hyperspec-symbol-table
     (let ((index-buffer (find-file-noselect common-lisp-hyperspec-symbol-table)))
-      (labels ((get-one-line ()
+      (cl-lbels ((get-one-line ()
                  (prog1
                      (delete* ?\n (thing-at-point 'line))
                    (forward-line))))

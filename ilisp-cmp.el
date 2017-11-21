@@ -249,8 +249,8 @@ TAB or Esc-TAB will complete filenames."
 	  (setq lisp-program-map (make-sparse-keymap))
 	  (set-keymap-parent lisp-program-map minibuffer-local-map))
       (setq lisp-program-map (copy-keymap minibuffer-local-map)))
-    (define-key lisp-program-map "\M-\t" 'comint-dynamic-complete)
-    (define-key lisp-program-map "\t" 'comint-dynamic-complete)
+    (define-key lisp-program-map "\M-\t" 'completion-at-point)
+    (define-key lisp-program-map "\t" ')
     (define-key lisp-program-map "?" 'comint-dynamic-list-completions))
   (read-from-minibuffer prompt initial lisp-program-map))
 
@@ -306,7 +306,7 @@ internal and exported symbols is considered."
 		      (skip-chars-backward "^ \t\n")
 		      (= (or (char-after (point)) ?\") ?\"))))
 	(if filep
-	    (comint-dynamic-complete)
+	    (completion-at-ping)
 	    ;; (ilisp-pathname-complete)
 	  (let ((symbol-info (lisp-previous-symbol)))
 	    (unless symbol-info
@@ -339,7 +339,7 @@ internal and exported symbols is considered."
 				    (= (char-after (point)) ?\:)))
 	)
     (if (not maybe-logical-pathname-p)
-	(comint-dynamic-complete)
+	(completion-at-point)
 	())))
 
 ;;; end of file -- ilisp-cmp.el --

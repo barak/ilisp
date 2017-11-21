@@ -1089,8 +1089,8 @@ items."
 	    (let ((symbol-name (lisp-symbol-name symbol)))
 	      (setq lisp-using-tags t)
 	      (if (string-match "Lucid" emacs-version)
-		  (find-tag symbol-name stay)
-		  (find-tag symbol-name nil stay))))
+		  (xref-find-definitions symbol-name stay)
+		  (xref-find-definitions symbol-name nil stay))))
 	  (t
 	    (message "Can't find %s %s."
 		     (or type "any definitions of")

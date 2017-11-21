@@ -793,7 +793,7 @@ Dispatch on the value of 'lisp-no-popper':
     ;; if this-command is ilisp-message-lisp-space, switch back!
     (if (and (eql this-command 'ilisp-arglist-message-lisp-space)
              ilisp-*arglist-message-switch-back-p*
-             (not (member (buffer-name old-buffer) special-display-buffer-names)))
+             (not (member (buffer-name old-buffer) display-buffer-alist)))
 	(progn
 	  (raise-frame (window-frame old-window))
 	  (switch-to-buffer old-buffer)))))

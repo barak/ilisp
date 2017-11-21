@@ -229,7 +229,7 @@ tester function returns non-nil.")
   (cond ((null thing) nil)
 	((symbolp thing)
 	  ;; emacs function/variable
-	  (find-tag (symbol-name thing)))
+	  (xref-find-definitions (symbol-name thing)))
 	((or (not (stringp thing)) (equal thing ""))
 	  (error "Don't know how to edit %S." thing))
 	((or (file-name-absolute-p thing)

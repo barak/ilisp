@@ -147,7 +147,7 @@ inferior LISP.  PARENT is the name of the parent dialect."
   (lisp-mode)
   (setq ilisp-buffer (format "*%s*" buffer))
   (when ilisp-*enable-ilisp-special-frame-p*
-    (push ilisp-buffer special-display-buffer-names))
+    (push ilisp-buffer display-buffer-alist))
   (set-buffer (get-buffer-create ilisp-buffer))
   (setq major-mode 'ilisp-mode
 	mode-name "ILISP")
@@ -167,7 +167,7 @@ inferior LISP.  PARENT is the name of the parent dialect."
   ;; Comint defaults
   (set-ilisp-input-ring-size 200)
   (setq comint-prompt-regexp "^[^<> ]*>+:? *"
-	comint-use-prompt-regexp-instead-of-fields t ; Emacs 21 fields don't seem to work with comint-ipc (?)
+	comint-use-prompt-regexp t ; Emacs 21 fields don't seem to work with comint-ipc (?)
 	comint-get-old-input 'ilisp-get-old-input
 	comint-input-sentinel (function ignore)
 	comint-input-filter 'ilisp-input-filter
