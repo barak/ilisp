@@ -8,8 +8,8 @@ Build-Depends-Indep: debhelper (>= 10),
 Rules-Requires-Root: no
 Standards-Version: 4.1.1
 Homepage: https://sourceforge.net/projects/ilisp/
-Vcs-Git: git://anonscm.debian.org/collab-maint/ilisp.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/ilisp.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/ilisp.git
+Vcs-Browser: https://anonscm.debian.org/gitweb/?p=collab-maint/ilisp.git
 
 Package: ilisp
 Architecture: all
