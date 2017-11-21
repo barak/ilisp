@@ -34,7 +34,7 @@ DVIDebris = *.aux *.cp *.cps *.fn *.fns *.ky *.kys *.log *.pg *.pgs \
             *.toc *.tp *.vr *.vrs
 
 HTML_Target_Dir	= html/doc
-HTML_Targets = ilisp.ps ilisp.pdf ilisp_toc.html ilisp.html
+HTML_Targets = ilisp.ps ilisp.pdf ilisp.html
 
 #==============================================================================
 # Rules
@@ -58,8 +58,8 @@ info: ilisp.info
 
 html: ilisp.html
 
-ilisp_toc.html ilisp.html: ilisp.texi
-	-texi2html $<
+ilisp.html: ilisp.texi
+	makeinfo --no-split --html ilisp.texi
 
 pdf: ilisp.pdf ilisp-refcard.pdf
 

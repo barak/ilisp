@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Emacs addons team <pkg-emacsen-addons@lists.alioth.debian.org>
 Uploaders: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends-Indep: debhelper (>= 10),
-	texinfo, ghostscript, texi2html, texlive-latex-base
+	texinfo, ghostscript, texlive-latex-base
 Rules-Requires-Root: no
 Standards-Version: 4.1.1
 Homepage: https://sourceforge.net/projects/ilisp/
