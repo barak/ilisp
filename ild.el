@@ -32,7 +32,7 @@
 ;;; 19990615 Marco Antoniotti
 
 ;;; (require 'ilisp)
-(require 'cl)
+(require 'cl-lib)
 (require 'ilisp-key)
 
 (deflocal ild-abort-string nil)

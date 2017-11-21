@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;;%Eval/compile
 (defun lisp-send-region (start end switch message status format

@@ -25,7 +25,7 @@
 ;;; Dialect definition for Corman Common Lisp by Roger Corman
 ;;; Since 1.4 (fixed with 1.41) there is a debugger with corman.
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;; cormanlisp --
 ;;;

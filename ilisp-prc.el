@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-(require 'cl)
+(require 'cl-lib)
 
 (defun ilisp-process ()
   "Return the current ILISP process."

@@ -11,7 +11,7 @@
 
 ;;;%%%Steel Bank Common Lisp
 
-(require 'cl)
+(require 'cl-lib)
 
 (defvar ilisp-sbcl-init-file
   ;; Note: The init file source extension (".lisp") needs to be

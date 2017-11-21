@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;; clisp-hs-check-prompt doesn't after the first break because the
 ;;; number of ">" characters doesn't increase.

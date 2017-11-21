@@ -9,7 +9,7 @@
 ;;; of present and past contributors.
 
 
-(require 'cl)
+(require 'cl-lib)
 (require 'imenu)
 
 ;;; modified for a better display of function+arglist!

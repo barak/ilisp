@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;; return-ilisp --
 ;;; It's too bad that this function copies so much code from comint-send-input.

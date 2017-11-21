@@ -80,7 +80,7 @@
 ;;; ILISP dialect definition code.
 ;;;
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;;%Dialects
 (defun lisp-add-dialect (dialect)

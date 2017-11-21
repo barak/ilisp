@@ -9,7 +9,7 @@
 ;;; Please refer to the file ACKNOWLEGDEMENTS for an (incomplete) list
 ;;; of present and past contributors.
 
-(require 'cl)				; Sorry. I couldn't resist
+(require 'cl-lib)				; Sorry. I couldn't resist
 					; 19990818 Marco Antoniotti
 
 ;;; Scheme

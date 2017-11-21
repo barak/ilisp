@@ -11,7 +11,7 @@
 
 ;;;%ilisp-mode
 
-(require 'cl)
+(require 'cl-lib)
 
 (defun ilisp-byte-code-to-list (function)
   "Returns a list suitable for passing to make-byte-code from FUNCTION."

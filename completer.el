@@ -79,7 +79,7 @@
 ;;;
 
 
-(require 'cl)
+(require 'cl-lib)
 
 ;; Necessary when loading completer.el, but have not yet loaded ilisp
 (require 'ilcompat)

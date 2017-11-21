@@ -64,7 +64,7 @@
 ;;; interactively, then the lisp or ilisp comes at the end of the
 ;;; function name, otherwise at the start.
 
-(require 'cl)
+(require 'cl-lib)
 
 ;;;%Requirements
 (if (string-match "\\`18" emacs-version)
