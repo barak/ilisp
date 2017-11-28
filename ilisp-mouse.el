@@ -98,7 +98,10 @@ identifiers in other languages that may be findable via\\[find-tag].
 Recognizes ange-ftp and Lispm pathname syntax and expands pathnames so
 that relativity works, but leaves URLs alone.  Uses find-tag-default
 and/or ffap-file-at-point but hacks the syntax table, since the default
-text table doesn't like \".\", \"~\", and other constituent chars."
+text table doesn't like \".\", \"~\", and other constituent chars.
+
+Note: find-tag is an obsolete function (as of 25.1);
+    use ‘xref-find-definitions’ instead"
   (let* ((ffap-guess nil)
 	 (thing (with-lisp-syntax
 		  ;; Special cases for clicking on an S-expression, which could
