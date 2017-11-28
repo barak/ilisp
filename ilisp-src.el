@@ -1221,7 +1221,10 @@ of lisp-source-modes if lisp-edit-files is T.
 
    3.  If still not found, and at least one tag table is defined, we may
 use \\[find-tag] to keep searching.  This is controlled by the
-lisp-fall-back-on-find-tags variable \(q.v.), which defaults to :ask."
+lisp-fall-back-on-find-tags variable \(q.v.), which defaults to :ask.
+
+   4. Note find-tag is an obsolete function (as of 25.1);
+    use ‘xref-find-definitions’ instead"
   (interactive (lisp-ask-for-definition-to-edit current-prefix-arg))
   (or type
       (setq type "any"))
