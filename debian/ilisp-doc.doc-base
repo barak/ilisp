@@ -6,8 +6,8 @@ Abstract: This manual describes the use of ILISP, an Emacs interface
 Section: Programming/Lisp
 
 Format: PDF
-Files: /usr/share/doc/ilisp-doc/ilisp.pdf
+Files: /usr/share/doc/ilisp/ilisp.pdf
 
 Format: HTML
-Index: /usr/share/doc/ilisp-doc/ilisp.html
-Files: /usr/share/doc/ilisp-doc/ilisp.html
+Index: /usr/share/doc/ilisp/ilisp.html
+Files: /usr/share/doc/ilisp/ilisp.html
