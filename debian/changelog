@@ -1,3 +1,11 @@
+ilisp (5.12.0+cvs.2004.12.26-26) unstable; urgency=medium
+
+  * swizzle packaging repo to salsa
+  * dh11
+  * bump policy
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Wed, 28 Mar 2018 20:11:09 +0100
+
 ilisp (5.12.0+cvs.2004.12.26-25) unstable; urgency=medium
 
   * support emacs25
