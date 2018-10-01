@@ -16,7 +16,7 @@ Architecture: all
 Pre-Depends: common-lisp-controller (>= 3.42)
 Depends: emacsen-common, ${misc:Depends}
 Recommends: ilisp-doc
-Suggests: hyperspec, cltl, emacs | emacs25 | emacs24 | emacs23 | emacs22 | emacs21 | xemacs
+Suggests: hyperspec, cltl, emacs | emacs25 | emacs24 | emacs23 | emacs22 | emacs21
 Description: Emacs interface to LISP implementations
  ILISP is a powerful GNU Emacs interface to many dialects of Lisp,
  including Lucid, Allegro, Harlequin LispWorks, GCL, KCL, AKCL, ECL,
