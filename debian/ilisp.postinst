@@ -75,7 +75,6 @@ case "$1" in
 	then
 	    dpkg-statoverride --update --add root ${group} 775 /usr/lib/ilisp
 	fi
-	register-common-lisp-source ilisp
 	ensure_symlinks
 	;;
     abort-upgrade|abort-remove|abort-deconfigure)
