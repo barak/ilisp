@@ -13,7 +13,6 @@ Vcs-Browser: https://salsa.debian.org/debian/ilisp
 
 Package: ilisp
 Architecture: all
-Pre-Depends: common-lisp-controller (>= 3.42)
 Depends: emacsen-common, ${misc:Depends}
 Recommends: ilisp-doc
 Suggests: hyperspec, cltl, emacs | emacs25 | emacs24 | emacs23 | emacs22 | emacs21
