@@ -4,6 +4,8 @@ ilisp (5.12.0+cvs.2004.12.26-28) UNRELEASED; urgency=medium
     debian/compat.
   * Bump debhelper from old 11 to 12.
   * Set debhelper-compat version in Build-Depends.
+  * Fix day-of-week for changelog entries 5.12.0+cvs.2003.03.02c,
+    5.12.0+cvs.2002.11.10, 5.11.1-1.
 
  -- Debian Janitor <janitor@jelmer.uk>  Thu, 09 Jan 2020 09:11:40 +0000
 
@@ -516,7 +518,7 @@ ilisp (5.12.0+cvs.2003.03.02c) unstable; urgency=low
 
   * Ensure that /usr/lib/ilisp exists on installation
 
- -- Kevin M. Rosenberg <kmr@debian.org>  Sat,  2 Mar 2003 06:50:00 -0700
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sun, 02 Mar 2003 06:50:00 -0700
 
 ilisp (5.12.0+cvs.2003.03.02b) unstable; urgency=low
 
@@ -639,7 +641,7 @@ ilisp (5.12.0+cvs.2002.11.10) unstable; urgency=low
 
   * Change program name for guile
 
- -- Kevin M. Rosenberg <kmr@debian.org>  Mon, 10 Nov 2002 23:17:20 -0700
+ -- Kevin M. Rosenberg <kmr@debian.org>  Sun, 10 Nov 2002 23:17:20 -0700
 
 ilisp (5.12.0+cvs.2002.11.04) unstable; urgency=low
 
@@ -850,7 +852,7 @@ ilisp (5.11.1-1) unstable; urgency=low
   * closed bug 119931 with upstream fix.
   * closed bug 18825
 
- -- Craig Brozefsky <craig@red-bean.com>  Thu, 22 Apr 2001 03:26:21 -0500
+ -- Craig Brozefsky <craig@red-bean.com>  Sun, 22 Apr 2001 03:26:21 -0500
 
 ilisp (5.11-1) unstable; urgency=low
 
