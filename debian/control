@@ -24,6 +24,7 @@ Description: Emacs interface to LISP implementations
 
 Package: ilisp-doc
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends}
 Section: doc
 Recommends: ilisp
