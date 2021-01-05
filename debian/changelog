@@ -1,5 +1,6 @@
-ilisp (5.12.0+cvs.2004.12.26-28) UNRELEASED; urgency=medium
+ilisp (5.12.0+cvs.2004.12.26-28) unstable; urgency=medium
 
+  [ Debian Janitor ]
   * Bump debhelper dependency to >= 11, since that's what is used in
     debian/compat.
   * Bump debhelper from old 11 to 12.
@@ -7,7 +8,12 @@ ilisp (5.12.0+cvs.2004.12.26-28) UNRELEASED; urgency=medium
   * Fix day-of-week for changelog entries 5.12.0+cvs.2003.03.02c,
     5.12.0+cvs.2002.11.10, 5.11.1-1.
 
- -- Debian Janitor <janitor@jelmer.uk>  Thu, 09 Jan 2020 09:11:40 +0000
+  [ Barak A. Pearlmutter ]
+  * Ack NMUs. (Thanks, Sébastien!)
+  * bump policy
+  * bump debhelper from 12 to 13
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 05 Jan 2021 11:31:39 +0000
 
 ilisp (5.12.0+cvs.2004.12.26-27.2) unstable; urgency=medium
 

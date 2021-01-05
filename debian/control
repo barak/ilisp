@@ -1,16 +1,15 @@
 Source: ilisp
 Section: devel
 Priority: optional
-Maintainer: Debian Emacs addons team <pkg-emacsen-addons@lists.alioth.debian.org>
+Maintainer: Debian Emacs addons team <pkg-emacsen-addons@alioth-lists.debian.net>
 Uploaders: Barak A. Pearlmutter <bap@debian.org>
-Build-Depends-Indep: debhelper (>= 11),
-	texinfo, ghostscript, texlive-latex-base
+Build-Depends: debhelper-compat (= 13)
+Build-Depends-Indep: texinfo, ghostscript, texlive-latex-base
 Rules-Requires-Root: no
-Standards-Version: 4.2.1
+Standards-Version: 4.5.1
 Homepage: https://sourceforge.net/projects/ilisp/
 Vcs-Git: https://salsa.debian.org/debian/ilisp.git
 Vcs-Browser: https://salsa.debian.org/debian/ilisp
-Build-Depends: debhelper-compat (= 12)
 
 Package: ilisp
 Architecture: all
