@@ -6,7 +6,7 @@ Uploaders: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper-compat (= 13)
 Build-Depends-Indep: texinfo, ghostscript, texlive-latex-base
 Rules-Requires-Root: no
-Standards-Version: 4.5.1
+Standards-Version: 4.6.2
 Homepage: https://sourceforge.net/projects/ilisp/
 Vcs-Git: https://salsa.debian.org/debian/ilisp.git
 Vcs-Browser: https://salsa.debian.org/debian/ilisp
