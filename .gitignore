@@ -1,10 +1,10 @@
 *.elc
-*~
 /.pc
 /build-stamp
 /debian/*.debhelper
 /debian/*.log
 /debian/*.substvars
+/debian/debhelper-build-stamp
 /debian/files
 /debian/ilisp-doc/
 /debian/ilisp/

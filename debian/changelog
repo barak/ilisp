@@ -1,8 +1,10 @@
-ilisp (5.12.0+cvs.2004.12.26-29) UNRELEASED; urgency=medium
+ilisp (5.12.0+cvs.2004.12.26-29) unstable; urgency=medium
 
+  * Obey mult-arch hinter
   * Update standards version to 4.6.2, no changes needed.
+  * Dependency on adduser (closes: #1026015)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Mon, 03 Jul 2023 19:30:12 -0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 03 Jul 2023 19:32:24 +0100
 
 ilisp (5.12.0+cvs.2004.12.26-28) unstable; urgency=medium
 
