@@ -19,8 +19,7 @@ compiled_dir	:= usr/lib/ilisp
 override_dh_auto_build:
 	$(MAKE) -C docs info pdf ilisp.html
 
-override_dh_install:
-	dh_install
+execute_after_dh_install:
 	for i in debian/$(pkg)/$(cl_dir)/*.lisp; do \
 	  l=$$(echo $$i | sed -e "s|^debian/$(pkg)/$(cl_dir)/||;") ; \
           dh_link -p $(pkg) $(cl_dir)/$$l $(compiled_dir)/$$l ; \
